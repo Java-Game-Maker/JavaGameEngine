@@ -1,5 +1,6 @@
 package Main.Display;
 
+import Main.Main;
 import Main.Msc.ObjectHandler;
 import Main.Objects.Collision.CircleCollider;
 import Main.Objects.Collision.Collider;
@@ -9,15 +10,22 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
-import java.awt.event.KeyListener;
+import java.util.ArrayList;
 
 public class Map extends JPanel {
 
     private boolean holding = false;
     private KeyEvent keyEvent;
+    private static ArrayList<JComponent> jComponents = new ArrayList<>();
+
     public Map() {
 
-        setBackground(new Color(44, 157, 228));
+        for(JComponent c : jComponents)
+        {
+            add(c);
+
+        }
+        setBackground(Color.GREEN);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -45,6 +53,20 @@ public class Map extends JPanel {
     }
     int x = 0;
 
+    public static void addJComponent(JComponent jComponent)
+    {
+        jComponents.add(jComponent);
+    }
+    public static void removeJComponent(JComponent jComponent)
+    {
+        jComponents.remove(jComponent);
+
+    }
+
+    public static ArrayList<JComponent> getJComponents() {
+        return jComponents;
+    }
+
     private void UpdateObjects()
     {
         for(Object obj:ObjectHandler.getObjects())
@@ -71,8 +93,21 @@ public class Map extends JPanel {
             }
         }
     }
+    /**Check if a Jcomponent has been removed in the Jcomponents list and if so removes it in the panel**/
+    public void UpdateSwingComponents()
+    {
+        for(Component c : getComponents())
+        {
+            if(!jComponents.contains(c))
+            {
+                remove(c);
+            }
+        }
+    }
+
     public void Update()
     {
+        UpdateSwingComponents();
         long start = System.nanoTime();
 
         if(holding)
@@ -87,7 +122,7 @@ public class Map extends JPanel {
         repaint();
         Toolkit.getDefaultToolkit().sync();
         long end = System.nanoTime();
-        //System.out.println((start-end)/1000000);
+        //System.out.println((end-start)/100000);
     }
 
 
@@ -95,15 +130,15 @@ public class Map extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
 
-        for(Object animal : ObjectHandler.getObjects())
+        if(Main.isPlaying)
         {
-            g.drawImage((Image) animal.Display(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
-            g.drawRect((int) ((int) animal.getPosition().getX()), (int) ((int) animal.getPosition().getY()), 10,10);
+            for(Object animal : ObjectHandler.getObjects())
+            {
+                g.drawImage((Image) animal.Display(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
 
+            }
+            DrawColliders(g);
         }
-        DrawColliders(g);
-
-
     }
     private void DrawColliders(Graphics g)
     {
@@ -114,7 +149,6 @@ public class Map extends JPanel {
                 if(c instanceof CircleCollider&&c.isVisible())
                 {
                     g.drawOval((int) (c.getPosition().getX()-(c.getScale().getX()/2)), (int) (c.getPosition().getY()-(c.getScale().getY()/2)), (int) c.getScale().getX(), (int) c.getScale().getY());
-                    g.drawRect((int) c.getPosition().getX(), (int) c.getPosition().getY(),10,10);
                 }
             }
         }

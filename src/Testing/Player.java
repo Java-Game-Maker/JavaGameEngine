@@ -27,7 +27,7 @@ public class Player extends Object {
     @Override
     public void onCollision(Object collision) {
         super.onCollision(collision);
-        Main2.restart();
+        //Main2.restart();
     }
 
     @Override
@@ -35,13 +35,15 @@ public class Player extends Object {
         super.keyPressed(e);
         if(e.getKeyCode()==Keys.W)
         {
-            setPosition(getPosition().add(new Vector2(0,-1).multiply(70)));
+            //setPosition(getPosition().add(new Vector2(0,-1).multiply(50)));
+            //setAngle(50);
+
         }
     }
 
     @Override
     public void Update() {
         super.Update();
-        setPosition(getPosition().add(new Vector2(0,1).multiply(2))); // down
+        //setPosition(getPosition().add(new Vector2(0,1).multiply(2))); // down
     }
 }
