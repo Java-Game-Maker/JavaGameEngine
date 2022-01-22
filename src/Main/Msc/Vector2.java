@@ -68,4 +68,10 @@ public class Vector2 {
         return Math.sqrt(Math.pow(Math.abs(vector2.getY()-y),2)+Math.pow(Math.abs(vector2.getX()-x),2));
     }
 
+    public float getAngle()
+    {
+        //A = atan2(V.y, V.x)
+        return (float)(Math.toDegrees(Math.atan2(-y,-x)));
+    }
+
 }

@@ -2,6 +2,8 @@ package Main.Objects;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
+import java.nio.file.Path;
+
 import Main.Msc.*;
 
 public class Object {
@@ -15,38 +17,48 @@ public class Object {
 
     private float angle=180;
 
-    private int spriteCounter;
-    private int currentSprite;
-    private float radius = 10;
 
-    private float timer = 30;
+    private float radius = 10;
 
     private boolean showHitBox = false;
 
-
+    private Animation animation;
 
     public Object(Vector2 position) {
         this.position = position;
-        sprite = new Sprite();
-        sprite.setPath("/spritesheet.png");
-        sprite.loadSprites(new Vector2[]{new Vector2(0,0),new Vector2(0,1)});
         setScale(new Vector2(20,20));
 
+        sprite = new Sprite();
+        sprite.setPath("/spritesheet.png");
+        sprite.loadSprite(new Vector2(0,0));
     }
     public Object(Vector2 position,String path) {
         this.position = position;
+        setScale(new Vector2(20,20));
         sprite = new Sprite();
         sprite.setPath(path);
-        sprite.loadSprites(new Vector2[]{new Vector2(0,0),new Vector2(0,1)});
-        setScale(new Vector2(20,20));
+        sprite.loadSprite(new Vector2(0,0));
 
     }
+
+    public Animation getAnimation() {
+        return animation;
+    }
+
+    public void setAnimation(Animation animation) {
+        this.animation = animation;
+        animation.setScale(scale);
+        animation.setAngle(angle);
+    }
+
     public float getAngle() {
         return angle;
     }
 
     public void setAngle(float angle) {
         this.angle = angle;
+        if(animation!=null)
+            getAnimation().setAngle(angle);
     }
 
     public boolean isShowHitBox() {
@@ -81,37 +93,12 @@ public class Object {
         this.direction = direction;
     }
 
-    public float getTimer() {
-        return timer;
-    }
-
-    public void setTimer(float timer) {
-        this.timer = timer;
-    }
-
     public Vector2 getSpritePosition(){
-        float x = (getPosition().getX()-((sprite.getTILE_SIZE()/4)));
-        float y = (getPosition().getY()-((sprite.getTILE_SIZE()/4)));
+        float x = (getPosition().getX()-((getScale().getX()/2)));
+        float y = (getPosition().getY()-((getScale().getY()/2)));
 
         return new Vector2(x,y);
     }
-
-    public int getSpriteCounter() {
-        return spriteCounter;
-    }
-
-    public void setSpriteCounter(int spriteCounter) {
-        this.spriteCounter = spriteCounter;
-    }
-
-    public int getCurrentSprite() {
-        return currentSprite;
-    }
-
-    public void setCurrentSprite(int currentSprite) {
-        this.currentSprite = currentSprite;
-    }
-
 
     public Vector2 getScale() {
         return scale;
@@ -119,10 +106,8 @@ public class Object {
 
     public void setScale(Vector2 scale) {
         this.scale = scale;
-    }
-
-    public Sprite getSprite() {
-        return sprite;
+        if(animation!=null)
+            getAnimation().setScale(scale);
     }
 
     public void setSprite(Sprite sprite) {
@@ -162,19 +147,8 @@ public class Object {
 
     }
 
-    public BufferedImage getAnimation()
-    {
-
-        int spritesLen = getSprite().getSprites().length;
-        //System.out.println(spritesLen);
-        //Adds until timer then 0
-        spriteCounter = (spriteCounter+1>=timer) ? 0 :spriteCounter+1;
-        //Sets the current sprite index
-        currentSprite = (currentSprite+1>=spritesLen&&spriteCounter>=timer-1) ?0:(spriteCounter>=timer-1)? (currentSprite+1): currentSprite;
-        //Sprite.resize(getSprite().getSpriteImage(),new Vector2(100,100));
-        getSprite().setSpriteImage(getSprite().getSprites()[currentSprite]);
-
-        return (getSprite().rotate(angle));
+    public Sprite getSprite() {
+        return sprite;
     }
 
     public void onCollision(Object collision)
@@ -189,6 +163,18 @@ public class Object {
     }
 
     public void keyDown(KeyEvent e) {
+    }
+
+    public BufferedImage Display()
+    {
+        if(animation!=null)
+        {
+            return animation.getAnimation();
+        }
+        else
+        {
+            return sprite.getSpriteImage();
+        }
     }
 }
 

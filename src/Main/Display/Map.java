@@ -42,13 +42,28 @@ public class Map extends JPanel {
 
     }
     int x = 0;
-    public void CollisionHandler()
+    public void CollisionHandler1()
     {
         for(Object obj : ObjectHandler.getObjects()) {
             for(Object obj2 : ObjectHandler.getObjects()) {
                 if(obj.getPosition().getDistance(obj2.getPosition())<=obj.getRadius()&&!obj.equals(obj2))
                 {
                     obj.onCollision(obj2);
+                }
+            }
+        }
+    }
+    //rect1.x < rect2.x + rect2.w &&
+    //        rect1.x + rect1.w > rect2.x &&
+    //        rect1.y < rect2.y + rect2.h &&
+    //        rect1.h + rect1.y > rect2.y
+    public void CollisionHandler()
+    {
+        for(Object rect1 : ObjectHandler.getObjects()) {
+            for(Object rect2 : ObjectHandler.getObjects()) {
+                if((int)rect1.getSpritePosition().getX() < (int)rect2.getSpritePosition().getX() + (int)rect2.getScale().getX() && (int)rect1.getSpritePosition().getX() + (int)rect1.getScale().getX() > (int)rect2.getSpritePosition().getX() && (int)rect1.getSpritePosition().getY() < (int)rect2.getSpritePosition().getY() + (int)rect2.getScale().getY() && (int)rect1.getScale().getY() + (int)rect1.getSpritePosition().getY() > (int)rect2.getSpritePosition().getY())
+                {
+                    rect1.onCollision(rect2);
                 }
             }
         }
@@ -71,7 +86,7 @@ public class Map extends JPanel {
             }
         }
         UpdateObjects();
-        CollisionHandler();
+        CollisionHandler1();
         repaint();
         Toolkit.getDefaultToolkit().sync();
     }
@@ -82,9 +97,11 @@ public class Map extends JPanel {
 
         for(Object animal : ObjectHandler.getObjects())
         {
-            g.drawImage((Image) animal.getAnimation(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
+            g.drawImage((Image) animal.Display(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
+            g.drawRect((int) ((int) animal.getPosition().getX()), (int) ((int) animal.getPosition().getY()), 10,10);
             if(animal.isShowHitBox())
-                g.drawOval((int) ((int) animal.getPosition().getX()-animal.getRadius()/2), (int) ((int) animal.getPosition().getY()-animal.getRadius()/2), (int) animal.getRadius(), (int) animal.getRadius());
+                //g.drawOval((int) ((int) animal.getPosition().getX()-animal.getScale().getX()/2), (int) ((int) animal.getPosition().getY()-animal.getScale().getY()/2), (int) animal.getRadius(), (int) animal.getRadius());
+                g.drawRect((int) ((int) animal.getPosition().getX()-animal.getScale().getX()/2), (int) ((int) animal.getPosition().getY()-animal.getScale().getY()/2), (int) animal.getScale().getX(), (int) animal.getScale().getY());
 
         }
 
