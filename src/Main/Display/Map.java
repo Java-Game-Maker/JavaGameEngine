@@ -1,6 +1,8 @@
 package Main.Display;
 
 import Main.Msc.ObjectHandler;
+import Main.Objects.Collision.CircleCollider;
+import Main.Objects.Collision.Collider;
 import Main.Objects.Object;
 
 import javax.swing.*;
@@ -42,32 +44,7 @@ public class Map extends JPanel {
 
     }
     int x = 0;
-    public void CollisionHandler1()
-    {
-        for(Object obj : ObjectHandler.getObjects()) {
-            for(Object obj2 : ObjectHandler.getObjects()) {
-                if(obj.getPosition().getDistance(obj2.getPosition())<=obj.getRadius()&&!obj.equals(obj2))
-                {
-                    obj.onCollision(obj2);
-                }
-            }
-        }
-    }
-    //rect1.x < rect2.x + rect2.w &&
-    //        rect1.x + rect1.w > rect2.x &&
-    //        rect1.y < rect2.y + rect2.h &&
-    //        rect1.h + rect1.y > rect2.y
-    public void CollisionHandler()
-    {
-        for(Object rect1 : ObjectHandler.getObjects()) {
-            for(Object rect2 : ObjectHandler.getObjects()) {
-                if((int)rect1.getSpritePosition().getX() < (int)rect2.getSpritePosition().getX() + (int)rect2.getScale().getX() && (int)rect1.getSpritePosition().getX() + (int)rect1.getScale().getX() > (int)rect2.getSpritePosition().getX() && (int)rect1.getSpritePosition().getY() < (int)rect2.getSpritePosition().getY() + (int)rect2.getScale().getY() && (int)rect1.getScale().getY() + (int)rect1.getSpritePosition().getY() > (int)rect2.getSpritePosition().getY())
-                {
-                    rect1.onCollision(rect2);
-                }
-            }
-        }
-    }
+
     private void UpdateObjects()
     {
         for(Object obj:ObjectHandler.getObjects())
@@ -75,9 +52,29 @@ public class Map extends JPanel {
             obj.Update();
         }
     }
-
+    private void checkCollisions()
+    {
+        for(Object ob1 : ObjectHandler.getObjects())
+        {
+            for(Object ob2 : ObjectHandler.getObjects())
+            {
+                if(ob1!=(ob2))
+                {
+                    for(Collider c1 : ob1.getColliders())
+                    {
+                        for(Collider c2 : ob2.getColliders())
+                        {
+                            c1.collided(c2);
+                        }
+                    }
+                }
+            }
+        }
+    }
     public void Update()
     {
+        long start = System.nanoTime();
+
         if(holding)
         {
             for(Object obj:ObjectHandler.getObjects())
@@ -86,27 +83,40 @@ public class Map extends JPanel {
             }
         }
         UpdateObjects();
-        CollisionHandler1();
+        checkCollisions();
         repaint();
         Toolkit.getDefaultToolkit().sync();
+        long end = System.nanoTime();
+        //System.out.println((start-end)/1000000);
     }
+
+
     @Override
     protected void paintComponent(Graphics g) {
-        long start = System.nanoTime();
         super.paintComponent(g);
 
         for(Object animal : ObjectHandler.getObjects())
         {
             g.drawImage((Image) animal.Display(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
             g.drawRect((int) ((int) animal.getPosition().getX()), (int) ((int) animal.getPosition().getY()), 10,10);
-            if(animal.isShowHitBox())
-                //g.drawOval((int) ((int) animal.getPosition().getX()-animal.getScale().getX()/2), (int) ((int) animal.getPosition().getY()-animal.getScale().getY()/2), (int) animal.getRadius(), (int) animal.getRadius());
-                g.drawRect((int) ((int) animal.getPosition().getX()-animal.getScale().getX()/2), (int) ((int) animal.getPosition().getY()-animal.getScale().getY()/2), (int) animal.getScale().getX(), (int) animal.getScale().getY());
 
         }
+        DrawColliders(g);
 
-        long end = System.nanoTime();
-        //System.out.println((start-end)/1000000);
 
+    }
+    private void DrawColliders(Graphics g)
+    {
+        for(Object ob : ObjectHandler.getObjects())
+        {
+            for(Collider c : ob.getColliders())
+            {
+                if(c instanceof CircleCollider&&c.isVisible())
+                {
+                    g.drawOval((int) (c.getPosition().getX()-(c.getScale().getX()/2)), (int) (c.getPosition().getY()-(c.getScale().getY()/2)), (int) c.getScale().getX(), (int) c.getScale().getY());
+                    g.drawRect((int) c.getPosition().getX(), (int) c.getPosition().getY(),10,10);
+                }
+            }
+        }
     }
 }

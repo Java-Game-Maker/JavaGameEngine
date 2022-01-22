@@ -3,8 +3,10 @@ package Main.Objects;
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 import Main.Msc.*;
+import Main.Objects.Collision.Collider;
 
 public class Object {
 
@@ -17,10 +19,7 @@ public class Object {
 
     private float angle=180;
 
-
-    private float radius = 10;
-
-    private boolean showHitBox = false;
+    ArrayList<Collider> colliders = new ArrayList<>();
 
     private Animation animation;
 
@@ -39,6 +38,20 @@ public class Object {
         sprite.setPath(path);
         sprite.loadSprite(new Vector2(0,0));
 
+    }
+
+    public void addCollider(Collider collider)
+    {
+        colliders.add(collider);
+    }
+
+    public void removeCollider(Collider collider)
+    {
+        colliders.remove(collider);
+    }
+
+    public ArrayList<Collider> getColliders() {
+        return colliders;
     }
 
     public Animation getAnimation() {
@@ -61,28 +74,12 @@ public class Object {
             getAnimation().setAngle(angle);
     }
 
-    public boolean isShowHitBox() {
-        return showHitBox;
-    }
-
-    public void setShowHitBox(boolean showHitBox) {
-        this.showHitBox = showHitBox;
-    }
-
     public String getTag() {
         return tag;
     }
 
     public void setTag(String tag) {
         this.tag = tag;
-    }
-
-    public float getRadius() {
-        return radius* scale.getX();
-    }
-
-    public void setRadius(float radius) {
-        this.radius = radius;
     }
 
     public Vector2 getDirection() {
@@ -139,7 +136,10 @@ public class Object {
        // getInfoPanel().setLocation(new Point((int) (getPosition().getX()-100), (int) (getPosition().getY()-80)));
         //infoPanel.setData(this);
          //this.setHunger((this.getHunger()-0.01f));
-
+        for(Collider collider : colliders)
+        {
+            collider.Update();
+        }
     }
 
     public void Die()

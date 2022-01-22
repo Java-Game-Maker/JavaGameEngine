@@ -43,9 +43,14 @@ public class Vector2 {
     public Vector2 devide(float a){
         return new Vector2(x/a,y/a);
     }
-
+    public Vector2 devide(Vector2 a){
+        return new Vector2(x/a.getX(),y/a.getY());
+    }
     public Vector2 add(Vector2 vector2) {
         return new Vector2(x+ vector2.x,y+ vector2.y);
+    }
+    public Vector2 subtract(Vector2 vector2) {
+        return new Vector2(x- vector2.x,y- vector2.y);
     }
 
     public Vector2 getDirection(double angle) {
@@ -54,7 +59,7 @@ public class Vector2 {
         return new Vector2(-x,-y);
     }
 
-    public Vector2 getNormelized()
+    public Vector2 getNormalized()
     {
         return devide(getHighest());
     }

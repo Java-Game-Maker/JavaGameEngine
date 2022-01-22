@@ -2,6 +2,7 @@ package Testing;
 
 import Main.Msc.Vector2;
 import Main.Objects.Animation;
+import Main.Objects.Collision.CircleCollider;
 import Main.Objects.Object;
 
 public class pillor extends Object {
@@ -12,7 +13,11 @@ public class pillor extends Object {
         setScale(new Vector2(150,150));
         getAnimation().setPath("/spritesheet.png");
         getAnimation().loadAnimation(new Vector2[]{new Vector2(2,0),new Vector2(2,1)});
-        setShowHitBox(true);
+        CircleCollider c = new CircleCollider();
+        c.setParent(this);
+        c.setVisible(true);
+        c.setScale(new Vector2(150,150));
+        addCollider(c);
     }
 
     @Override

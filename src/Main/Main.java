@@ -6,7 +6,7 @@ import javax.swing.*;
 
 public class Main {
 
-    public static final int DELAY = 10;
+    public static int DELAY = 10;
 
     public static void Start(JFrame frame)
     {
