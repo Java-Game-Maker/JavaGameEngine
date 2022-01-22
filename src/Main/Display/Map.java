@@ -7,6 +7,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 
 public class Map extends JPanel {
 
@@ -82,7 +83,8 @@ public class Map extends JPanel {
         for(Object animal : ObjectHandler.getObjects())
         {
             g.drawImage((Image) animal.getAnimation(), (int) animal.getSpritePosition().getX(), (int) animal.getSpritePosition().getY(),null);
-            g.drawOval((int) ((int) animal.getPosition().getX()-animal.getRadius()/2), (int) ((int) animal.getPosition().getY()-animal.getRadius()/2), (int) animal.getRadius(), (int) animal.getRadius());
+            if(animal.isShowHitBox())
+                g.drawOval((int) ((int) animal.getPosition().getX()-animal.getRadius()/2), (int) ((int) animal.getPosition().getY()-animal.getRadius()/2), (int) animal.getRadius(), (int) animal.getRadius());
 
         }
 

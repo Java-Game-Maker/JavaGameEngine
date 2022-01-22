@@ -48,6 +48,7 @@ public class Sprite {
     }
 
     public void setPath(String path) {
+        System.out.println("setting path "+path);
         this.path = path;
     }
 
@@ -91,6 +92,7 @@ public class Sprite {
 
     public BufferedImage getSprite(Vector2 grid) {
 
+        System.out.println("loading "+path);
         BufferedImage sprite = null;
 
         try {

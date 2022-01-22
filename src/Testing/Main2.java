@@ -16,7 +16,8 @@ public class Main2 {
         frame.setTitle("SwingGameEngine");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
 
-        ObjectHandler.AddAnimal(new Player(new Vector2(200,200)));
+        ObjectHandler.AddObject(new Player(new Vector2(200,200)));
+        ObjectHandler.AddObject(new ground(new Vector2(100,500)));
 
 
         Main.Start(frame);

@@ -8,7 +8,7 @@ public class ObjectHandler {
 
     private static ArrayList<Object> objects = new ArrayList<>();
 
-    public static void AddAnimal(Object object)
+    public static void AddObject(Object object)
     {
         objects.add(object);
     }

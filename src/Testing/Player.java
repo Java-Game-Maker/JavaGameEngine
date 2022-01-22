@@ -9,6 +9,7 @@ public class Player extends Object{
     public Player(Vector2 position) {
         super(position);
         getSprite().loadSprites(new Vector2[]{new Vector2(2,0),new Vector2(2,1)});
+
     }
 
     @Override

@@ -21,13 +21,9 @@ public class Object {
 
     private float timer = 30;
 
-    public float getAngle() {
-        return angle;
-    }
+    private boolean showHitBox = false;
 
-    public void setAngle(float angle) {
-        this.angle = angle;
-    }
+
 
     public Object(Vector2 position) {
         this.position = position;
@@ -36,6 +32,29 @@ public class Object {
         sprite.loadSprites(new Vector2[]{new Vector2(0,0),new Vector2(0,1)});
         setScale(new Vector2(20,20));
 
+    }
+    public Object(Vector2 position,String path) {
+        this.position = position;
+        sprite = new Sprite();
+        sprite.setPath(path);
+        sprite.loadSprites(new Vector2[]{new Vector2(0,0),new Vector2(0,1)});
+        setScale(new Vector2(20,20));
+
+    }
+    public float getAngle() {
+        return angle;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public boolean isShowHitBox() {
+        return showHitBox;
+    }
+
+    public void setShowHitBox(boolean showHitBox) {
+        this.showHitBox = showHitBox;
     }
 
     public String getTag() {
