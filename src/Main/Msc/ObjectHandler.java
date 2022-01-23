@@ -3,21 +3,26 @@ package Main.Msc;
 import Main.Objects.Object;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 
 public class ObjectHandler {
 
-    private static ArrayList<Object> objects = new ArrayList<>();
+    private static LinkedList<Object> objects = new LinkedList<>();
 
-    public static void AddObject(Object object)
+    public static void addObject(Object object)
     {
         objects.add(object);
     }
 
-    public static ArrayList<Object> getObjects() {
+    public static LinkedList<Object> getObjects() {
         return objects;
     }
 
-    public static void setObjects(ArrayList<Object> objects2) {
+    public static void removeObject(Object object)
+    {
+        objects.remove(object);
+    }
+    public static void setObjects(LinkedList<Object> objects2) {
         objects = objects2;
     }
 }

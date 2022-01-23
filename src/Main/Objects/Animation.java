@@ -21,7 +21,7 @@ public class Animation {
 
     private String path;
 
-    private int TILE_SIZE = 250;
+    private Vector2 TILE_SIZE = new Vector2(16,16);
 
     private int spriteCounter=0;
     private int currentSprite=0;
@@ -41,9 +41,9 @@ public class Animation {
         currentSprite = (currentSprite+1>=spritesLen&&spriteCounter>=timer-1) ?0:(spriteCounter>=timer-1)? (currentSprite+1): currentSprite;
         //Sprite.resize(getSprite().getSpriteImage(),new Vector2(100,100));
         //sprite.setSpriteImage(sprite.getSprites()[currentSprite]);
-
-        sprite.setSpriteImage(animations.get(animationIndex)[currentSprite]);
-        return (sprite.rotate(angle));
+        try{
+        sprite.setSpriteImage(animations.get(animationIndex)[currentSprite]);}catch (Exception e){}
+        return (Sprite.resize(sprite.rotate(angle),scale));
     }
 
     public int getAnimationIndex() {
@@ -102,11 +102,11 @@ public class Animation {
         this.path = path;
     }
 
-    public int getTILE_SIZE() {
+    public Vector2 getTILE_SIZE() {
         return TILE_SIZE;
     }
 
-    public void setTILE_SIZE(int TILE_SIZE) {
+    public void setTILE_SIZE(Vector2 TILE_SIZE) {
         this.TILE_SIZE = TILE_SIZE;
     }
 
@@ -125,7 +125,7 @@ public class Animation {
         if (spriteSheet == null) {
             spriteSheet = sprite;
         }
-        return Sprite.resize(spriteSheet.getSubimage((int) (grid.getX() * TILE_SIZE), (int) (grid.getY() * TILE_SIZE), TILE_SIZE, TILE_SIZE),scale);
+        return Sprite.resize(spriteSheet.getSubimage((int) (grid.getX() * TILE_SIZE.getX()), (int) (grid.getY() * TILE_SIZE.getY()), (int) TILE_SIZE.getX(), (int) TILE_SIZE.getY()),scale);
     }
 
     public void loadAnimation(Vector2[] grids)

@@ -1,6 +1,8 @@
 package Main;
 
 import Main.Display.Map;
+import Main.Msc.ObjectHandler;
+import Main.Objects.Object;
 
 import javax.swing.*;
 import java.awt.*;
@@ -33,8 +35,10 @@ public class Main {
                 m.Update();
             }
         }
-
-
     }
+    public static void instantiate(Object obj)
+    {
 
+        Map.newObjects.add(obj);
+    }
 }

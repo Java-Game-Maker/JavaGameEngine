@@ -1,4 +1,4 @@
-package Main.Msc;
+package Main.Msc.Input;
 
 public class Keys {
 

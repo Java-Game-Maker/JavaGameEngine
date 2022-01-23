@@ -6,17 +6,35 @@ import Main.Objects.Object;
 public class Collider {
 
     private Vector2 position;
+    private Vector2 offset=new Vector2(0,0);
     private Vector2 scale;
     private boolean visible = false;
+    private boolean isTrgger = false;
 
     private Object parent;
 
     public Collider() {
     }
 
+    public boolean isTrgger() {
+        return isTrgger;
+    }
+
+    public void setTrgger(boolean trgger) {
+        isTrgger = trgger;
+    }
+
     public Collider(Vector2 position, Vector2 scale) {
         this.position = position;
         this.scale = scale;
+    }
+
+    public Vector2 getOffset() {
+        return offset;
+    }
+
+    public void setOffset(Vector2 offset) {
+        this.offset = offset;
     }
 
     public boolean isVisible() {
@@ -62,7 +80,7 @@ public class Collider {
 
     public void Update()
     {
-        setPosition(parent.getPosition());
+        setPosition(parent.getPosition().add(offset));
     }
 
 }

@@ -28,7 +28,11 @@ public class CircleCollider extends Collider{
         CircleCollider obj = this;
         if(obj.getPosition().getDistance(otherCollider.getPosition())<=getScale().getX()/2+otherCollider.getScale().getX()/2&&!obj.equals(otherCollider))
         {
-            obj.getParent().onCollision(otherCollider.getParent());
+            if(!isTrgger())
+                obj.getParent().onCollision(otherCollider.getParent());
+            else
+                obj.getParent().onTrigger(otherCollider.getParent());
+
             //otherCollider.getParent().onCollision(getParent());
         }
     }

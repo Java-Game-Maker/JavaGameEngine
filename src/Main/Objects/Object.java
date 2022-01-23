@@ -2,17 +2,17 @@ package Main.Objects;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
-import java.nio.file.Path;
 import java.util.ArrayList;
 
+import Main.Display.Map;
 import Main.Msc.*;
 import Main.Objects.Collision.Collider;
 
 public class Object {
 
     private Sprite sprite;
-    private Vector2 position;
-    private Vector2 scale;
+    private Vector2 position=new Vector2(0,0);
+    private Vector2 scale=new Vector2(0,0);
     private Vector2 direction = new Vector2(1,0);
 
     private String tag="untagged";
@@ -142,16 +142,16 @@ public class Object {
         }
     }
 
-    public void Die()
-    {
-
-    }
-
     public Sprite getSprite() {
         return sprite;
     }
 
     public void onCollision(Object collision)
+    {
+        setPosition(getPosition());
+    }
+
+    public void onTrigger(Object collision)
     {
 
     }
@@ -165,6 +165,9 @@ public class Object {
     public void keyDown(KeyEvent e) {
     }
 
+    public Object() {
+    }
+
     public BufferedImage Display()
     {
         if(animation!=null)
@@ -176,5 +179,11 @@ public class Object {
             return sprite.getSpriteImage();
         }
     }
+
+    public void Destroy()
+    {
+        Map.delObjects.add(this);
+    }
+
 }
 

@@ -49,7 +49,6 @@ public class Sprite {
     }
 
     public void setPath(String path) {
-        System.out.println("setting path "+path);
         this.path = path;
     }
 
