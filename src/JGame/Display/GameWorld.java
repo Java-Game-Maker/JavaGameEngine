@@ -27,8 +27,8 @@ public class GameWorld extends JPanel {
 
     public GameWorld() {
         //JGame.Objects.Components.Component.square.setScale(new Vector2(100,20));
-        JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
-        JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
+        //JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
+     //   JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
 
         for(JComponent c : jComponents)
         {
@@ -161,8 +161,9 @@ public class GameWorld extends JPanel {
         super.paintComponent(g);
         Toolkit.getDefaultToolkit().sync();
 
-        g.drawPolygon(Component.square);
-        g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
+      //  g.drawPolygon(Component.square);
+    //
+        //    ,g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(Main.isPlaying)
         {
             Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
