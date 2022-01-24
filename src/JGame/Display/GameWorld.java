@@ -186,6 +186,7 @@ public class GameWorld extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+        Toolkit.getDefaultToolkit().sync();
 
         if(Main.isPlaying)
         {
