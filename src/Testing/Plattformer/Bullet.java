@@ -1,31 +1,29 @@
 package Testing.Plattformer;
 
-import Main.Msc.Vector2;
-import Main.Objects.Collision.ScareCollider;
-import Main.Objects.Object;
+import JGame.Msc.Vector2;
+import JGame.Objects.Components.Collision.SquareCollider;
+import JGame.Objects.GameObject;
 
-public class Bullet extends Object {
+public class Bullet extends GameObject {
 
-    private float speed = 5;
+    private float speed = 10;
 
     public Bullet(Vector2 position,Vector2 direction) {
         super(position);
         setDirection(direction);
         setScale(new Vector2(10,5));
         setTag("Bullet");
-        ScareCollider c = new ScareCollider();
-        c.setParent(this);
-        c.setScale(new Vector2(50,50));
-        c.setVisible(false);
-        addCollider(c);
+        SquareCollider c = new SquareCollider();
+        addComponent(c);
     }
 
     @Override
     public void Update() {
         super.Update();
         setPosition(getPosition().add(getDirection().multiply(speed)));
-        if(this.getPosition().getX()>1000)
+        if(this.getPosition().getX()>600)
         {
+            System.out.println("dis");
             this.Destroy();
         }
     }

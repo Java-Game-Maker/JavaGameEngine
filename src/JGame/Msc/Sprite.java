@@ -1,6 +1,4 @@
-package Main.Msc;
-
-import Main.Objects.Animation;
+package JGame.Msc;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -18,7 +16,6 @@ public class Sprite {
     private Vector2 grid;
     private int TILE_SIZE = 255;
     private Vector2 scale = new Vector2(150,150);
-
 
     public Vector2 getScale() {
         return scale;

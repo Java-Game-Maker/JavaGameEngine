@@ -1,4 +1,4 @@
-package Main.Msc.Input;
+package JGame.Msc.Input;
 
 public class Keys {
 
@@ -10,6 +10,7 @@ public class Keys {
     public static final int DOWNARROW = 40;
     public static final int LEFTARROW = 37;
     public static final int RIGHTARROW = 40;
+    public static final int SPACE = 32;
 
 
 

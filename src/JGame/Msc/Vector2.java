@@ -1,9 +1,14 @@
-package Main.Msc;
+package JGame.Msc;
 
 import java.util.Objects;
 
 public class Vector2 {
 
+    public static Vector2 up = new Vector2(0,-1);
+    public static Vector2 down = new Vector2(0,1);
+    public static Vector2 right = new Vector2(1,0);
+    public static Vector2 left = new Vector2(-1,0);
+    public static Vector2 zero = new Vector2(0,0);
     private float x,y;
 
     public Vector2(float x, float y) {
@@ -37,6 +42,9 @@ public class Vector2 {
     public Vector2 multiply(Vector2 vector2) {
         return new Vector2(x*vector2.x,y*vector2.y);
     }
+    public float getMagnitude (){
+        return (float) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
+    }
 
     public Vector2 getNegative(){
         return new Vector2(y,x);
@@ -51,6 +59,9 @@ public class Vector2 {
     public Vector2 add(Vector2 vector2) {
         return new Vector2(x+ vector2.x,y+ vector2.y);
     }
+    public Vector2 add(float a) {
+        return new Vector2(x+ a,y+ a);
+    }
     public Vector2 subtract(Vector2 vector2) {
         return new Vector2(x- vector2.x,y- vector2.y);
     }
@@ -58,7 +69,7 @@ public class Vector2 {
     public Vector2 getDirection(double angle) {
         float x = (float) Math.cos(Math.toRadians(angle));
         float y = (float) Math.sin(Math.toRadians(angle));
-        return new Vector2(-x,-y);
+        return new Vector2(x,y);
     }
 
     public Vector2 getNormalized()
@@ -92,5 +103,12 @@ public class Vector2 {
     @Override
     public int hashCode() {
         return Objects.hash(x, y);
+    }
+
+    public Vector2 removeY(){
+        return new Vector2(x,0);
+    }
+    public Vector2 removeX(){
+        return new Vector2(0,y);
     }
 }

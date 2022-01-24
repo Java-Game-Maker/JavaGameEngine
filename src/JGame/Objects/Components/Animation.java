@@ -1,7 +1,7 @@
-package Main.Objects;
+package JGame.Objects.Components;
 
-import Main.Msc.Sprite;
-import Main.Msc.Vector2;
+import JGame.Msc.Sprite;
+import JGame.Msc.Vector2;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,7 +9,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Animation {
+public class Animation extends Component{
 
 
     private BufferedImage[] sprites;
@@ -29,7 +29,6 @@ public class Animation {
     private Sprite sprite= new Sprite();
     private float timer=10;
     private float angle=0;
-    private Vector2 scale=new Vector2(10,10);
 
     public BufferedImage getAnimation()
     {
@@ -38,12 +37,14 @@ public class Animation {
         //Adds until timer then 0
         spriteCounter = (spriteCounter+1>=timer) ? 0 :spriteCounter+1;
         //Sets the current sprite index
-        currentSprite = (currentSprite+1>=spritesLen&&spriteCounter>=timer-1) ?0:(spriteCounter>=timer-1)? (currentSprite+1): currentSprite;
+        currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer - 1))) ? 0 :
+                ((spriteCounter >= (timer - 1)) ? (currentSprite + 1) :
+                        currentSprite);
         //Sprite.resize(getSprite().getSpriteImage(),new Vector2(100,100));
         //sprite.setSpriteImage(sprite.getSprites()[currentSprite]);
-        try{
-        sprite.setSpriteImage(animations.get(animationIndex)[currentSprite]);}catch (Exception e){}
-        return (Sprite.resize(sprite.rotate(angle),scale));
+
+        sprite.setSpriteImage(animations.get(animationIndex)[currentSprite]);
+        return (Sprite.resize(sprite.rotate(angle),getScale()));
     }
 
     public int getAnimationIndex() {
@@ -54,13 +55,6 @@ public class Animation {
         this.animationIndex = animationIndex;
     }
 
-    public Vector2 getScale() {
-        return scale;
-    }
-
-    public void setScale(Vector2 scale) {
-        this.scale = scale;
-    }
 
     public float getAngle() {
         return angle;
@@ -125,7 +119,7 @@ public class Animation {
         if (spriteSheet == null) {
             spriteSheet = sprite;
         }
-        return Sprite.resize(spriteSheet.getSubimage((int) (grid.getX() * TILE_SIZE.getX()), (int) (grid.getY() * TILE_SIZE.getY()), (int) TILE_SIZE.getX(), (int) TILE_SIZE.getY()),scale);
+        return (spriteSheet.getSubimage((int) (grid.getX() * TILE_SIZE.getX()), (int) (grid.getY() * TILE_SIZE.getY()), (int) TILE_SIZE.getX(), (int) TILE_SIZE.getY()));
     }
 
     public void loadAnimation(Vector2[] grids)
