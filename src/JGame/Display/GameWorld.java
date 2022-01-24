@@ -1,31 +1,30 @@
-package Main.Display;
+package JGame.Display;
 
-import Main.Main;
-import Main.Msc.Input.Input;
-import Main.Msc.ObjectHandler;
-import Main.Objects.Collision.CircleCollider;
-import Main.Objects.Collision.Collider;
-import Main.Objects.Collision.ScareCollider;
-import Main.Objects.Object;
+import JGame.Main;
+import JGame.Msc.Input.Input;
+import JGame.Msc.ObjectHandler;
+import JGame.Msc.Vector2;
+import JGame.Objects.Components.Collision.CircleCollider;
+import JGame.Objects.Components.Collision.Collider;
+import JGame.Objects.Components.Collision.SquareCollider;
+import JGame.Objects.GameObject;
 
 import javax.swing.*;
+import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
+import java.awt.event.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
 
-public class Map extends JPanel {
+public class GameWorld extends JPanel {
 
-    public static LinkedList<Object> newObjects = new LinkedList<>();
-    public static LinkedList<Object> delObjects = new LinkedList<>();
+    public static LinkedList<GameObject> newObjects = new LinkedList<>();
+    public static LinkedList<GameObject> delObjects = new LinkedList<>();
 
-    private boolean holding = false;
-    private KeyEvent keyEvent;
     private static ArrayList<JComponent> jComponents = new ArrayList<>();
 
-    public Map() {
+    public GameWorld() {
 
         for(JComponent c : jComponents)
         {
@@ -33,6 +32,50 @@ public class Map extends JPanel {
 
         }
         setBackground(Color.GREEN);
+        MouseAdapter mouseAdapter =  new MouseInputAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                super.mouseClicked(e);
+                System.out.println(e.getButton());
+            }
+
+            @Override
+            public void mousePressed(MouseEvent e) {
+                super.mousePressed(e);
+                Input.mouseButtonDown(e);
+                //Input.setMousePosition(new Vector2((float) MouseInfo.getPointerInfo().getLocation().getX(), (float) MouseInfo.getPointerInfo().getLocation().getY()));
+            }
+
+            @Override
+            public void mouseReleased(MouseEvent e) {
+                super.mouseReleased(e);
+                Input.mouseButtonUp(e);
+
+            }
+
+            @Override
+            public void mouseDragged(MouseEvent e) {
+                super.mouseDragged(e);
+                Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
+
+            }
+
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+                System.out.println(e.getX());
+            }
+
+            @Override
+            public void mouseMoved(MouseEvent e) {
+                super.mouseMoved(e);
+                Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
+
+            }
+        };
+
+        addMouseListener(mouseAdapter);
+        addMouseMotionListener(mouseAdapter);
 
         addKeyListener(new KeyAdapter() {
             @Override
@@ -68,47 +111,41 @@ public class Map extends JPanel {
 
     private void UpdateObjects()
     {
+        //long start = System.nanoTime();
+        if(GameWorld.newObjects.size()>0) {
+            for (GameObject o : GameWorld.newObjects) {
+                ObjectHandler.addObject(o);
+            }
 
-        if(Map.newObjects.size()>0&&Map.delObjects.size()>0)
-        {
-            for(int i = 0;i<Math.max(Map.newObjects.size(),Map.delObjects.size());i++)
-            {
-                try{ObjectHandler.addObject(Map.newObjects.get(i));} catch (Exception e){}
-                try{ObjectHandler.removeObject(Map.delObjects.get(i));} catch (Exception e){}
+        }
+        if(GameWorld.delObjects.size()>0) {
+            for (GameObject o : GameWorld.delObjects) {
+                ObjectHandler.removeObject(o);
+
             }
         }
-        else
-        {
-            if(Map.newObjects.size()>0) {
-                for (Object o : Map.newObjects) {
-                    ObjectHandler.addObject(o);
-                }
-            }
-            if(Map.delObjects.size()>0) {
-                for (Object o : Map.delObjects) {
-                    ObjectHandler.removeObject(o);
-                }
-            }
-        }
-        Map.newObjects.clear();
-        for(Object obj:ObjectHandler.getObjects())
+
+        GameWorld.newObjects.clear();
+        GameWorld.delObjects.clear();
+        //long end = System.nanoTime();
+        //System.out.println((end-start));
+        for(GameObject obj:ObjectHandler.getObjects())
         {
             obj.Update();
         }
     }
     private void checkCollisions()
     {
-        long start = System.nanoTime();
 
-        for(Object ob1 : ObjectHandler.getObjects())
+        for(GameObject ob1 : ObjectHandler.getObjects())
         {
-            for(Object ob2 : ObjectHandler.getObjects())
+            for(GameObject ob2 : ObjectHandler.getObjects())
             {
                 if(ob1!=(ob2))
                 {
-                    for(Collider c1 : ob1.getColliders())
+                    for(Collider c1 : ob1.getComponents(new SquareCollider()))
                     {
-                        for(Collider c2 : ob2.getColliders())
+                        for(Collider c2 : ob2.getComponents(new SquareCollider()))
                         {
                             c1.collided(c2);
                         }
@@ -116,8 +153,7 @@ public class Map extends JPanel {
                 }
             }
         }
-        long end = System.nanoTime();
-        //System.out.println((end-start)/100000);
+
     }
     /**Check if a Jcomponent has been removed in the Jcomponents list and if so removes it in the panel**/
     public void UpdateSwingComponents()
@@ -130,22 +166,22 @@ public class Map extends JPanel {
             }
         }
     }
-
     public void Update()
     {
-        UpdateSwingComponents();
-        long start = System.nanoTime();
 
         UpdateObjects();
         checkCollisions();
+        UpdateSwingComponents();
 
-        long end = System.nanoTime();
 
         repaint();
         Toolkit.getDefaultToolkit().sync();
-        //System.out.println((end-start)/100000);
+        long start = System.nanoTime();
+        long end = System.nanoTime();
+       // System.out.println((end-start)/100000);
     }
 
+    Polygon p= new Polygon(new int[]{205,125,225,260},new int[]{160,272,366,274},4);
 
     @Override
     protected void paintComponent(Graphics g) {
@@ -153,10 +189,10 @@ public class Map extends JPanel {
 
         if(Main.isPlaying)
         {
-            Iterator<Object> iterator = ObjectHandler.getObjects().iterator();
+            Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
 
             while (iterator.hasNext()){
-                Object ob = iterator.next();
+                GameObject ob = iterator.next();
                 if(ob.Display()!=null)
                     g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(),null);
                 else
@@ -169,17 +205,17 @@ public class Map extends JPanel {
     private void DrawColliders(Graphics g)
     {
 
-        Iterator<Object> iterator = ObjectHandler.getObjects().iterator();
+        Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
 
         while (iterator.hasNext()){
-            Object ob = iterator.next();
+            GameObject ob = iterator.next();
             class Point{
                 float x;
                 float y;
             }
 
 
-            for(Collider c : ob.getColliders())
+            for(Collider c : ob.getComponents(new SquareCollider()))
             {
                 /*
                 Point ob11 = new Point();
@@ -203,15 +239,21 @@ public class Map extends JPanel {
                 g.drawOval((int) ob12.x, (int) ob12.y,5,5);
                 g.drawOval((int) ob13.x, (int) ob13.y,5,5);
                 g.drawOval((int) ob14.x, (int) ob14.y,5,5);
+                Polygon p= new Polygon(new int[]{205,125,225,260},new int[]{160,272,366,274},4);
+                p.translate(x,10);
+                x++;
 */
+                   g.setColor(Color.GREEN);
+
                 if(c instanceof CircleCollider&&c.isVisible())
                 {
                     g.drawOval((int) (c.getPosition().getX()-(c.getScale().getX()/2)), (int) (c.getPosition().getY()-(c.getScale().getY()/2)), (int) c.getScale().getX(), (int) c.getScale().getY());
                 }
-                else if(c instanceof ScareCollider &&c.isVisible())
+                else if(c instanceof SquareCollider &&c.isVisible())
                 {
                     g.drawRect((int) (c.getPosition().getX()-(c.getScale().getX()/2)), (int) (c.getPosition().getY()-(c.getScale().getY()/2)), (int) c.getScale().getX(), (int) c.getScale().getY());
                 }
+                g.setColor(Color.black);
             }
         }
     }
