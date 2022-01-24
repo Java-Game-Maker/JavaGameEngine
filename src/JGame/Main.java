@@ -3,7 +3,9 @@ package JGame;
 import JGame.Display.CalcThread;
 import JGame.Display.GameWorld;
 import JGame.Msc.ObjectHandler;
-import JGame.Objects.GameObject;
+import JGame.Msc.Vector2;
+import JGame.Objects.Components.Component;
+import JGame.Objects.Components.GameObject;
 import java.util.Timer;
 
 import javax.swing.*;
@@ -29,6 +31,8 @@ public class Main {
         frame.add(m);
         frame.setVisible(true);
 
+        //Component.square.setPosition(new Vector2(200,300));
+
         CalcThread calcThread = new CalcThread();
         calcThread.setObjects(ObjectHandler.getHashMapObjects());
         calcThread.start();
@@ -39,8 +43,10 @@ public class Main {
             public void run() {
                 long start = System.nanoTime();
                 calcThread.Update();
+
                 long end = System.nanoTime();
-               // System.out.println(((end-start)/10000));
+
+                // System.out.println(((end-start)/10000));
             }
         }, DELAY,DELAY);
         while(true)

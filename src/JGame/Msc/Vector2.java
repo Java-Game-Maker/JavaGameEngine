@@ -99,7 +99,18 @@ public class Vector2 {
         Vector2 vector2 = (Vector2) o;
         return Float.compare(vector2.x, x) == 0 && Float.compare(vector2.y, y) == 0;
     }
-
+    /**
+     Returns the angle between object position and vector given
+     @param toLookAt the vector to look at
+     **/
+    public double LookAt(Vector2 toLookAt)
+    {
+        float b = getX()-toLookAt.getX();
+        float a = getY()-toLookAt.getY();
+        //a/b=tan v
+        //System.out.println("a; "+a+"b: "+b);
+        return(Math.toDegrees(Math.atan(a/b)));
+    }
     @Override
     public int hashCode() {
         return Objects.hash(x, y);

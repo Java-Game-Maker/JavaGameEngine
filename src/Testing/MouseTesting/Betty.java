@@ -4,7 +4,7 @@ import JGame.Msc.Input.Input;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
 import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 public class Betty extends GameObject {
     public Betty(Vector2 position) {

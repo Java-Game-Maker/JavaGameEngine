@@ -1,13 +1,13 @@
 package Testing.Plattformer;
 
 import JGame.Display.CalcThread;
-import JGame.Main;
 import JGame.Msc.Input.Input;
 import JGame.Msc.Input.Keys;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
+import JGame.Objects.Components.Component;
 import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 public class Player extends GameObject {
 
@@ -41,15 +41,29 @@ public class Player extends GameObject {
 
     }
 
-
+    private float x = 1;
+    private float y = 1;
     private void movement()
     {
         if(Input.isKeyDown(Keys.W))
         {
-            //setDirection(Vector2.up);
+            if(y>=2)
+            {
+                JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
+                y=0;
+            }
+            y+=0.01f;
+            System.out.println(y);
+            // Component.square.scaleTest(new Vector2(x,y));
+           //JGame.Objects.Components.Component.square.setPosition(Component.square.getPosition().add(new Vector2(x,0)));
+
         }
         if(Input.isKeyDown(Keys.D))
         {
+            x+=1;
+            //Component.square.scaleTest(new Vector2(x,y));
+           // JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
+
             setDirection(Vector2.right);
             setDirection(movePosition(getPosition().add(getDirection().multiply(speed))));
         }

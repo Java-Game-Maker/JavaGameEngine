@@ -1,6 +1,6 @@
 package JGame.Msc;
 
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;

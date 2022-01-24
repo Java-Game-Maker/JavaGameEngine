@@ -4,10 +4,11 @@ import JGame.Main;
 import JGame.Msc.Input.Input;
 import JGame.Msc.ObjectHandler;
 import JGame.Msc.Vector2;
+import JGame.Objects.Components.*;
 import JGame.Objects.Components.Collision.CircleCollider;
 import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.Component;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -25,6 +26,9 @@ public class GameWorld extends JPanel {
     private static ArrayList<JComponent> jComponents = new ArrayList<>();
 
     public GameWorld() {
+        //JGame.Objects.Components.Component.square.setScale(new Vector2(100,20));
+        JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
+        JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
 
         for(JComponent c : jComponents)
         {
@@ -73,10 +77,8 @@ public class GameWorld extends JPanel {
 
             }
         };
-
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -109,31 +111,7 @@ public class GameWorld extends JPanel {
         return jComponents;
     }
 
-    private void UpdateObjects()
-    {
-        //long start = System.nanoTime();
-        if(GameWorld.newObjects.size()>0) {
-            for (GameObject o : GameWorld.newObjects) {
-                ObjectHandler.addObject(o);
-            }
 
-        }
-        if(GameWorld.delObjects.size()>0) {
-            for (GameObject o : GameWorld.delObjects) {
-                ObjectHandler.removeObject(o);
-
-            }
-        }
-
-        GameWorld.newObjects.clear();
-        GameWorld.delObjects.clear();
-        //long end = System.nanoTime();
-        //System.out.println((end-start));
-        for(GameObject obj:ObjectHandler.getObjects())
-        {
-            obj.Update();
-        }
-    }
     private void checkCollisions()
     {
 
@@ -158,7 +136,7 @@ public class GameWorld extends JPanel {
     /**Check if a Jcomponent has been removed in the Jcomponents list and if so removes it in the panel**/
     public void UpdateSwingComponents()
     {
-        for(Component c : getComponents())
+        for(java.awt.Component c : getComponents())
         {
             if(!jComponents.contains(c))
             {
@@ -168,11 +146,7 @@ public class GameWorld extends JPanel {
     }
     public void Update()
     {
-
-        UpdateObjects();
-        checkCollisions();
         UpdateSwingComponents();
-
 
         repaint();
         Toolkit.getDefaultToolkit().sync();
@@ -180,12 +154,15 @@ public class GameWorld extends JPanel {
         long end = System.nanoTime();
        // System.out.println((end-start)/100000);
     }
+    public static Vector2 point = Vector2.zero;
 
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Toolkit.getDefaultToolkit().sync();
 
+        g.drawPolygon(Component.square);
+        g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(Main.isPlaying)
         {
             Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
@@ -244,7 +221,7 @@ public class GameWorld extends JPanel {
 */
                    g.setColor(Color.GREEN);
 
-                if(c instanceof CircleCollider&&c.isVisible())
+                if(c instanceof CircleCollider &&c.isVisible())
                 {
                     g.drawOval((int) (c.getPosition().getX()-(c.getScale().getX()/2)), (int) (c.getPosition().getY()-(c.getScale().getY()/2)), (int) c.getScale().getX(), (int) c.getScale().getY());
                 }

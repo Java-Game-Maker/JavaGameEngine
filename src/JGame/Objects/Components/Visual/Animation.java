@@ -1,7 +1,8 @@
-package JGame.Objects.Components;
+package JGame.Objects.Components.Visual;
 
-import JGame.Msc.Sprite;
 import JGame.Msc.Vector2;
+import JGame.Objects.Components.Component;
+import JGame.Objects.Components.Visual.Sprite;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,7 +10,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-public class Animation extends Component{
+public class Animation extends Component {
 
 
     private BufferedImage[] sprites;

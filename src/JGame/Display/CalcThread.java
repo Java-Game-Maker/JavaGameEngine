@@ -1,7 +1,7 @@
 package JGame.Display;
 
 import JGame.Msc.ObjectHandler;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -33,12 +33,10 @@ public class CalcThread extends Thread{
             for (GameObject o : CalcThread.newObjects) {
                 ObjectHandler.addObject(o);
             }
-
         }
         if(CalcThread.delObjects.size()>0) {
             for (GameObject o : CalcThread.delObjects) {
                 ObjectHandler.removeObject(o);
-
             }
         }
 

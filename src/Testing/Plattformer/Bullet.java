@@ -2,7 +2,7 @@ package Testing.Plattformer;
 
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 public class Bullet extends GameObject {
 

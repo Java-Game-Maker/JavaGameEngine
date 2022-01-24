@@ -1,7 +1,7 @@
 package JGame.Objects.Components.Collision;
 
 import JGame.Msc.Vector2;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 import java.util.LinkedList;
 

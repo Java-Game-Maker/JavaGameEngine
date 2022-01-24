@@ -1,24 +1,21 @@
-package JGame.Objects;
+package JGame.Objects.Components;
 
 import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
 import JGame.Display.CalcThread;
-import JGame.Display.GameWorld;
 import JGame.Msc.*;
-import JGame.Objects.Components.Animation;
 import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Component;
 import JGame.Objects.Components.Physics.PhysicsBody;
+import JGame.Objects.Components.Visual.Animation;
+import JGame.Objects.Components.Visual.Sprite;
 
-public class GameObject {
+public class GameObject extends Component {
 
     private Sprite sprite;
-    private Vector2 position=new Vector2(200,200);
-    private Vector2 scale=new Vector2(100,100);
-    private Vector2 direction = new Vector2(0,0);
+
     private int id;
 
     private boolean isColliding = false;
@@ -31,13 +28,13 @@ public class GameObject {
     private java.lang.Object parent;
 
     public GameObject(Vector2 position) {
-        this.position = position;
+        setPosition(position);
         setScale(new Vector2(20,20));
 
         sprite = new Sprite();
     }
     public GameObject(Vector2 position, String path) {
-        this.position = position;
+        setPosition(position);
         setScale(new Vector2(20,20));
         sprite = new Sprite();
 
@@ -58,6 +55,10 @@ public class GameObject {
         isColliding = colliding;
     }
 
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
     public float getAngle() {
         return angle;
     }
@@ -70,13 +71,6 @@ public class GameObject {
         this.tag = tag;
     }
 
-    public Vector2 getDirection() {
-        return direction;
-    }
-
-    public void setDirection(Vector2 direction) {
-        this.direction = direction;
-    }
 
     public Vector2 getSpritePosition(){
         float x = (getPosition().getX()-((getScale().getX()/2)));
@@ -85,12 +79,10 @@ public class GameObject {
         return new Vector2(x,y);
     }
 
-    public Vector2 getScale() {
-        return scale;
-    }
-
+    @Override
     public void setScale(Vector2 scale) {
-        this.scale = scale;
+        super.setScale(scale);
+
         if(getComponent(new Animation())!=null)
             getComponent(new Animation()).setScale(scale);
     }
@@ -99,15 +91,6 @@ public class GameObject {
         this.sprite = sprite;
     }
 
-    public Vector2 getPosition() {
-        return position;
-    }
-
-    public void setPosition(Vector2 position)
-    {
-
-        this.position = position;
-    }
 
     /**
      * check if the new position will collide otherwise we set the new position
@@ -150,7 +133,7 @@ public class GameObject {
         in this case we can't move in the y-axis but neither in the x*/
         Vector2 dir = position.subtract(getPosition());
         if(getComponent(new PhysicsBody())==null) {
-            this.position = position;
+            setPosition(position);
         }
         else {
             if(getComponents(new SquareCollider()).size()>0)
@@ -191,15 +174,14 @@ public class GameObject {
         }
         return dir;
     }
-
     /**
      Returns the angle between object position and vector given
      @param toLookAt the vector to look at
      **/
     public double LookAt(Vector2 toLookAt)
     {
-        float b = position.getX()-toLookAt.getX();
-        float a = position.getY()-toLookAt.getY();
+        float b = getPosition().getX()-toLookAt.getX();
+        float a = getPosition().getY()-toLookAt.getY();
         //a/b=tan v
         //System.out.println("a; "+a+"b: "+b);
         return(Math.toDegrees(Math.atan(a/b)));

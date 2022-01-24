@@ -1,4 +1,6 @@
-package JGame.Msc;
+package JGame.Objects.Components.Visual;
+
+import JGame.Msc.Vector2;
 
 import javax.imageio.ImageIO;
 import java.awt.*;

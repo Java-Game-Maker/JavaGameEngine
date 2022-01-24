@@ -3,7 +3,7 @@ package Testing.Plattformer;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
 import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.GameObject;
+import JGame.Objects.Components.GameObject;
 
 public class Ground extends GameObject {
     public Ground(Vector2 position, Vector2 scale,String tagname) {
