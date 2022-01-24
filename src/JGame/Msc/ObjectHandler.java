@@ -12,9 +12,7 @@ public class ObjectHandler {
 
     public static void addObject(GameObject object)
     {
-        System.out.println("add");
-        System.out.println(getLargestId());
-        object.setId(getLargestId());
+          object.setId(getLargestId());
         objects.put(getLargestId(),object);
     }
 

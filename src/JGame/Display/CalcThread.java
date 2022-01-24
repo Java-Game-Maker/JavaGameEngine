@@ -33,7 +33,6 @@ public class CalcThread extends Thread{
             for (GameObject o : CalcThread.newObjects) {
                 ObjectHandler.addObject(o);
             }
-            System.out.print("new");
 
         }
         if(CalcThread.delObjects.size()>0) {

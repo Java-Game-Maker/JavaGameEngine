@@ -25,8 +25,7 @@ public class Player extends GameObject {
         addComponent(new PhysicsBody());
         addComponent(new SquareCollider());
     }
-    private void jump()
-    {
+    private void jump() {
 
     }
     private void shoot()
@@ -36,9 +35,7 @@ public class Player extends GameObject {
         long start = System.nanoTime();
 
         CalcThread.newObjects.add(new Bullet(getPosition().add(Vector2.right.multiply(getScale().getX())),Vector2.right));
-       // Main.instantiate(new Bullet(getPosition(),Vector2.right));
-            //System.out.println(Main.updates);
-             //new Ground(new Vector2(0,0),new Vector2(0,0),"grid ");
+
         long end = System.nanoTime();
         //System.out.println((end-start)/1000000);
 

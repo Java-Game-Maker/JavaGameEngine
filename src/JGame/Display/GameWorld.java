@@ -181,8 +181,6 @@ public class GameWorld extends JPanel {
        // System.out.println((end-start)/100000);
     }
 
-    Polygon p= new Polygon(new int[]{205,125,225,260},new int[]{160,272,366,274},4);
-
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);

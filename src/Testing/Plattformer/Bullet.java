@@ -23,7 +23,6 @@ public class Bullet extends GameObject {
         setPosition(getPosition().add(getDirection().multiply(speed)));
         if(this.getPosition().getX()>600)
         {
-            System.out.println("dis");
             this.Destroy();
         }
     }
