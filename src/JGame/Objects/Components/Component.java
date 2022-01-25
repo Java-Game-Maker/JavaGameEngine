@@ -6,7 +6,8 @@ import JGame.Objects.Components.Visual.Shape;
 import java.awt.*;
 
 public class Component {
-    public static Shape square = new Shape(new int[]{0,50,30,0},new int[]{20,20,0,0},4);
+
+    public static Shape square = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4);
     public static Shape circle = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4);
 
     private Vector2 position=new Vector2(0,0);
@@ -21,11 +22,22 @@ public class Component {
     private Shape shape = new Shape();
 
     public Component(){
+
+    }
+
+    public Shape getShape() {
+        return shape;
+    }
+
+    public void setShape(Shape shape) {
+        this.shape = shape;
     }
 
     public Component(Shape shape) {
         this.shape = shape;
     }
+
+
 
     public Vector2 getDirection() {
         return direction;
@@ -56,8 +68,8 @@ public class Component {
     }
 
     public void setPosition(Vector2 position) {
-
         this.position = position.add(offset);
+        getShape().setPosition(position);
     }
 
     public Vector2 getOffset() {
@@ -74,8 +86,9 @@ public class Component {
 
     public void setScale(Vector2 scale) {
         //System.out.println((getPosition().getX()-scale.getX()));
-
         this.scale = scale;
+        getShape().setScale(scale.devide(2));
+
     }
 
     public boolean isVisible() {

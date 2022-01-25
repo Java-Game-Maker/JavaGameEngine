@@ -24,6 +24,9 @@ public class Player extends GameObject {
         setScale(new Vector2(100,100));
         addComponent(new PhysicsBody());
         addComponent(new SquareCollider());
+        setShape(Component.square);
+        //getShape().setPosition(getPosition());
+        //getShape().setScale(new Vector2(50,50));
     }
     private void jump() {
 
@@ -49,7 +52,7 @@ public class Player extends GameObject {
         {
             if(y>=2)
             {
-                JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
+                JGame.Objects.Components.Component.square.setScale(new Vector2(2,2));
                 y=0;
             }
             y+=0.01f;

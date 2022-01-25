@@ -26,7 +26,7 @@ public class Main3  {
 
         ObjectHandler.addObject(new Player(new Vector2(100,200)));
         //ObjectHandler.addObject(new Enemy(new Vector2(300,500)));
-        ObjectHandler.addObject(new Ground(new Vector2(300,600), new Vector2(1000,100),"ground1"));
+        //ObjectHandler.addObject(new Ground(new Vector2(300,600), new Vector2(1000,100),"ground1"));
        // ObjectHandler.addObject(new Ground(new Vector2(300,500),new Vector2(100,100),"ground2"));
         long start = System.nanoTime();
         //Main.instantiate(new Ground(new Vector2(0,0),new Vector2(0,0),"grid "));

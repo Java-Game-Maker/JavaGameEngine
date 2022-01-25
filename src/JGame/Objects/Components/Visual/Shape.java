@@ -12,7 +12,7 @@ public class Shape extends Polygon {
      * All points when getting set should be set in local space
      *
      * */
-    private Vector2 scale=new Vector2(0,0);
+    private Vector2 scale = new Vector2(0,0);
     private Vector2 position = new Vector2(0,0);
     public Vector2 center = new Vector2(0,0);
     public Shape() {
@@ -30,19 +30,6 @@ public class Shape extends Polygon {
         return position;
     }
 
-    public void setScale(Vector2 scale) {
-        int i = 0;
-        for(int x : xpoints) {
-            xpoints[i] = (int) ((x-getScale().getX())*scale.getX());
-            i++;
-        }
-        i = 0;
-        for(int y : ypoints) {
-            ypoints[i] = (int) ((y-getScale().getY())*scale.getY());
-            i++;
-        }
-        this.scale = scale;
-    }
 
     /**
      * @return returns the local x coordinate
@@ -66,7 +53,7 @@ public class Shape extends Polygon {
         ypoints[index] = (int) (y + this.position.getY());
     }
 
-    public void scaleTest(Vector2 scale)
+    public void setScale(Vector2 scale)
     {/*
         int maxX=0;
         int maxY= 0;
@@ -101,6 +88,7 @@ public class Shape extends Polygon {
             }
             System.out.println("after "+new Vector2(xpoints[i],ypoints[i]));
         }*/
+        System.out.println("set scale "+scale);
 
         int maxX=0;
         int maxY= 0;
@@ -142,17 +130,20 @@ public class Shape extends Polygon {
 
 
     public void setPosition(Vector2 position) {
+        System.out.println("set pos "+position);
         int i = 0;
         for(int x : xpoints) {
+            //setX(i, (int) ((int) position.getX()));//
             xpoints[i] = (int) ((x- this.position.getX())+position.getX());
             i++;
         }
         i = 0;
         for(int y : ypoints) {
+            //setY(i, (int) ((int) position.getY())); //
             ypoints[i] = (int) ( (y - this.position.getY()) +position.getY());
             i++;
         }
-        center = new Vector2(center.getX()+position.getX(),center.getY()+position.getY());
+        center = new Vector2((center.getX()-this.position.getX())+position.getX(),(center.getY()-this.position.getY())+position.getY());
         this.position = position;
     }
 
