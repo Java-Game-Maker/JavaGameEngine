@@ -1,8 +1,8 @@
 package Testing.Plattformer;
 
-import JGame.Main;
-import JGame.Msc.ObjectHandler;
-import JGame.Msc.Vector2;
+import JavaGameEngine.Main;
+import JavaGameEngine.Msc.ObjectHandler;
+import JavaGameEngine.Msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;

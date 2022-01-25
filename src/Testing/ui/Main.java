@@ -1,9 +1,8 @@
 package Testing.ui;
 
-import JGame.Display.Ui.Button;
-import JGame.Display.Ui.UiEvent;
-import JGame.Msc.ObjectHandler;
-import JGame.Msc.Vector2;
+import JavaGameEngine.Display.Ui.Button;
+import JavaGameEngine.Display.Ui.UiEvent;
+import JavaGameEngine.Msc.ObjectHandler;
 
 import javax.swing.*;
 import java.awt.*;
@@ -20,8 +19,8 @@ public class Main {
         frame.setSize(600,600);
         frame.setTitle("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JGame.Main.isPlaying=true;
-        JGame.Main.background= new Color(44, 157, 228);
+        JavaGameEngine.Main.isPlaying=true;
+        JavaGameEngine.Main.background= new Color(44, 157, 228);
 
 
         Button b = new Button();
@@ -39,7 +38,7 @@ public class Main {
         });
         ObjectHandler.addObject(b);
 
-        JGame.Main.Start(frame);
+        JavaGameEngine.Main.Start(frame);
 
     }
 

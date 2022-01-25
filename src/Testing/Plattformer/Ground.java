@@ -1,9 +1,9 @@
 package Testing.Plattformer;
 
-import JGame.Msc.Vector2;
-import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.Components.GameObject;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.Collision.SquareCollider;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import JavaGameEngine.Objects.Components.GameObject;
 
 public class Ground extends GameObject {
     public Ground(Vector2 position, Vector2 scale,String tagname) {

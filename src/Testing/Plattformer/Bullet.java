@@ -1,8 +1,8 @@
 package Testing.Plattformer;
 
-import JGame.Msc.Vector2;
-import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.GameObject;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.Collision.SquareCollider;
+import JavaGameEngine.Objects.Components.GameObject;
 
 public class Bullet extends GameObject {
 

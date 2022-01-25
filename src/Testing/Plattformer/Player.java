@@ -1,13 +1,12 @@
 package Testing.Plattformer;
 
-import JGame.Display.CalcThread;
-import JGame.Msc.Input.Input;
-import JGame.Msc.Input.Keys;
-import JGame.Msc.Vector2;
-import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Component;
-import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.Components.GameObject;
+import JavaGameEngine.Display.CalcThread;
+import JavaGameEngine.Msc.Input.Input;
+import JavaGameEngine.Msc.Input.Keys;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.Collision.SquareCollider;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import JavaGameEngine.Objects.Components.GameObject;
 
 public class Player extends GameObject {
 
@@ -49,7 +48,7 @@ public class Player extends GameObject {
         {
             if(y>=2)
             {
-                JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
+                JavaGameEngine.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
                 y=0;
             }
             y+=0.01f;
