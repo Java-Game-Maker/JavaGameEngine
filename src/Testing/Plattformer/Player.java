@@ -5,7 +5,6 @@ import JGame.Msc.Input.Input;
 import JGame.Msc.Input.Keys;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Component;
 import JGame.Objects.Components.Physics.PhysicsBody;
 import JGame.Objects.Components.GameObject;
 
@@ -23,10 +22,10 @@ public class Player extends GameObject {
         super(vector2);
         setScale(new Vector2(100,100));
         addComponent(new PhysicsBody());
-        addComponent(new SquareCollider());
-        setShape(Component.square);
-        //getShape().setPosition(getPosition());
-        //getShape().setScale(new Vector2(50,50));
+        SquareCollider s = new SquareCollider();
+        s.setVisible(true);
+        addComponent(s);
+        //setShape(new Shape(Component.square));
     }
     private void jump() {
 
@@ -50,22 +49,10 @@ public class Player extends GameObject {
     {
         if(Input.isKeyDown(Keys.W))
         {
-            if(y>=2)
-            {
-                JGame.Objects.Components.Component.square.setScale(new Vector2(2,2));
-                y=0;
-            }
-            y+=0.01f;
-            System.out.println(y);
-            // Component.square.scaleTest(new Vector2(x,y));
-           //JGame.Objects.Components.Component.square.setPosition(Component.square.getPosition().add(new Vector2(x,0)));
 
         }
         if(Input.isKeyDown(Keys.D))
         {
-            x+=1;
-            //Component.square.scaleTest(new Vector2(x,y));
-           // JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
 
             setDirection(Vector2.right);
             setDirection(movePosition(getPosition().add(getDirection().multiply(speed))));
@@ -77,14 +64,14 @@ public class Player extends GameObject {
 
         }
         if(Input.isKeyDown(Keys.SPACE))
-        {if(shootTimer<0)
         {
-            shoot();
-            shootTimer=10;
+            if(shootTimer<0)
+            {
+                shoot();
+                shootTimer=10;
 
-        }
-            shootTimer-=1;
-            //setDirection(Vector2.up);
+            }
+                shootTimer-=1;
         }
         if(Input.isMouseDown(1))
         {

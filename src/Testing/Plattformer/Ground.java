@@ -10,8 +10,11 @@ public class Ground extends GameObject {
         super(position);
         setTag(tagname);
         setScale(scale);
+        //setShape(new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4));
+
 
         SquareCollider c = new SquareCollider();
+        c.setVisible(true);
         addComponent(c);
 
         PhysicsBody b = new PhysicsBody();

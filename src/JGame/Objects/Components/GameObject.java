@@ -10,6 +10,7 @@ import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
 import JGame.Objects.Components.Physics.PhysicsBody;
 import JGame.Objects.Components.Visual.Animation;
+import JGame.Objects.Components.Visual.Shape;
 import JGame.Objects.Components.Visual.Sprite;
 
 public class GameObject extends Component {
@@ -30,22 +31,25 @@ public class GameObject extends Component {
     public GameObject(Vector2 position) {
         setPosition(position);
         setScale(new Vector2(20,20));
-
+        setShape(new Shape(Component.square,this));
+        getShape().setParent(this);
         sprite = new Sprite();
     }
     public GameObject(Vector2 position, String path) {
         setPosition(position);
         setScale(new Vector2(20,20));
         sprite = new Sprite();
+        setShape(new Shape(Component.square,this));
+        getShape().setParent(this);
 
     }
     public GameObject() {
         sprite = new Sprite();
         setScale(new Vector2(100,100));
+        setShape(new Shape(Component.square,this));
+        getShape().setParent(this);
 
     }
-
-
 
     public boolean isColliding() {
         return isColliding;
@@ -189,12 +193,11 @@ public class GameObject extends Component {
     /**
         Main update for objects
      **/
+    @Override
     public void Update()
     {
         UpdateComponents();
-       // getInfoPanel().setLocation(new Point((int) (getPosition().getX()-100), (int) (getPosition().getY()-80)));
-        //infoPanel.setData(this);
-         //this.setHunger((this.getHunger()-0.01f));
+        getShape().Update();
     }
     /**
      * Updates all components inside the object*/

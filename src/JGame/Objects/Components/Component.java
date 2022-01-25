@@ -3,12 +3,10 @@ package JGame.Objects.Components;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Visual.Shape;
 
-import java.awt.*;
-
 public class Component {
 
-    public static Shape square = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4);
-    public static Shape circle = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4);
+    public static Shape square = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
+    public static Shape circle = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
 
     private Vector2 position=new Vector2(0,0);
     private Vector2 offset=new Vector2(0,0);
@@ -69,7 +67,6 @@ public class Component {
 
     public void setPosition(Vector2 position) {
         this.position = position.add(offset);
-        getShape().setPosition(position);
     }
 
     public Vector2 getOffset() {
@@ -85,10 +82,7 @@ public class Component {
     }
 
     public void setScale(Vector2 scale) {
-        //System.out.println((getPosition().getX()-scale.getX()));
         this.scale = scale;
-        getShape().setScale(scale.devide(2));
-
     }
 
     public boolean isVisible() {

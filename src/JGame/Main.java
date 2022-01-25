@@ -55,7 +55,7 @@ public class Main {
 
             m.repaint();
             long end = System.nanoTime();
-            System.out.println(((end-start)/10000));
+            //System.out.println(((end-start)/10000));
         }
 // Since Java-8
         //timer.scheduleAtFixedRate(() -> /* your database code here */, 2*60*1000, 2*60*1000);

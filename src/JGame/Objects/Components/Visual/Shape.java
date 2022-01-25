@@ -1,8 +1,8 @@
 package JGame.Objects.Components.Visual;
 
-import JGame.Display.GameWorld;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Component;
+import JGame.Objects.Components.GameObject;
 
 import java.awt.*;
 
@@ -15,11 +15,28 @@ public class Shape extends Polygon {
     private Vector2 scale = new Vector2(0,0);
     private Vector2 position = new Vector2(0,0);
     public Vector2 center = new Vector2(0,0);
+
+    private Component parent;
+
     public Shape() {
     }
 
-    public Shape(int[] xpoints, int[] ypoints, int npoints) {
+    public Shape(int[] xpoints, int[] ypoints, int npoints, Component parent) {
         super(xpoints, ypoints, npoints);
+        this.parent = (GameObject) parent;
+    }
+
+    public Shape(Shape square, Component parent) {
+        super(square.xpoints,square.ypoints,square.npoints);
+        this.parent = (GameObject) parent;
+    }
+
+    public Component getParent() {
+        return parent;
+    }
+
+    public void setParent(GameObject parent) {
+        this.parent = parent;
     }
 
     public Vector2 getScale() {
@@ -29,7 +46,6 @@ public class Shape extends Polygon {
     public Vector2 getPosition() {
         return position;
     }
-
 
     /**
      * @return returns the local x coordinate
@@ -128,23 +144,29 @@ public class Shape extends Polygon {
         }
     }
 
-
     public void setPosition(Vector2 position) {
         System.out.println("set pos "+position);
+
         int i = 0;
         for(int x : xpoints) {
             //setX(i, (int) ((int) position.getX()));//
-            xpoints[i] = (int) ((x- this.position.getX())+position.getX());
+            xpoints[i] = (int) ((x - this.position.getX())+(position.getX()-(getParent().getScale().getX()/2)));
             i++;
         }
         i = 0;
         for(int y : ypoints) {
             //setY(i, (int) ((int) position.getY())); //
-            ypoints[i] = (int) ( (y - this.position.getY()) +position.getY());
+            ypoints[i] = (int) ( (y - this.position.getY()) + (position.getY()-(getParent().getScale().getY()/2)));
             i++;
         }
         center = new Vector2((center.getX()-this.position.getX())+position.getX(),(center.getY()-this.position.getY())+position.getY());
-        this.position = position;
+        this.position = position.subtract(parent.getScale());
+    }
+
+    public void Update()
+    {
+       // setScale(getParent().getScale());
+      //  setPosition(getParent().getPosition());
     }
 
     @Override
