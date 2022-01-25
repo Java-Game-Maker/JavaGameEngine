@@ -122,10 +122,10 @@ public class GameWorld extends JPanel {
         g.drawPolygon(s.getPolygon());
         if (r>=6000){
             r=0;
-            s.rotate(45);
-
+           // s.rotate(45);
         }
         r++;
+            //s.position.add(1);
        // g.drawPolygon(Component.square);
         //g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(false)

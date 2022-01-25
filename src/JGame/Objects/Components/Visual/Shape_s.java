@@ -1,19 +1,40 @@
 package JGame.Objects.Components.Visual;
 
+import JGame.Main;
 import JGame.Msc.Vector2;
 
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.geom.Point2D;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 
 public class Shape_s {
 
-    private Polygon polygon = new Polygon(new int[]{0,200,200,0},new int[]{200,200,0,0},4);
+    int[] localXs = new int[]{0,20,20,0};
+    int[] localYs = new int[]{20,20,0,0};
+
+    private Polygon polygon = new Polygon();
     //private Polygon polygon = new Polygon(new int[]{0,2,2,0},new int[]{2,2,0,0},4);
+    private Vector2 scale = new Vector2(100,100);
+    public Vector2 position = new Vector2(100,100);
+
 
     public Polygon getPolygon() {
+        int[] y = localYs.clone();
+        int[] x = localXs.clone();
+
+        for(int i = 0;i<y.length;i++)
+        {
+            x[i] = (int) ((int) ((int) x[i]+position.getX())*5);
+            y[i] = (int) ((int) ((int) y[i]+position.getY())*5);
+            System.out.println(new Vector2(x[i],y[i]));
+        }
+        polygon.npoints =4;
+        polygon.xpoints = x;
+        polygon.ypoints = y;
         return polygon;
     }
 
@@ -52,8 +73,8 @@ public class Shape_s {
         // copy the arrays so that we dont manipulate the originals, that way we can
         // reuse them if necessary
 
-        int[] xp=polygon.xpoints;
-        int[] yp=polygon.ypoints;
+        int[] xp=localXs;
+        int[] yp=localYs;
 
         int[] xpoints = Arrays.copyOf(xp,xp.length);
         int[] ypoints = Arrays.copyOf(yp,yp.length);
@@ -70,7 +91,7 @@ public class Shape_s {
         // create an array which will hold the rotated points
         Point2D[] rotatedPoints = new Point2D[list.size()];
 
-        Vector2 c = getCenter();
+        Vector2 c = position;
 
         AffineTransform transform = AffineTransform.getRotateInstance(Math.toRadians(rotationAngle), c.getX(), c.getY());
         transform.transform(list.toArray(new Point2D[0]), 0, rotatedPoints, 0, rotatedPoints.length);
@@ -81,7 +102,8 @@ public class Shape_s {
             ixp[i] = (int)rotatedPoints[i].getX();
             iyp[i] = (int)rotatedPoints[i].getY();
         }
-        polygon = new Polygon(ixp, iyp, ixp.length);
+        localXs = ixp;
+        localYs = iyp;
     }
 
     public void scale(float x, float y){
@@ -111,14 +133,12 @@ public class Shape_s {
             ixp[i] = (int)scaledPoints[i].getX();
             iyp[i] = (int)scaledPoints[i].getY();
         }
-        polygon = new Polygon(ixp, iyp, ixp.length);
+        localXs = ixp;
+        localYs = iyp;
     }
 
     public void setPosition(Vector2 position){
-       for(int i = 0;i<polygon.npoints;i++) {
-           polygon.xpoints[i] = (int) (position.getX()+polygon.xpoints[i]);
-           polygon.ypoints[i] = (int) (position.getY()+polygon.ypoints[i]);
-       }
+        //this.position = position;
     }
 
 
