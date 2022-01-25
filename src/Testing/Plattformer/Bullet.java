@@ -3,6 +3,7 @@ package Testing.Plattformer;
 import JavaGameEngine.Msc.Vector2;
 import JavaGameEngine.Objects.Components.Collision.SquareCollider;
 import JavaGameEngine.Objects.Components.GameObject;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
 
 public class Bullet extends GameObject {
 
@@ -15,15 +16,19 @@ public class Bullet extends GameObject {
         setTag("Bullet");
         SquareCollider c = new SquareCollider();
         addComponent(c);
+        addComponent(new PhysicsBody());
+    }
+
+    @Override
+    public void onCollision(GameObject collision) {
+        super.onCollision(collision);
+        this.Destroy();
     }
 
     @Override
     public void Update() {
         super.Update();
         setPosition(getPosition().add(getDirection().multiply(speed)));
-        if(this.getPosition().getX()>600)
-        {
-            this.Destroy();
-        }
+
     }
 }

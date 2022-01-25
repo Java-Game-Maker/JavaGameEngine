@@ -14,9 +14,8 @@ import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
-import java.util.Iterator;
-import java.util.LinkedList;
+import java.util.*;
+import java.util.Timer;
 
 public class GameWorld extends JPanel {
 
@@ -26,9 +25,8 @@ public class GameWorld extends JPanel {
     private static ArrayList<JComponent> jComponents = new ArrayList<>();
 
     public GameWorld() {
-        //JGame.Objects.Components.Component.square.setScale(new Vector2(100,20));
-        //JGame.Objects.Components.Component.square.scaleTest(new Vector2(2,2));
-     //   JGame.Objects.Components.Component.square.setPosition(new Vector2(300,300));
+        this.setFocusable(true);
+        this.setBackground(Main.background);
 
         for(JComponent c : jComponents)
         {
@@ -96,6 +94,44 @@ public class GameWorld extends JPanel {
     }
     int x = 0;
 
+    public void Start()
+    {
+        //Component.square.setPosition(new Vector2(200,300));
+        //new GameWorld();
+        CalcThread calcThread = new CalcThread();
+        calcThread.setObjects(ObjectHandler.getHashMapObjects());
+        calcThread.start();
+
+        java.util.Timer timer = new Timer();
+        timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+                long start = System.nanoTime();
+                calcThread.Update();
+
+                long end = System.nanoTime();
+
+                // System.out.println(((end-start)/10000));
+            }
+        }, Main.DELAY,Main.DELAY);
+        while(true)
+        {
+            long start = System.nanoTime();
+
+            this.repaint();
+            long end = System.nanoTime();
+            //System.out.println(((end-start)/10000));
+        }
+// Since Java-8
+        //timer.scheduleAtFixedRate(() -> /* your database code here */, 2*60*1000, 2*60*1000);
+
+
+    }
+
+    public static void instantiate(GameObject obj)
+    {
+        GameWorld.newObjects.add(obj);
+    }
     public static void addJComponent(JComponent jComponent)
     {
         jComponents.add(jComponent);

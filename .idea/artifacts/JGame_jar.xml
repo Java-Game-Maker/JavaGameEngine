@@ -2,7 +2,7 @@
   <artifact type="jar" name="JGame:jar">
     <output-path>$PROJECT_DIR$/out/artifacts/JGame_jar</output-path>
     <root id="archive" name="SwingGameEngine.jar">
-      <element id="module-output" name="JGame" />
+      <element id="module-output" name="JavaGameEngine" />
     </root>
   </artifact>
 </component>

@@ -24,8 +24,7 @@ public class Main {
     public static void Start(JFrame frame)
     {
         GameWorld m = new GameWorld();
-        m.setFocusable(true);
-        m.setBackground(background);
+
         frame.add(m);
         frame.setVisible(true);
 
