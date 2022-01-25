@@ -14,6 +14,10 @@ public class Input {
     private static LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
     private static Vector2 mousePosition=new Vector2(0,0);
 
+    public static LinkedList<Integer> getMouseButtonDowns() {
+        return mouseButtonDowns;
+    }
+
     public static Vector2 getMousePosition() {
         return mousePosition;
     }

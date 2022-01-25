@@ -1,5 +1,6 @@
 package JGame.Display;
 
+import JGame.Display.Ui.UiComponent;
 import JGame.Main;
 import JGame.Msc.Input.Input;
 import JGame.Msc.ObjectHandler;
@@ -8,7 +9,6 @@ import JGame.Objects.Components.*;
 import JGame.Objects.Components.Collision.CircleCollider;
 import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Component;
 
 import javax.swing.*;
 import javax.swing.event.MouseInputAdapter;
@@ -90,7 +90,6 @@ public class GameWorld extends JPanel {
             public void keyReleased(KeyEvent e) {
                 super.keyReleased(e);
                 Input.keyUp(e);
-
             }
         });
 
@@ -167,7 +166,6 @@ public class GameWorld extends JPanel {
         if(Main.isPlaying)
         {
             Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
-
             while (iterator.hasNext()){
                 GameObject ob = iterator.next();
                 if(ob.Display()!=null)
@@ -177,8 +175,26 @@ public class GameWorld extends JPanel {
 
             }
             DrawColliders(g);
+            DrawUi(g);
+
         }
     }
+
+    private void DrawUi(Graphics g)
+    {
+        Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
+        while (iterator.hasNext()) {
+            try {
+                UiComponent c = (UiComponent) iterator.next();
+                g.setColor(Color.WHITE);
+                g.drawString(c.getText(), (int) c.getPosition().getX(), (int) c.getPosition().getY());
+                g.setColor(Color.black);
+            }
+            catch (Exception e)
+            {}
+        }
+     }
+
     private void DrawColliders(Graphics g)
     {
 
