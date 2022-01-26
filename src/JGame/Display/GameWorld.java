@@ -16,6 +16,9 @@ import javax.swing.event.MouseInputAdapter;
 import java.awt.*;
 import java.awt.event.*;
 import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.LinkedList;
@@ -26,12 +29,13 @@ public class GameWorld extends JPanel {
     public static LinkedList<GameObject> delObjects = new LinkedList<>();
 
     private static ArrayList<JComponent> jComponents = new ArrayList<>();
-    Shape_s s = new Shape_s();
+    JGame.Objects.Components.Visual.Shape s = new  JGame.Objects.Components.Visual.Shape();
     public GameWorld() {
 
-       // s.scale(40,40);
-        s.setPosition(new Vector2(300,300));
 
+        s.Scale(2);
+        //s.setPosition(new Vector2(300,300));
+        s.setPosition(new Vector2(200,200));
         for(JComponent c : jComponents) {
             add(c);
         }
@@ -119,16 +123,11 @@ public class GameWorld extends JPanel {
         super.paintComponent(g);
         Toolkit.getDefaultToolkit().sync();
 
-        g.drawPolygon(s.getPolygon());
-        if (r>=6000){
-            r=0;
-           // s.rotate(45);
-        }
-        r++;
-            //s.position.add(1);
-       // g.drawPolygon(Component.square);
+            s.setPosition(s.origin.add(Vector2.right));
+
+         g.fillPolygon(s.getPolygon());
         //g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
-        if(false)
+        if(true)
         {
 
             for (GameObject ob : ObjectHandler.getObjects()) {
@@ -137,7 +136,8 @@ public class GameWorld extends JPanel {
                     g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), null);
                 } else {
                     System.out.println(ob.getShape().getX(0));
-                    g.fillPolygon(ob.getShape());
+                 //   g.fillPolygon(ob.getShape());
+                    //g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
                 }
 
             }

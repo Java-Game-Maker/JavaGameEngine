@@ -10,7 +10,7 @@ import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
 import JGame.Objects.Components.Physics.PhysicsBody;
 import JGame.Objects.Components.Visual.Animation;
-import JGame.Objects.Components.Visual.Shape;
+import JGame.Objects.Components.Visual.Shape_idk;
 import JGame.Objects.Components.Visual.Sprite;
 
 public class GameObject extends Component {
@@ -31,7 +31,7 @@ public class GameObject extends Component {
     public GameObject(Vector2 position) {
         setPosition(position);
         setScale(new Vector2(20,20));
-        setShape(new Shape(Component.square,this));
+        setShape(new Shape_idk(Component.square,this));
         getShape().setParent(this);
         sprite = new Sprite();
     }
@@ -39,14 +39,14 @@ public class GameObject extends Component {
         setPosition(position);
         setScale(new Vector2(20,20));
         sprite = new Sprite();
-        setShape(new Shape(Component.square,this));
+        setShape(new Shape_idk(Component.square,this));
         getShape().setParent(this);
 
     }
     public GameObject() {
         sprite = new Sprite();
         setScale(new Vector2(100,100));
-        setShape(new Shape(Component.square,this));
+        setShape(new Shape_idk(Component.square,this));
         getShape().setParent(this);
 
     }

@@ -1,12 +1,12 @@
 package JGame.Objects.Components;
 
 import JGame.Msc.Vector2;
-import JGame.Objects.Components.Visual.Shape;
+import JGame.Objects.Components.Visual.Shape_idk;
 
 public class Component {
 
-    public static Shape square = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
-    public static Shape circle = new Shape(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
+    public static Shape_idk square = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
+    public static Shape_idk circle = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
 
     private Vector2 position=new Vector2(0,0);
     private Vector2 offset=new Vector2(0,0);
@@ -17,21 +17,21 @@ public class Component {
     private GameObject parent;
     private boolean enabled= true;
 
-    private Shape shape = new Shape();
+    private Shape_idk shape = new Shape_idk();
 
     public Component(){
 
     }
 
-    public Shape getShape() {
+    public Shape_idk getShape() {
         return shape;
     }
 
-    public void setShape(Shape shape) {
+    public void setShape(Shape_idk shape) {
         this.shape = shape;
     }
 
-    public Component(Shape shape) {
+    public Component(Shape_idk shape) {
         this.shape = shape;
     }
 

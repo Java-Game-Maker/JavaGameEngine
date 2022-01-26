@@ -7,6 +7,7 @@ import JGame.Msc.Vector2;
 import JGame.Objects.Components.Collision.SquareCollider;
 import JGame.Objects.Components.Physics.PhysicsBody;
 import JGame.Objects.Components.GameObject;
+import JGame.Objects.Components.Visual.Animation;
 
 public class Player extends GameObject {
 
@@ -21,6 +22,11 @@ public class Player extends GameObject {
     public Player(Vector2 vector2) {
         super(vector2);
         setScale(new Vector2(100,100));
+        Animation a = new Animation();
+        a.setPath("/spritesheet.png");
+        a.setTILE_SIZE(new Vector2(200,200));
+        a.loadAnimation(new Vector2[]{new Vector2(0,0)});
+        addComponent(a);
         addComponent(new PhysicsBody());
         SquareCollider s = new SquareCollider();
         s.setVisible(true);
