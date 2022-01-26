@@ -1,3 +1,3 @@
 Manifest-Version: 1.0
-JGame-Class: Testing.Plattformer.Main3
+JavaGameLibrary-Class: Testing.Plattformer.Main3
 

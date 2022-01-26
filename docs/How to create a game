@@ -1,0 +1,34 @@
+We will go though and create a simple game and show how to use the engine
+
+First we have to create a main class which we will
+start the engine
+
+import JavaGameEngine.Main;
+import JavaGameEngine.Msc.ObjectHandler;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.GameObject;
+
+import javax.swing.*;
+
+
+public class Main  {
+
+    public static void main(String[] args)
+    {
+        //Setting up the window to
+        JFrame frame = new JFrame();
+        frame.setSize(600,600);
+        frame.setTitle("Test");
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        Main.isPlaying=true; // if this is false the engine will not update the objects
+
+        Main.background= new Color(44, 157, 228); // setting the skybox color
+
+
+        //and then we start the engine
+        Main.Start(frame);
+
+    }
+
+}

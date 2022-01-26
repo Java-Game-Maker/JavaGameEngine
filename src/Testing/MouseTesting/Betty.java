@@ -1,10 +1,10 @@
 package Testing.MouseTesting;
 
-import JGame.Msc.Input.Input;
-import JGame.Msc.Vector2;
-import JGame.Objects.Components.Collision.SquareCollider;
-import JGame.Objects.Components.Physics.PhysicsBody;
-import JGame.Objects.Components.GameObject;
+import JavaGameEngine.Msc.Input.Input;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.Collision.SquareCollider;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import JavaGameEngine.Objects.Components.GameObject;
 
 public class Betty extends GameObject {
     public Betty(Vector2 position) {

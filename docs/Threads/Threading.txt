@@ -1,0 +1,23 @@
+The threads and gameloop is handeld in the src.JavaGameEngine.Main.java class
+
+We have two threads CalThread, Main thread (the main program thread)
+Calcthread is handeling all the component updates and the main thread is
+handeling gui update
+
+the Calcthread is run by a timer with a delay of 16 (this can be changed by Main.DELAY =/value/)
+the calcthread runs a update function which sets the Objecthandler with the updated components
+which are updated in another method called UpdateObjects
+
+ObjectHandler.setObjects(UpdateObjects());
+
+ private HashMap<Integer, Component> UpdateObjects()
+{
+    for (Map.Entry<Integer, Component> stringGameObjectEntry : objects.entrySet()) {
+        Component s = (Component) ((Map.Entry) stringGameObjectEntry).getValue();
+        s.Update();
+
+    }
+    return objects;
+}
+
+

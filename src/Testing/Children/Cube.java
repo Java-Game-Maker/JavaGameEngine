@@ -1,9 +1,9 @@
 package Testing.Children;
 
-import JGame.Msc.Input.Input;
-import JGame.Msc.Input.Keys;
-import JGame.Msc.Vector2;
-import JGame.Objects.Components.GameObject;
+import JavaGameEngine.Msc.Input.Input;
+import JavaGameEngine.Msc.Input.Keys;
+import JavaGameEngine.Msc.Vector2;
+import JavaGameEngine.Objects.Components.GameObject;
 
 public class Cube extends GameObject {
 

@@ -1,0 +1,11 @@
+To add objects to the objecthandler in runtime
+we can use the Main.instansiate() method. This method will add to a
+static list in the CalcThread class (newObjects).
+The newObjects list will after the update cykle has been completed
+and all the objects inside of it to the Objecthandler list so we can render and
+update them next update cycle
+
+The removing of objects is similar to adding. We add the object to remove in the
+removeObject list in the Calthread class by calling this.Destroy() in a component
+this will after the current update cycle remove all the objects inside the Objecthandler
+list from the removeobject list so the object no longer will be rendered or updated
