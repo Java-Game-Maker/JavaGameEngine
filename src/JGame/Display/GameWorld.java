@@ -33,9 +33,10 @@ public class GameWorld extends JPanel {
     public GameWorld() {
 
 
-        s.Scale(2);
         //s.setPosition(new Vector2(300,300));
         s.setPosition(new Vector2(200,200));
+        s.Scale(2);
+
         for(JComponent c : jComponents) {
             add(c);
         }
@@ -123,8 +124,8 @@ public class GameWorld extends JPanel {
         super.paintComponent(g);
         Toolkit.getDefaultToolkit().sync();
 
-            s.setPosition(s.origin.add(Vector2.right));
-
+           // s.setPosition(s.origin.add(Vector2.right));
+        s.Scale(20);
          g.fillPolygon(s.getPolygon());
         //g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(true)
@@ -137,7 +138,7 @@ public class GameWorld extends JPanel {
                 } else {
                     System.out.println(ob.getShape().getX(0));
                  //   g.fillPolygon(ob.getShape());
-                    //g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
+                    g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
                 }
 
             }

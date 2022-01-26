@@ -34,7 +34,7 @@ public class Shape {
             temp[index].setX(matrix[index].getX());
             temp[index].setY(matrix[index].getY());
         }
-        worldVertices = temp;
+        localVertices = temp;
     }
 
     public Polygon getPolygon()
