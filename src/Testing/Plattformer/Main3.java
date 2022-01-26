@@ -1,6 +1,6 @@
 package Testing.Plattformer;
 
-import JavaGameEngine.Main;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.Msc.ObjectHandler;
 import JavaGameEngine.Msc.Vector2;
 import JavaGameEngine.Objects.Components.GameObject;
@@ -20,8 +20,8 @@ public class Main3  {
         frame.setSize(600,600);
         frame.setTitle("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        Main.isPlaying=true;
-        Main.background= new Color(44, 157, 228);
+        JavaGameEngine.isPlaying=true;
+        JavaGameEngine.background= new Color(44, 157, 228);
 
 
         Player player = new Player(new Vector2(100,200));
@@ -32,7 +32,7 @@ public class Main3  {
         ObjectHandler.addObject(player);
         ObjectHandler.addObject(new Ground(new Vector2(300,500), new Vector2(1000,100),"ground1"));
 
-        Main.Start(frame);
+        JavaGameEngine.Start(frame);
 
     }
 

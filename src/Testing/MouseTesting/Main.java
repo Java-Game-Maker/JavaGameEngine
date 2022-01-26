@@ -1,5 +1,6 @@
 package Testing.MouseTesting;
 
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.Msc.ObjectHandler;
 import JavaGameEngine.Msc.Vector2;
 import Testing.Plattformer.Ground;
@@ -19,8 +20,8 @@ public class Main {
         frame.setSize(600,600);
         frame.setTitle("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JavaGameEngine.Main.isPlaying=true;
-        JavaGameEngine.Main.background= new Color(44, 157, 228);
+        JavaGameEngine.isPlaying=true;
+        JavaGameEngine.background= new Color(44, 157, 228);
 
 
         ObjectHandler.addObject(new Betty(new Vector2(100,200)));
@@ -32,7 +33,7 @@ public class Main {
        // ObjectHandler.addObject(new Ground(new Vector2(300,500),new Vector2(100,100),"ground2"));
 
 
-        JavaGameEngine.Main.Start(frame);
+        JavaGameEngine.Start(frame);
     }
 
 }

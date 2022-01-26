@@ -3,7 +3,7 @@ We will go though and create a simple game and show how to use the engine
 First we have to create a main class which we will
 start the engine
 
-import JavaGameEngine.Main;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.Msc.ObjectHandler;
 import JavaGameEngine.Msc.Vector2;
 import JavaGameEngine.Objects.Components.GameObject;
@@ -28,7 +28,179 @@ public class Main  {
 
         //and then we start the engine
         Main.Start(frame);
+    }
+}
+
+When you run now it should have opened a window with a solid color as background
+
+To add GameObjects to the world we have to create add this before Main.start
+
+ObjectHandler.addObject(new GameObject());
+
+This will display a square in the middle of the screen
+All your gameobjects from the begging should be added in the same way
+
+To add a custom gameobject so we can give the GameObject som logic we have to create a new class
+We call our player
+
+import JavaGameEngine.Objects.Components.GameObject;
+
+public class Player extends GameObject {
+
+}
+
+
+make sure you extends GameObject so our player is of type gameobject
+
+to render our player we go back to the Main class and add it to the objecthandler
+
+so instead of ObjectHandler.addObject(new GameObject()); we can write
+
+ObjectHandler.addObject(new Player());
+
+
+Lets make our player a bit skinnier this is done by
+setting scale in the constructor (you can change scale in runtime)
+
+import JavaGameEngine.Objects.Components.GameObject;
+
+public class Player extends GameObject {
+
+    public Player()
+    {
+        setScale(new Vector2(50,100));
+    }
+}
+
+note we set the scale as a Vector2 this is the defualt size and position type in
+JavaGameEngine
+
+lets give the player som physics
+
+import JavaGameEngine.Objects.Components.GameObject;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+
+public class Player extends GameObject {
+
+    public Player()
+    {
+        setScale(new Vector2(50,100));
+
+        PhysicsBody physicsBody = new PhysicsBody();
+        addComponent(physicsBody);
+
+    }
+}
+
+and now our player will fall for eternity, or until we close the game ...
+
+lets make a ground object so our player dont fall
+
+import JavaGameEngine.Objects.Components.GameObject;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+
+public class Ground extends GameObject {
+
+    public Ground()
+    {
+        setScale(new Vector2(600,50));
+        setPosition(new Vector2(0,500); // we can change the position so it is lower down
+
+
+    }
+}
+
+we set the ground size so it is quite big so the player doesn't miss it
+dont forget to add it in the Objecthandler as the player
+
+if we run it we can se that the player falls through the ground
+this is because the player and the ground does not have a collider yet so lets add that
+
+import JavaGameEngine.Objects.Components.GameObject;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+
+public class Player extends GameObject {
+
+    public Player()
+    {
+        setScale(new Vector2(50,100));
+
+        PhysicsBody physicsBody = new PhysicsBody();
+        addComponent(physicsBody);
+
+        SquareCollider squareCollider = new SquareCollider();
+        squareCollider.setVisible(true); // this is so we can se the collider (in green)
+        addComponent(squareCollider);
+    }
+}
+
+import JavaGameEngine.Objects.Components.GameObject;
+import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+
+public class Ground extends GameObject {
+
+    public Ground()
+    {
+        setScale(new Vector2(600,50));
+         /*
+        here we create a new squarecollider and set its scale to the grounds scale
+        so they are the same scale. Get a components scale by calling getScale()
+        */
+        SquareCollider squareCollider = new SquareCollider();
+        squareCollider.setScale(getScale());
+        squareCollider.setVisible(true); // this is so we can see the collider (in green)
+        addComponent(squareCollider);
+    }
+}
+
+now the player stops at the ground
+lets make a player controller so we can walk around
+
+first add the Update method in the player class and should look like this
+
+  @Override
+    public void Update() {
+        super.Update();
 
     }
 
-}
+   very important to include @Override and super.Update(); for the engine to work
+   here we can check for keys to get pressed from the Input class
+
+    import JavaGameEngine.Msc.Input.Input;
+    import JavaGameEngine.Msc.Input.Keys;
+    import JavaGameEngine.Msc.Vector2;
+
+    @Override
+    public void Update() {
+       super.Update();
+       if(Input.isKeyDown(Keys.D))
+       {
+            setPosition(getPosition().add(Vector2.right));
+       }
+    }
+    this code will set the position at our current position added by a direction (right)
+    if we want our player to move faster we could muliply the direction by saying .muliply
+    (we have to use the build in methods to add subtract multiply and devide theise vectors)
+
+    setPosition(getPosition().add(Vector2.right.multiply(2)));
+
+    (be ware of the parethesies)
+
+    now our player should move twice as fast
+    lets add left aswell
+
+    @Override
+        public void Update() {
+            Super.Update();
+            if(Input.isKeyDown(Keys.D))
+            {
+                setPosition(getPosition().add(Vector2.right));
+            }
+            if(Input.isKeyDown(Keys.A))
+            {
+                setPosition(getPosition().add(Vector2.left.multiply(2)));
+            }
+        }
+
+

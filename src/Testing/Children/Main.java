@@ -1,5 +1,6 @@
 package Testing.Children;
 
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.Msc.ObjectHandler;
 import JavaGameEngine.Msc.Vector2;
 
@@ -18,8 +19,8 @@ public class Main {
         frame.setSize(600,600);
         frame.setTitle("Test");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        JavaGameEngine.Main.isPlaying=true;
-        JavaGameEngine.Main.background= new Color(44, 157, 228);
+        JavaGameEngine.isPlaying=true;
+        JavaGameEngine.background= new Color(44, 157, 228);
 
         Cube cube1 = new Cube(new Vector2(0,0));
         cube1.isMain =true;
@@ -38,7 +39,7 @@ public class Main {
        // ObjectHandler.addObject(cube2);
 
 
-        JavaGameEngine.Main.Start(frame);
+        JavaGameEngine.Start(frame);
 
     }
 

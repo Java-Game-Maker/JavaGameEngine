@@ -10,7 +10,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.TimerTask;
 
-public class Main {
+public class JavaGameEngine {
 
     public static int DELAY = 16;
     public static Color background;

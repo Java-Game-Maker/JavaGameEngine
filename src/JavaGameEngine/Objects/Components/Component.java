@@ -9,7 +9,7 @@ public class Component extends Node{
     public static Shape_idk square = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
     public static Shape_idk circle = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
 
-    private Vector2 position=new Vector2(0,0);
+    private Vector2 position=new Vector2(200,200);
     private Vector2 offset=new Vector2(0,0);
     private Vector2 direction = new Vector2(0,0);
 
