@@ -22,7 +22,15 @@ public class Node {
         }
         return null;
     }
-
+    public Component getChild(Collider node)
+    {
+        for(Node n : nodes){
+            if(n.getClass().equals(node.getClass())){
+                return (Component) n;
+            }
+        }
+        return null;
+    }
     /**
      * return a linkedlist with all children
      *
@@ -53,7 +61,8 @@ public class Node {
         return components;
     }
     public void addChild(Node newNode) {
-        nodes.add(newNode);
+
+         nodes.add(newNode);
     }
 
     public Component getParent() {

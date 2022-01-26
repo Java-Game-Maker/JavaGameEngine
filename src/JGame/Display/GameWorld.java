@@ -130,20 +130,39 @@ public class GameWorld extends JPanel {
         //g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(true)
         {
-
-            for (Component cob : ObjectHandler.getObjects()) {
-                GameObject ob = (GameObject) cob;
-                if (ob.Display() != null) {
-                    g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), null);
-                } else {
-                 //   g.fillPolygon(ob.getShape());
-                    g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
-                }
-
+            for(Component compnent : ObjectHandler.getObjects())
+            {
+                DrawComponents(g,compnent);
             }
+
             DrawColliders(g);
         }
     }
+
+    private void DrawComponents(Graphics g,Component parent) {
+
+        GameObject ob = (GameObject) parent;
+        if (ob.Display() != null) {
+            g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), null);
+        } else {
+            //   g.fillPolygon(ob.getShape());
+            g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
+        }
+
+        for (Component cob : parent.getChildren(new Component())) {
+            if(cob.getClass().equals(GameObject.class))
+            {
+                ob = (GameObject) cob;
+                if (ob.Display() != null) {
+                    g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), null);
+                } else {
+                    //   g.fillPolygon(ob.getShape());
+                    g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
+                }
+            }
+        }
+    }
+
     private void DrawColliders(Graphics g)
     {
 
@@ -157,9 +176,7 @@ public class GameWorld extends JPanel {
             }
 
 
-            for(Collider c : ob.getChildren(new SquareCollider()))
-            {
-
+            for(Collider c : ob.getChildren(new SquareCollider())) {
                    g.setColor(Color.GREEN);
 
                 if(c instanceof CircleCollider &&c.isVisible())

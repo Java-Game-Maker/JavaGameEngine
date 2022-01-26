@@ -131,17 +131,17 @@ public class GameObject extends Component {
         |----|
         1 is the one we check
         in this case we can't move in the y-axis but neither in the x*/
+
         Vector2 dir = position.subtract(getPosition());
         if(getChild(new PhysicsBody())==null) {
             setPosition(position);
         }
         else {
-            if(getComponents(new SquareCollider()).size()>0)
-            {
-                for(Collider c : getComponents(new SquareCollider())) {
+
+            if(getChildren(new SquareCollider()).size()>0) {
+                for(Collider c : getChildren(new SquareCollider())) {
 
                     if(!c.isTrigger()) {
-
                         Component c2=null; //will be the other object we collide with (if)
 
                         //checks if we can move the object on the y-axis
@@ -193,8 +193,10 @@ public class GameObject extends Component {
     public void Update()
     {
         super.Update();
-        //UpdateComponents();
-        getShape().Update();
+        if(getParent()!=null)
+        {
+            setPosition(getParent().getPosition().add(getOffset()));
+        }
     }
     /**
      * Updates all components inside the object*/
@@ -230,17 +232,7 @@ public class GameObject extends Component {
         addChild(component);
     }
 
-    public <T extends Component> ArrayList<T> getComponents(T component)
-    {
-        ArrayList<T> components = new ArrayList<>();
-        for(Component c : this.components)
-        {
-            if(c.getClass().equals(component.getClass()))
-                components.add((T) c);
-        }
 
-        return components;
-    }
 
 
 }

@@ -78,6 +78,7 @@ public class Component extends Node{
     }
 
     public void setScale(Vector2 scale) {
+        System.out.println("set scale "+getClass());
         this.scale = scale;
     }
 
@@ -90,6 +91,7 @@ public class Component extends Node{
     }
 
     public Vector2 movePosition(Vector2 position){
+
         return null;
     }
 
@@ -163,5 +165,9 @@ public class Component extends Node{
 
     }
 
-
+    @Override
+    public void addChild(Node newNode) {
+        super.addChild(newNode);
+        newNode.setParent(this);
+    }
 }
