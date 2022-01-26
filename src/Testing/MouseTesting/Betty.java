@@ -20,10 +20,10 @@ public class Betty extends GameObject {
         super.Update();
         if(getPosition().getDistance(Input.getMousePosition())<50&&Input.isMouseDown(1)) {
             setPosition(Input.getMousePosition());
-            getComponent(new PhysicsBody()).setEnabled(false);
+            getChild(new PhysicsBody()).setEnabled(false);
         }
         else
-            getComponent(new PhysicsBody()).setEnabled(true);
+            getChild(new PhysicsBody()).setEnabled(true);
 
 
     }

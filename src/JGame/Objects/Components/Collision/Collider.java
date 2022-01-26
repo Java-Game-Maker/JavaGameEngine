@@ -25,7 +25,7 @@ public class Collider extends Component  {
         setScale(scale);
     }
 
-    public void collisionHandler(Collider ob2)
+    public void collisionHandler(Component ob2)
     {}
 
     public boolean isColliding(Collider otherCollider)

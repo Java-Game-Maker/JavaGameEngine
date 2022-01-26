@@ -1,10 +1,8 @@
 package JGame.Objects.Components;
 
-import java.awt.event.KeyEvent;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 
-import JGame.Display.CalcThread;
 import JGame.Msc.*;
 import JGame.Objects.Components.Collision.Collider;
 import JGame.Objects.Components.Collision.SquareCollider;
@@ -16,8 +14,6 @@ import JGame.Objects.Components.Visual.Sprite;
 public class GameObject extends Component {
 
     private Sprite sprite;
-
-    private int id;
 
     private boolean isColliding = false;
 
@@ -87,8 +83,8 @@ public class GameObject extends Component {
     public void setScale(Vector2 scale) {
         super.setScale(scale);
 
-        if(getComponent(new Animation())!=null)
-            getComponent(new Animation()).setScale(scale);
+        if(getChild(new Animation())!=null)
+            getChild(new Animation()).setScale(scale);
     }
 
     public void setSprite(Sprite sprite) {
@@ -103,7 +99,7 @@ public class GameObject extends Component {
      * @param position the position to test
      * @return returns the directory we can move
      */
-
+    @Override
     public Vector2 movePosition(Vector2 position) {
         /*
         ---Description on what is happening---
@@ -136,7 +132,7 @@ public class GameObject extends Component {
         1 is the one we check
         in this case we can't move in the y-axis but neither in the x*/
         Vector2 dir = position.subtract(getPosition());
-        if(getComponent(new PhysicsBody())==null) {
+        if(getChild(new PhysicsBody())==null) {
             setPosition(position);
         }
         else {
@@ -146,7 +142,7 @@ public class GameObject extends Component {
 
                     if(!c.isTrigger()) {
 
-                        Collider c2=null; //will be the other object we collide with (if)
+                        Component c2=null; //will be the other object we collide with (if)
 
                         //checks if we can move the object on the y-axis
                         SquareCollider xcolider = (SquareCollider) c.copy();
@@ -196,64 +192,21 @@ public class GameObject extends Component {
     @Override
     public void Update()
     {
-        UpdateComponents();
+        super.Update();
+        //UpdateComponents();
         getShape().Update();
     }
     /**
      * Updates all components inside the object*/
-    public void UpdateComponents()
-    {
-        for(Component c : components)
-        {
-           // System.out.println(c.toString());
-            if(c.isEnabled())
-                c.Update();
-        }
-    }
+
 
     public Sprite getSprite() {
         return sprite;
     }
 
-    public void onCollision(GameObject collision)
-    {
-        //setPosition(getPosition());
-        //PhysicsBody b = getPhysicsbody();
-
-    }
-
-    public void onCollisionExit(GameObject collision)
-    {
-
-        setColliding(false);
-    }
-
-
-    public void onCollisionEnter(GameObject parent) {
-        setColliding(true);
-
-    }
-
-    public void onTrigger(GameObject collision)
-    {
-
-    }
-
-
-    public void keyPressed(KeyEvent e) {
-    }
-
-    public void keyReleased(KeyEvent e) {
-    }
-
-    public void keyDown(KeyEvent e) {
-    }
-
-
-
     public BufferedImage Display()
     {
-        Animation a = (Animation) getComponent(new Animation());
+        Animation a = (Animation) getChild(new Animation());
         if(a!=null)
         {
             return a.getAnimation();
@@ -265,10 +218,6 @@ public class GameObject extends Component {
         else return null;
     }
 
-    public void Destroy()
-    {
-        CalcThread.delObjects.add(this);
-    }
     /**
      * adds components to object
      * @param component component to add to you object
@@ -278,21 +227,9 @@ public class GameObject extends Component {
         component.setParent(this);
         component.setScale(getScale());
         component.setPosition(getPosition());
-        components.add(component);
+        addChild(component);
     }
 
-    public <T extends Component> Component getComponent(T component)
-    {
-        for(Component c : components)
-        {
-            if(c.getClass().equals(component.getClass())){
-                T xtemp = (T) c;
-                return xtemp;
-            }
-
-        }
-        return null;
-    }
     public <T extends Component> ArrayList<T> getComponents(T component)
     {
         ArrayList<T> components = new ArrayList<>();
@@ -305,12 +242,6 @@ public class GameObject extends Component {
         return components;
     }
 
-    public int getId() {
-        return id;
-    }
 
-    public void setId(int id) {
-        this.id = id;
-    }
 }
 

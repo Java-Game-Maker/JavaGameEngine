@@ -87,11 +87,11 @@ public class GameWorld extends JPanel {
         });
     }
     private void checkCollisions() {
-        for(GameObject ob1 : ObjectHandler.getObjects()) {
-            for(GameObject ob2 : ObjectHandler.getObjects()) {
+        for(Component ob1 : ObjectHandler.getObjects()) {
+            for(Component ob2 : ObjectHandler.getObjects()) {
                 if(ob1!=(ob2)) {
-                    for(Collider c1 : ob1.getComponents(new SquareCollider())) {
-                        for(Collider c2 : ob2.getComponents(new SquareCollider())) {
+                    for(Collider c1 : ob1.getChildren(new SquareCollider())) {
+                        for(Collider c2 : ob2.getChildren(new SquareCollider())) {
                             c1.collided(c2);
                         }
                     }
@@ -131,12 +131,11 @@ public class GameWorld extends JPanel {
         if(true)
         {
 
-            for (GameObject ob : ObjectHandler.getObjects()) {
+            for (Component cob : ObjectHandler.getObjects()) {
+                GameObject ob = (GameObject) cob;
                 if (ob.Display() != null) {
-                    System.out.println("img");
                     g.drawImage((Image) ob.Display(), (int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), null);
                 } else {
-                    System.out.println(ob.getShape().getX(0));
                  //   g.fillPolygon(ob.getShape());
                     g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
                 }
@@ -148,17 +147,17 @@ public class GameWorld extends JPanel {
     private void DrawColliders(Graphics g)
     {
 
-        Iterator<GameObject> iterator = ObjectHandler.getObjects().iterator();
+        Iterator<Component> iterator = ObjectHandler.getObjects().iterator();
 
         while (iterator.hasNext()){
-            GameObject ob = iterator.next();
+            GameObject ob = (GameObject) iterator.next();
             class Point{
                 float x;
                 float y;
             }
 
 
-            for(Collider c : ob.getComponents(new SquareCollider()))
+            for(Collider c : ob.getChildren(new SquareCollider()))
             {
 
                    g.setColor(Color.GREEN);

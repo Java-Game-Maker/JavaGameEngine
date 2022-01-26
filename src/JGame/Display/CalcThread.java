@@ -1,6 +1,7 @@
 package JGame.Display;
 
 import JGame.Msc.ObjectHandler;
+import JGame.Objects.Components.Component;
 import JGame.Objects.Components.GameObject;
 
 import java.util.HashMap;
@@ -9,18 +10,18 @@ import java.util.Map;
 
 public class CalcThread extends Thread{
 
-    private static HashMap<Integer, GameObject> objects = new HashMap<>();
-    public static LinkedList<GameObject> newObjects = new LinkedList<>();
-    public static LinkedList<GameObject> delObjects = new LinkedList<>();
+    private static HashMap<Integer, Component> objects = new HashMap<>();
+    public static LinkedList<Component> newObjects = new LinkedList<>();
+    public static LinkedList<Component> delObjects = new LinkedList<>();
 
-    public void setObjects(HashMap<Integer, GameObject> objects) {
+    public void setObjects(HashMap<Integer, Component> objects) {
         this.objects = objects;
     }
 
-    private HashMap<Integer, GameObject> update()
+    private HashMap<Integer, Component> update()
     {
-        for (Map.Entry<Integer, GameObject> stringGameObjectEntry : objects.entrySet()) {
-            GameObject s = (GameObject) ((Map.Entry) stringGameObjectEntry).getValue();
+        for (Map.Entry<Integer, Component> stringGameObjectEntry : objects.entrySet()) {
+            Component s = (Component) ((Map.Entry) stringGameObjectEntry).getValue();
             s.Update();
 
         }
@@ -30,12 +31,12 @@ public class CalcThread extends Thread{
     public void Update() {
         ObjectHandler.setObjects(update());
         if(CalcThread.newObjects.size()>0) {
-            for (GameObject o : CalcThread.newObjects) {
+            for (Component o : CalcThread.newObjects) {
                 ObjectHandler.addObject(o);
             }
         }
         if(CalcThread.delObjects.size()>0) {
-            for (GameObject o : CalcThread.delObjects) {
+            for (Component o : CalcThread.delObjects) {
                 ObjectHandler.removeObject(o);
             }
         }

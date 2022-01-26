@@ -1,9 +1,10 @@
 package JGame.Objects.Components;
 
+import JGame.Display.CalcThread;
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Visual.Shape_idk;
 
-public class Component {
+public class Component extends Node{
 
     public static Shape_idk square = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
     public static Shape_idk circle = new Shape_idk(new int[]{1,2,2,1},new int[]{2,2,1,1},4,null);
@@ -14,10 +15,13 @@ public class Component {
 
     private Vector2 scale;
     private boolean visible = false;
-    private GameObject parent;
+
     private boolean enabled= true;
 
     private Shape_idk shape = new Shape_idk();
+
+    private int id;
+
 
     public Component(){
 
@@ -53,14 +57,6 @@ public class Component {
         this.enabled = enabled;
     }
 
-    public GameObject getParent() {
-        return parent;
-    }
-
-    public void setParent(GameObject parent) {
-        this.parent = parent;
-    }
-
     public Vector2 getPosition() {
         return position;
     }
@@ -93,10 +89,29 @@ public class Component {
         this.visible = visible;
     }
 
+    public Vector2 movePosition(Vector2 position){
+        return null;
+    }
+
     public void Update()
     {
+
+        UpdateComponents();
         //p.translate((int) (-this.position.getX()), (int) (this.position.getY()));
     }
+    public void UpdateComponents()
+    {
+        for(Component c : getChildren(new Component()))
+        {
+            // System.out.println(c.toString());
+            Component comp = (Component) c;
+            if(comp.isEnabled())
+            {
+                comp.Update();
+            }
+        }
+    }
+    public void movePosition() {}
 
     @Override
     public String toString() {
@@ -105,14 +120,48 @@ public class Component {
                 ", offset=" + offset +
                 ", scale=" + scale +
                 ", visible=" + visible +
-                ", parent=" + parent +
+                ", parent=" + getParent() +
                 '}';
     }
+
 
     public Component copy()
     {
 
         return this;
     }
+
+    public void Destroy()
+    {
+        CalcThread.delObjects.add(this);
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
+    }
+    public void onCollision(Component collision)
+    {
+        //setPosition(getPosition());
+        //PhysicsBody b = getPhysicsbody();
+
+    }
+    public void onCollisionExit(Component collision)
+    {
+
+        //setColliding(false);
+    }
+    public void onCollisionEnter(Component parent) {
+        //setColliding(true);
+
+    }
+    public void onTrigger(Component collision)
+    {
+
+    }
+
 
 }

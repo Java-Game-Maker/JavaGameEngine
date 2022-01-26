@@ -1,6 +1,7 @@
 package JGame.Objects.Components.Collision;
 
 import JGame.Msc.Vector2;
+import JGame.Objects.Components.Component;
 import JGame.Objects.Components.GameObject;
 
 import java.util.LinkedList;
@@ -99,7 +100,7 @@ public class SquareCollider extends Collider{
                 player1.y + player1.height > player2.y)
         {
             if(!isTrigger()) {
-                getParent().onCollision(ob2.getParent());
+                getParent().onCollision((GameObject) ob2.getParent());
                 if(!hasCollided) {
                     getParent().onCollisionEnter(ob2.getParent());
                 }
@@ -116,7 +117,7 @@ public class SquareCollider extends Collider{
     }
 
     @Override
-    public void collisionHandler(Collider ob2)
+    public void collisionHandler(Component ob2)
     {
         if(!hasCollided&&ob2!=null) {
             if(!isTrigger()) {
@@ -136,7 +137,7 @@ public class SquareCollider extends Collider{
         }
     }
 
-    public static Collider isCollision(Collider ob1, Collider parent, LinkedList<GameObject> objects) {
+    public static Component isCollision(Collider ob1, Collider parent, LinkedList<Component> objects) {
 
         class Player{
             float x;
@@ -151,11 +152,11 @@ public class SquareCollider extends Collider{
         player1.height = ob1.getScale().getY();
         player1.width = ob1.getScale().getX();
 
-        for(GameObject ob :objects)
+        for(Component ob :objects)
         {
             if(ob!=ob1.getParent()&&ob!=parent.getParent()) {
-                for (Collider ob2 : ob.getComponents(new SquareCollider())) {
-
+                for (Component ob21 : ob.getChildren(new SquareCollider())) {
+                    Collider ob2 = (Collider) ob21;
                     Player player2 = new Player();
                     player2.x = ob2.getPosition().getX() - ob2.getScale().getX() / 2;
                     player2.y = ob2.getPosition().getY() - ob2.getScale().getY() / 2;

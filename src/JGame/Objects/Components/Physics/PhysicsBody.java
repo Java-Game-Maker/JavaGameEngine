@@ -2,6 +2,7 @@ package JGame.Objects.Components.Physics;
 
 import JGame.Msc.Vector2;
 import JGame.Objects.Components.Component;
+import JGame.Objects.Components.GameObject;
 
 public class PhysicsBody extends Component {
 
