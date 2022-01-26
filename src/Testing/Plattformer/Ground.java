@@ -15,6 +15,7 @@ public class Ground extends GameObject {
 
         SquareCollider c = new SquareCollider();
         c.setVisible(true);
+        c.setScale(getScale());
         addComponent(c);
 
         PhysicsBody b = new PhysicsBody();

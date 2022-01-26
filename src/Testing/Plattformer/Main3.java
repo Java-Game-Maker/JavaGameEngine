@@ -28,7 +28,7 @@ public class Main3  {
         GameObject g = new GameObject();
         g.setOffset(new Vector2(50,0));
         g.setScale(new Vector2(10,10));
-        player.addChild(g);
+        player.addComponent(g);
         ObjectHandler.addObject(player);
         ObjectHandler.addObject(new Ground(new Vector2(300,500), new Vector2(1000,100),"ground1"));
 

@@ -126,7 +126,7 @@ public class GameWorld extends JPanel {
 
            // s.setPosition(s.origin.add(Vector2.right));
         s.Scale(20);
-         g.fillPolygon(s.getPolygon());
+         //g.fillPolygon(s.getPolygon());
         //g.drawRect((int) Component.square.center.getX(), (int) Component.square.center.getY(),2,2);
         if(true)
         {
@@ -150,7 +150,7 @@ public class GameWorld extends JPanel {
         }
 
         for (Component cob : parent.getChildren(new Component())) {
-            if(cob.getClass().equals(GameObject.class))
+            try
             {
                 ob = (GameObject) cob;
                 if (ob.Display() != null) {
@@ -159,7 +159,7 @@ public class GameWorld extends JPanel {
                     //   g.fillPolygon(ob.getShape());
                     g.fillRect((int) ob.getSpritePosition().getX(), (int) ob.getSpritePosition().getY(), (int) ob.getScale().getX(),(int) ob.getScale().getY());
                 }
-            }
+            }catch (Exception e){}
         }
     }
 

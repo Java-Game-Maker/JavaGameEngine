@@ -13,7 +13,7 @@ public class Component extends Node{
     private Vector2 offset=new Vector2(0,0);
     private Vector2 direction = new Vector2(0,0);
 
-    private Vector2 scale;
+    private Vector2 scale=new Vector2(100,100);
     private boolean visible = false;
 
     private boolean enabled= true;
@@ -62,7 +62,7 @@ public class Component extends Node{
     }
 
     public void setPosition(Vector2 position) {
-        this.position = position.add(offset);
+        this.position = position.add(getOffset());
     }
 
     public Vector2 getOffset() {
@@ -103,6 +103,10 @@ public class Component extends Node{
     }
     public void UpdateComponents()
     {
+        if(getParent()!=null)
+        {
+            setPosition(getParent().getPosition().add(getOffset()));
+        }
         for(Component c : getChildren(new Component()))
         {
             // System.out.println(c.toString());
@@ -168,6 +172,5 @@ public class Component extends Node{
     @Override
     public void addChild(Node newNode) {
         super.addChild(newNode);
-        newNode.setParent(this);
     }
 }

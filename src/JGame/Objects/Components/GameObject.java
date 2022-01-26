@@ -193,10 +193,7 @@ public class GameObject extends Component {
     public void Update()
     {
         super.Update();
-        if(getParent()!=null)
-        {
-            setPosition(getParent().getPosition().add(getOffset()));
-        }
+
     }
     /**
      * Updates all components inside the object*/
@@ -227,7 +224,7 @@ public class GameObject extends Component {
     public void addComponent(Component component)
     {
         component.setParent(this);
-        component.setScale(getScale());
+
         component.setPosition(getPosition());
         addChild(component);
     }
