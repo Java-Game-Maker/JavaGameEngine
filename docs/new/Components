@@ -1,0 +1,19 @@
+all the objets that should be updated and renderd should extend the component class
+example gameobject
+
+a component
+position //global position
+localPosition //localPosition
+scale 
+isEnabled //if the component should be updated
+Node* // pointer to its node look at "tree"
+
+update()
+onCollision()
+onCollisionenter()
+onCollisionxit()
+ontrigger()
+ontriggerenter()
+ontriggerexit()
+
+

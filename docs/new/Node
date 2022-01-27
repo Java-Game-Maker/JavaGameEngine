@@ -1,0 +1,20 @@
+Node
+
+Component parent
+Node[] children
+
+
+setParent
+getParent
+getChild
+***
+thies functions should have a copy
+for all the different compnnts there are so you dont have to
+cast on your own istead you call the function with the right type
+
+getParent(component t)
+getParent(gameobject t)
+
+and so on
+
+***
