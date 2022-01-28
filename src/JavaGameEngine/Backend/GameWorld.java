@@ -3,6 +3,7 @@ package JavaGameEngine.Backend;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
+import JavaGameEngine.Components.Ui.UiComponent;
 import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
@@ -14,15 +15,11 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 
 public class GameWorld extends JPanel{
-
     /*
         This is where the main game world where we draw everything
         we also gets all the inpus from here
-
      */
-
     public GameWorld() {
-
         /*
           Key keyboard inputs
          */
@@ -77,11 +74,17 @@ public class GameWorld extends JPanel{
         super.paintComponent(g);
         drawComponents(g);
     }
+    private void drawUi(Graphics g){
 
+    }
     private void drawComponents(Graphics g){
         for(Component c : ComponentHandler.getObjects()){
             try{
-                ((GameObject)c).draw(g);
+                (c).draw(g);
+            }catch (Exception e){}
+            try{
+                JavaGameEngine.Components.Ui.Label ui= (JavaGameEngine.Components.Ui.Label)c;
+                g.drawString(ui.getValue(), (int) ui.getPosition().getX(), (int) ui.getPosition().getY());
             }catch (Exception e){}
         }
     }

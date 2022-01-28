@@ -51,7 +51,6 @@ public class PhysicsBody extends Component {
         if(useGravity)
         {
             Vector2 g = PhysicsWorld.getGravityAcceleration();
-
             setVelocity(getVelocity().add(g));
         }
         setVelocity(getParent().movePosition(getParent().getPosition().add(getVelocity())));

@@ -6,6 +6,7 @@ import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
 import JavaGameEngine.msc.Vector2;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class Component {
@@ -41,7 +42,7 @@ public class Component {
     }
     public void setPosition(Vector2 position) {
         this.position = position;
-        updateChildren();
+      //  updateChildren();
     }
 
     public Vector2 getLocalPosition() {
@@ -117,6 +118,13 @@ public class Component {
         }
         return childrenToRet;
     }
+    /**
+     * This method will return the all children in the children with the same type as the argument
+     * example LinkedList<GameObjects> a = this.getChild(new GameObject());
+     */
+    public LinkedList<Component> getChildren(){
+        return components;
+    }
 
     /**
      * This method will add the component to the component handler
@@ -146,9 +154,9 @@ public class Component {
         }
     }
 
-    protected void updateChildren(){
-
-        for (Component component : getChildren(new GameObject())) {
+    public void updateChildren(){
+        LinkedList<Component> s =  getChildren();
+        for (Component component :s) {
             component.update();
         }
     }
@@ -263,4 +271,6 @@ public class Component {
         return dir;
     }
 
+    public void draw(Graphics g) {
+    }
 }

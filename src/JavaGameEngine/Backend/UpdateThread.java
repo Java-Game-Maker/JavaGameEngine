@@ -1,6 +1,7 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.msc.Debug;
 
 import java.util.LinkedList;
 
@@ -22,6 +23,7 @@ public class UpdateThread extends Thread{
     {
         for (Component component : objects) {
             component.update();
+            //component.updateChildren();
         }
         return objects;
     }

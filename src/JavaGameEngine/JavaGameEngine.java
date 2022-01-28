@@ -19,10 +19,7 @@ public class JavaGameEngine {
     public static final int DELAY = 16;
     public static GameWorld GAMEWORLD = new GameWorld();
     static JFrame frame;
-    public JavaGameEngine()
-    {
 
-    }
     public static void init()
     {
         frame = new JFrame();
@@ -52,7 +49,9 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                Debug.startCount();
                 calcThread.Update();
+                Debug.endCount();
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();
@@ -64,6 +63,5 @@ public class JavaGameEngine {
                 Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
             }
         }, DELAY,DELAY);
-
     }
 }

@@ -2,6 +2,7 @@ package Testing;
 
 import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Components.GameObject;
+import JavaGameEngine.Components.Ui.Label;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
@@ -13,11 +14,12 @@ public class Main extends JavaGameEngine{
 
         init();
         Player s = new Player();
-        GameObject child = new GameObject();
-        child.setLocalPosition(new Vector2(100,0));
-        s.addChild(child);
+        Ground ground = new Ground();
+        //Label l = new Label();
+        //l.setValue("knas");
 
-
+        //ComponentHandler.addObject(l);
+        ComponentHandler.addObject(ground);
         ComponentHandler.addObject(s);
 
         start(null);
