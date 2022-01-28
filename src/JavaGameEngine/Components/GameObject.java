@@ -1,7 +1,15 @@
 package JavaGameEngine.Components;
 
+import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.Components.Collider.Collider;
+import JavaGameEngine.Components.Collider.SquareCollider;
+import JavaGameEngine.Components.Physics.PhysicsBody;
+import JavaGameEngine.msc.Vector2;
+import sun.awt.image.ImageWatched;
+
 import java.awt.*;
 import java.awt.image.BufferedImage;
+import java.util.LinkedList;
 
 public class GameObject extends Component{
 
@@ -15,4 +23,7 @@ public class GameObject extends Component{
             ((GameObject)c).draw(g);
         }
     }
+
+
+
 }

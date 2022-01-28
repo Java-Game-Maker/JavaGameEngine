@@ -14,28 +14,33 @@ import java.util.TimerTask;
 
 import javax.swing.*;
 
-class JavaGameEngine {
+public class JavaGameEngine {
 
     public static final int DELAY = 16;
-    public static GameWorld GAMEWORLD;
-    JFrame frame;
+    public static GameWorld GAMEWORLD = new GameWorld();
+    static JFrame frame;
     public JavaGameEngine()
+    {
+
+    }
+    public static void init()
     {
         frame = new JFrame();
         frame.setSize(600,600);
         frame.setTitle("Java Game Engine");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        GAMEWORLD = new GameWorld();
+        GAMEWORLD.setBackground(new Color(44, 157, 228));
     }
+
     /**
      * this it the method to start the game engine
      * do every setup thing before calling start
      * @param frame the frame you want to render in (null for default frame)
      */
-    public void start(JFrame frame)
+    public static void start(JFrame frame)
     {
         if(frame==null)
-            frame = this.frame;
+            frame = JavaGameEngine.frame;
 
         frame.setVisible(true);
         frame.add(GAMEWORLD);
@@ -59,24 +64,6 @@ class JavaGameEngine {
                 Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
             }
         }, DELAY,DELAY);
-      /*
-        while(true){
 
-        }
-        */
     }
-
-    public static void main(String[] args){
-        JavaGameEngine engine = new JavaGameEngine();
-        JavaGameEngine.GAMEWORLD.setBackground(new Color(44, 157, 228));
-
-        Player s = new Player();
-        GameObject child = new GameObject();
-        child.setLocalPosition(new Vector2(100,0));
-        s.addChild(child);
-        ComponentHandler.addObject(s);
-
-        engine.start(null);
-    }
-
 }

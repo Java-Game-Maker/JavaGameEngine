@@ -2,7 +2,17 @@ package JavaGameEngine.Components.Collider;
 
 import JavaGameEngine.Components.Component;
 
-public class Collider extends Component {
+public abstract class Collider extends Component {
+
+    private boolean isTrigger= false;
+
+    public boolean isTrigger() {
+        return isTrigger;
+    }
+
+    public void setTrigger(boolean trigger) {
+        isTrigger = trigger;
+    }
 
     public void checkCollision(){
         /*
@@ -10,4 +20,5 @@ public class Collider extends Component {
          */
     }
 
+    public abstract void collisionHandler(Component ob2);
 }
