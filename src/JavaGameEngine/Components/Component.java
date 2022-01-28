@@ -37,6 +37,7 @@ public class Component {
     }
     public void setPosition(Vector2 position) {
         this.position = position;
+        updateChildren();
     }
 
     public Vector2 getLocalPosition() {
@@ -58,6 +59,7 @@ public class Component {
     }
     public void setRotation(Vector2 rotation) {
         this.rotation = rotation;
+        updateChildren();
     }
 
     public boolean isEnabled() {
@@ -140,7 +142,7 @@ public class Component {
         }
     }
 
-    private void updateChildren(){
+    protected void updateChildren(){
 
         for (Component component : getChildren(new GameObject())) {
             component.update();

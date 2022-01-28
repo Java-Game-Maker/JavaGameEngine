@@ -7,7 +7,7 @@ public class Debug {
         a = System.nanoTime();
     }
     public static void endCount(){
-        System.out.println((System.nanoTime()-a)/1000000);
+        System.out.println((System.nanoTime()-a));
     }
     public static void log(String log){
         if(shouldLog)

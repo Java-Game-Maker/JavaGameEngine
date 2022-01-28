@@ -36,8 +36,10 @@ class JavaGameEngine {
     {
         if(frame==null)
             frame = this.frame;
+
         frame.setVisible(true);
         frame.add(GAMEWORLD);
+        GAMEWORLD.setFocusable(true);
 
         UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects());
         calcThread.start();
@@ -48,15 +50,20 @@ class JavaGameEngine {
                 calcThread.Update();
             }
         }, DELAY,DELAY);
-        while(true){
-            try {
-                Thread.sleep(DELAY);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
+        Timer timer1 = new Timer();
+        timer1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                GAMEWORLD.repaint();
+                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
             }
-            GAMEWORLD.repaint();
-            Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
+        }, DELAY,DELAY);
+      /*
+        while(true){
+
         }
+        */
     }
 
     public static void main(String[] args){
