@@ -1,9 +1,12 @@
 package JavaGameEngine.Components;
 
 import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.Backend.Node.Node;
+import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -87,6 +90,7 @@ public class Component {
      */
     public void addChild(Component c){
         c.setParent(this);
+        this.instantiate(c);
         this.components.add(c);
     }
 
@@ -132,7 +136,7 @@ public class Component {
      * @param c the object to instantiate
      */
     public void instantiate(Component c){
-
+        UpdateThread.newObjects.add(c);
     }
 
     /**
@@ -150,15 +154,15 @@ public class Component {
             setRotation(parent.getRotation().add(getLocalRotation()));
         }
         if(components.size()>0){
-            updateChildren(); // updates all the children
+           // updateChildren(); // updates all the children
         }
     }
 
     public void updateChildren(){
-        LinkedList<Component> s =  getChildren();
-        for (Component component :s) {
-            component.update();
-        }
+     //   LinkedList<Component> s =  getChildren();
+     //   for (Component component :s) {
+           // component.update();
+     //   }
     }
 
     /**
@@ -273,4 +277,6 @@ public class Component {
 
     public void draw(Graphics g) {
     }
+
+
 }

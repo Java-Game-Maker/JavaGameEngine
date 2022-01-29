@@ -1,5 +1,6 @@
 package JavaGameEngine.Backend;
 
+import JavaGameEngine.Backend.Node.Node;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.msc.Debug;
 
@@ -21,11 +22,10 @@ public class UpdateThread extends Thread{
 
     private LinkedList<Component>  UpdateObjects()
     {
-        for (Component component : objects) {
-            component.update();
-            //component.updateChildren();
+        for (Component node : ComponentHandler.getObjects()) {
+            node.update();
         }
-        return objects;
+        return ComponentHandler.getObjects();
     }
 
     public void Update() {
@@ -34,15 +34,15 @@ public class UpdateThread extends Thread{
             for (Component o : UpdateThread.newObjects) {
                 ComponentHandler.addObject(o);
             }
+            newObjects.clear();
         }
         if(UpdateThread.delObjects.size()>0) {
             for (Component o : UpdateThread.delObjects) {
                 ComponentHandler.removeObject(o);
             }
+            delObjects.clear();
         }
 
-        newObjects.clear();
-        delObjects.clear();
     }
 
     @Override

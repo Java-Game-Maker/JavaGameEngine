@@ -20,7 +20,6 @@ public class Label extends UiComponent {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        Debug.log("asd");
         g.drawString(getValue(), (int) getPosition().getX(), (int) getPosition().getY());
     }
 }
