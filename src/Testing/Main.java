@@ -13,14 +13,18 @@ public class Main extends JavaGameEngine{
     public static void main(String[] args){
 
         init();
-        Player s = new Player();
+        for(int i = 0;i<2000;i++){
+            Player s = new Player(new Vector2(i*11,10));
+            ComponentHandler.addObject(s);
+        }
+
         Ground ground = new Ground();
+
         //Label l = new Label();
         //l.setValue("knas");
 
         //ComponentHandler.addObject(l);
         ComponentHandler.addObject(ground);
-        ComponentHandler.addObject(s);
 
         start(null);
     }

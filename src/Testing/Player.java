@@ -12,16 +12,21 @@ import java.awt.*;
 
 public class Player extends GameObject {
     Label speed = new Label();
-    public Player() {
+    public Player(Vector2 pos) {
         speed.setValue("knas");
         speed.setPosition(new Vector2(200,200));
+
+        setScale(new Vector2(10,10));
+        setPosition(pos);
+
         GameObject box = new GameObject();
         box.setScale(new Vector2(50,50));
         box.setLocalPosition(new Vector2(0,-100));
+
         SquareCollider S = new SquareCollider();
-        S.setScale(new Vector2(100,100));
-        addChild(speed);
-        addChild(box);
+        S.setScale(new Vector2(10,10));
+       // addChild(speed);
+       // addChild(box);
         addChild(S);
         addChild(new PhysicsBody());
     }

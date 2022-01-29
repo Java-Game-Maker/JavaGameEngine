@@ -10,14 +10,6 @@ import java.util.LinkedList;
 public class ComponentHandler {
 
     /*
-    CompnentHandler is handling all the components that should be updates and also the ones to be drawn
-    When we want to add a new component we can either add it by calling ObjectHadler.addObject(); and pass
-    in the new component.
-    However, when we want to add or remove an object in runtime we can't call that. This is because the objects are
-    updating. What we have to do is to wait for the next update cycle and add the new component before it.
-    So what we do is we add the component to another list UpdateThread.newobjects.
-    The update thread will before a new updatable check if there is any new objects and in that case
-    add them to this list and then preside to the next update cycle;
 
 
     Maybe we only need to store game-objects and not Components

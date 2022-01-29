@@ -10,5 +10,8 @@ public class GameObject extends Component{
     @Override
     public void draw(Graphics g){
         g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+        for(Component c : components){
+            c.draw(g);
+        }
     }
 }
