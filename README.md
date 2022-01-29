@@ -1,6 +1,6 @@
 <div id="top"></div>
 <!--
-*** Thanks for checking out the JavaGameEngine. If you have a suggestion
+*** Thanks for checking out the . If you have a suggestion
 *** that would make this better, please fork the repo and create a pull request
 *** or simply open an issue with the tag "enhancement".
 *** Don't forget to give the project a star!
@@ -32,10 +32,10 @@
     <img src="images/logo.png" alt="Logo" width="80" height="80">
   </a>
 
-<h3 align="center">Best-README-Template</h3>
+<h3 align="center">JavaGameEngine</h3>
 
   <p align="center">
-    An awesome README template to jumpstart your projects!
+    An awesome Game Engine to jumpstart your game projects!
     <br />
     <a href="https://github.com/othneildrew/Best-README-Template"><strong>Explore the docs »</strong></a>
     <br />
@@ -83,16 +83,14 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-There are many great README templates available on GitHub; however, I didn't find one that really suited my needs so I created this enhanced one. I want to create a README template so amazing that it'll be the last one you ever need -- I think this is it.
+Then creating fun game projects there is a lot of code just to get you going so we created this awsome game engine to let you
+go directly to the fun of gamemaking. 
 
 Here's why:
 * Your time should be focused on creating something amazing. A project that solves a problem and helps others
-* You shouldn't be doing the same tasks over and over like creating a README from scratch
+* You shouldn't be doing the same tasks over and over like creating all the hidius game making code
 * You should implement DRY principles to the rest of your life :smile:
 
-Of course, no one template will serve all projects since your needs may be different. So I'll be adding more in the near future. You may also suggest changes by forking this repo and creating a pull request or opening an issue. Thanks to all the people have contributed to expanding this template!
-
-Use the `BLANK_README.md` to get started.
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -100,16 +98,9 @@ Use the `BLANK_README.md` to get started.
 
 ### Built With
 
-This section should list any major frameworks/libraries used to bootstrap your project. Leave any add-ons/plugins for the acknowledgements section. Here are a few examples.
+The JavaGameEngine is build with vanila java 1.8 with the swing framework as the input and drawing aspects
 
-* [Next.js](https://nextjs.org/)
-* [React.js](https://reactjs.org/)
-* [Vue.js](https://vuejs.org/)
-* [Angular](https://angular.io/)
-* [Svelte](https://svelte.dev/)
-* [Laravel](https://laravel.com)
-* [Bootstrap](https://getbootstrap.com)
-* [JQuery](https://jquery.com)
+* [Java](https://www.oracle.com/java/technologies/downloads/)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -118,34 +109,26 @@ This section should list any major frameworks/libraries used to bootstrap your p
 <!-- GETTING STARTED -->
 ## Getting Started
 
-This is an example of how you may give instructions on setting up your project locally.
-To get a local copy up and running follow these simple example steps.
+It is very easy to start
 
 ### Prerequisites
 
-This is an example of how to list things you need to use the software and how to install them.
-* npm
+Be sure yoy have the jre installed
+* check java
   ```sh
-  npm install npm@latest -g
+  java -version
   ```
+  If you get some sort of error message please visit https://www.java.com/sv/ and download java
 
 ### Installation
 
-_Below is an example of how you can instruct your audience on installing and setting up your app. This template doesn't rely on any external dependencies or services._
+ not yet installible
+  
+1. Clone the repo
+   ```sh
+   git clone https://github.com/Java-Game-Maker/JavaGameEngine.git
+   ```
 
-1. Get a free API Key at [https://example.com](https://example.com)
-2. Clone the repo
-   ```sh
-   git clone https://github.com/your_username_/Project-Name.git
-   ```
-3. Install NPM packages
-   ```sh
-   npm install
-   ```
-4. Enter your API in `config.js`
-   ```js
-   const API_KEY = 'ENTER YOUR API';
-   ```
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -154,9 +137,34 @@ _Below is an example of how you can instruct your audience on installing and set
 <!-- USAGE EXAMPLES -->
 ## Usage
 
-Use this space to show useful examples of how a project can be used. Additional screenshots, code examples and demos work well in this space. You may also link to more resources.
-
 _For more examples, please refer to the [Documentation](https://example.com)_
+
+To get started create a main.java file where you extend the JavaGameEngine class
+In your public static void main(String[] args){} method
+
+```
+init();
+
+start(null);
+```
+And a windows named Java Game Engine will appear with a blue background
+To change the window just create a new JFrame and add the configuration you want
+to it and pass it in the start method
+
+```
+init();
+
+JFrame frame = new JFrame();
+frame.setTitle("My example Title");
+
+start(frame);
+```
+
+REMEMBER that when you do this your frame is a totaly new frame and have to set size and so on
+
+To change the background (skybox), you can access the GAMEWORLD.setBackground(new Color(0,0,0));
+GAMEWORLD is the JPanel where we draw everyting to
+
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 
@@ -165,13 +173,10 @@ _For more examples, please refer to the [Documentation](https://example.com)_
 <!-- ROADMAP -->
 ## Roadmap
 
-- [x] Add Changelog
-- [x] Add back to top links
-- [ ] Add Additional Templates w/ Examples
-- [ ] Add "components" document to easily copy & paste sections of the readme
-- [ ] Multi-language Support
-    - [ ] Chinese
-    - [ ] Spanish
+- [ ] Add rotation
+- [ ] Add collisoin
+- [ ] Add Collision response (dynamic)
+
 
 See the [open issues](https://github.com/othneildrew/Best-README-Template/issues) for a full list of proposed features (and known issues).
 
