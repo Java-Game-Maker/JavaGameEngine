@@ -49,7 +49,6 @@ public class UpdateThread extends Thread{
     public void run() {
         super.run();
         ComponentHandler.setObjects(UpdateObjects());
-
     }
 }
 
