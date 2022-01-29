@@ -21,8 +21,8 @@ public class UpdateThread extends Thread{
 
     private LinkedList<Component>  UpdateObjects()
     {
-        for (Component node : ComponentHandler.getObjects()) {
-            node.update();
+        for (Component component : ComponentHandler.getObjects()) {
+            component.update();
         }
         return ComponentHandler.getObjects();
     }

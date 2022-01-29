@@ -2,8 +2,10 @@ package JavaGameEngine.Components;
 
 import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.UpdateThread;
+import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -109,11 +111,11 @@ public class Component {
      * example LinkedList<GameObjects> a = this.getChild(new GameObject());
      * @param t the type of component to return
      */
-    public <T extends Component> LinkedList<Component> getChildren(T t){
-        LinkedList<Component> childrenToRet = new LinkedList<>();
+    public <T extends Component> LinkedList<T> getChildren(T t){
+        LinkedList<T> childrenToRet = new LinkedList<>();
         for(Component c : components){
             if(c.getClass().equals(t.getClass())){
-                childrenToRet.add(c);
+                childrenToRet.add((T) c);
             }
         }
         return childrenToRet;
@@ -145,6 +147,9 @@ public class Component {
      * this is the update function. It will be called on every game update
      */
     public void update() {
+
+       // if(this instanceof Collider)
+         //   Debug.log(this);
 
         if(parent!=null) {
             setPosition(parent.getPosition().add(getLocalPosition())); // we get the parents position and we add our localPosition
@@ -190,91 +195,15 @@ public class Component {
     public void onTrigger(Component c){
     }
 
-    /**
-     * check if the new position will collide otherwise we set the new position
-     * and return the direction we can move
-     *
-     * @param position the position to test
-     * @return returns the directory we can move
-     */
-    public Vector2 movePosition(Vector2 position) {
-        /*
-        ---Description on what is happening---
 
-        We create temp colliders to se if the next posistion will be a collistion
-        We check the different coordinates, this is because if you collide on one
-        side you should be able to move on the other
-        |----|
-        |    |
-        |----|
-    |----|
-    | 1  |
-    |----|
-       |----|
-       |    |
-       |----|
-
-        1 is the one we check
-        in this case we can't move in the y-axis but we can move in the x
-
-        |----|
-        |    |
-        |----|
-    |----||----||----|
-    |    ||  1 ||    |
-    |----||----||----|
-        |----|
-        |    |
-        |----|
-        1 is the one we check
-        in this case we can't move in the y-axis but neither in the x*/
-
-        Vector2 dir = position.subtract(getPosition());
-        if(getChild(new PhysicsBody())==null) {
-            setPosition(position);
-        }
-        else {
-
-            if(getChildren(new SquareCollider()).size()>0) {
-                for(Component c1 : (getChildren(new SquareCollider()))) {
-                    SquareCollider c = (SquareCollider) c1;
-                    if(!c.isTrigger()) {
-                        Component c2=null; //will be the other object we collide with (if)
-
-                        //checks if we can move the object on the y-axis
-                        SquareCollider xcolider = (SquareCollider) c.copy();
-                        xcolider.setPosition(getPosition().add(dir.removeX()));
-
-                        if((SquareCollider.isCollision(xcolider,c, ComponentHandler.getObjects()))!=null) {
-                            c2= SquareCollider.isCollision(xcolider,c,ComponentHandler.getObjects());
-                            dir=(dir.removeY());
-                        }
-
-                        //checks if we can move the object on the x-axis
-                        SquareCollider ycolider = (SquareCollider) c.copy();
-                        ycolider.setPosition(getPosition().add(dir.removeY()));
-
-                        if((SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects()))!=null) {
-                            c2= SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects());
-                            dir=(dir.removeX());
-                        }
-
-                        c.collisionHandler(c2);
-
-                        setPosition(getPosition().add(dir));
-                    }
-                    else setPosition(position);
-                }
-            }
-            else
-                setPosition(position);
-        }
-        return dir;
-    }
 
     public void draw(Graphics g) {
-
+        for (Component c: getChildren()) {
+            c.draw(g);
+        }
     }
 
-
+    public Vector2 movePosition(Vector2 add) {
+        return add;
+    }
 }

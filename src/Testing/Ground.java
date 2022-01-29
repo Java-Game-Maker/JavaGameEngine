@@ -9,10 +9,10 @@ public class Ground extends GameObject {
 
     public Ground() {
         setScale(new Vector2(600,100));
-        setPosition(new Vector2(100,500));
+        setPosition(new Vector2(0,500));
         SquareCollider squareCollider = new SquareCollider();
         squareCollider.setScale(getScale());
-        //squareCollider.setPosition(getPosition());
+        squareCollider.setPosition(getPosition());
         addChild(squareCollider);
     }
 

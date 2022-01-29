@@ -79,13 +79,7 @@ public class GameWorld extends JPanel{
     }
     private void drawComponents(Graphics g){
         for(Component c : ComponentHandler.getObjects()){
-            try{
-                (c).draw(g);
-            }catch (Exception e){}
-            try{
-                JavaGameEngine.Components.Ui.Label ui= (JavaGameEngine.Components.Ui.Label)c;
-                g.drawString(ui.getValue(), (int) ui.getPosition().getX(), (int) ui.getPosition().getY());
-            }catch (Exception e){}
+            (c).draw(g);
         }
     }
 

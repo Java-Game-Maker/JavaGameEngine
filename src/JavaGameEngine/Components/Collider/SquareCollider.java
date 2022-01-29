@@ -1,7 +1,9 @@
 package JavaGameEngine.Components.Collider;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.msc.Debug;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class SquareCollider extends Collider{
@@ -59,13 +61,21 @@ public class SquareCollider extends Collider{
                             player1.x + player1.width > player2.x &&
                             player1.y < player2.y + player2.height &&
                             player1.y + player1.height > player2.y) {
-                        //System.out.println(ob1.getParent().getTag()+" collides with "+ob.getTag());
+                        Debug.log("collide");
                         return ob2;
                     }
                 }
             }
         }
         return null;
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        g.setColor(Color.GREEN);
+        g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+        g.setColor(Color.darkGray);
     }
 
     public SquareCollider copy()

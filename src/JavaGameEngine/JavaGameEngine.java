@@ -19,7 +19,8 @@ public class JavaGameEngine {
     public static final int DELAY = 16;
     public static GameWorld GAMEWORLD = new GameWorld();
     static JFrame frame;
-
+    private static float start;
+    public static float DeltaTime;
     public static void init()
     {
         frame = new JFrame();
@@ -33,8 +34,7 @@ public class JavaGameEngine {
      * this it the method to start the game engine
      * do every setup thing before calling start
      */
-    public static void start()
-    {
+    public static void start() {
             frame = JavaGameEngine.frame;
             startGame();
     }
@@ -43,8 +43,7 @@ public class JavaGameEngine {
      * do every setup thing before calling start
      * @param frame the frame you want to render in
      */
-    public static void start(JFrame frame)
-    {
+    public static void start(JFrame frame) {
         JavaGameEngine.frame = frame;
         startGame();
     }
@@ -59,18 +58,18 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Debug.startCount();
                 calcThread.Update();
-                Debug.endCount();
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();
         timer1.schedule(new TimerTask() {
             @Override
             public void run() {
-
+                start = System.nanoTime();
                 GAMEWORLD.repaint();
                 Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
+                DeltaTime = (System.nanoTime()-start)/1000000000;
+                //Debug.log(DeltaTime);
             }
         }, DELAY,DELAY);
     }

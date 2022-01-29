@@ -28,7 +28,7 @@ public class Main extends JavaGameEngine{
         //ComponentHandler.addObject(l);
         ComponentHandler.addObject(ground);
 
-        start(frame);
+        start();
     }
 
 }
