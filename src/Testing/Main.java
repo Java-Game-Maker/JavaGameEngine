@@ -6,6 +6,7 @@ import JavaGameEngine.Components.Ui.Label;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Main extends JavaGameEngine{
@@ -13,10 +14,11 @@ public class Main extends JavaGameEngine{
     public static void main(String[] args){
 
         init();
-        for(int i = 0;i<2000;i++){
-            Player s = new Player(new Vector2(i*11,10));
-            ComponentHandler.addObject(s);
-        }
+
+        Player s = new Player(new Vector2(10,10));
+        ComponentHandler.addObject(s);
+        JFrame frame = new JFrame();
+        frame.setTitle("My example Title");
 
         Ground ground = new Ground();
 
@@ -26,7 +28,7 @@ public class Main extends JavaGameEngine{
         //ComponentHandler.addObject(l);
         ComponentHandler.addObject(ground);
 
-        start(null);
+        start(frame);
     }
 
 }

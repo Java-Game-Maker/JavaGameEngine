@@ -32,13 +32,23 @@ public class JavaGameEngine {
     /**
      * this it the method to start the game engine
      * do every setup thing before calling start
-     * @param frame the frame you want to render in (null for default frame)
+     */
+    public static void start()
+    {
+            frame = JavaGameEngine.frame;
+            startGame();
+    }
+    /**
+     * this it the method to start the game engine
+     * do every setup thing before calling start
+     * @param frame the frame you want to render in
      */
     public static void start(JFrame frame)
     {
-        if(frame==null)
-            frame = JavaGameEngine.frame;
-
+        JavaGameEngine.frame = frame;
+        startGame();
+    }
+    private static void startGame(){
         frame.setVisible(true);
         frame.add(GAMEWORLD);
         GAMEWORLD.setFocusable(true);
@@ -64,4 +74,5 @@ public class JavaGameEngine {
             }
         }, DELAY,DELAY);
     }
+
 }
