@@ -205,7 +205,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 <!-- CONTACT -->
 ## Contact
 
-Alfred Roos - email@example.com
+Alfred Roos - alfred@stensatter.se
 
 Project Link: [https://github.com/Java-Game-Maker/JavaGameEngine](https://github.com/Java-Game-Maker/JavaGameEngine)
 
