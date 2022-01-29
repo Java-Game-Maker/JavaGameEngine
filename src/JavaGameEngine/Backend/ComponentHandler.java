@@ -1,6 +1,5 @@
 package JavaGameEngine.Backend;
 
-import JavaGameEngine.Backend.Node.Node;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.msc.Debug;
 import sun.awt.image.ImageWatched;
