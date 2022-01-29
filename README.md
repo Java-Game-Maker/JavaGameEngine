@@ -217,7 +217,7 @@ Project Link: [https://github.com/Java-Game-Maker/JavaGameEngine](https://github
 <!-- ACKNOWLEDGMENTS -->
 ## Acknowledgments
 
-Use this space to list resources you find helpful and would like to give credit to. I've included a few of my favorites to kick things off!
+Thanks to every on who has helped with this project. I want to special thanks to the following
 
 * [One Lone Coder (olc)](https://www.youtube.com/c/javidx9/videos)
 * [SharkooMaster](https://github.com/SharkooMaster)
