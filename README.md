@@ -218,7 +218,7 @@ Project Link: [https://github.com/Java-Game-Maker/JavaGameEngine](https://github
 
 Thanks to every on who has helped with this project. I want to special thanks to the following
 
-* [One Lone Coder (olc)](https://www.youtube.com/c/javidx9/videos)
+* [One Lone Coder (olc)](https://www.youtube.com/c/javidx9/)
 * [SharkooMaster](https://github.com/SharkooMaster)
 
 
