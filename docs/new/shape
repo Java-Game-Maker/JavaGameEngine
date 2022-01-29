@@ -1,0 +1,8 @@
+shape is a shape of verticies
+it should return a polygon object java awt. this is becouse
+the paint in gameworld has a fucntion to paint the polygon object
+
+rotation
+scale
+position
+

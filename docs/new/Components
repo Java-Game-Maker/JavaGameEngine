@@ -1,0 +1,20 @@
+all the objets that should be updated and renderd should extend the component class
+example gameobject
+
+a component
+position //global position
+localPosition //localPosition
+rotation vec2
+scale 
+isEnabled //if the component should be updated
+Component parent
+
+update()
+onCollision()
+onCollisionenter()
+onCollisionxit()
+ontrigger()
+ontriggerenter()
+ontriggerexit()
+
+
