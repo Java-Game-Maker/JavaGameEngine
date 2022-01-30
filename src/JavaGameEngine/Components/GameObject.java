@@ -3,6 +3,7 @@ import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
+import JavaGameEngine.Components.Sprite.Sprite;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -14,7 +15,14 @@ public class GameObject extends Component{
      */
     @Override
     public void draw(Graphics g){
-        g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+        Sprite sprite = (Sprite) getChild(new Sprite());
+        if(sprite!=null){
+            g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
+        }
+        else{
+            g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+        }
+
         for(Component c : components){
             c.draw(g);
         }

@@ -5,6 +5,15 @@ import JavaGameEngine.Components.Component;
 public abstract class Collider extends Component {
 
     private boolean isTrigger= false;
+    private boolean isVisible = false;
+
+    public boolean isVisible() {
+        return isVisible;
+    }
+
+    public void setVisible(boolean visible) {
+        isVisible = visible;
+    }
 
     public boolean isTrigger() {
         return isTrigger;

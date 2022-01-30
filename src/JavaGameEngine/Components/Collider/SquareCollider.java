@@ -61,7 +61,7 @@ public class SquareCollider extends Collider{
                             player1.x + player1.width > player2.x &&
                             player1.y < player2.y + player2.height &&
                             player1.y + player1.height > player2.y) {
-                        Debug.log("collide");
+//                        Debug.log("collide");
                         return ob2;
                     }
                 }
@@ -73,9 +73,11 @@ public class SquareCollider extends Collider{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.setColor(Color.GREEN);
-        g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
-        g.setColor(Color.darkGray);
+        if(isVisible()){
+            g.setColor(Color.GREEN);
+            g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+            g.setColor(Color.darkGray);
+        }
     }
 
     public SquareCollider copy()
