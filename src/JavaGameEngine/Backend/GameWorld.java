@@ -73,6 +73,8 @@ public class GameWorld extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawComponents(g);
+        g.fillOval(200,200,10,10);
+
     }
     private void drawUi(Graphics g){
 

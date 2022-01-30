@@ -15,7 +15,10 @@ public class Component {
 
     Vector2 position=Vector2.zero; // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
+
     Vector2 scale=Vector2.zero; // scale with,height
+    Vector2 localScale=Vector2.zero; // local scale with,height
+
     Vector2 rotation=Vector2.zero; // rotation
     Vector2 localRotation=Vector2.zero; // local rotation this is to let children rotate separate to parent
 
@@ -46,6 +49,12 @@ public class Component {
         this.position = position;
       //  updateChildren();
     }
+    public Vector2 getSpritePosition(){
+        float x = (getPosition().getX()-((getScale().getX()/2)));
+        float y = (getPosition().getY()-((getScale().getY()/2)));
+
+        return new Vector2(x,y);
+    }
 
     public Vector2 getLocalPosition() {
         return localPosition;
@@ -59,6 +68,13 @@ public class Component {
     }
     public void setScale(Vector2 scale) {
         this.scale = scale;
+    }
+
+    public Vector2 getLocalScale() {
+        return localScale;
+    }
+    public void setLocalScale(Vector2 localScale) {
+        this.localScale = localScale;
     }
 
     public Vector2 getRotation() {
@@ -152,8 +168,13 @@ public class Component {
          //   Debug.log(this);
 
         if(parent!=null) {
-            setPosition(parent.getPosition().add(getLocalPosition())); // we get the parents position and we add our localPosition
+            float x = (parent.getPosition().getX()-((getScale().getX()/2)));
+            float y = (parent.getPosition().getY()-((getScale().getY()/2)));
+
+            setPosition(new Vector2(x,y).add(localPosition)); // we get the parents position and we add our localPosition
+
             setRotation(parent.getRotation().add(getLocalRotation()));
+            setScale(parent.getScale().add(getLocalScale()));
         }
         if(components.size()>0){
             updateChildren(); // updates all the children

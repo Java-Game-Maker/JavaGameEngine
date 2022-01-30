@@ -16,6 +16,7 @@ public class Player extends GameObject {
         setScale(new Vector2(100,100));
         addChild(new PhysicsBody());
         SquareCollider s = new SquareCollider();
+        s.setLocalScale(new Vector2(-10,-10));
         addChild(s);
         s.setScale(new Vector2(50,getScale().getY()));
     }
