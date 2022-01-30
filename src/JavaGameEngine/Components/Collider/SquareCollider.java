@@ -52,8 +52,8 @@ public class SquareCollider extends Collider{
                 for (Component ob21 : ob.getChildren(new SquareCollider())) {
                     Collider ob2 = (Collider) ob21;
                     Player player2 = new Player();
-                    player2.x = ob2.getPosition().getX() - ob2.getScale().getX() / 2;
-                    player2.y = ob2.getPosition().getY() - ob2.getScale().getY() / 2;
+                    player2.x = ob2.getPosition().getX();
+                    player2.y = ob2.getPosition().getY();
                     player2.height = ob2.getScale().getY();
                     player2.width = ob2.getScale().getX();
 
@@ -61,7 +61,7 @@ public class SquareCollider extends Collider{
                             player1.x + player1.width > player2.x &&
                             player1.y < player2.y + player2.height &&
                             player1.y + player1.height > player2.y) {
-                        Debug.log("collide");
+//                        Debug.log("collide");
                         return ob2;
                     }
                 }
@@ -73,9 +73,35 @@ public class SquareCollider extends Collider{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.setColor(Color.GREEN);
-        g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
-        g.setColor(Color.darkGray);
+
+        if(isVisible()){
+            g.setColor(Color.GREEN);
+            g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+            g.setColor(Color.darkGray);
+        }
+        /*
+        Point ob11 = new Point();
+        ob11.x = (int) (getPosition().getX()+getScale().getX());
+        ob11.y = (int) (getPosition().getY());
+
+        Point ob12 = new Point();
+        ob12.x = (int) (getPosition().getX());
+        ob12.y = (int) (getPosition().getY()
+        );
+
+        Point ob13 = new Point();
+        ob13.x = (int) (getPosition().getX());
+        ob13.y = (int) (getPosition().getY()+getScale().getY());
+
+        Point ob14 = new Point();
+        ob14.x = (int) (getPosition().getX()+getScale().getX());
+        ob14.y = (int) (getPosition().getY()+getScale().getY());
+
+        g.drawOval((int) ob11.x, (int) ob11.y,5,5);
+        g.drawOval((int) ob12.x, (int) ob12.y,5,5);
+        g.drawOval((int) ob13.x, (int) ob13.y,5,5);
+        g.drawOval((int) ob14.x, (int) ob14.y,5,5);
+        */
     }
 
     public SquareCollider copy()
