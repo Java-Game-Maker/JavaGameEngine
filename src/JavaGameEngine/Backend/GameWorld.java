@@ -13,6 +13,7 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.geom.AffineTransform;
 
 public class GameWorld extends JPanel{
     /*
@@ -23,6 +24,7 @@ public class GameWorld extends JPanel{
         /*
           Key keyboard inputs
          */
+
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -72,6 +74,7 @@ public class GameWorld extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         drawComponents(g);
         g.fillOval(200,200,10,10);
 
