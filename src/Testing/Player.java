@@ -12,12 +12,15 @@ import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
+import java.util.Observer;
 
 public class Player extends GameObject {
     Label speed = new Label();
     public Player(Vector2 pos) {
+
         Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
         sprite.loadAnimation(new Rectangle[]{new Rectangle(0,0,250,250),new Rectangle(0,250,250,250)},"/spritesheet.png");
+        //sprite.loadAnimation(new String[]{"/spritesheet.png"});
         sprite.setLocalPosition(new Vector2(0,10));
         addChild(sprite);
 

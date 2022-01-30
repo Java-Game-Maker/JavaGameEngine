@@ -113,6 +113,7 @@ public class Component {
      */
     public void addChild(Component c){
         c.setParent(this);
+        Debug.log("added "+c);
         this.components.add(c);
     }
 
@@ -185,7 +186,7 @@ public class Component {
             float x = (parent.getPosition().getX()-((getScale().getX()/2)));
             float y = (parent.getPosition().getY()-((getScale().getY()/2)));
 
-            setPosition(new Vector2(x,y).add(localPosition)); // we get the parents position and we add our localPosition
+            setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
 
             setRotation(parent.getRotation().add(getLocalRotation()));
             setScale(parent.getScale().add(getLocalScale()));
