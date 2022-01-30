@@ -73,12 +73,16 @@ public class SquareCollider extends Collider{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
+<<<<<<< HEAD
 
+=======
+>>>>>>> animation
         if(isVisible()){
             g.setColor(Color.GREEN);
             g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
             g.setColor(Color.darkGray);
         }
+<<<<<<< HEAD
         /*
         Point ob11 = new Point();
         ob11.x = (int) (getPosition().getX()+getScale().getX());
@@ -102,6 +106,8 @@ public class SquareCollider extends Collider{
         g.drawOval((int) ob13.x, (int) ob13.y,5,5);
         g.drawOval((int) ob14.x, (int) ob14.y,5,5);
         */
+=======
+>>>>>>> animation
     }
 
     public SquareCollider copy()
