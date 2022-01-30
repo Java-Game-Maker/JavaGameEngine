@@ -19,9 +19,7 @@
 <!-- PROJECT LOGO -->
 <br />
 <div align="center">
-  <a href="https://github.com/othneildrew/Best-README-Template">
-    <img src="images/logo.png" alt="Logo" width="400">
-  </a>
+  
 
 <h3 align="center">JavaGameEngine</h3>
 
@@ -37,6 +35,9 @@
     ·
     <a href="https://github.com/Java-Game-Maker/JavaGameEngine/issues">Request Feature</a>
   </p>
+  <a href="https://github.com/othneildrew/Best-README-Template">
+    <img src="images/logo.png" alt="Logo" width="300">
+  </a>
 </div>
 
 
@@ -74,11 +75,11 @@
 
 [![Product Name Screen Shot][product-screenshot]](https://example.com)
 
-Then creating fun game projects there is a lot of code just to get you going so we created this awsome game engine to let you
+When creating fun game projects there is a lot of code just to get you going so we created this awsome game engine to let you
 go directly to the fun of gamemaking. 
 
 Here's why:
-* Your time should be focused on creating something amazing. A project that solves a problem and helps others
+* Your time should be focused on creating something amazing. A game that is very fun with great fetures
 * You shouldn't be doing the same tasks over and over like creating all the hidius game making code
 * You should implement DRY principles to the rest of your life :smile:
 
