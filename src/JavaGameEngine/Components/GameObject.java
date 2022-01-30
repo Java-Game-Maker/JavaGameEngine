@@ -4,6 +4,7 @@ import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
 import JavaGameEngine.Components.Sprite.Sprite;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -13,26 +14,25 @@ public class GameObject extends Component{
     /**
      * this is the method that draws the GameObject
      */
+
     @Override
     public void draw(Graphics g){
-<<<<<<< HEAD
-        g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         //g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
-=======
         Sprite sprite = (Sprite) getChild(new Sprite());
         if(sprite!=null){
+           // Debug.startCount();
             g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
+            //Debug.log(this);
+            //Debug.endCount();
         }
         else{
-            g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+            g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
 
->>>>>>> animation
         for(Component c : components){
             c.draw(g);
         }
     }
-
     /**
      * check if the new position will collide otherwise we set the new position
      * and return the direction we can move
@@ -40,6 +40,7 @@ public class GameObject extends Component{
      * @param position the position to test
      * @return returns the directory we can move
      */
+
     @Override
     public Vector2 movePosition(Vector2 position) {
         /*

@@ -41,7 +41,6 @@ public class UpdateThread extends Thread{
             }
             delObjects.clear();
         }
-
     }
 
     @Override

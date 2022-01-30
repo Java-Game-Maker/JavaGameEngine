@@ -58,18 +58,17 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+               // Debug.startCount();
                 calcThread.Update();
+                //Debug.endCount();
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();
         timer1.schedule(new TimerTask() {
             @Override
             public void run() {
-                start = System.nanoTime();
                 GAMEWORLD.repaint();
-                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
-                DeltaTime = (System.nanoTime()-start)/1000000000;
-                //Debug.log(DeltaTime);
+                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linuxddddd
             }
         }, DELAY,DELAY);
     }

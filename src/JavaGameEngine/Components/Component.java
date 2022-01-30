@@ -26,7 +26,21 @@ public class Component {
     LinkedList<Component> components = new LinkedList<>(); // children
 
     boolean isEnabled = true;
+    private String tag = "unnamed";
 
+
+    public Component() {
+        this.scale = new Vector2(100,100);
+        this.position = new Vector2(200,200);
+    }
+
+    public String getTag() {
+        return tag;
+    }
+
+    public void setTag(String tag) {
+        this.tag = tag;
+    }
 
     public Vector2 getLocalRotation() {
         return localRotation;
@@ -92,12 +106,6 @@ public class Component {
         isEnabled = enabled;
     }
 
-
-    public Component() {
-        this.scale = new Vector2(100,100);
-        this.position = new Vector2(200,200);
-    }
-
     /**
      * This function adds a child to the parent
      * it could be any JavaGameEngine component GameObject, Physics-body and so on
@@ -121,7 +129,6 @@ public class Component {
         }
         return null;
     }
-
     /**
      * This method will return the all children in the children with the same type as the argument
      * example LinkedList<GameObjects> a = this.getChild(new GameObject());
@@ -143,7 +150,9 @@ public class Component {
     public LinkedList<Component> getChildren(){
         return components;
     }
-
+    public void removeChild(Component child){
+        components.remove(child);
+    }
     /**
      * This method will add the component to the component handler
      * this means that you have created a new parent
@@ -152,13 +161,18 @@ public class Component {
     public void instantiate(Component c){
         UpdateThread.newObjects.add(c);
     }
-
     /**
      * This method will destroy this object it will remove it from the component handler
      */
     public void destroy(){
+        if(this.parent !=null){
+            parent.removeChild(this);
+        }
+        if(components.size()>0){
+            components.clear();
+        }
+        UpdateThread.delObjects.add(this);
     }
-
     /***
      * this is the update function. It will be called on every game update
      */
@@ -215,8 +229,6 @@ public class Component {
      */
     public void onTrigger(Component c){
     }
-
-
 
     public void draw(Graphics g) {
         for (Component c: getChildren()) {

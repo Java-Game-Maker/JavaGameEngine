@@ -5,19 +5,13 @@ import JavaGameEngine.Components.Component;
 public abstract class Collider extends Component {
 
     private boolean isTrigger= false;
-<<<<<<< HEAD
+
     private boolean isVisible = true;
-=======
-    private boolean isVisible = false;
->>>>>>> animation
 
     public boolean isVisible() {
         return isVisible;
     }
-<<<<<<< HEAD
-=======
 
->>>>>>> animation
     public void setVisible(boolean visible) {
         isVisible = visible;
     }

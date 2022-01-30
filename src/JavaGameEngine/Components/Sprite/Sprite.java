@@ -22,6 +22,15 @@ public class Sprite extends Component {
     float timer = 10;
     int currentSprite = 0;
 
+
+    public float getTimer() {
+        return timer;
+    }
+
+    public void setTimer(float timer) {
+        this.timer = timer;
+    }
+
     /**
      * This function loads in sprites from a sprite sheet
      * @param tiles array of rectangles that is the sprites

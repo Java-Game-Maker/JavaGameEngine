@@ -20,13 +20,12 @@ public class Main extends JavaGameEngine{
         JFrame frame = new JFrame();
         frame.setTitle("My example Title");
 
-        Ground ground = new Ground();
+            Ground ground = new Ground();
+            ComponentHandler.addObject(ground);
 
-        //Label l = new Label();
-        //l.setValue("knas");
 
-        //ComponentHandler.addObject(l);
-        ComponentHandler.addObject(ground);
+        ComponentHandler.addObject(new Coin());
+
 
         start();
     }
