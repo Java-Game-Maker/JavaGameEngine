@@ -8,6 +8,10 @@ import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.geom.PathIterator;
+import java.awt.geom.Point2D;
+import java.awt.geom.Rectangle2D;
 
 public class GameObject extends Component{
 
@@ -15,21 +19,25 @@ public class GameObject extends Component{
      * this is the method that draws the GameObject
      */
 
+    public Shape shape = new Shape();
+
     @Override
     public void draw(Graphics g){
-        //g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         Sprite sprite = (Sprite) getChild(new Sprite());
-        if(sprite!=null){
-            //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
-        }
-        else{
+        if(sprite==null){
             g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
-
+        g.drawPolygon(shape.getPolygon());
         for(Component c : components){
             c.draw(g);
         }
     }
+
+    @Override
+    public void setPosition(Vector2 position) {
+        super.setPosition(position);
+    }
+
     /**
      * check if the new position will collide otherwise we set the new position
      * and return the direction we can move

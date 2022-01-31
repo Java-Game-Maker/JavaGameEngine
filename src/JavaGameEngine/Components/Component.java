@@ -16,7 +16,7 @@ public class Component {
     Vector2 position=Vector2.zero; // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
 
-    Vector2 scale=Vector2.zero; // scale with,height
+    Vector2 scale=new Vector2(100,100); // scale with,height
     Vector2 localScale=Vector2.zero; // local scale with,height
 
     Vector2 rotation=Vector2.zero; // rotation

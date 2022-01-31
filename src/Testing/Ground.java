@@ -13,6 +13,7 @@ import java.awt.*;
 public class Ground extends GameObject {
 
     public Ground() {
+
         setScale(new Vector2(1000,64));
         setPosition(new Vector2(300,500));
         for(int i = -300;i<500;i++){

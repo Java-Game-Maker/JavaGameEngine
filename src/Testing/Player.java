@@ -17,7 +17,6 @@ import java.util.Observer;
 public class Player extends GameObject {
     Label speed = new Label();
     public Player(Vector2 pos) {
-
         Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
         sprite.loadAnimation(new Rectangle[]{new Rectangle(0,0,250,250),new Rectangle(0,250,250,250)},"/spritesheet.png");
         //sprite.loadAnimation(new String[]{"/spritesheet.png"});
@@ -26,7 +25,7 @@ public class Player extends GameObject {
 
         setScale(new Vector2(100,100));
 
-        addChild(new PhysicsBody());
+        //addChild(new PhysicsBody());
 
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(0,-40));
@@ -52,6 +51,7 @@ public class Player extends GameObject {
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
         }
-        speed.setValue(String.valueOf(((PhysicsBody)getChild(new PhysicsBody())).getVelocity()));
+        shape.setPosition(getPosition());
+
     }
 }

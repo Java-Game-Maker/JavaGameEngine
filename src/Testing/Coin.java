@@ -13,6 +13,7 @@ import java.awt.*;
 public class Coin extends GameObject {
 
     public Coin() {
+        super();
 
         Sprite sprite = new Sprite();
         String[] paths = new String[16];
