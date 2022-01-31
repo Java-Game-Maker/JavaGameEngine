@@ -17,14 +17,14 @@ public class Ground extends GameObject {
         setPosition(new Vector2(300,500));
         for(int i = -300;i<500;i++){
             Sprite s = new Sprite();
-            s.loadAnimation(new Rectangle[]{new Rectangle(0,0,32,32)},"/sprites/1 Tiles/Tile_02.png");
+            s.loadAnimation(new Rectangle[]{new Rectangle(0,0,128,128)},"/Free Platform Game Assets/Platform Game Assets/Tiles/png/128x128/Grass.png");
             s.setLocalScale(new Vector2(-getScale().getX()+64,-getScale().getY()+64));
             s.setLocalPosition(new Vector2(i*64,0));
             addChild(s);
         }
         for(int i = -300;i<500;i++){
             Sprite s = new Sprite();
-            s.loadAnimation(new Rectangle[]{new Rectangle(0,0,32,32)},"/sprites/1 Tiles/Tile_12.png");
+            s.loadAnimation(new Rectangle[]{new Rectangle(0,0,128,128)},"/Free Platform Game Assets/Platform Game Assets/Tiles/png/128x128/Dirt.png");
             s.setLocalScale(new Vector2(-getScale().getX()+64,-getScale().getY()+64));
             s.setLocalPosition(new Vector2(i*64,64));
             addChild(s);

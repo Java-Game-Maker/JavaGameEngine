@@ -6,7 +6,7 @@ public abstract class Collider extends Component {
 
     private boolean isTrigger= false;
 
-    private boolean isVisible = true;
+    private boolean isVisible = false;
 
     public boolean isVisible() {
         return isVisible;

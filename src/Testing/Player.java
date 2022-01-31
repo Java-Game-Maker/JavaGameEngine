@@ -34,8 +34,9 @@ public class Player extends GameObject {
         addChild(s);
     }
     @Override
-    public void onCollision(Component c) {
-        super.onCollision(c);
+    public void onTrigger(Component c) {
+        super.onTrigger(c);
+
         if(c.getTag().equals("Coin")){
             c.destroy();
         }

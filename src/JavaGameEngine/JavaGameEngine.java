@@ -58,9 +58,9 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-                Debug.startCount();
+               // Debug.startCount();
                 calcThread.Update();
-                Debug.endCount();
+               // Debug.endCount();
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();

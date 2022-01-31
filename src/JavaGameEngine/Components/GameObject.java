@@ -86,6 +86,7 @@ public class GameObject extends Component{
                         //checks if we can move the object on the y-axis
                         SquareCollider xcolider = (SquareCollider) c.copy();
                         xcolider.setPosition(getPosition().add(dir.removeX()));
+                        xcolider.setParent(this);
 
                         if((SquareCollider.isCollision(xcolider,c,ComponentHandler.getObjects()))!=null) {
                             c2= (Collider) SquareCollider.isCollision(xcolider,c,ComponentHandler.getObjects());
@@ -95,6 +96,7 @@ public class GameObject extends Component{
                         //checks if we can move the object on the x-axis
                         SquareCollider ycolider = (SquareCollider) c.copy();
                         ycolider.setPosition(getPosition().add(dir.removeY()));
+                        ycolider.setParent(this);
 
                         if((SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects()))!=null) {
                             c2= (Collider) SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects());

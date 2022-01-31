@@ -113,7 +113,7 @@ public class Component {
      */
     public void addChild(Component c){
         c.setParent(this);
-        Debug.log("added "+c);
+        //Debug.log("added "+c);
         this.components.add(c);
     }
 

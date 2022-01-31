@@ -14,13 +14,14 @@ public class SquareCollider extends Collider{
     public void collisionHandler(Component ob2)
     {
         if(!hasCollided&&ob2!=null) {
-            if(!isTrigger()) {
+            if(!isTrigger()&&((Collider)ob2).isTrigger()==false) {
                 getParent().onCollision(ob2.getParent());
                 if(!hasCollided) {
                     getParent().onCollisionEnter(ob2.getParent());
                 }
             }
             else {
+                Debug.log("knas");
                 getParent().onTrigger(ob2.getParent());
             }
             hasCollided=true;
@@ -62,7 +63,12 @@ public class SquareCollider extends Collider{
                             player1.y < player2.y + player2.height &&
                             player1.y + player1.height > player2.y) {
 //                        Debug.log("collide");
-                        return ob2;
+                        if(!ob1.isTrigger()&& !ob2.isTrigger())
+                            return ob2;
+                        else {
+                            ob1.getParent().onTrigger(ob2.getParent());
+                            ob2.getParent().onTrigger(ob1.getParent());
+                        }
                     }
                 }
             }
