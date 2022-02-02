@@ -23,8 +23,11 @@ public class Main extends JavaGameEngine{
         Ground ground = new Ground();
         ComponentHandler.addObject(ground);
 
-
-        ComponentHandler.addObject(new Coin());
+        for(int i = 0;i<10;i++){
+            Coin coin = new Coin();
+            coin.setPosition(new Vector2(i*100,420));
+            ComponentHandler.addObject(coin);
+        }
 
 
         start();

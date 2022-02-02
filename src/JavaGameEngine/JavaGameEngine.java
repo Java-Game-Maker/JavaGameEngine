@@ -47,6 +47,14 @@ public class JavaGameEngine {
         JavaGameEngine.frame = frame;
         startGame();
     }
+    public static float previous = System.nanoTime();
+
+    public static float totalElapsed = 0.0f;
+
+    public static float deltaTime = 0f;
+
+    private static int fps = 0;
+
     private static void startGame(){
         frame.setVisible(true);
         frame.add(GAMEWORLD);
@@ -58,19 +66,34 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-               // Debug.startCount();
+
+
                 calcThread.Update();
-               // Debug.endCount();
+
+
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();
         timer1.schedule(new TimerTask() {
             @Override
             public void run() {
+                Debug.log(fps);
+
+                float current = System.nanoTime();
+                deltaTime = current - previous;
+                previous = current;
+                // Debug.log(totalElapsed);
                 GAMEWORLD.repaint();
                 Toolkit.getDefaultToolkit().sync(); // so it does not lag on linuxddddd
+                totalElapsed += deltaTime;
+                if((totalElapsed/1000000000)>1){
+                    totalElapsed = 0;
+                    fps = 0;
+                }
+                fps++;
             }
         }, DELAY,DELAY);
+
     }
 
 }

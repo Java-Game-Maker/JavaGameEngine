@@ -8,6 +8,7 @@ import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.Components.Physics.PhysicsBody;
 import JavaGameEngine.Components.Sprite.Sprite;
 import JavaGameEngine.Components.Ui.Label;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
@@ -39,19 +40,19 @@ public class Player extends GameObject {
 
         if(c.getTag().equals("Coin")){
             c.destroy();
+            instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
+
         }
     }
     @Override
     public void update() {
         super.update();
-        if(Input.isKeyPressed(Keys.SPACE))
-            ((PhysicsBody)this.getChild(new PhysicsBody())).addForce(Vector2.up,500);
+
         if(Input.isKeyDown((Keys.D))){
             movePosition(getPosition().add(Vector2.right.multiply(2)));
         }
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
         }
-        speed.setValue(String.valueOf(((PhysicsBody)getChild(new PhysicsBody())).getVelocity()));
     }
 }

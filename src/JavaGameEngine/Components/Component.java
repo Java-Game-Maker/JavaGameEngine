@@ -160,17 +160,17 @@ public class Component {
      * @param c the object to instantiate
      */
     public void instantiate(Component c){
-        UpdateThread.newObjects.add(c);
+        //UpdateThread.newObjects.add(c);
     }
     /**
      * This method will destroy this object it will remove it from the component handler
      */
     public void destroy(){
         if(this.parent !=null){
-            parent.removeChild(this);
+            //parent.removeChild(this);
         }
         if(components.size()>0){
-            components.clear();
+           // components.clear();
         }
         UpdateThread.delObjects.add(this);
     }

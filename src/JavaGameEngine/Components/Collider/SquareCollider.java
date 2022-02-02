@@ -14,7 +14,7 @@ public class SquareCollider extends Collider{
     public void collisionHandler(Component ob2)
     {
         if(!hasCollided&&ob2!=null) {
-            if(!isTrigger()&&((Collider)ob2).isTrigger()==false) {
+            if(!isTrigger()&& !((Collider) ob2).isTrigger()) {
                 getParent().onCollision(ob2.getParent());
                 if(!hasCollided) {
                     getParent().onCollisionEnter(ob2.getParent());

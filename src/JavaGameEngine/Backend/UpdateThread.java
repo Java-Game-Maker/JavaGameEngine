@@ -1,6 +1,7 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Debug;
 
 import java.util.LinkedList;

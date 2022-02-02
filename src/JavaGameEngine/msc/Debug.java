@@ -8,6 +8,9 @@ public class Debug {
     public static void startCount(){
         a = System.nanoTime();
     }
+    /***
+     * this function will print the amount of time in nanosecunds since the startcound function was called
+     */
     public static void endCount(){
         logPriv(String.valueOf((System.nanoTime()-a)));
     }

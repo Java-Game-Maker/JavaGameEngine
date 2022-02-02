@@ -14,6 +14,7 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
+import java.util.Iterator;
 
 public class GameWorld extends JPanel{
     /*
@@ -80,9 +81,14 @@ public class GameWorld extends JPanel{
 
     }
     private void drawComponents(Graphics g){
-        for(Component c : ComponentHandler.getObjects()){
+
+        Iterator<Component> iterator = ComponentHandler.getObjects().iterator();
+        while (iterator.hasNext()){
+            Component c = iterator.next();
             (c).draw(g);
+
         }
+
     }
 
 }
