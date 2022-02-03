@@ -77,8 +77,6 @@ public class JavaGameEngine {
         timer1.schedule(new TimerTask() {
             @Override
             public void run() {
-                Debug.log(fps);
-
                 float current = System.nanoTime();
                 deltaTime = current - previous;
                 previous = current;

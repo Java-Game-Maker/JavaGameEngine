@@ -13,9 +13,10 @@ import java.awt.*;
 public class Ground extends GameObject {
 
     public Ground() {
-        setScale(new Vector2(1000,64));
+        setScale(new Vector2(600,64));
         setPosition(new Vector2(300,500));
 
+        /*
         for(int i = -300;i<50;i++){
             Sprite s = new Sprite();
             s.loadAnimation(new Rectangle[]{new Rectangle(0,0,128,128)},"/Free Platform Game Assets/Platform Game Assets/Tiles/png/128x128/Grass.png");
@@ -23,10 +24,10 @@ public class Ground extends GameObject {
             s.setLocalPosition(new Vector2(i*64,0));
             addChild(s);
         }
-
+*/
         SquareCollider s = new SquareCollider();
-        s.setLocalPosition(new Vector2(1000,0));
-        s.setLocalScale(new Vector2(1000*64,0));
+        s.setLocalPosition(new Vector2(0,0));
+        s.setLocalScale(new Vector2(600,0));
         addChild(s);
 
     }
