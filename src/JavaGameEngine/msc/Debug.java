@@ -20,6 +20,9 @@ public class Debug {
     public static void log(String log){
         logPriv((log));
     }
+    public static void log(Vector2 vec2){
+        logPriv((vec2).toString());
+    }
     public static void log(int log){
         logPriv(String.valueOf(log));
     }
