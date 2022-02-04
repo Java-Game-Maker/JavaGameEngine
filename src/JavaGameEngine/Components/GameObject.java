@@ -19,15 +19,18 @@ public class GameObject extends Component{
      * this is the method that draws the GameObject
      */
 
-    public Shape shape = new Shape();
+    public Shape shape = new Shape(this);
 
     @Override
     public void draw(Graphics g){
+        g.setColor(Color.GREEN);
+        g.drawPolygon(shape.getPolygon());
+        g.setColor(Color.DARK_GRAY);
+
         Sprite sprite = (Sprite) getChild(new Sprite());
         if(sprite==null){
             g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
-        g.drawPolygon(shape.getPolygon());
         for(Component c : components){
             c.draw(g);
         }
