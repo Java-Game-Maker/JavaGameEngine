@@ -27,7 +27,7 @@ public class GameObject extends Component{
         if(sprite==null){
             g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
-        g.drawPolygon(shape.getPolygon());
+
         for(Component c : components){
             c.draw(g);
         }

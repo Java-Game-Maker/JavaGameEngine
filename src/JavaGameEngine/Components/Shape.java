@@ -9,30 +9,32 @@ public class Shape extends Component{
 
     //this is the points to represent the shape
     private Vector2[] localPoints = new Vector2[]{new Vector2(0,0),new Vector2(1,0),new Vector2(0,1),new Vector2(1,1)};
+
     //this is the points that have a position in space
     //they have the shape of the localpoints but not the position
-    private Vector2[] points = new Vector2[]{new Vector2(0,0),new Vector2(1,0),new Vector2(0,1),new Vector2(1,1)};
-
-
+    private Vector2[] points = new Vector2[]{new Vector2(200,190),new Vector2(200,300),new Vector2(300,300),new Vector2(300,200)};
 
     @Override
     public void setPosition(Vector2 position) {
-        this.scale(new Vector2(100,100));
+
+        float x = position.getX()-(scale.getX()/2);
+        float y = position.getY()-(scale.getY()/2);
+        position = new Vector2(x,y);
+
         for(int i = 0;i< points.length;i++){
-            points[i] = points[i].subtract(this.position).add(position);
-            Debug.log(points[i].toString());
+
+            points[i] = points[i].add(position.subtract(this.position));
         }
         this.position = position;
-
     }
     void scale(Vector2 scale){
-        for(int i = 0;i< points.length;i++){
-            points[i] = points[i].subtract(this.scale).add(scale);
-            Debug.log(points[i].toString());
-        }
-        this.scale = position;
+        /*
+            First point will be the base point
+            then the next will be the base point added with scale
+            and so on...
+         */
     }
-    void rotate(double angle){
+    public void rotate(double angle){
         Vector2[] newPoints = new Vector2[points.length];
         int i = 0;
         for(Vector2 p:points){
@@ -46,7 +48,7 @@ public class Shape extends Component{
             newPoints[i] = pr;
             i++;
         }
-
+        points=newPoints;
     }
 
     public Polygon getPolygon() {

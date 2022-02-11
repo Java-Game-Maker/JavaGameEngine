@@ -25,12 +25,13 @@ public class Player extends GameObject {
 
         setScale(new Vector2(100,100));
 
-        //addChild(new PhysicsBody());
+        addChild(new PhysicsBody());
 
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(0,-40));
         s.setVisible(true);
         addChild(s);
+        shape.setScale(new Vector2(100,100));
     }
     @Override
     public void onTrigger(Component c) {
@@ -44,14 +45,31 @@ public class Player extends GameObject {
     public void update() {
         super.update();
         if(Input.isKeyPressed(Keys.SPACE))
-            ((PhysicsBody)this.getChild(new PhysicsBody())).addForce(Vector2.up,500);
+            ((PhysicsBody)this.getChild(new PhysicsBody())).addForce(Vector2.up,1000);
+            //shape.rotate(45);
         if(Input.isKeyDown((Keys.D))){
             movePosition(getPosition().add(Vector2.right.multiply(2)));
         }
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
         }
-        shape.setPosition(getPosition());
+    /*
+        if(Input.isKeyDown((Keys.W))){
+            movePosition(getPosition().add(Vector2.up.multiply(2)));
+        }
+        if(Input.isKeyDown((Keys.S))){
+            movePosition(getPosition().add(Vector2.down.multiply(2)));
+        }
 
+     */
+        shape.setPosition(getPosition());
+    }
+
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        g.setColor(Color.green);
+        g.drawPolygon(shape.getPolygon());
+        g.setColor(Color.black);
     }
 }

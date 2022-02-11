@@ -84,5 +84,4 @@ public class GameWorld extends JPanel{
             (c).draw(g);
         }
     }
-
 }

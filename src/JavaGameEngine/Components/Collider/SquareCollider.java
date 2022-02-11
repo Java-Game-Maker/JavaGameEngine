@@ -33,10 +33,50 @@ public class SquareCollider extends Collider{
     }
 
 
-
+/*
     public static Component isCollision(Collider ob1, Collider parent, LinkedList<Component> objects) {
 
       return null;
+    }
+    */
+
+    public static Component isCollision(Collider ob1, Collider parent, LinkedList<Component> objects) {
+
+        class Player{
+            float x;
+            float y;
+            float width;
+            float height;
+        }
+
+        Player player1 = new Player();
+        player1.x = ob1.getPosition().getX()-ob1.getScale().getX()/2;
+        player1.y = ob1.getPosition().getY()-ob1.getScale().getY()/2;
+        player1.height = ob1.getScale().getY();
+        player1.width = ob1.getScale().getX();
+
+        for(Component ob :objects)
+        {
+            if(ob!=ob1.getParent()&&ob!=parent.getParent()) {
+                for (Component ob21 : ob.getChildren(new SquareCollider())) {
+                    Collider ob2 = (Collider) ob21;
+                    Player player2 = new Player();
+                    player2.x = ob2.getPosition().getX() - ob2.getScale().getX() / 2;
+                    player2.y = ob2.getPosition().getY() - ob2.getScale().getY() / 2;
+                    player2.height = ob2.getScale().getY();
+                    player2.width = ob2.getScale().getX();
+
+                    if (player1.x < player2.x + player2.width &&
+                            player1.x + player1.width > player2.x &&
+                            player1.y < player2.y + player2.height &&
+                            player1.y + player1.height > player2.y) {
+                        //System.out.println(ob1.getParent().getTag()+" collides with "+ob.getTag());
+                        return ob2;
+                    }
+                }
+            }
+        }
+        return null;
     }
 
     @Override
