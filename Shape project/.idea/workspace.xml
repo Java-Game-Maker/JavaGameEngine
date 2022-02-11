@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
+<<<<<<< HEAD
     <list default="true" id="c0ecda41-bd1c-4037-945e-519601a53ac9" name="Default Changelist" comment="">
       <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+=======
+    <list default="true" id="dfb3f707-21fa-4a53-9066-0fb0b37022a7" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../.idea/libraries/JavaGameEngine.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../JavaGameEngine.iml" beforeDir="false" afterPath="$PROJECT_DIR$/../JavaGameEngine.iml" afterDir="false" />
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
       <change beforePath="$PROJECT_DIR$/.idea/libraries/JavaGameEngine.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/JavaGameEngine.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/company/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/company/Main.java" afterDir="false" />
     </list>
@@ -11,6 +19,7 @@
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+<<<<<<< HEAD
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
   </component>
@@ -71,11 +80,25 @@
       </pane>
     </panes>
   </component>
+=======
+  <component name="CodeInsightWorkspaceSettings">
+    <option name="optimizeImportsOnTheFly" value="true" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
+  <component name="ProjectId" id="24cE68blDmUmWQuWZA27VA1ZUHY" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
+<<<<<<< HEAD
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../out/artifacts/JavaGameEngine_jar/JavaGameEngine.jar" />
     <property name="project.structure.last.edited" value="Libraries" />
@@ -89,24 +112,50 @@
       <option name="WORKING_DIRECTORY" value="file://$PROJECT_DIR$" />
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
+=======
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../out/artifacts/JavaGameEngine_jar/JavaGameEngine.jar" />
+    <property name="project.structure.last.edited" value="Libraries" />
+    <property name="project.structure.proportion" value="0.15234375" />
+    <property name="project.structure.side.proportion" value="0.2" />
+    <property name="settings.editor.selected.configurable" value="reference.settingsdialog.IDE.editor.colors.Color Scheme Font" />
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.company.Main" />
+      <module name="Test" />
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
       <method v="2">
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+<<<<<<< HEAD
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
       </list>
     </recent_temporary>
+=======
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
+<<<<<<< HEAD
       <changelist id="c0ecda41-bd1c-4037-945e-519601a53ac9" name="Default Changelist" comment="" />
       <created>1643823910754</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1643823910754</updated>
+=======
+      <changelist id="dfb3f707-21fa-4a53-9066-0fb0b37022a7" name="Changes" comment="" />
+      <created>1643921296439</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1643921296439</updated>
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
     </task>
     <servers />
   </component>
@@ -120,6 +169,9 @@
         </entry>
       </map>
     </option>
+<<<<<<< HEAD
     <option name="oldMeFiltersMigrated" value="true" />
+=======
+>>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
   </component>
 </project>
