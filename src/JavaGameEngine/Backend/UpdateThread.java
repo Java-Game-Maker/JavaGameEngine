@@ -30,24 +30,35 @@ public class UpdateThread extends Thread{
         return ComponentHandler.getObjects();
     }
 
+    /**
+     * Checks if any collider is colliding and if so
+     * runs the oncoliisoin in the coponents that are colliding
+     */
     public void collisionDetection(){
         for(Component c1 : ComponentHandler.getObjects()){
             for(Component c2 : ComponentHandler.getObjects()) {
                 try {
+
                     ShapeCollider collider1 = (ShapeCollider) c1.getChild(new ShapeCollider());
                     ShapeCollider collider2 = (ShapeCollider) c2.getChild(new ShapeCollider());
+
                     if (collider1 != collider2) {
                         for (int i = 0; i < collider2.shape.npoints; i++) {
                             if (collider1.shape.contains(new Point(collider2.shape.xpoints[i], collider2.shape.ypoints[i]))) {
-                                Debug.log(collider1.getParent()+" collided with "+collider2.getParent());
+
+                                collider1.getParent().onCollision(collider2.getParent());
+                                collider2.getParent().onCollision(collider1.getParent());
+
                             }
                             if (collider2.shape.contains(new Point(collider1.shape.xpoints[i], collider1.shape.ypoints[i]))) {
-                                Debug.log(collider1.getParent()+" collided with "+collider2.getParent());
+
+                                collider1.getParent().onCollision(collider2.getParent());
+                                collider2.getParent().onCollision(collider1.getParent());
+
                             }
                         }
                     }
-                } catch (Exception e) {
-                }
+                } catch (Exception e) {}
             }
         }
     }

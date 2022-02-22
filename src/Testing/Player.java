@@ -47,6 +47,17 @@ public class Player extends GameObject {
 
         }
     }
+
+    @Override
+    public void onCollision(Component c) {
+        super.onCollision(c);
+        if(c.getTag().equals("Coin")){
+            c.destroy();
+            instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
+
+        }
+    }
+
     @Override
     public void update() {
         super.update();
