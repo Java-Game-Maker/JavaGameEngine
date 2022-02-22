@@ -1,5 +1,6 @@
 package Testing;
 
+import JavaGameEngine.Components.Collider.ShapeCollider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
@@ -24,10 +25,9 @@ public class Coin extends GameObject {
 
         setScale(new Vector2(16,16));
         addChild(sprite);
-        SquareCollider b = new SquareCollider();
-        b.setTrigger(true);
-        b.setVisible(true);
-        addChild(b);
+        ShapeCollider s = new ShapeCollider();
+        addChild(s);
+
 
         setTag("Coin");
         setRotation(new Vector2(0,-1));

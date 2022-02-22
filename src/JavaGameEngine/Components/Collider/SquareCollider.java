@@ -1,5 +1,6 @@
 package JavaGameEngine.Components.Collider;
 
+import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.msc.Debug;
 
@@ -11,25 +12,14 @@ public class SquareCollider extends Collider{
     private boolean hasCollided = false;
 
     @Override
-    public void collisionHandler(Component ob2)
-    {
-        if(!hasCollided&&ob2!=null) {
-            if(!isTrigger()&& !((Collider) ob2).isTrigger()) {
-                getParent().onCollision(ob2.getParent());
-                if(!hasCollided) {
-                    getParent().onCollisionEnter(ob2.getParent());
-                }
-            }
-            else {
-                Debug.log("knas");
-                getParent().onTrigger(ob2.getParent());
-            }
-            hasCollided=true;
-        }
-        else if(hasCollided&&ob2!=null) {
-            getParent().onCollisionExit(ob2.getParent());
-            hasCollided = false;
-        }
+    public void collisionHandler(Component ob2) {}
+
+    /**
+     * Checks for neary collisers is coliding with this collider
+     */
+    @Override
+    public void collisionHandler() {
+
     }
 
     public static Component isCollision(Collider ob1, Collider parent, LinkedList<Component> objects) {

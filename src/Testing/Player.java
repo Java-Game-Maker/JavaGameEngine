@@ -2,6 +2,7 @@ package Testing;
 
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
+import JavaGameEngine.Components.Collider.ShapeCollider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
@@ -17,6 +18,7 @@ import java.util.Observer;
 
 public class Player extends GameObject {
     Label speed = new Label();
+    ShapeCollider sc = new ShapeCollider();
     public Player(Vector2 pos) {
 
         Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
@@ -33,6 +35,7 @@ public class Player extends GameObject {
         s.setLocalScale(new Vector2(0,-40));
         s.setVisible(true);
         addChild(s);
+        addChild(sc);
     }
     @Override
     public void onTrigger(Component c) {
@@ -47,12 +50,14 @@ public class Player extends GameObject {
     @Override
     public void update() {
         super.update();
-
         if(Input.isKeyDown((Keys.D))){
             movePosition(getPosition().add(Vector2.right.multiply(2)));
         }
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
+        }
+        if(Input.isKeyPressed(Keys.SPACE)){
+            movePosition(getPosition().add(Vector2.up.multiply(100)));
         }
     }
 }

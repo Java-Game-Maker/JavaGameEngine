@@ -31,6 +31,7 @@ public abstract class Collider extends Component {
     }
 
     public abstract void collisionHandler(Component ob2);
+    public abstract void collisionHandler();
 
     public Object copy() {
         return this;

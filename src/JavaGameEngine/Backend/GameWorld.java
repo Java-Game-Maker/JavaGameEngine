@@ -1,6 +1,7 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Backend.Input.Input;
+import JavaGameEngine.Components.Collider.ShapeCollider;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.Components.Ui.UiComponent;
@@ -68,6 +69,10 @@ public class GameWorld extends JPanel{
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
     }
+
+
+
+
 
     /**
      * Here is the main drawing function
