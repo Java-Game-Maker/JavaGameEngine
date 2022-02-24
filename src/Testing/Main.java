@@ -4,6 +4,7 @@ import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
 import JavaGameEngine.Components.GameObject;
+import JavaGameEngine.Components.Shape;
 import JavaGameEngine.Components.Ui.Label;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
@@ -29,6 +30,14 @@ public class Main extends JavaGameEngine{
 
             shape.setScale(getScale());
             addChild(shape);
+            shape = new Shape();
+            shape.setScale(new Vector2(200,200));
+        }
+
+        @Override
+        public void draw(Graphics g) {
+            super.draw(g);
+            //g.drawPolygon(shape.getPolygon());
         }
 
         @Override
@@ -46,6 +55,8 @@ public class Main extends JavaGameEngine{
             if(Input.isKeyPressed(Keys.SPACE)){
                 shape.rotate(45);
             }
+
+            //shape.setPosition(getPosition());
         }
     }
 

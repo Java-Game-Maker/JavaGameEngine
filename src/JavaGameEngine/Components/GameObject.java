@@ -31,10 +31,6 @@ public class GameObject extends Component{
         if(sprite==null){
             g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
-<<<<<<< HEAD
-
-=======
->>>>>>> 10908b453c76d77a75416a93cc62d226790ac1e4
         for(Component c : components){
             c.draw(g);
         }
