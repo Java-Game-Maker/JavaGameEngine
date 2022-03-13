@@ -67,7 +67,9 @@ public class UpdateThread extends Thread{
 
     public void Update() {
         ComponentHandler.setObjects(UpdateObjects());
-        collisionDetection();
+
+        //collisionDetection();
+        
         if(UpdateThread.newObjects.size()>0) {
             for (Component o : UpdateThread.newObjects) {
                 ComponentHandler.addObject(o);

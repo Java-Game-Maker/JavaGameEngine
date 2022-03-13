@@ -7,4 +7,7 @@ collision action can maybe be calculated in the collisionenter in the component 
 we need to calculate how far a object has entered another(when colliding) so we can
 bring the first object back. so they do not pass through eachother
 
+**alternetive
+when moving we check if you can move in that direction if so we return the position
+else we return the position minus som margin in the outher direction
 

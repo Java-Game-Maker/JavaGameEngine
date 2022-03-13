@@ -46,4 +46,13 @@ public class ShapeCollider extends Collider{
     public void collisionHandler() {
 
     }
+
+    /**
+     * Checks if any collider is colliding and if so
+     * runs the oncoliisoin in the coponents that are colliding
+     */
+    public static Vector2 collisionDetection(Vector2 pos){
+         
+        return pos;
+    }
 }
