@@ -34,8 +34,12 @@ public class Player extends GameObject {
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(0,-40));
         s.setVisible(true);
-        addChild(s);
-        addChild(sc);
+        //addChild(s);
+
+        ShapeCollider s1 = new ShapeCollider();
+        s1.setLocalScale(new Vector2(0,-40));
+        s1.setVisible(true);
+        addChild(s1);
     }
     @Override
     public void onTrigger(Component c) {
@@ -44,17 +48,16 @@ public class Player extends GameObject {
         if(c.getTag().equals("Coin")){
             c.destroy();
             instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
-
         }
     }
 
     @Override
     public void onCollision(Component c) {
         super.onCollision(c);
+        System.out.println(c);
         if(c.getTag().equals("Coin")){
             c.destroy();
             instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
-
         }
     }
 

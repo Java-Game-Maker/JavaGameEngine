@@ -1,0 +1,14 @@
+
+So a shape should have a shape defined by
+points in a matrix
+
+Thiese points should be able to be rotates
+scaled and moved though the space
+
+we should be able to return a java.awt.polygon
+for easy drawing.
+
+
+
+
+

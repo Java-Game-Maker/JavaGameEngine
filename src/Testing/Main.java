@@ -5,9 +5,10 @@ import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.Components.Ui.Label;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
-
-import javax.swing.*;
 import java.awt.*;
+import javax.swing.*;
+
+import static javax.swing.WindowConstants.EXIT_ON_CLOSE;
 
 public class Main extends JavaGameEngine{
 
@@ -18,6 +19,7 @@ public class Main extends JavaGameEngine{
         Player s = new Player(new Vector2(10,10));
         ComponentHandler.addObject(s);
         JFrame frame = new JFrame();
+        frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setTitle("My example Title");
 
         Ground ground = new Ground();

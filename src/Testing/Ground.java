@@ -2,6 +2,7 @@ package Testing;
 
 import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Components.Collider.SquareCollider;
+import JavaGameEngine.Components.Collider.ShapeCollider;
 import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.Components.Physics.PhysicsBody;
 import JavaGameEngine.Components.Sprite.Sprite;
@@ -25,7 +26,8 @@ public class Ground extends GameObject {
             addChild(s);
         }
 */
-        SquareCollider s = new SquareCollider();
+        ShapeCollider s = new ShapeCollider();
+        s.setVisible(true);
         s.setLocalPosition(new Vector2(0,0));
         s.setLocalScale(new Vector2(600,0));
         addChild(s);
