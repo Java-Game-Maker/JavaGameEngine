@@ -1,0 +1,13 @@
+***Collision action with shape.contains***
+
+collision detection is checked in the updatethread class
+
+collision action can maybe be calculated in the collisionenter in the component object
+
+we need to calculate how far a object has entered another(when colliding) so we can
+bring the first object back. so they do not pass through eachother
+
+
+
+
+
