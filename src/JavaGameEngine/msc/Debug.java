@@ -20,7 +20,9 @@ public class Debug {
     public static void log(Component log){
         logPriv((log.toString()));
     }
-    public static void log(String log){
+    public static void log(Vector2 log){
+        logPriv((log.toString()));
+    }public static void log(String log){
         logPriv((log));
     }
     public static void log(int log){
@@ -34,7 +36,7 @@ public class Debug {
     {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         if(shouldLog)
-            System.out.println(stackTraceElements[3]+log);
+            System.out.println(stackTraceElements[4]+log);
     }
 
 }
