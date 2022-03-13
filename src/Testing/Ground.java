@@ -10,12 +10,13 @@ public class Ground extends GameObject {
     public Ground() {
 
         ShapeCollider s = new ShapeCollider();
-        s.setLocalScale(new Vector2(200,200));
         s.setLocalPosition(new Vector2(200,200));
+        s.setVisible(true);
         addChild(s);
 
         setScale(new Vector2(600,64));
         setPosition(new Vector2(500,500));
+        s.setShapeScale(new Vector2(600,70));
         /*
         for(int i = -300;i<50;i++){
             Sprite s = new Sprite();

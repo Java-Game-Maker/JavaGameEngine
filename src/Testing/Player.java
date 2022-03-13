@@ -37,7 +37,7 @@ public class Player extends GameObject {
         //addChild(s);
 
         ShapeCollider s1 = new ShapeCollider();
-        s1.setLocalScale(new Vector2(0,-40));
+        s1.setLocalPosition(getPosition());
         s1.setVisible(true);
         addChild(s1);
     }
@@ -54,7 +54,6 @@ public class Player extends GameObject {
     @Override
     public void onCollision(Component c) {
         super.onCollision(c);
-        System.out.println(c);
         if(c.getTag().equals("Coin")){
             c.destroy();
             instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));

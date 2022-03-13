@@ -1,6 +1,8 @@
 package JavaGameEngine.Components.Collider;
 
+
 import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.msc.Vector2;
 
@@ -13,15 +15,9 @@ public class ShapeCollider extends Collider{
     public ShapeCollider(){
 
     }
-
-    @Override
-    public void collisionHandler(Component ob2) {
-
-    }
-
-    @Override
-    public void collisionHandler() {
-
+    public void setShapeScale(Vector2 size){
+        Debug.log("asd");
+        shape = new Polygon(new int[]{0,0, (int) size.getX(), (int) size.getX()},new int[]{0, (int) size.getY(), (int) size.getY(),0},4);
     }
 
     @Override
@@ -36,6 +32,18 @@ public class ShapeCollider extends Collider{
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.drawPolygon(shape);
+        if(this.isVisible()){
+            g.drawPolygon(shape);
+        }
+    }
+
+    @Override
+    public void collisionHandler(Component ob2) {
+
+    }
+
+    @Override
+    public void collisionHandler() {
+
     }
 }
