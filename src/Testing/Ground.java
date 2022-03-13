@@ -1,22 +1,21 @@
 package Testing;
 
-import JavaGameEngine.Backend.ComponentHandler;
-import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Collider.ShapeCollider;
 import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Physics.PhysicsBody;
-import JavaGameEngine.Components.Sprite.Sprite;
-import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
-
 import java.awt.*;
 
 public class Ground extends GameObject {
 
     public Ground() {
-        setScale(new Vector2(600,64));
-        setPosition(new Vector2(300,500));
 
+        ShapeCollider s = new ShapeCollider();
+        s.setLocalScale(new Vector2(200,200));
+        s.setLocalPosition(new Vector2(200,200));
+        addChild(s);
+
+        setScale(new Vector2(600,64));
+        setPosition(new Vector2(500,500));
         /*
         for(int i = -300;i<50;i++){
             Sprite s = new Sprite();
@@ -26,14 +25,13 @@ public class Ground extends GameObject {
             addChild(s);
         }
 */
-        ShapeCollider s = new ShapeCollider();
-        s.setVisible(true);
-        s.setLocalPosition(new Vector2(0,0));
-        s.setLocalScale(new Vector2(600,0));
-        addChild(s);
-
     }
-
+     
+    //@Override
+    //public void draw(Graphics g){
+     //   //super.draw(g);
+    //}
+     
     @Override
     public void update() {
         super.update();

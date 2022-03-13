@@ -18,20 +18,24 @@ public class Main extends JavaGameEngine{
 
         Player s = new Player(new Vector2(10,10));
         ComponentHandler.addObject(s);
+
         JFrame frame = new JFrame();
         frame.setDefaultCloseOperation(EXIT_ON_CLOSE);
         frame.setTitle("My example Title");
+        frame.setSize(500,500);
 
         Ground ground = new Ground();
         ComponentHandler.addObject(ground);
+        
+        // Test t = new Test();
+        // ComponentHandler.addObject(t);
 
         for(int i = 0;i<10;i++){
             Coin coin = new Coin();
             coin.setPosition(new Vector2(i*100,420));
             ComponentHandler.addObject(coin);
         }
-
-
+        
         start();
     }
 
