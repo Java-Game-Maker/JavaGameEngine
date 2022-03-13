@@ -17,7 +17,9 @@ public class Debug {
     public static void endCount(int devide){
         logPriv(String.valueOf((System.nanoTime()-a)/devide));
     }
-    public static void log(Component log){
+    public static void log(){
+        logPriv((""));
+    }public static void log(Component log){
         logPriv((log.toString()));
     }
     public static void log(Vector2 log){
