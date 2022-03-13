@@ -38,7 +38,7 @@ public class Debug {
     {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
         if(shouldLog)
-            System.out.println(stackTraceElements[4]+log);
+            System.out.println(stackTraceElements[3]+log);
     }
 
 }
