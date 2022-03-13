@@ -8,6 +8,3 @@ we need to calculate how far a object has entered another(when colliding) so we 
 bring the first object back. so they do not pass through eachother
 
 
-
-
-
