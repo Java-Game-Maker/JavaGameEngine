@@ -44,17 +44,19 @@ public class UpdateThread extends Thread{
 
                     if (collider1 != collider2) {
                         for (int i = 0; i < collider2.shape.npoints; i++) {
-                            if (collider1.shape.contains(new Point(collider2.shape.xpoints[i], collider2.shape.ypoints[i]))) {
-
+                            Point c1point = new Point(collider1.shape.xpoints[i], collider1.shape.ypoints[i]);
+                            Point c2point = new Point(collider2.shape.xpoints[i], collider2.shape.ypoints[i]);
+                            //Checks the first collider
+                            if (collider1.shape.contains(c1point)) {
+                                Debug.log(c1point.toString());
                                 collider1.getParent().onCollision(collider2.getParent());
                                 collider2.getParent().onCollision(collider1.getParent());
-
                             }
-                            if (collider2.shape.contains(new Point(collider1.shape.xpoints[i], collider1.shape.ypoints[i]))) {
+                            //checks the secound collider
+                            if (collider2.shape.contains(c2point)) {
 
                                 collider1.getParent().onCollision(collider2.getParent());
                                 collider2.getParent().onCollision(collider1.getParent());
-
                             }
                         }
                     }
