@@ -2,6 +2,7 @@ package Testing;
 
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
+import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
@@ -17,6 +18,7 @@ import java.util.Observer;
 
 public class Player extends GameObject {
     Label speed = new Label();
+    PhysicsBody physicsBody = new PhysicsBody();
     public Player(Vector2 pos) {
 
         Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
@@ -27,8 +29,8 @@ public class Player extends GameObject {
 
         setScale(new Vector2(100,100));
 
-        addChild(new PhysicsBody());
-
+        addChild(physicsBody);
+        setTag("layer");
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(0,-40));
         s.setVisible(true);
@@ -50,9 +52,16 @@ public class Player extends GameObject {
 
         if(Input.isKeyDown((Keys.D))){
             movePosition(getPosition().add(Vector2.right.multiply(2)));
+            UpdateThread.camera.setX(UpdateThread.camera.getX()+2);
         }
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
+
+            UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
+        if(Input.isKeyPressed(Keys.SPACE)){
+            physicsBody.addForce(Vector2.up,300);
+        }
+        //UpdateThread.camera = this.getPosition();
     }
 }

@@ -1,8 +1,10 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Debug;
+import JavaGameEngine.msc.Vector2;
 
 import java.util.LinkedList;
 
@@ -20,10 +22,16 @@ public class UpdateThread extends Thread{
         this.setObjects(o);
     }
 
+    public static Vector2 camera = new Vector2(0,0);
+
     private LinkedList<Component>  UpdateObjects()
     {
+        Debug.log(camera.getX());
         for (Component component : ComponentHandler.getObjects()) {
+            if((component).getTag()!="player")
+                component.setCameraPosition(UpdateThread.camera);
             component.update();
+
         }
         return ComponentHandler.getObjects();
     }

@@ -15,8 +15,9 @@ public class Component {
 
     Vector2 position=Vector2.zero; // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
+    Vector2 cameraPosition = Vector2.zero; // camera offset
 
-    Vector2 scale=Vector2.zero; // scale with,height
+    Vector2 scale = Vector2.zero; // scale with,height
     Vector2 localScale=Vector2.zero; // local scale with,height
 
     Vector2 rotation=Vector2.zero; // rotation
@@ -24,6 +25,8 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
+
+
 
     boolean isEnabled = true;
     private String tag = "unnamed";
@@ -57,10 +60,10 @@ public class Component {
     }
 
     public Vector2 getPosition() {
-        return position;
+        return position.subtract(cameraPosition);
     }
     public void setPosition(Vector2 position) {
-        this.position = position;
+        this.position = position.add(cameraPosition);
       //  updateChildren();
     }
     public Vector2 getSpritePosition(){
@@ -75,6 +78,13 @@ public class Component {
     }
     public void setLocalPosition(Vector2 localPosition) {
         this.localPosition = localPosition;
+    }
+
+    public Vector2 getCameraPosition() {
+        return cameraPosition;
+    }
+    public void setCameraPosition(Vector2 localPosition) {
+        this.cameraPosition = localPosition;
     }
 
     public Vector2 getScale() {

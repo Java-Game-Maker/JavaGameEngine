@@ -2,11 +2,6 @@ package JavaGameEngine;
 import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.UpdateThread;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.msc.Debug;
-import JavaGameEngine.msc.Vector2;
-import Testing.Player;
-import com.sun.org.glassfish.gmbal.GmbalException;
 
 import java.awt.*;
 import java.util.Timer;
