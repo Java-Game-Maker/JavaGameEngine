@@ -27,7 +27,7 @@ public class Ground extends GameObject {
 */
         SquareCollider s = new SquareCollider();
         s.setLocalPosition(new Vector2(0,0));
-        s.setLocalScale(new Vector2(600,0));
+        //s.setLocalScale(new Vector2(600,0));
         addChild(s);
 
     }

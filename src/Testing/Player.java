@@ -26,11 +26,11 @@ public class Player extends GameObject {
         //sprite.loadAnimation(new String[]{"/spritesheet.png"});
         sprite.setLocalPosition(new Vector2(0,10));
         addChild(sprite);
-
+        setPosition(pos);
         setScale(new Vector2(100,100));
 
         addChild(physicsBody);
-        setTag("layer");
+        setTag("player");
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(0,-40));
         s.setVisible(true);
@@ -52,12 +52,12 @@ public class Player extends GameObject {
 
         if(Input.isKeyDown((Keys.D))){
             movePosition(getPosition().add(Vector2.right.multiply(2)));
-            UpdateThread.camera.setX(UpdateThread.camera.getX()+2);
+            //UpdateThread.camera.setX(UpdateThread.camera.getX()+2);
         }
         if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(2)));
 
-            UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
+            //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
         if(Input.isKeyPressed(Keys.SPACE)){
             physicsBody.addForce(Vector2.up,300);

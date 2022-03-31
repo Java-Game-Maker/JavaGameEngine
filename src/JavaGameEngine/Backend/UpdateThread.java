@@ -22,16 +22,20 @@ public class UpdateThread extends Thread{
         this.setObjects(o);
     }
 
-    public static Vector2 camera = new Vector2(0,0);
+    public static Component camera = new Component();
 
     private LinkedList<Component>  UpdateObjects()
     {
-        Debug.log(camera.getX());
-        for (Component component : ComponentHandler.getObjects()) {
-            if((component).getTag()!="player")
-                component.setCameraPosition(UpdateThread.camera);
-            component.update();
 
+        for (Component component : ComponentHandler.getObjects()) {
+            if((component).getTag()!="player"){
+                component.setCameraPosition(UpdateThread.camera.getPosition());
+            }
+            else{
+                 component.setCameraPosition(UpdateThread.camera.getPosition().devide(4));
+            }
+
+            component.update();
         }
         return ComponentHandler.getObjects();
     }
