@@ -10,5 +10,8 @@ public class Keys {
     public static final int LEFTARROW = 37;
     public static final int RIGHTARROW = 40;
     public static final int SPACE = 32;
+    public static final int RIGHTCLICK = 1;
+    public static final int LEFTCLICK = 3;
+    public static final int MIDDLECLICK = 2;
 
 }

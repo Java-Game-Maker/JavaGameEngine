@@ -22,6 +22,19 @@ public class ComponentHandler {
         return objects;
     }
 
+    public static LinkedList<Component> getAllObjects() {
+
+        return getAllObjects_(objects);
+    }
+
+    private static LinkedList<Component> getAllObjects_(LinkedList<Component> parent) {
+        for(Component component : parent){
+            parent.addAll(component.getChildren());
+            return parent;
+        }
+        return parent;
+    }
+
     public static void removeObject(Component object)
     {
         ComponentHandler.objects.remove((object));

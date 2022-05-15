@@ -1,6 +1,7 @@
 package JavaGameEngine.Components;
 
 import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
@@ -178,7 +179,7 @@ public class Component {
      * @param c the object to instantiate
      */
     public void instantiate(Component c){
-        //UpdateThread.newObjects.add(c);
+        UpdateThread.newObjects.add(c);
     }
     /**
      * This method will destroy this object it will remove it from the component handler
@@ -205,15 +206,48 @@ public class Component {
             float y = (parent.getPosition().getY()-((getScale().getY()/2)));
 
             setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
+            /* update this in the setScale and setRotation instead
+                setRotation(parent.getRotation().add(getLocalRotation()));
+                setScale(parent.getScale().add(getLocalScale()));
+            */
 
-            setRotation(parent.getRotation().add(getLocalRotation()));
-            setScale(parent.getScale().add(getLocalScale()));
         }
         if(components.size()>0){
             updateChildren(); // updates all the children
         }
+        //mouse enter and exit
+        if(insideComp()){
+            if(!isMouseInside()){
+                onMouseEntered();
+                setMouseInside(true);
+            }
+        }
+        else if (isMouseInside()){
+            onMouseExit();
+            setMouseInside(false);
+        }
+        if(isMouseInside()&&Input.isMousePressed()){
+            onMousePressed();
+        }
     }
+    private boolean insideComp(){
+        float width = getScale().getX()/2;
+        float height = getScale().getY()/2;
 
+        float xMin = getPosition().getX()-width;
+        float xMax = getPosition().getX()+width;
+
+        float yMin = getPosition().getY()-height;
+        float yMax = getPosition().getY()+height;
+
+        float mx = Input.getMousePosition().getX();
+        float my = Input.getMousePosition().getY();
+
+        if(mx>xMin&&mx<xMax&&my>yMin&&my<yMax){
+            return true;
+        }
+        return false;
+    }
     public void updateChildren(){
         LinkedList<Component> s =  getChildren();
         for (Component component :s) {
