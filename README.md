@@ -114,7 +114,7 @@ Be sure yoy have the jre installed
 
 ### Installation
 
- You can clone this repo and play around with the Testing package where we test the engine.
+ You can clone this repo and play around with the Testing package where we test the engine and then build the artifact and import the jar to your own project. 
  Or you can download the jar file in the <a href="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/out/artifacts/JavaGameEngine_jar/JavaGameEngine.jar" >output folder<a> and import the jar to your project.
   
 1. Clone the repo
