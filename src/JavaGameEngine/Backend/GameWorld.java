@@ -87,8 +87,8 @@ public class GameWorld extends JPanel{
     }
 
     private boolean insideComp(Component comp){
-        float width = comp.getScale().getX();
-        float height = comp.getScale().getY();
+        float width = comp.getScale().getX()/2;
+        float height = comp.getScale().getY()/2;
 
         float xMin = comp.getPosition().getX()-width;
         float xMax = comp.getPosition().getX()+width;
