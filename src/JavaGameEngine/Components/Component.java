@@ -186,10 +186,10 @@ public class Component {
      */
     public void destroy(){
         if(this.parent !=null){
-            //parent.removeChild(this);
+            parent.removeChild(this);
         }
         if(components.size()>0){
-           // components.clear();
+            components.clear();
         }
         UpdateThread.delObjects.add(this);
     }
@@ -228,6 +228,7 @@ public class Component {
         }
         if(isMouseInside()&&Input.isMousePressed()){
             onMousePressed();
+            if(getParent()!=null) getParent().onMousePressed();
         }
     }
     private boolean insideComp(){
