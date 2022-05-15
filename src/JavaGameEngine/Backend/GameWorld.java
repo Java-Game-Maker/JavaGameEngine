@@ -14,7 +14,6 @@ import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.geom.AffineTransform;
-import java.util.Iterator;
 
 public class GameWorld extends JPanel{
     /*
@@ -46,6 +45,13 @@ public class GameWorld extends JPanel{
             @Override
             public void mousePressed(MouseEvent e) {
                 super.mousePressed(e);
+                for(Component comp : ComponentHandler.getObjects()){
+
+                    if(insideComp(comp)){
+                        comp.onMousePressed();
+                    }
+
+                }
                 Input.addMouseButton(e);
             }
             @Override
@@ -69,6 +75,25 @@ public class GameWorld extends JPanel{
         addMouseMotionListener(mouseAdapter);
     }
 
+    private boolean insideComp(Component comp){
+        float width = comp.getScale().getX();
+        float height = comp.getScale().getY();
+
+        float xMin = comp.getPosition().getX()-width;
+        float xMax = comp.getPosition().getX()+width;
+
+        float yMin = comp.getPosition().getY()-height;
+        float yMax = comp.getPosition().getY()+height;
+
+        float mx = Input.getMousePosition().getX();
+        float my = Input.getMousePosition().getY();
+
+        if(mx>xMin&&mx<xMax&&my>yMin&&my<yMax){
+            return true;
+        }
+        return false;
+    }
+
     /**
      * Here is the main drawing function
      * */
@@ -81,14 +106,8 @@ public class GameWorld extends JPanel{
 
     }
     private void drawComponents(Graphics g){
-
-        Iterator<Component> iterator = ComponentHandler.getObjects().iterator();
-        while (iterator.hasNext()){
-            Component c = iterator.next();
+        for(Component c : ComponentHandler.getObjects()){
             (c).draw(g);
-
         }
-
     }
-
 }

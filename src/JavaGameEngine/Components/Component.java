@@ -250,4 +250,7 @@ public class Component {
     public Vector2 movePosition(Vector2 add) {
         return add;
     }
+
+    public void onMousePressed() {
+    }
 }
