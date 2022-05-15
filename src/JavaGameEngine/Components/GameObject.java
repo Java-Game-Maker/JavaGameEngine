@@ -15,9 +15,19 @@ public class GameObject extends Component{
      * this is the method that draws the GameObject
      */
 
+    private Color color;
+
+    public void setColor(Color color) {
+        this.color = color;
+    }
+
+    public Color getColor() {
+        return color;
+    }
+
     @Override
     public void draw(Graphics g){
-        //g.fillRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+        g.setColor(this.color);
         Sprite sprite = (Sprite) getChild(new Sprite());
         if(sprite!=null){
             //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
