@@ -50,7 +50,6 @@ public class GameWorld extends JPanel{
                     if(insideComp(comp)){
                         comp.onMousePressed();
                     }
-
                 }
                 Input.addMouseButton(e);
             }
@@ -68,6 +67,18 @@ public class GameWorld extends JPanel{
             @Override
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
+                for(Component comp : ComponentHandler.getObjects()){
+                    if(insideComp(comp)){
+                        if(!comp.isMouseInside()){
+                            comp.onMouseEntered();
+                            comp.setMouseInside(true);
+                        }
+                    }
+                    else if (comp.isMouseInside()){
+                        comp.onMouseExit();
+                        comp.setMouseInside(false);
+                    }
+                }
                 Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
             }
         };

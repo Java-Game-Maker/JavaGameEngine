@@ -11,6 +11,7 @@ public class Input {
     private static boolean isPressed = false;
     private static Vector2 mousePosition=new Vector2(0,0);
 
+
     private static LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
 
     public static Vector2 getMousePosition() {

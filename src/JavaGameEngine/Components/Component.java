@@ -25,7 +25,7 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
-
+    private boolean mouseInside = false;
 
 
     boolean isEnabled = true;
@@ -35,6 +35,14 @@ public class Component {
     public Component() {
         this.scale = new Vector2(100,100);
         this.position = new Vector2(200,200);
+    }
+
+    public void setMouseInside(boolean mouseInside) {
+        this.mouseInside = mouseInside;
+    }
+
+    public boolean isMouseInside() {
+        return mouseInside;
     }
 
     public String getTag() {
@@ -252,5 +260,11 @@ public class Component {
     }
 
     public void onMousePressed() {
+    }
+
+    public void onMouseEntered() {
+    }
+
+    public void onMouseExit() {
     }
 }

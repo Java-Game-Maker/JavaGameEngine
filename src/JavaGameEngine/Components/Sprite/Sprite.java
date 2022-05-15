@@ -1,20 +1,15 @@
 package JavaGameEngine.Components.Sprite;
 
 import JavaGameEngine.Components.Component;
-import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
-import org.w3c.dom.css.Rect;
 
 import javax.imageio.ImageIO;
-import javax.xml.bind.helpers.DefaultValidationEventHandler;
 import java.awt.*;
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.URL;
 import java.util.ArrayList;
-import java.util.LinkedList;
+
 
 public class Sprite extends Component {
 

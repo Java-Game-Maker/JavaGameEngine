@@ -1,10 +1,6 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Components.Component;
-import JavaGameEngine.msc.Debug;
-import sun.awt.image.ImageWatched;
-
-import java.util.LinkedHashMap;
 import java.util.LinkedList;
 
 public class ComponentHandler {
