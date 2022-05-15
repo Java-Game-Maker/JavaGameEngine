@@ -1,6 +1,7 @@
 package JavaGameEngine.Components.Physics;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
 public class PhysicsBody extends Component {

@@ -15,7 +15,7 @@ public class GameObject extends Component{
      * this is the method that draws the GameObject
      */
 
-    private Color color;
+    private Color color = Color.darkGray;
 
     public void setColor(Color color) {
         this.color = color;

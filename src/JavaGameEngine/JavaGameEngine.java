@@ -11,7 +11,7 @@ import javax.swing.*;
 
 public class JavaGameEngine {
 
-    public static final int DELAY = 16;
+    public static int DELAY = 3;
     public static GameWorld GAMEWORLD = new GameWorld();
     static JFrame frame;
     private static float start;
@@ -61,11 +61,7 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
-
-
                 calcThread.Update();
-
-
             }
         }, DELAY,DELAY);
         Timer timer1 = new Timer();
@@ -77,9 +73,11 @@ public class JavaGameEngine {
                 previous = current;
                 // Debug.log(totalElapsed);
                 GAMEWORLD.repaint();
-                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linuxddddd
+                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
                 totalElapsed += deltaTime;
+
                 if((totalElapsed/1000000000)>1){
+                    GameWorld.fps = String.valueOf(fps);
                     totalElapsed = 0;
                     fps = 0;
                 }

@@ -20,7 +20,7 @@ public class Coin extends GameObject {
             paths[i] = ("/Free Platform Game Assets/Platform Game Assets/Coin Animation/png/2x/image "+(i+1)+".png");
         }
         sprite.loadAnimation(paths);
-        sprite.setTimer(4);
+        sprite.setTimer(20);
 
         setScale(new Vector2(16,16));
         addChild(sprite);
@@ -47,7 +47,7 @@ public class Coin extends GameObject {
         if(getPosition().getY()>mindown){
             setRotation(Vector2.up);
         }
-        setPosition(getPosition().add(getRotation().multiply(1)));
+        setPosition(getPosition().add(getRotation().multiply(0.2f)));
 
     }
 }

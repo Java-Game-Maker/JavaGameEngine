@@ -51,16 +51,17 @@ public class Player extends GameObject {
         super.update();
 
         if(Input.isKeyDown((Keys.D))){
-            movePosition(getPosition().add(Vector2.right.multiply(2)));
+            movePosition(getPosition().add(Vector2.right.multiply(1.2f)));
             //UpdateThread.camera.setX(UpdateThread.camera.getX()+2);
         }
         if(Input.isKeyDown((Keys.A))){
-            movePosition(getPosition().add(Vector2.left.multiply(2)));
+            movePosition(getPosition().add(Vector2.left.multiply(1.2f)));
 
             //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
         if(Input.isKeyPressed(Keys.SPACE)){
-            physicsBody.addForce(Vector2.up,300);
+
+            physicsBody.addForce(Vector2.up,60);
         }
         //UpdateThread.camera = this.getPosition();
     }

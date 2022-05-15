@@ -20,6 +20,7 @@ public class GameWorld extends JPanel{
         This is where the main game world where we draw everything
         we also gets all the inpus from here
      */
+    public static String fps = "0";
     public GameWorld() {
         /*
           Key keyboard inputs
@@ -119,6 +120,7 @@ public class GameWorld extends JPanel{
     private void drawComponents(Graphics g){
         for(Component c : ComponentHandler.getObjects()){
             (c).draw(g);
+            g.drawString(fps,0,10);
         }
     }
 }

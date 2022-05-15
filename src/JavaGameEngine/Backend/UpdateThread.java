@@ -28,13 +28,8 @@ public class UpdateThread extends Thread{
     {
 
         for (Component component : ComponentHandler.getObjects()) {
-            if((component).getTag()!="player"){
-                component.setCameraPosition(UpdateThread.camera.getPosition());
-            }
-            else{
-                 component.setCameraPosition(UpdateThread.camera.getPosition().devide(4));
-            }
 
+            //component.setCameraPosition(UpdateThread.camera.getPosition().devide(4));
             component.update();
         }
         return ComponentHandler.getObjects();
