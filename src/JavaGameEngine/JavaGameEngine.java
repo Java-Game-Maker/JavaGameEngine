@@ -62,18 +62,9 @@ public class JavaGameEngine {
             @Override
             public void run() {
                 calcThread.Update();
-            }
-        }, DELAY,DELAY);
-        Timer timer1 = new Timer();
-        timer1.schedule(new TimerTask() {
-            @Override
-            public void run() {
                 float current = System.nanoTime();
                 deltaTime = current - previous;
                 previous = current;
-                // Debug.log(totalElapsed);
-                GAMEWORLD.repaint();
-                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
                 totalElapsed += deltaTime;
 
                 if((totalElapsed/1000000000)>1){
@@ -82,6 +73,17 @@ public class JavaGameEngine {
                     fps = 0;
                 }
                 fps++;
+            }
+        }, DELAY,DELAY);
+        Timer timer1 = new Timer();
+        timer1.schedule(new TimerTask() {
+            @Override
+            public void run() {
+
+                // Debug.log(totalElapsed);
+                GAMEWORLD.repaint();
+                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
+
             }
         }, DELAY,DELAY);
 

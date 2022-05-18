@@ -206,27 +206,27 @@ public class Component {
             float y = (parent.getPosition().getY()-((getScale().getY()/2)));
 
             setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
-            /* update this in the setScale and setRotation instead
-                setRotation(parent.getRotation().add(getLocalRotation()));
-                setScale(parent.getScale().add(getLocalScale()));
-            */
+            //update this in the setScale and setRotation instead
+            setRotation(parent.getRotation().add(getLocalRotation()));
+            setScale(parent.getScale().add(getLocalScale()));
+
 
         }
         if(components.size()>0){
             updateChildren(); // updates all the children
         }
         //mouse enter and exit
-        if(insideComp()){
+        if(insideComp()&&isEnabled){
             if(!isMouseInside()){
                 onMouseEntered();
                 setMouseInside(true);
             }
         }
-        else if (isMouseInside()){
+        else if (isMouseInside()&&isEnabled){
             onMouseExit();
             setMouseInside(false);
         }
-        if(isMouseInside()&&Input.isMousePressed()){
+        if(isMouseInside()&&Input.isMousePressed()&&isEnabled){
             onMousePressed();
             if(getParent()!=null) getParent().onMousePressed();
         }

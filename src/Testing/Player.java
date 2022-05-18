@@ -42,7 +42,7 @@ public class Player extends GameObject {
 
         if(c.getTag().equals("Coin")){
             c.destroy();
-            instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
+          //  instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
 
         }
     }

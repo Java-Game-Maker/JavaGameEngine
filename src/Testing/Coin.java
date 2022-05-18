@@ -22,7 +22,7 @@ public class Coin extends GameObject {
         sprite.loadAnimation(paths);
         sprite.setTimer(20);
 
-        setScale(new Vector2(16,16));
+        setScale(new Vector2(5,5));
         addChild(sprite);
         SquareCollider b = new SquareCollider();
         b.setTrigger(true);
