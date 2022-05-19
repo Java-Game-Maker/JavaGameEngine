@@ -29,7 +29,7 @@
     <a href="https://github.com/Java-Game-Maker/JavaGameEngine"><strong>Explore the docs »</strong></a>
     <br />
     <br />
-    <a href="[https://github.com/Java-Game-Maker/JavaGameEngine](https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo1.gif)">View Demo</a>
+    <a href="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo1.gif">View Demo</a>
     ·
     <a href="https://github.com/Java-Game-Maker/JavaGameEngine/issues">Report Bug</a>
     ·
