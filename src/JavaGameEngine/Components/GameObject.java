@@ -27,6 +27,8 @@ public class GameObject extends Component{
 
     @Override
     public void draw(Graphics g){
+        g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
+        g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
         g.setColor(this.color);
         Sprite sprite = (Sprite) getChild(new Sprite());
         if(sprite!=null){

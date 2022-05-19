@@ -82,7 +82,7 @@ public class SquareCollider extends Collider{
 
         if(isVisible()){
             g.setColor(Color.GREEN);
-            g.drawRect((int) getPosition().getX(), (int) getPosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+            g.drawRect((int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2), (int) getScale().getX(), (int) getScale().getY());
             g.setColor(Color.darkGray);
         }
         /*

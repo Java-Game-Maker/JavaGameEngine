@@ -29,7 +29,7 @@ public class UpdateThread extends Thread{
 
         for (Component component : ComponentHandler.getObjects()) {
 
-            //component.setCameraPosition(UpdateThread.camera.getPosition().devide(4));
+            component.setCameraPosition(UpdateThread.camera.getPosition());
             component.update();
         }
         return ComponentHandler.getObjects();

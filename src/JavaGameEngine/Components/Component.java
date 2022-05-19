@@ -68,16 +68,22 @@ public class Component {
         this.parent = parent;
     }
 
+
     public Vector2 getPosition() {
-        return position.subtract(cameraPosition);
+        return position;
     }
     public void setPosition(Vector2 position) {
-        this.position = position.add(cameraPosition);
+        if(this.tag != "player"){
+            this.position = position;
+        }
+        else{
+            this.position = position;
+        }
       //  updateChildren();
     }
     public Vector2 getSpritePosition(){
-        float x = (getPosition().getX()-((getScale().getX()/2)));
-        float y = (getPosition().getY()-((getScale().getY()/2)));
+        float x = (getPosition().subtract(cameraPosition).getX()-((getScale().getX()/2)));
+        float y = (getPosition().subtract(cameraPosition).getY()-((getScale().getY()/2)));
 
         return new Vector2(x,y);
     }
@@ -209,7 +215,7 @@ public class Component {
             // update this in the setScale and setRotation instead
             setRotation(parent.getRotation().add(getLocalRotation()));
             setScale(parent.getScale().add(getLocalScale()));
-
+            setCameraPosition(parent.getCameraPosition());
 
         }
         if(components.size()>0){
