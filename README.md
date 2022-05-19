@@ -70,9 +70,9 @@
 
 
 ## Examples
-<h3 href="https://github.com/Java-Game-Maker/Demo1">Link to demo1</h3>
+<h3><a href="https://github.com/Java-Game-Maker/Demo1">Link to demo1</a></h3>
 <img src="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo1.gif" name="image-name">
-<h3 href="https://github.com/Java-Game-Maker/Demo2">Link to demo1</h3>
+<h3><a href="https://github.com/Java-Game-Maker/Demo2">Link to demo2</a></h3>
 <img src="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo2.gif" name="image-name">
 
 <!-- ABOUT THE PROJECT -->
