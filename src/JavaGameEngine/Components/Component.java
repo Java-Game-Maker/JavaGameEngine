@@ -216,17 +216,17 @@ public class Component {
             updateChildren(); // updates all the children
         }
         //mouse enter and exit
-        if(insideComp()){
+        if(insideComp()&&isEnabled){
             if(!isMouseInside()){
                 onMouseEntered();
                 setMouseInside(true);
             }
         }
-        else if (isMouseInside()){
+        else if (isMouseInside()&&isEnabled){
             onMouseExit();
             setMouseInside(false);
         }
-        if(isMouseInside()&&Input.isMousePressed()){
+        if(isMouseInside()&&Input.isMousePressed()&&isEnabled){
             onMousePressed();
             if(getParent()!=null) getParent().onMousePressed();
         }
