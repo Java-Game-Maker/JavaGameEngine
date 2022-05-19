@@ -64,7 +64,7 @@ public class SquareCollider extends Collider{
                             player1.x + player1.width > player2.x &&
                             player1.y < player2.y + player2.height &&
                             player1.y + player1.height > player2.y) {
-//                        Debug.log("collide");
+
                         if(!ob1.isTrigger()&& !ob2.isTrigger())
                             return ob2;
                         else {
@@ -74,6 +74,35 @@ public class SquareCollider extends Collider{
                     }
                 }
             }
+            for(Component child :ob.getChildren()){
+                ob = child;
+                if(ob!=ob1.getParent()&&ob!=parent.getParent()&&!((GameObject)parent.getParent().getFirstObject()).getIgnoreTags().contains(ob.getTag()))
+                {
+                    for (Component ob21 : ob.getChildren(new SquareCollider())) {
+                        Collider ob2 = (Collider) ob21;
+                        Player player2 = new Player();
+                        player2.x = ob2.getPosition().getX();
+                        player2.y = ob2.getPosition().getY();
+                        player2.height = ob2.getScale().getY();
+                        player2.width = ob2.getScale().getX();
+
+                        if (player1.x < player2.x + player2.width &&
+                                player1.x + player1.width > player2.x &&
+                                player1.y < player2.y + player2.height &&
+                                player1.y + player1.height > player2.y) {
+
+                            if(!ob1.isTrigger()&& !ob2.isTrigger())
+                                return ob2;
+                            else {
+                                ob1.getParent().onTrigger(ob2.getParent());
+                                ob2.getParent().onTrigger(ob1.getParent());
+                            }
+                        }
+                    }
+                }
+
+            }
+
         }
         return null;
     }

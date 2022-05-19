@@ -297,10 +297,20 @@ public class Component {
     public void onTrigger(Component c){
     }
 
-    public void draw(Graphics g) {
+    public void drawChildren(Graphics g){
         for (Component c: getChildren()) {
             c.draw(g);
         }
+    }
+    public void draw(Graphics g) {
+        drawChildren(g);
+    }
+
+    /**
+     * Runs after gameworld has been initilized
+     */
+    public void start(){
+
     }
 
     public Vector2 movePosition(Vector2 add) {

@@ -67,26 +67,11 @@ public class GameWorld extends JPanel{
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-    }
-
-    private boolean insideComp(Component comp){
-        float width = comp.getScale().getX()/2;
-        float height = comp.getScale().getY()/2;
-
-        float xMin = comp.getPosition().getX()-width;
-        float xMax = comp.getPosition().getX()+width;
-
-        float yMin = comp.getPosition().getY()-height;
-        float yMax = comp.getPosition().getY()+height;
-
-        float mx = Input.getMousePosition().getX();
-        float my = Input.getMousePosition().getY();
-
-        if(mx>xMin&&mx<xMax&&my>yMin&&my<yMax){
-            return true;
+        for(Component a : ComponentHandler.getObjects()){
+            a.start();
         }
-        return false;
     }
+
 
     /**
      * Here is the main drawing function

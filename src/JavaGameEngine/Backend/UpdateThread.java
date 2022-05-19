@@ -26,28 +26,30 @@ public class UpdateThread extends Thread{
 
     private LinkedList<Component>  UpdateObjects()
     {
-
         for (Component component : ComponentHandler.getObjects()) {
 
             component.setCameraPosition(UpdateThread.camera.getPosition());
             component.update();
+
         }
         return ComponentHandler.getObjects();
     }
-
+    public static boolean running = true;
     public void Update() {
-        ComponentHandler.setObjects(UpdateObjects());
-        if(UpdateThread.newObjects.size()>0) {
-            for (Component o : UpdateThread.newObjects) {
-                ComponentHandler.addObject(o);
+        if(running){
+            ComponentHandler.setObjects(UpdateObjects());
+            if(UpdateThread.newObjects.size()>0) {
+                for (Component o : UpdateThread.newObjects) {
+                    ComponentHandler.addObject(o);
+                }
+                newObjects.clear();
             }
-            newObjects.clear();
-        }
-        if(UpdateThread.delObjects.size()>0) {
-            for (Component o : UpdateThread.delObjects) {
-                ComponentHandler.removeObject(o);
+            if(UpdateThread.delObjects.size()>0) {
+                for (Component o : UpdateThread.delObjects) {
+                    ComponentHandler.removeObject(o);
+                }
+                delObjects.clear();
             }
-            delObjects.clear();
         }
     }
 

@@ -6,6 +6,8 @@ import JavaGameEngine.msc.Vector2;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
+import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
@@ -21,6 +23,15 @@ public class Sprite extends Component {
     private int spriteCounter;
     float timer = 10;
     int currentSprite = 0;
+    float angle;
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
 
     public float getTimer() {
         return timer;
@@ -102,7 +113,20 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.drawImage(getAnimation(),(int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2),(int)getScale().getX(),(int)getScale().getY(),null);
+        // The required drawing location
+        int drawLocationX = (int) (getSpritePosition().getX()+getScale().getX()/2);
+        int drawLocationY = (int) (getSpritePosition().getY()+getScale().getY()/2);
+
+// Rotation information
+        BufferedImage image = getAnimation();
+
+        double rotationRequired = Math.toRadians (angle);
+        double locationX = image.getWidth() / 2;
+        double locationY = image.getHeight() / 2;
+        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+
+        g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, (int) getScale().getX(), (int) getScale().getY(),null);
 
     }
 

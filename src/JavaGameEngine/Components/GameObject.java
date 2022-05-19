@@ -50,9 +50,7 @@ public class GameObject extends Component{
             g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
         }
 
-        for(Component c : components){
-            c.draw(g);
-        }
+        drawChildren(g);
     }
     /**
      * check if the new position will collide otherwise we set the new position
