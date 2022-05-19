@@ -69,11 +69,14 @@
 </details>
 
 
+## Examples
+<h3 href="https://github.com/Java-Game-Maker/Demo1">Link to demo1</h3>
+<img src="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo1.gif" name="image-name">
+<h3 href="https://github.com/Java-Game-Maker/Demo2">Link to demo1</h3>
+<img src="https://github.com/Java-Game-Maker/JavaGameEngine/blob/main/images/demo2.gif" name="image-name">
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
-
-[![Product Name Screen Shot][product-screenshot]](https://example.com)
 
 When creating fun game projects there is a lot of code just to get you going so we created this awsome game engine to let you
 go directly to the fun of gamemaking. 
