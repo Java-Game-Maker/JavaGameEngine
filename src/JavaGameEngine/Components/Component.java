@@ -206,10 +206,10 @@ public class Component {
             float y = (parent.getPosition().getY()-((getScale().getY()/2)));
 
             setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
-            /* update this in the setScale and setRotation instead
-                setRotation(parent.getRotation().add(getLocalRotation()));
-                setScale(parent.getScale().add(getLocalScale()));
-            */
+            // update this in the setScale and setRotation instead
+            setRotation(parent.getRotation().add(getLocalRotation()));
+            setScale(parent.getScale().add(getLocalScale()));
+
 
         }
         if(components.size()>0){
