@@ -1,6 +1,7 @@
 package JavaGameEngine.Components.Collider;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.msc.Debug;
 
 import java.awt.*;
@@ -49,7 +50,8 @@ public class SquareCollider extends Collider{
 
         for(Component ob :objects)
         {
-            if(ob!=ob1.getParent()&&ob!=parent.getParent()) {
+            if(ob!=ob1.getParent()&&ob!=parent.getParent()&&!((GameObject)parent.getParent().getFirstObject()).getIgnoreTags().contains(ob.getTag()))
+            {
                 for (Component ob21 : ob.getChildren(new SquareCollider())) {
                     Collider ob2 = (Collider) ob21;
                     Player player2 = new Player();

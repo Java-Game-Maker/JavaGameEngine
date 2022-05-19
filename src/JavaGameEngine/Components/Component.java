@@ -26,8 +26,8 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
-    private boolean mouseInside = false;
 
+    private boolean mouseInside = false;
 
     boolean isEnabled = true;
     private String tag = "unnamed";
@@ -67,8 +67,15 @@ public class Component {
     public void setParent(Component parent) {
         this.parent = parent;
     }
-
-
+    public boolean isParent(){
+        return getParent()==null;
+    }
+    public Component getFirstObject(){
+        if(!isParent()){
+            return getParent().getFirstObject();
+        }
+        return this;
+    }
     public Vector2 getPosition() {
         return position;
     }
@@ -204,8 +211,21 @@ public class Component {
      */
     public void update() {
 
-       // if(this instanceof Collider)
-         //   Debug.log(this);
+        if(insideComp()&&isEnabled){
+            if(!isMouseInside()){
+                onMouseEntered();
+                setMouseInside(true);
+            }
+
+        }
+        else if (isMouseInside()&&isEnabled){
+            onMouseExit();
+            setMouseInside(false);
+        }
+        if(isMouseInside()&&Input.isMousePressed()&&isEnabled){
+            onMousePressed();
+            if(getParent()!=null) getParent().onMousePressed();
+        }
 
         if(parent!=null) {
             float x = (parent.getPosition().getX()-((getScale().getX()/2)));
@@ -222,30 +242,17 @@ public class Component {
             updateChildren(); // updates all the children
         }
         //mouse enter and exit
-        if(insideComp()&&isEnabled){
-            if(!isMouseInside()){
-                onMouseEntered();
-                setMouseInside(true);
-            }
-        }
-        else if (isMouseInside()&&isEnabled){
-            onMouseExit();
-            setMouseInside(false);
-        }
-        if(isMouseInside()&&Input.isMousePressed()&&isEnabled){
-            onMousePressed();
-            if(getParent()!=null) getParent().onMousePressed();
-        }
+
     }
     private boolean insideComp(){
-        float width = getScale().getX()/2;
-        float height = getScale().getY()/2;
+        float width = getScale().getX();
+        float height = getScale().getY();
 
-        float xMin = getPosition().getX()-width;
-        float xMax = getPosition().getX()+width;
+        float xMin = getSpritePosition().getX();
+        float xMax = getSpritePosition().getX()+width;
 
-        float yMin = getPosition().getY()-height;
-        float yMax = getPosition().getY()+height;
+        float yMin = getSpritePosition().getY();
+        float yMax = getSpritePosition().getY()+height;
 
         float mx = Input.getMousePosition().getX();
         float my = Input.getMousePosition().getY();

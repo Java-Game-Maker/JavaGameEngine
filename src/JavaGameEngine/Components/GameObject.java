@@ -8,13 +8,21 @@ import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
+import java.util.LinkedList;
 
 public class GameObject extends Component{
 
-    /**
-     * this is the method that draws the GameObject
-     */
+    private LinkedList<String> ignoreTags = new LinkedList<>();
 
+    public void addIgnoreTags(String tag){
+        ignoreTags.add(tag);
+    }
+    public void setIgnoreTags(LinkedList<String> tags){
+        this.ignoreTags = tags;
+    }
+    public LinkedList<String> getIgnoreTags(){
+        return ignoreTags;
+    }
     private Color color = Color.darkGray;
 
     public void setColor(Color color) {
@@ -25,10 +33,14 @@ public class GameObject extends Component{
         return color;
     }
 
+
+    /**
+     * this is the method that draws the GameObject
+     */
     @Override
     public void draw(Graphics g){
-        g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
-        g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
+        //g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
+       // g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
         g.setColor(this.color);
         Sprite sprite = (Sprite) getChild(new Sprite());
         if(sprite!=null){
@@ -90,7 +102,6 @@ public class GameObject extends Component{
             if(getChildren(new SquareCollider()).size()>0)
             {
                 for(Collider c : getChildren(new SquareCollider())) {
-
                     if(!c.isTrigger()) {
 
                         Collider c2=null; //will be the other object we collide with (if)

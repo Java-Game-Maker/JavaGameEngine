@@ -1,6 +1,7 @@
 package JavaGameEngine.Components.Sprite;
 
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import javax.imageio.ImageIO;
@@ -14,9 +15,9 @@ import java.util.ArrayList;
 public class Sprite extends Component {
 
     ArrayList<ArrayList<Rectangle>> animations1 = new ArrayList<>();
-    ArrayList<BufferedImage[]> animations = new ArrayList<>();
+    public ArrayList<BufferedImage[]> animations = new ArrayList<>();
     BufferedImage spriteSheet;
-    private int animationIndex = 0;
+    public int animationIndex = 0;
     private int spriteCounter;
     float timer = 10;
     int currentSprite = 0;
@@ -41,9 +42,8 @@ public class Sprite extends Component {
             e.printStackTrace();
         }
 
-        if (spriteSheet == null) {
-            spriteSheet = sprite;
-        }
+        spriteSheet = sprite;
+
         BufferedImage[] animation = new BufferedImage[tiles.length];
         int i = 0;
         for(Rectangle r : tiles){
@@ -102,7 +102,7 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.drawImage(getAnimation(),(int)getPosition().getX(),(int)getPosition().getY(),(int)getScale().getX(),(int)getScale().getY(),null);
+        g.drawImage(getAnimation(),(int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2),(int)getScale().getX(),(int)getScale().getY(),null);
 
     }
 

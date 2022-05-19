@@ -2,6 +2,8 @@ package JavaGameEngine.Components.Collider;
 
 import JavaGameEngine.Components.Component;
 
+import java.util.LinkedList;
+
 public abstract class Collider extends Component {
 
     private boolean isTrigger= false;
@@ -31,6 +33,7 @@ public abstract class Collider extends Component {
     }
 
     public abstract void collisionHandler(Component ob2);
+
 
     public Object copy() {
         return this;
