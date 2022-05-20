@@ -1,6 +1,7 @@
 package JavaGameEngine.Backend;
 
 import JavaGameEngine.Backend.Input.Input;
+import JavaGameEngine.Backend.Input.Keys;
 import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.Components.Ui.UiComponent;
@@ -30,6 +31,9 @@ public class GameWorld extends JPanel{
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                if(e.getKeyCode()== Keys.ESCAPE){
+                    UpdateThread.running = !UpdateThread.running;
+                }
                 Input.addKey(e);
             }
             @Override
@@ -79,6 +83,7 @@ public class GameWorld extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
+
         drawComponents(g);
     }
     private void drawUi(Graphics g){
