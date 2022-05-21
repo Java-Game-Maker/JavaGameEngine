@@ -3,9 +3,6 @@ package JavaGameEngine.Backend;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
 import JavaGameEngine.Components.Component;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Ui.UiComponent;
-import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import javax.swing.*;
@@ -14,7 +11,9 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.awt.geom.AffineTransform;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 public class GameWorld extends JPanel{
     /*
@@ -90,7 +89,15 @@ public class GameWorld extends JPanel{
 
     }
     private void drawComponents(Graphics g){
-        for(Component c : ComponentHandler.getObjects()){
+        List<Component> list = ComponentHandler.getObjects();
+        Collections.sort(list, new Comparator<Component>() {
+            @Override
+            public int compare(Component o1, Component o2) {
+                return o1.getLayer() - o2.getLayer();
+            }
+        });
+
+        for(Component c : list){
             (c).draw(g);
             g.drawString(fps,0,10);
         }

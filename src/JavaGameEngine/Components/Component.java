@@ -27,6 +27,16 @@ public class Component {
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
 
+    int layer = 0;
+
+    public int getLayer() {
+        return layer;
+    }
+
+    public void setLayer(int layer) {
+        this.layer = layer;
+    }
+
     private boolean mouseInside = false;
 
     boolean isEnabled = true;
@@ -132,7 +142,12 @@ public class Component {
     }
 
     public boolean isEnabled() {
-        return isEnabled;
+        if(isParent()){
+            return isEnabled;
+        }
+        else{
+            return getParent().isEnabled();
+        }
     }
     public void setEnabled(boolean enabled) {
         isEnabled = enabled;
@@ -211,18 +226,18 @@ public class Component {
      */
     public void update() {
 
-        if(insideComp()&&isEnabled){
+        if(insideComp()&&isEnabled()){
             if(!isMouseInside()){
                 onMouseEntered();
                 setMouseInside(true);
             }
 
         }
-        else if (isMouseInside()&&isEnabled){
+        else if (isMouseInside()&&isEnabled()){
             onMouseExit();
             setMouseInside(false);
         }
-        if(isMouseInside()&&Input.isMousePressed()&&isEnabled){
+        if(isMouseInside()&&Input.isMousePressed()&&isEnabled()){
             onMousePressed();
             if(getParent()!=null) getParent().onMousePressed();
         }

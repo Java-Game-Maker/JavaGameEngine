@@ -25,6 +25,7 @@ public class Test extends JavaGameEngine {
         g.setPosition(new Vector2(0,500));
         b.setUseGravity(false);
         g.addChild(b);
+        g.setLayer(0);
         ComponentHandler.addObject(g);
         start();
     }
@@ -33,7 +34,7 @@ public class Test extends JavaGameEngine {
         public Player(){
 
             setColor(Color.CYAN);
-
+            setLayer(10);
             setTag("player");
             PhysicsBody b = new PhysicsBody();
             setPosition(new Vector2(400,300));
