@@ -13,6 +13,7 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.util.Collections;
 import java.util.Comparator;
+import java.util.LinkedList;
 import java.util.List;
 
 public class GameWorld extends JPanel{
@@ -20,6 +21,7 @@ public class GameWorld extends JPanel{
         This is where the main game world where we draw everything
         we also gets all the inpus from here
      */
+    public static LinkedList<Component> layerList = new LinkedList<>();
     public static String fps = "0";
     public GameWorld() {
         /*

@@ -27,7 +27,6 @@ public class UpdateThread extends Thread{
     private LinkedList<Component>  UpdateObjects()
     {
         for (Component component : ComponentHandler.getObjects()) {
-
             component.setCameraPosition(UpdateThread.camera.getPosition());
             component.update();
 

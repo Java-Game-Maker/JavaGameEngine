@@ -1,24 +1,21 @@
 package JavaGameEngine.Components;
 
-import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.UpdateThread;
-import JavaGameEngine.Components.Collider.Collider;
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.Physics.PhysicsBody;
-import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
 import java.util.LinkedList;
+import java.util.Objects;
 
 public class Component {
 
-    Vector2 position=Vector2.zero; // world position
+    Vector2 position; // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
     Vector2 cameraPosition = Vector2.zero; // camera offset
 
-    Vector2 scale = Vector2.zero; // scale with,height
+    Vector2 scale; // scale with,height
     Vector2 localScale=Vector2.zero; // local scale with,height
 
     Vector2 rotation=Vector2.zero; // rotation
@@ -34,6 +31,7 @@ public class Component {
     }
 
     public void setLayer(int layer) {
+        GameWorld.layerList.add(this);
         this.layer = layer;
     }
 
@@ -90,7 +88,7 @@ public class Component {
         return position;
     }
     public void setPosition(Vector2 position) {
-        if(this.tag != "player"){
+        if(!Objects.equals(this.tag, "player")){
             this.position = position;
         }
         else{
@@ -225,22 +223,20 @@ public class Component {
      * this is the update function. It will be called on every game update
      */
     public void update() {
+            if (insideComp() && isEnabled()) {
+                if (!isMouseInside()) {
+                    onMouseEntered();
+                    setMouseInside(true);
+                }
 
-        if(insideComp()&&isEnabled()){
-            if(!isMouseInside()){
-                onMouseEntered();
-                setMouseInside(true);
+            } else if (isMouseInside() && isEnabled()) {
+                onMouseExit();
+                setMouseInside(false);
             }
-
-        }
-        else if (isMouseInside()&&isEnabled()){
-            onMouseExit();
-            setMouseInside(false);
-        }
-        if(isMouseInside()&&Input.isMousePressed()&&isEnabled()){
-            onMousePressed();
-            if(getParent()!=null) getParent().onMousePressed();
-        }
+            if (isMouseInside() && Input.isMousePressed() && isEnabled()) {
+                onMousePressed();
+                if (getParent() != null) getParent().onMousePressed();
+            }
 
         if(parent!=null) {
             float x = (parent.getPosition().getX()-((getScale().getX()/2)));
@@ -272,10 +268,7 @@ public class Component {
         float mx = Input.getMousePosition().getX();
         float my = Input.getMousePosition().getY();
 
-        if(mx>xMin&&mx<xMax&&my>yMin&&my<yMax){
-            return true;
-        }
-        return false;
+        return mx > xMin && mx < xMax && my > yMin && my < yMax;
     }
     public void updateChildren(){
         LinkedList<Component> s =  getChildren();

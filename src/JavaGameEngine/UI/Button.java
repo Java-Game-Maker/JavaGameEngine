@@ -35,9 +35,7 @@ public class Button extends GameObject {
         onPress();
     }
 
-    public void onPress(){
-
-    }
+    public void onPress(){}
 
     @Override
     public void draw(Graphics g) {
