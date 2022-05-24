@@ -33,11 +33,6 @@ public class Main extends JavaGameEngine{
 
         ComponentHandler.addObject(new T());
 
-        for(int i = 0;i<10;i++){
-            Coin coin = new Coin();
-            coin.setPosition(new Vector2(i*100,420));
-            ComponentHandler.addObject(coin);
-        }
 
 
         start();

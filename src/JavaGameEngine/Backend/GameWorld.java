@@ -23,6 +23,8 @@ public class GameWorld extends JPanel{
      */
     public static LinkedList<Component> layerList = new LinkedList<>();
     public static String fps = "0";
+    private long last;
+
     public GameWorld() {
         /*
           Key keyboard inputs
@@ -76,7 +78,7 @@ public class GameWorld extends JPanel{
             a.start();
         }
     }
-
+    float fpsecund = 0;
 
     /**
      * Here is the main drawing function
@@ -84,8 +86,13 @@ public class GameWorld extends JPanel{
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-
         drawComponents(g);
+        if(System.nanoTime()-last>1000000000){
+            fps = Float.toString(fpsecund);
+            fpsecund = 0;
+            last = System.nanoTime();
+        }
+        fpsecund+=1;
     }
     private void drawUi(Graphics g){
 

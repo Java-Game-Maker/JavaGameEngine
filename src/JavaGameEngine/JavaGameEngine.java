@@ -49,6 +49,8 @@ public class JavaGameEngine {
     public static float deltaTime = 0f;
 
     private static int fps = 0;
+    static float last=0;
+
 
     private static void startGame(){
         frame.setVisible(true);
@@ -73,17 +75,8 @@ public class JavaGameEngine {
                 // Debug.log(totalElapsed);
                 GAMEWORLD.repaint();
                 Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
-                float current = System.nanoTime();
-                deltaTime = current - previous;
-                previous = current;
-                totalElapsed += deltaTime;
+                //System.out.println(System.nanoTime()-last);
 
-                if((totalElapsed/1000000000)>1){
-                    GameWorld.fps = String.valueOf(fps);
-                    totalElapsed = 0;
-                    fps = 0;
-                }
-                fps++;
             }
         }, DELAY,DELAY);
 
