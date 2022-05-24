@@ -45,7 +45,10 @@ public class Component {
         this.scale = new Vector2(100,100);
         this.position = new Vector2(200,200);
     }
-
+    public Component(Vector2 pos) {
+        this.scale = new Vector2(100,100);
+        this.position = pos;
+    }
     public void setMouseInside(boolean mouseInside) {
         this.mouseInside = mouseInside;
     }

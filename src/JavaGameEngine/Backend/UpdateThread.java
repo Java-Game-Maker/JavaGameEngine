@@ -22,7 +22,7 @@ public class UpdateThread extends Thread{
         this.setObjects(o);
     }
 
-    public static Component camera = new Component();
+    public static Component camera = new Component(new Vector2(0,0));
 
     private LinkedList<Component>  UpdateObjects()
     {
