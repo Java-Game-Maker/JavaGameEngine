@@ -63,6 +63,6 @@ public class Player extends GameObject {
 
             physicsBody.addForce(Vector2.up,60);
         }
-        //UpdateThread.camera = this.getPosition();
+        UpdateThread.camera.setPosition(getPosition().subtract(new Vector2(200,200)));
     }
 }

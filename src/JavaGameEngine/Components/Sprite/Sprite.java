@@ -113,6 +113,8 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
+        //SAVE ROTATION WHEN SETTING ANGLE AND THEN RETURN IT
+        /*
         // The required drawing location
         int drawLocationX = (int) (getSpritePosition().getX()+getScale().getX()/2);
         int drawLocationY = (int) (getSpritePosition().getY()+getScale().getY()/2);
@@ -127,7 +129,8 @@ public class Sprite extends Component {
         AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
 
         g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, (int) getScale().getX(), (int) getScale().getY(),null);
-
+*/
+        g.drawImage((Image) getAnimation(), (int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2), (int) getScale().getX(), (int) getScale().getY(),null);
     }
 
     public static BufferedImage resize(BufferedImage img, Vector2 scale) {

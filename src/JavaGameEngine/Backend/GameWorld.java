@@ -108,7 +108,7 @@ public class GameWorld extends JPanel{
 
         for(Component c : list){
             (c).draw(g);
-            g.drawString(fps,0,10);
+            g.drawString(fps,10,20);
         }
     }
 }
