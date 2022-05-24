@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class Sprite extends Component {
 
-    ArrayList<ArrayList<Rectangle>> animations1 = new ArrayList<>();
+    ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
     public ArrayList<BufferedImage[]> animations = new ArrayList<>();
     BufferedImage spriteSheet;
     public int animationIndex = 0;
@@ -26,7 +26,24 @@ public class Sprite extends Component {
     float angle;
 
     public void setAngle(float angle) {
-        this.angle = angle;
+        ArrayList<BufferedImage[]> newAnimations = new ArrayList<>();
+        for(BufferedImage[] animation : animations1){
+            BufferedImage[] newAnimation = new BufferedImage[animation.length];
+            int i = 0;
+            for(BufferedImage image : animation){
+                double rotationRequired = Math.toRadians (angle);
+                double locationX = image.getWidth() / 2;
+                double locationY = image.getHeight() / 2;
+                AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
+                AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
+
+                newAnimation[i] = op.filter(image, null);
+                i+=1;
+            }
+            newAnimations.add(newAnimation);
+        }
+        animations = newAnimations;
+
     }
 
     public float getAngle() {
@@ -63,6 +80,7 @@ public class Sprite extends Component {
             i++;
         }
         animations.add(animation);
+        animations1.add(animation);
     }
     /**
      * This function loads in sprites from images
@@ -84,6 +102,8 @@ public class Sprite extends Component {
             images[i] = sprite;
         }
         animations.add(images);
+        animations1.add(images);
+
     }
     /**
      * This function loads in all images in side a folder
