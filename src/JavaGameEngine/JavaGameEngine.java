@@ -16,7 +16,8 @@ public class JavaGameEngine {
     static JFrame frame;
     private static float start;
     public static float DeltaTime;
-    public static void init()
+
+    public void init()
     {
         frame = new JFrame();
         frame.setSize(600,600);
@@ -29,7 +30,7 @@ public class JavaGameEngine {
      * this it the method to start the game engine
      * do every setup thing before calling start
      */
-    public static void start() {
+    public void start() {
             frame = JavaGameEngine.frame;
             startGame();
     }
@@ -38,7 +39,7 @@ public class JavaGameEngine {
      * do every setup thing before calling start
      * @param frame the frame you want to render in
      */
-    public static void start(JFrame frame) {
+    public  void start(JFrame frame) {
         JavaGameEngine.frame = frame;
         startGame();
     }
@@ -52,7 +53,7 @@ public class JavaGameEngine {
     static float last=0;
 
 
-    private static void startGame(){
+    private void startGame(){
         frame.setVisible(true);
         frame.add(GAMEWORLD);
         GAMEWORLD.setFocusable(true);
@@ -63,6 +64,7 @@ public class JavaGameEngine {
         timer.schedule(new TimerTask() {
             @Override
             public void run() {
+                update();
                 calcThread.Update();
 
             }
@@ -79,6 +81,9 @@ public class JavaGameEngine {
 
             }
         }, DELAY,DELAY);
+    }
+
+    public void update(){
 
     }
 

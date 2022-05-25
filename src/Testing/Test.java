@@ -16,7 +16,8 @@ import java.awt.*;
 public class Test extends JavaGameEngine {
 
     public static void main(String[] args){
-        init();
+        Main m = new Main();
+        m.init();
         ComponentHandler.addObject(new Player());
         GameObject g = new GameObject();
         g.setScale(new Vector2(500,10));
@@ -27,7 +28,7 @@ public class Test extends JavaGameEngine {
         g.addChild(b);
         g.setLayer(0);
         ComponentHandler.addObject(g);
-        start();
+        m.start();
     }
     static class Player extends GameObject{
 

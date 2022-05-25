@@ -15,8 +15,8 @@ import java.awt.*;
 public class Main extends JavaGameEngine{
 
     public static void main(String[] args){
-
-        init();
+        Main m = new Main();
+        m.init();
 
         Player s = new Player(new Vector2(40,10));
         ComponentHandler.addObject(s);
@@ -35,7 +35,7 @@ public class Main extends JavaGameEngine{
 
 
 
-        start();
+        m.start();
     }
     static class T extends GameObject{
         public T(){
