@@ -3,6 +3,7 @@ package JavaGameEngine.Components;
 import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.UpdateThread;
+import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -11,11 +12,11 @@ import java.util.Objects;
 
 public class Component {
 
-    Vector2 position; // world position
+    Vector2 position = new Vector2(200,200); // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
     Vector2 cameraPosition = Vector2.zero; // camera offset
 
-    Vector2 scale; // scale with,height
+    Vector2 scale = new Vector2(100,100); // scale with,height
     Vector2 localScale=Vector2.zero; // local scale with,height
 
     Vector2 rotation=Vector2.zero; // rotation
@@ -23,6 +24,8 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
+
+
 
     int layer = 0;
 
@@ -42,11 +45,12 @@ public class Component {
 
 
     public Component() {
-        this.scale = new Vector2(100,100);
-        this.position = new Vector2(200,200);
     }
     public Component(Vector2 pos) {
-        this.scale = new Vector2(100,100);
+        this.position = pos;
+    }
+    public Component(Vector2 pos,Vector2 scale) {
+        this.scale = scale;
         this.position = pos;
     }
     public void setMouseInside(boolean mouseInside) {
@@ -104,6 +108,10 @@ public class Component {
         float y = (getPosition().subtract(cameraPosition).getY()-((getScale().getY()/2)));
 
         return new Vector2(x,y);
+    }
+    public Vector2 getSpriteScale(){
+        //return getScale();
+        return getScale().subtract(UpdateThread.camera.getScale());
     }
 
     public Vector2 getLocalPosition() {

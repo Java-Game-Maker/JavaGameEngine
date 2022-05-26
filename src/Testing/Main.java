@@ -26,11 +26,6 @@ public class Main extends JavaGameEngine{
         Ground ground = new Ground();
         ComponentHandler.addObject(ground);
 
-        Component camera = new Component();
-        s.addChild(camera);
-
-        UpdateThread.camera = camera;
-
         ComponentHandler.addObject(new T());
 
 

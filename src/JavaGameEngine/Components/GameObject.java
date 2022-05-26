@@ -47,7 +47,7 @@ public class GameObject extends Component{
             //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
         }
         else{
-            g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getScale().getX(), (int) getScale().getY());
+            g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getSpriteScale().getX(), (int) getSpriteScale().getY());
         }
 
         drawChildren(g);
