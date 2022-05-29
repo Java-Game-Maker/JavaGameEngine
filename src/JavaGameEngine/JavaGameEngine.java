@@ -16,6 +16,7 @@ public class JavaGameEngine {
     static JFrame frame;
     private static float start;
     public static float DeltaTime;
+    private int fpsecund;
 
     public void init()
     {
@@ -58,29 +59,8 @@ public class JavaGameEngine {
         frame.add(GAMEWORLD);
         GAMEWORLD.setFocusable(true);
 
-        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects());
+        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),GAMEWORLD);
         calcThread.start();
-        Timer timer = new Timer();
-        timer.schedule(new TimerTask() {
-            @Override
-            public void run() {
-                update();
-                calcThread.Update();
-
-            }
-        }, DELAY,DELAY);
-        Timer timer1 = new Timer();
-        timer1.schedule(new TimerTask() {
-            @Override
-            public void run() {
-
-                // Debug.log(totalElapsed);
-                GAMEWORLD.repaint();
-                Toolkit.getDefaultToolkit().sync(); // so it does not lag on linux
-                //System.out.println(System.nanoTime()-last);
-
-            }
-        }, DELAY,DELAY);
     }
 
     public void update(){
