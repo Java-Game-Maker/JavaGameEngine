@@ -1,70 +1,82 @@
-package JavaGameEngine;
-import JavaGameEngine.Backend.ComponentHandler;
-import JavaGameEngine.Backend.GameWorld;
-import JavaGameEngine.Backend.UpdateThread;
+package JavaGameEngine.Backend;
 
-import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
+import JavaGameEngine.Components.Component;
+import JavaGameEngine.Components.GameObject;
+import JavaGameEngine.JavaGameEngine;
+import JavaGameEngine.msc.Debug;
+import JavaGameEngine.msc.Vector2;
 
-import javax.swing.*;
+import java.util.LinkedList;
 
-public class JavaGameEngine {
+public class UpdateThread extends Thread{
 
-    public static int DELAY = 3;
-    public static GameWorld GAMEWORLD = new GameWorld();
-    static JFrame frame;
-    private static float start;
-    public static float DeltaTime;
-    private int fpsecund;
+    private static LinkedList<Component> objects = new LinkedList<>();
+    public static LinkedList<Component> newObjects = new LinkedList<>();
+    public static LinkedList<Component> delObjects = new LinkedList<>();
+    private int fpsecund=0;
 
-    public void init()
+    public void setObjects(LinkedList<Component>  objects) {
+        UpdateThread.objects = objects;
+    }
+
+    private GameWorld gameWorld;
+
+    public UpdateThread(LinkedList<Component> o,GameWorld gameWorld) {
+        this.setObjects(o);
+        this.gameWorld = gameWorld;
+    }
+
+    public static Component camera = new Component(new Vector2(0,0),new Vector2(0,0));
+
+
+    private LinkedList<Component>  UpdateObjects()
     {
-        frame = new JFrame();
-        frame.setSize(600,600);
-        frame.setTitle("Java Game Engine");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        GAMEWORLD.setBackground(new Color(44, 157, 228));
+        for (Component component : ComponentHandler.getObjects()) {
+            if(component.isEnabled()){
+                component.setCameraPosition(UpdateThread.camera.getPosition());
+                component.update();
+            }
+        }
+        return ComponentHandler.getObjects();
     }
-
-    /**
-     * this it the method to start the game engine
-     * do every setup thing before calling start
-     */
-    public void start() {
-            frame = JavaGameEngine.frame;
-            startGame();
+    public static boolean running = true;
+    public void Update() {
+        if(running){
+            ComponentHandler.setObjects(UpdateObjects());
+            if(UpdateThread.newObjects.size()>0) {
+                for (Component o : UpdateThread.newObjects) {
+                    ComponentHandler.addObject(o);
+                }
+                newObjects.clear();
+            }
+            if(UpdateThread.delObjects.size()>0) {
+                for (Component o : UpdateThread.delObjects) {
+                    ComponentHandler.removeObject(o);
+                }
+                delObjects.clear();
+            }
+        }
+        gameWorld.repaint();
     }
-    /**
-     * this it the method to start the game engine
-     * do every setup thing before calling start
-     * @param frame the frame you want to render in
-     */
-    public  void start(JFrame frame) {
-        JavaGameEngine.frame = frame;
-        startGame();
+    private long last = 0;
+    @Override
+    public void run() {
+        super.run();
+        while(true){
+            try {
+                Thread.sleep(JavaGameEngine.DELAY);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+
+            Update();
+            if(System.nanoTime()-last>1000000000){
+                gameWorld.fps = Float.toString(fpsecund);
+                fpsecund = 0;
+                last = System.nanoTime();
+            }
+            fpsecund+=1;
+        }
     }
-    public static float previous = System.nanoTime();
-
-    public static float totalElapsed = 0.0f;
-
-    public static float deltaTime = 0f;
-
-    private static int fps = 0;
-    static float last=0;
-
-
-    private void startGame(){
-        frame.setVisible(true);
-        frame.add(GAMEWORLD);
-        GAMEWORLD.setFocusable(true);
-
-        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),GAMEWORLD);
-        calcThread.start();
-    }
-
-    public void update(){
-
-    }
-
 }
+
