@@ -6,6 +6,7 @@ import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
+import java.awt.*;
 import java.util.LinkedList;
 
 public class UpdateThread extends Thread{
@@ -56,7 +57,7 @@ public class UpdateThread extends Thread{
                 delObjects.clear();
             }
         }
-        gameWorld.repaint();
+
     }
     private long last = 0;
     @Override
@@ -72,6 +73,7 @@ public class UpdateThread extends Thread{
             Update();
             if(System.nanoTime()-last>1000000000){
                 gameWorld.fps = Float.toString(fpsecund);
+
                 fpsecund = 0;
                 last = System.nanoTime();
             }

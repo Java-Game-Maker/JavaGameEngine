@@ -40,7 +40,7 @@ public class JavaGameEngine {
      * do every setup thing before calling start
      * @param frame the frame you want to render in
      */
-    public  void start(JFrame frame) {
+    public void start(JFrame frame) {
         JavaGameEngine.frame = frame;
         startGame();
     }
@@ -61,6 +61,22 @@ public class JavaGameEngine {
 
         UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),GAMEWORLD);
         calcThread.start();
+        Thread render = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while (true){
+                    try {
+                        Thread.sleep(DELAY);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Toolkit.getDefaultToolkit().sync();
+                    GAMEWORLD.repaint();
+                }
+            }
+        };
+        render.start();
     }
 
     public void update(){
