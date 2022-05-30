@@ -31,7 +31,7 @@ public class Scene extends JPanel{
         /*
           Key keyboard inputs
          */
-
+        setBackground(new Color(44, 157, 228));
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {

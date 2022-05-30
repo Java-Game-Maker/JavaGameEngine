@@ -23,6 +23,7 @@ public class Main extends JavaGameEngine{
 
         Scene mainScene = new Scene();
         mainScene.components.add(s);
+        mainScene.components.add(new Ground());
 
         scenes.add(mainScene);
 
