@@ -12,19 +12,18 @@ import java.awt.*;
 
 public class Coin extends GameObject {
 
+    public Vector2 startPos = Vector2.zero;
     public Coin() {
 
         Sprite sprite = new Sprite();
-        String[] paths = new String[16];
-        for(int i = 0;i< 16; i++){
-            paths[i] = ("/Free Platform Game Assets/Platform Game Assets/Coin Animation/png/2x/image "+(i+1)+".png");
-        }
-        sprite.loadAnimation(paths);
+
+        sprite.loadAnimation(new Rectangle[]{new Rectangle(0,3*250,230,250)},"/spritesheet.png");
         sprite.setTimer(20);
 
-        setScale(new Vector2(5,5));
+        setScale(new Vector2(40,40));
         addChild(sprite);
         SquareCollider b = new SquareCollider();
+
         b.setTrigger(true);
         b.setVisible(true);
         addChild(b);
@@ -32,14 +31,19 @@ public class Coin extends GameObject {
         setTag("Coin");
         setRotation(new Vector2(0,-1));
         setPosition(new Vector2(100,420));
+        startPos=new Vector2(100,420);
+        maxUp = startPos.getY()-10;
+        mindown = startPos.getY()+25;
     }
 
-    public float maxUp = 420-10;
-    public float mindown =420+25;
+    public float maxUp;
+    public float mindown;
 
     @Override
     public void update() {
         super.update();
+        maxUp = startPos.getY()-10;
+        mindown = startPos.getY()+25;
 
         if(getPosition().getY()<maxUp){
             setRotation(Vector2.down);
