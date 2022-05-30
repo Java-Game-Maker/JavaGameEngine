@@ -60,7 +60,6 @@ public class Player extends GameObject {
             //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
         if(Input.isKeyPressed(Keys.SPACE)){
-            Main.selectedScene = 1;
             physicsBody.addForce(Vector2.up,60);
         }
         UpdateThread.camera.setPosition(getPosition().subtract(new Vector2(200,200)));
