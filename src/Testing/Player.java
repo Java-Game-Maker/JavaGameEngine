@@ -13,6 +13,7 @@ import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Debug;
 import JavaGameEngine.msc.Vector2;
 
+import javax.imageio.stream.ImageInputStream;
 import java.awt.*;
 import java.util.Observer;
 
@@ -25,10 +26,13 @@ public class Player extends GameObject {
         sprite.loadAnimation(new Rectangle[]{new Rectangle(0,0,250,250),new Rectangle(0,250,250,250)},"/spritesheet.png");
         //sprite.loadAnimation(new String[]{"/spritesheet.png"});
         sprite.setLocalPosition(new Vector2(0,10));
+        sprite.setTimer(100);
         addChild(sprite);
         setPosition(pos);
         setScale(new Vector2(100,100));
 
+        physicsBody.setMass(100);
+        physicsBody.setUseGravity(true);
         addChild(physicsBody);
         setTag("player");
         SquareCollider s = new SquareCollider();
@@ -36,16 +40,14 @@ public class Player extends GameObject {
         s.setVisible(true);
         addChild(s);
     }
+
     @Override
     public void onTrigger(Component c) {
         super.onTrigger(c);
-
-        if(c.getTag().equals("Coin")){
-            c.destroy();
-          //  instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
-
-        }
+        if(c.getTag().equals("Coin"))
+            Main.setSelectedScene(Main.selectedScene+1);
     }
+
     @Override
     public void update() {
         super.update();
@@ -59,10 +61,10 @@ public class Player extends GameObject {
 
             //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
-        if(Input.isKeyPressed(Keys.SPACE)){
-            Main.selectedScene = 1;
-            physicsBody.addForce(Vector2.up,60);
-        }
-        UpdateThread.camera.setPosition(getPosition().subtract(new Vector2(200,200)));
+
+
+        //UpdateThread.camera.setPosition(getPosition().subtract(new Vector2(Main.getWindowSize().getX()/2,Main.getWindowSize().getY()/2)));
     }
+
+
 }

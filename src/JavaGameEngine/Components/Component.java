@@ -33,7 +33,6 @@ public class Component {
     }
 
     public void setLayer(int layer) {
-        JavaGameEngine.getScene().layerList.add(this);
         this.layer = layer;
     }
 

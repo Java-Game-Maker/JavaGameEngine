@@ -41,7 +41,7 @@ public class PhysicsBody extends Component {
 
     public void addForce(Vector2 direction, float force)
     {
-        Vector2 direction1 = direction.multiply(force/100);
+        Vector2 direction1 = direction.multiply(force/10/getMass());
         setVelocity(getVelocity().add(direction1));
 
         //getParent().setPosition(getParent().getPosition().add(direction1));

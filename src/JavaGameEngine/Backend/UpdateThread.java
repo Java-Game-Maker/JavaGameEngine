@@ -21,10 +21,11 @@ public class UpdateThread extends Thread{
     }
 
     private Scene gameWorld;
-
-    public UpdateThread(LinkedList<Component> o,Scene gameWorld) {
+    private JavaGameEngine engine;
+    public UpdateThread(JavaGameEngine engine,LinkedList<Component> o,Scene gameWorld) {
         this.setObjects(o);
         this.gameWorld = gameWorld;
+        this.engine = engine;
     }
 
     public static Component camera = new Component(new Vector2(0,0),new Vector2(0,0));
@@ -60,10 +61,13 @@ public class UpdateThread extends Thread{
 
     }
     private long last = 0;
+
+    Thread render = null;
     @Override
     public void run() {
+        render = this;
         super.run();
-        while(true){
+        while(Thread.currentThread() == render && render != null){
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
             } catch (InterruptedException e) {
@@ -77,8 +81,10 @@ public class UpdateThread extends Thread{
                 fpsecund = 0;
                 last = System.nanoTime();
             }
-
             fpsecund+=1;
+            engine.update();
+            //System.out.println(JavaGameEngine.getScene());
+            //JavaGameEngine.frame.validate();
         }
     }
 }

@@ -1,6 +1,9 @@
 package JavaGameEngine;
 import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
+import JavaGameEngine.Components.GameObject;
+import JavaGameEngine.msc.Vector2;
+import Testing.Player;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -10,7 +13,8 @@ import javax.swing.*;
 public class JavaGameEngine {
 
     public static int DELAY = 3;
-    static JFrame frame;
+    public static boolean showFps = true;
+    public static JFrame frame;
     private static float start;
     public static float DeltaTime;
     private int fpsecund;
@@ -23,6 +27,14 @@ public class JavaGameEngine {
         frame.setSize(600,600);
         frame.setTitle("Java Game Engine");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    }
+
+    /**
+     *
+     * @return vector2 window size
+     */
+    public static Vector2 getWindowSize(){
+        return new Vector2((float) getScene().getSize().getWidth(), (float) getScene().getSize().getWidth());
     }
 
     /**
@@ -55,15 +67,19 @@ public class JavaGameEngine {
     private static int fps = 0;
     static float last=0;
 
+    public static void setSelectedScene(int selectedScene) {
+        JavaGameEngine.selectedScene = selectedScene;
+
+    }
 
     private void startGame(){
         frame.setVisible(true);
-        frame.add(scenes.get(selectedScene));
+       frame.add(scenes.get(selectedScene));
         scenes.get(selectedScene).setFocusable(true);
 
-        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,scenes.get(selectedScene));
+        //Statrs the update thread;
+        UpdateThread calcThread = new UpdateThread(this,JavaGameEngine.getScene().components,scenes.get(selectedScene));
         calcThread.start();
-
     }
 
     public void update(){

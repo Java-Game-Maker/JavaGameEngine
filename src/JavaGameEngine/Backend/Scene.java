@@ -22,16 +22,18 @@ public class Scene extends JPanel{
         This is where the main game world where we draw everything
         we also gets all the inpus from here
      */
-    public static LinkedList<Component> layerList = new LinkedList<>();
+    public LinkedList<Component> layerList = new LinkedList<>();
     public LinkedList<Component> components = new LinkedList<>();
 
     public static String fps = "0";
     private long last;
+    Thread render = null;
 
     public Scene() {
         /*
           Key keyboard inputs
          */
+
         setBackground(new Color(44, 157, 228));
         addKeyListener(new KeyAdapter() {
             @Override
@@ -77,14 +79,15 @@ public class Scene extends JPanel{
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+        //Start function
         for(Component a : components){
             a.start();
         }
-        Thread render = new Thread(){
+        render = new Thread(){
             @Override
             public void run() {
                 super.run();
-                while (true){
+                while(Thread.currentThread() == render && render != null){
                     try {
                         Thread.sleep(JavaGameEngine.DELAY);
                     } catch (InterruptedException e) {
@@ -96,7 +99,10 @@ public class Scene extends JPanel{
             }
         };
         render.start();
+
     }
+
+
     float fpsecund = 0;
 
     /**
@@ -106,15 +112,12 @@ public class Scene extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawComponents(g);
-        if(System.nanoTime()-last>1000000000){
+        if(System.nanoTime()-last>1000000000 && JavaGameEngine.showFps){
             fps = Float.toString(fpsecund);
             fpsecund = 0;
             last = System.nanoTime();
         }
         fpsecund+=1;
-    }
-    private void drawUi(Graphics g){
-
     }
     private void drawComponents(Graphics g){
         List<Component> list = components;
@@ -129,5 +132,10 @@ public class Scene extends JPanel{
             (c).draw(g);
             g.drawString(fps,10,20);
         }
+    }
+
+    @Override
+    public String toString() {
+        return this.getClass().toString();
     }
 }
