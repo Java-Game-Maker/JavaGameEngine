@@ -16,16 +16,18 @@ import java.util.Comparator;
 import java.util.LinkedList;
 import java.util.List;
 
-public class GameWorld extends JPanel{
+public class Scene extends JPanel{
     /*
         This is where the main game world where we draw everything
         we also gets all the inpus from here
      */
     public static LinkedList<Component> layerList = new LinkedList<>();
+    public LinkedList<Component> components = new LinkedList<>();
+
     public static String fps = "0";
     private long last;
 
-    public GameWorld() {
+    public Scene() {
         /*
           Key keyboard inputs
          */
@@ -98,7 +100,7 @@ public class GameWorld extends JPanel{
 
     }
     private void drawComponents(Graphics g){
-        List<Component> list = ComponentHandler.getObjects();
+        List<Component> list = components;
         Collections.sort(list, new Comparator<Component>() {
             @Override
             public int compare(Component o1, Component o2) {

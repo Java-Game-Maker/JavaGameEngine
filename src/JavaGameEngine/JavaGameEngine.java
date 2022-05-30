@@ -1,9 +1,10 @@
 package JavaGameEngine;
 import JavaGameEngine.Backend.ComponentHandler;
-import JavaGameEngine.Backend.GameWorld;
+import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
 
 import java.awt.*;
+import java.util.LinkedList;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -12,11 +13,12 @@ import javax.swing.*;
 public class JavaGameEngine {
 
     public static int DELAY = 3;
-    public static GameWorld GAMEWORLD = new GameWorld();
     static JFrame frame;
     private static float start;
     public static float DeltaTime;
     private int fpsecund;
+    public static LinkedList<Scene> scenes = new LinkedList<>();
+    public static int selectedScene = 0;
 
     public void init()
     {
@@ -24,7 +26,6 @@ public class JavaGameEngine {
         frame.setSize(600,600);
         frame.setTitle("Java Game Engine");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        GAMEWORLD.setBackground(new Color(44, 157, 228));
     }
 
     /**
@@ -46,6 +47,10 @@ public class JavaGameEngine {
     }
     public static float previous = System.nanoTime();
 
+    public static Scene getScene(){
+        return scenes.get(selectedScene);
+    }
+
     public static float totalElapsed = 0.0f;
 
     public static float deltaTime = 0f;
@@ -56,10 +61,10 @@ public class JavaGameEngine {
 
     private void startGame(){
         frame.setVisible(true);
-        frame.add(GAMEWORLD);
-        GAMEWORLD.setFocusable(true);
+        frame.add(scenes.get(selectedScene));
+        scenes.get(selectedScene).setFocusable(true);
 
-        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),GAMEWORLD);
+        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),scenes.get(selectedScene));
         calcThread.start();
         Thread render = new Thread(){
             @Override
@@ -72,7 +77,7 @@ public class JavaGameEngine {
                         e.printStackTrace();
                     }
                     Toolkit.getDefaultToolkit().sync();
-                    GAMEWORLD.repaint();
+                    scenes.get(selectedScene).repaint();
                 }
             }
         };

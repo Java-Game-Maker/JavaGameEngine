@@ -20,9 +20,9 @@ public class UpdateThread extends Thread{
         UpdateThread.objects = objects;
     }
 
-    private GameWorld gameWorld;
+    private Scene gameWorld;
 
-    public UpdateThread(LinkedList<Component> o,GameWorld gameWorld) {
+    public UpdateThread(LinkedList<Component> o,Scene gameWorld) {
         this.setObjects(o);
         this.gameWorld = gameWorld;
     }

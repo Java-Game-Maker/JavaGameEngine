@@ -1,6 +1,7 @@
 package Testing;
 
 import JavaGameEngine.Backend.ComponentHandler;
+import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Component;
@@ -19,19 +20,18 @@ public class Main extends JavaGameEngine{
         m.init();
 
         Player s = new Player(new Vector2(40,10));
-        ComponentHandler.addObject(s);
-        JFrame frame = new JFrame();
-        frame.setTitle("My example Title");
 
-        Ground ground = new Ground();
-        ComponentHandler.addObject(ground);
+        Scene mainScene = new Scene();
+        mainScene.components.add(s);
 
-        ComponentHandler.addObject(new T());
-
+        scenes.add(mainScene);
 
 
         m.start();
     }
+
+
+
     static class T extends GameObject{
         public T(){
             SquareCollider s = new SquareCollider();
