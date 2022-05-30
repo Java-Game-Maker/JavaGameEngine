@@ -71,7 +71,7 @@ public class JavaGameEngine {
                     } catch (InterruptedException e) {
                         e.printStackTrace();
                     }
-                    Toolkit.getDefaultToolkit().sync();
+                    //Toolkit.getDefaultToolkit().sync();
                     GAMEWORLD.repaint();
                 }
             }
