@@ -3,6 +3,7 @@ package JavaGameEngine.Backend;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
 import JavaGameEngine.Components.Component;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
 import javax.swing.*;
@@ -76,9 +77,25 @@ public class Scene extends JPanel{
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-        for(Component a : ComponentHandler.getObjects()){
+        for(Component a : components){
             a.start();
         }
+        Thread render = new Thread(){
+            @Override
+            public void run() {
+                super.run();
+                while (true){
+                    try {
+                        Thread.sleep(JavaGameEngine.DELAY);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    Toolkit.getDefaultToolkit().sync();
+                    repaint();
+                }
+            }
+        };
+        render.start();
     }
     float fpsecund = 0;
 

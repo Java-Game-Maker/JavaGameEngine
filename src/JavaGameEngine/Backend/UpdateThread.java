@@ -32,27 +32,27 @@ public class UpdateThread extends Thread{
 
     private LinkedList<Component>  UpdateObjects()
     {
-        for (Component component : ComponentHandler.getObjects()) {
+        for (Component component : JavaGameEngine.getScene().components) {
             if(component.isEnabled()){
                 component.setCameraPosition(UpdateThread.camera.getPosition());
                 component.update();
             }
         }
-        return ComponentHandler.getObjects();
+        return JavaGameEngine.getScene().components;
     }
     public static boolean running = true;
     public void Update() {
         if(running){
-            ComponentHandler.setObjects(UpdateObjects());
+            JavaGameEngine.getScene().components=(UpdateObjects());
             if(UpdateThread.newObjects.size()>0) {
                 for (Component o : UpdateThread.newObjects) {
-                    ComponentHandler.addObject(o);
+                    JavaGameEngine.getScene().components.add(o);
                 }
                 newObjects.clear();
             }
             if(UpdateThread.delObjects.size()>0) {
                 for (Component o : UpdateThread.delObjects) {
-                    ComponentHandler.removeObject(o);
+                    JavaGameEngine.getScene().components.remove(o);
                 }
                 delObjects.clear();
             }
@@ -77,6 +77,7 @@ public class UpdateThread extends Thread{
                 fpsecund = 0;
                 last = System.nanoTime();
             }
+
             fpsecund+=1;
         }
     }

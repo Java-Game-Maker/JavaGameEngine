@@ -1,12 +1,9 @@
 package JavaGameEngine;
-import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
 
 import java.awt.*;
 import java.util.LinkedList;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import javax.swing.*;
 
@@ -64,24 +61,9 @@ public class JavaGameEngine {
         frame.add(scenes.get(selectedScene));
         scenes.get(selectedScene).setFocusable(true);
 
-        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),scenes.get(selectedScene));
+        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,scenes.get(selectedScene));
         calcThread.start();
-        Thread render = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                while (true){
-                    try {
-                        Thread.sleep(DELAY);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Toolkit.getDefaultToolkit().sync();
-                    scenes.get(selectedScene).repaint();
-                }
-            }
-        };
-        render.start();
+
     }
 
     public void update(){

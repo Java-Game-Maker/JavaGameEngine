@@ -1,17 +1,10 @@
 package Testing;
 
-import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.Scene;
-import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.Component;
 import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Ui.Label;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
-
-import javax.swing.*;
-import java.awt.*;
 
 public class Main extends JavaGameEngine{
 
@@ -27,6 +20,13 @@ public class Main extends JavaGameEngine{
 
         scenes.add(mainScene);
 
+        Scene mainScene1 = new Scene();
+        s = new Player(new Vector2(400,10));
+        mainScene1.components.add(s);
+
+        mainScene1.components.add(new GameObject());
+
+        scenes.add(mainScene1);
 
         m.start();
     }
