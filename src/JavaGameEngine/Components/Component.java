@@ -1,9 +1,8 @@
 package JavaGameEngine.Components;
 
-import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.UpdateThread;
-import JavaGameEngine.msc.Debug;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -34,7 +33,7 @@ public class Component {
     }
 
     public void setLayer(int layer) {
-        GameWorld.layerList.add(this);
+        JavaGameEngine.getScene().layerList.add(this);
         this.layer = layer;
     }
 

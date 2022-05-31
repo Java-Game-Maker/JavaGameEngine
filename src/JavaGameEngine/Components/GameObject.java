@@ -1,10 +1,9 @@
 package JavaGameEngine.Components;
-import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Components.Collider.Collider;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.Physics.PhysicsBody;
 import JavaGameEngine.Components.Sprite.Sprite;
-import JavaGameEngine.msc.Debug;
+import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
@@ -109,8 +108,8 @@ public class GameObject extends Component{
                         xcolider.setPosition(getPosition().add(dir.removeX()));
                         xcolider.setParent(this);
 
-                        if((SquareCollider.isCollision(xcolider,c,ComponentHandler.getObjects()))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(xcolider,c,ComponentHandler.getObjects());
+                        if((SquareCollider.isCollision(xcolider,c, JavaGameEngine.getScene().components))!=null) {
+                            c2= (Collider) SquareCollider.isCollision(xcolider,c,JavaGameEngine.getScene().components);
                             dir=(dir.removeY());
                         }
 
@@ -119,8 +118,8 @@ public class GameObject extends Component{
                         ycolider.setPosition(getPosition().add(dir.removeY()));
                         ycolider.setParent(this);
 
-                        if((SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects()))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(ycolider,c,ComponentHandler.getObjects());
+                        if((SquareCollider.isCollision(ycolider,c,JavaGameEngine.getScene().components))!=null) {
+                            c2= (Collider) SquareCollider.isCollision(ycolider,c,JavaGameEngine.getScene().components);
                             dir=(dir.removeX());
                         }
 

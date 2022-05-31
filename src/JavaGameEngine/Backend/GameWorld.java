@@ -2,7 +2,6 @@ package JavaGameEngine.Backend;
 
 import JavaGameEngine.Backend.Input.Input;
 import JavaGameEngine.Backend.Input.Keys;
-import JavaGameEngine.Components.Component;
 import JavaGameEngine.msc.Vector2;
 
 import javax.swing.*;
@@ -11,25 +10,14 @@ import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
-import java.util.List;
 
-public class GameWorld extends JPanel{
-    /*
-        This is where the main game world where we draw everything
-        we also gets all the inpus from here
-     */
-    public static LinkedList<Component> layerList = new LinkedList<>();
-    public static String fps = "0";
-    private long last;
+public class GameWorld extends JPanel {
 
-    public GameWorld() {
-        /*
-          Key keyboard inputs
-         */
-
+    Scene currentScene = new Scene();
+    public GameWorld(){
+        setLayout(new GridLayout(0, 1));
+        setBackground(Color.green);
+        setFocusable(true);
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
@@ -74,41 +62,17 @@ public class GameWorld extends JPanel{
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-        for(Component a : ComponentHandler.getObjects()){
-            a.start();
-        }
     }
-    float fpsecund = 0;
 
-    /**
-     * Here is the main drawing function
-     * */
-    @Override
-    protected void paintComponent(Graphics g) {
-        super.paintComponent(g);
-        drawComponents(g);
-        if(System.nanoTime()-last>1000000000){
-            fps = Float.toString(fpsecund);
-            fpsecund = 0;
-            last = System.nanoTime();
-        }
-        fpsecund+=1;
+    public void setCurrentScene(Scene currentScene) {
+        this.remove(getCurrentScene());
+        getCurrentScene().setActive(false);
+        this.add(currentScene);
+        this.currentScene = currentScene;
     }
-    private void drawUi(Graphics g){
 
+    public Scene getCurrentScene() {
+        return currentScene;
     }
-    private void drawComponents(Graphics g){
-        List<Component> list = ComponentHandler.getObjects();
-        Collections.sort(list, new Comparator<Component>() {
-            @Override
-            public int compare(Component o1, Component o2) {
-                return o1.getLayer() - o2.getLayer();
-            }
-        });
 
-        for(Component c : list){
-            (c).draw(g);
-            g.drawString(fps,10,20);
-        }
-    }
 }

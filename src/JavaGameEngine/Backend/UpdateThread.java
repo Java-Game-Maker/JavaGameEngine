@@ -20,9 +20,9 @@ public class UpdateThread extends Thread{
         UpdateThread.objects = objects;
     }
 
-    private GameWorld gameWorld;
+    private Scene gameWorld;
 
-    public UpdateThread(LinkedList<Component> o,GameWorld gameWorld) {
+    public UpdateThread(LinkedList<Component> o,Scene gameWorld) {
         this.setObjects(o);
         this.gameWorld = gameWorld;
     }
@@ -32,27 +32,27 @@ public class UpdateThread extends Thread{
 
     private LinkedList<Component>  UpdateObjects()
     {
-        for (Component component : ComponentHandler.getObjects()) {
+        for (Component component : JavaGameEngine.getScene().components) {
             if(component.isEnabled()){
                 component.setCameraPosition(UpdateThread.camera.getPosition());
                 component.update();
             }
         }
-        return ComponentHandler.getObjects();
+        return JavaGameEngine.getScene().components;
     }
     public static boolean running = true;
     public void Update() {
         if(running){
-            ComponentHandler.setObjects(UpdateObjects());
+            JavaGameEngine.getScene().components=(UpdateObjects());
             if(UpdateThread.newObjects.size()>0) {
                 for (Component o : UpdateThread.newObjects) {
-                    ComponentHandler.addObject(o);
+                    JavaGameEngine.getScene().components.add(o);
                 }
                 newObjects.clear();
             }
             if(UpdateThread.delObjects.size()>0) {
                 for (Component o : UpdateThread.delObjects) {
-                    ComponentHandler.removeObject(o);
+                    JavaGameEngine.getScene().components.remove(o);
                 }
                 delObjects.clear();
             }
@@ -63,14 +63,32 @@ public class UpdateThread extends Thread{
     @Override
     public void run() {
         super.run();
-        while(true){
+        while(Thread.currentThread() == this){
+
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+            //Updates all the objects
             Update();
+            /*
+             * If the os is linux we have to run that line
+             * If windows it lags so... IFS
+             */
+            if(System.getProperty("os.name").equals("Linux"))
+                Toolkit.getDefaultToolkit().sync();
+
+            //Renders
+            JavaGameEngine.gameWorld.validate();
+            JavaGameEngine.gameWorld.repaint();
+            if(JavaGameEngine.startNewScene){
+                JavaGameEngine.gameWorld.getCurrentScene().start();
+                JavaGameEngine.startNewScene = false;
+            }
+
+            //Fps counter
             if(System.nanoTime()-last>1000000000){
                 gameWorld.fps = Float.toString(fpsecund);
 

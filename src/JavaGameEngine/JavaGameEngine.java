@@ -1,30 +1,35 @@
 package JavaGameEngine;
-import JavaGameEngine.Backend.ComponentHandler;
 import JavaGameEngine.Backend.GameWorld;
+import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
+import JavaGameEngine.msc.Debug;
+import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.LinkedList;
 
 import javax.swing.*;
 
 public class JavaGameEngine {
 
     public static int DELAY = 3;
-    public static GameWorld GAMEWORLD = new GameWorld();
     static JFrame frame;
     private static float start;
     public static float DeltaTime;
     private int fpsecund;
+    public static LinkedList<Scene> scenes = new LinkedList<>();
+    public static GameWorld gameWorld = new GameWorld();
 
+    /**
+     * This should be called before start
+     * it sets up a frame
+     */
     public void init()
     {
         frame = new JFrame();
         frame.setSize(600,600);
         frame.setTitle("Java Game Engine");
         frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-        GAMEWORLD.setBackground(new Color(44, 157, 228));
     }
 
     /**
@@ -46,37 +51,37 @@ public class JavaGameEngine {
     }
     public static float previous = System.nanoTime();
 
-    public static float totalElapsed = 0.0f;
+    /**
+     * This is used by the engine (don't change it)
+     */
+    public static boolean startNewScene = true;
 
-    public static float deltaTime = 0f;
 
-    private static int fps = 0;
-    static float last=0;
+    public static void setSelectedScene(Scene scene) {
+        startNewScene = true;
+        gameWorld.getCurrentScene().setActive(false);
+        gameWorld.setCurrentScene(scene);
+    }
+    public static Scene getScene(){
+        return gameWorld.getCurrentScene();
+    }
 
+    /**
+     * @return Vector2 x window width y window height
+     */
+    public static Vector2 getWindowSize(){
+        return new Vector2((float) frame.getSize().getWidth(), (float) frame.getSize().getHeight());
+    }
 
     private void startGame(){
-        frame.setVisible(true);
-        frame.add(GAMEWORLD);
-        GAMEWORLD.setFocusable(true);
+        init();
 
-        UpdateThread calcThread = new UpdateThread(ComponentHandler.getObjects(),GAMEWORLD);
+        frame.setVisible(true);
+        frame.add(gameWorld);
+        gameWorld.setCurrentScene(getScene());
+
+        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,getScene());
         calcThread.start();
-        Thread render = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                while (true){
-                    try {
-                        Thread.sleep(DELAY);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    //Toolkit.getDefaultToolkit().sync();
-                    GAMEWORLD.repaint();
-                }
-            }
-        };
-        render.start();
     }
 
     public void update(){
