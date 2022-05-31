@@ -1,4 +1,5 @@
 package JavaGameEngine;
+import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
 
@@ -16,7 +17,7 @@ public class JavaGameEngine {
     private int fpsecund;
     public static LinkedList<Scene> scenes = new LinkedList<>();
     public static int selectedScene = 0;
-
+    public static GameWorld gameWorld = new GameWorld();
     public void init()
     {
         frame = new JFrame();
@@ -44,6 +45,14 @@ public class JavaGameEngine {
     }
     public static float previous = System.nanoTime();
 
+    public static boolean startNewScene = false;
+
+    public static void setSelectedScene(int selectedScene) {
+        startNewScene = true;
+        gameWorld.setCurrentScene(scenes.get(selectedScene));
+        JavaGameEngine.selectedScene = selectedScene;
+    }
+
     public static Scene getScene(){
         return scenes.get(selectedScene);
     }
@@ -58,8 +67,8 @@ public class JavaGameEngine {
 
     private void startGame(){
         frame.setVisible(true);
-        frame.add(scenes.get(selectedScene));
-        scenes.get(selectedScene).setFocusable(true);
+        frame.add(gameWorld);
+        gameWorld.setCurrentScene(scenes.get(selectedScene));
 
         UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,scenes.get(selectedScene));
         calcThread.start();

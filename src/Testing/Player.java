@@ -41,7 +41,7 @@ public class Player extends GameObject {
         super.onTrigger(c);
 
         if(c.getTag().equals("Coin")){
-            c.destroy();
+            Main.setSelectedScene(Main.selectedScene+1);
           //  instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
 
         }

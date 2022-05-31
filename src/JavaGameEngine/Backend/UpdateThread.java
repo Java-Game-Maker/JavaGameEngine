@@ -64,20 +64,28 @@ public class UpdateThread extends Thread{
     public void run() {
         super.run();
         while(true){
+
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
 
+
             Update();
+            Toolkit.getDefaultToolkit().sync();
+            JavaGameEngine.gameWorld.repaint();
+            JavaGameEngine.gameWorld.validate();
+            if(JavaGameEngine.startNewScene){
+                JavaGameEngine.gameWorld.getCurrentScene().start();
+                JavaGameEngine.startNewScene = false;
+            }
             if(System.nanoTime()-last>1000000000){
                 gameWorld.fps = Float.toString(fpsecund);
 
                 fpsecund = 0;
                 last = System.nanoTime();
             }
-
             fpsecund+=1;
         }
     }

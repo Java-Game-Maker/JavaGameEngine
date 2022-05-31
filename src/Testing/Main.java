@@ -1,10 +1,13 @@
 package Testing;
 
 import JavaGameEngine.Backend.Scene;
+import JavaGameEngine.Backend.UpdateThread;
 import JavaGameEngine.Components.Collider.SquareCollider;
 import JavaGameEngine.Components.GameObject;
 import JavaGameEngine.JavaGameEngine;
 import JavaGameEngine.msc.Vector2;
+
+import javax.swing.*;
 
 public class Main extends JavaGameEngine{
 
@@ -15,7 +18,8 @@ public class Main extends JavaGameEngine{
         Player s = new Player(new Vector2(300,300));
 
         Scene mainScene = new Scene();
-
+        mainScene.start();
+        mainScene.id = 10;
         mainScene.components.add(s);
         mainScene.components.add(new Coin());
         mainScene.components.add(new Ground());
@@ -23,6 +27,7 @@ public class Main extends JavaGameEngine{
         scenes.add(mainScene);
 
         Scene mainScene1 = new Scene();
+        mainScene1.id = 1;
 
         s = new Player(new Vector2(400,300));
 
@@ -44,9 +49,9 @@ public class Main extends JavaGameEngine{
 
 
         Scene mainScene2 = new Scene();
+        mainScene2.id = 2;
+
         mainScene2.components.add(new GameObject());
-
-
 
         scenes.add(mainScene2);
         m.start();

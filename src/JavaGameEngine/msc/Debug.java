@@ -5,6 +5,11 @@ import JavaGameEngine.Components.Component;
 public class Debug {
     static float a = 0;
     public static boolean shouldLog = true;
+    /**
+     * This is a handy tool to find where you have placed your logging
+     * It will make it log from what file and line the log is coming from
+     */
+    public static boolean showWhere = false;
     public static void startCount(){
         a = System.nanoTime();
     }
@@ -33,8 +38,10 @@ public class Debug {
     private static void logPriv(String log)
     {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();
-        if(shouldLog)
+        if(shouldLog&&showWhere)
             System.out.println(stackTraceElements[3]+log);
+        else if(shouldLog)
+            System.out.println(log);
     }
 
 }

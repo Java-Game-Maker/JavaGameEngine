@@ -28,75 +28,31 @@ public class Scene extends JPanel{
     public static String fps = "0";
     private long last;
 
-    public Scene() {
-        /*
+    public int id=120313;
+    private boolean active = false;
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void start(){
+             /*
           Key keyboard inputs
          */
+        setActive(true);
         setBackground(new Color(44, 157, 228));
-        addKeyListener(new KeyAdapter() {
-            @Override
-            public void keyPressed(KeyEvent e) {
-                super.keyPressed(e);
-                if(e.getKeyCode()== Keys.ESCAPE){
-                    UpdateThread.running = !UpdateThread.running;
-                }
-                Input.addKey(e);
-            }
-            @Override
-            public void keyReleased(KeyEvent e) {
-                super.keyReleased(e);
-                Input.removeKey(e);
-            }
-        });
 
-        /*
-          mouse input
-         */
-        MouseAdapter mouseAdapter = new MouseAdapter(){
-            @Override
-            public void mousePressed(MouseEvent e) {
-                super.mousePressed(e);
-                Input.addMouseButton(e);
-            }
-            @Override
-            public void mouseReleased(MouseEvent e) {
-                super.mouseReleased(e);
-                Input.removeMouseButton(e);
-
-            }
-            @Override
-            public void mouseDragged(MouseEvent e) {
-                super.mouseDragged(e);
-                Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
-            }
-            @Override
-            public void mouseMoved(MouseEvent e) {
-                super.mouseMoved(e);
-                Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
-            }
-        };
-        addMouseListener(mouseAdapter);
-        addMouseMotionListener(mouseAdapter);
         for(Component a : components){
             a.start();
         }
-        Thread render = new Thread(){
-            @Override
-            public void run() {
-                super.run();
-                while (true){
-                    try {
-                        Thread.sleep(JavaGameEngine.DELAY);
-                    } catch (InterruptedException e) {
-                        e.printStackTrace();
-                    }
-                    Toolkit.getDefaultToolkit().sync();
-                    repaint();
-                }
-            }
-        };
-        render.start();
+        UpdateThread.camera.setPosition(new Vector2(0,0));
+
     }
+
     float fpsecund = 0;
 
     /**
@@ -111,6 +67,7 @@ public class Scene extends JPanel{
             fpsecund = 0;
             last = System.nanoTime();
         }
+        //System.out.println(id);
         fpsecund+=1;
     }
     private void drawUi(Graphics g){
