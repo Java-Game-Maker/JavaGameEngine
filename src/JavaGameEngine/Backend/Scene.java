@@ -18,18 +18,18 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Scene extends JPanel{
-    /*
-        This is where the main game world where we draw everything
-        we also gets all the inpus from here
-     */
     public static LinkedList<Component> layerList = new LinkedList<>();
+
     public LinkedList<Component> components = new LinkedList<>();
 
     public static String fps = "0";
-    private long last;
 
     public int id=120313;
     private boolean active = false;
+
+    public Scene(){
+        this.setLayout(null);
+    }
 
     public void setActive(boolean active) {
         this.active = active;
@@ -39,10 +39,11 @@ public class Scene extends JPanel{
         return active;
     }
 
+    /**
+        Start the scene
+     */
     public void start(){
-             /*
-          Key keyboard inputs
-         */
+
         setActive(true);
         setBackground(new Color(44, 157, 228));
 
@@ -53,8 +54,6 @@ public class Scene extends JPanel{
 
     }
 
-    float fpsecund = 0;
-
     /**
      * Here is the main drawing function
      * */
@@ -62,16 +61,6 @@ public class Scene extends JPanel{
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         drawComponents(g);
-        if(System.nanoTime()-last>1000000000){
-            fps = Float.toString(fpsecund);
-            fpsecund = 0;
-            last = System.nanoTime();
-        }
-        //System.out.println(id);
-        fpsecund+=1;
-    }
-    private void drawUi(Graphics g){
-
     }
     private void drawComponents(Graphics g){
         List<Component> list = components;

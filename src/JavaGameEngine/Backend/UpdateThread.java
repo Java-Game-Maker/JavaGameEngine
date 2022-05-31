@@ -63,7 +63,7 @@ public class UpdateThread extends Thread{
     @Override
     public void run() {
         super.run();
-        while(true){
+        while(Thread.currentThread() == this){
 
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
@@ -71,15 +71,24 @@ public class UpdateThread extends Thread{
                 e.printStackTrace();
             }
 
-
+            //Updates all the objects
             Update();
-            Toolkit.getDefaultToolkit().sync();
-            JavaGameEngine.gameWorld.repaint();
+            /*
+             * If the os is linux we have to run that line
+             * If windows it lags so... IFS
+             */
+            if(System.getProperty("os.name").equals("Linux"))
+                Toolkit.getDefaultToolkit().sync();
+
+            //Renders
             JavaGameEngine.gameWorld.validate();
+            JavaGameEngine.gameWorld.repaint();
             if(JavaGameEngine.startNewScene){
                 JavaGameEngine.gameWorld.getCurrentScene().start();
                 JavaGameEngine.startNewScene = false;
             }
+
+            //Fps counter
             if(System.nanoTime()-last>1000000000){
                 gameWorld.fps = Float.toString(fpsecund);
 

@@ -41,8 +41,17 @@ public class Player extends GameObject {
         super.onTrigger(c);
 
         if(c.getTag().equals("Coin")){
-            Main.setSelectedScene(Main.selectedScene+1);
-          //  instantiate(new Bullet(getPosition().add(new Vector2(20,0)),Vector2.right));
+            switch (Main.level){
+                case 1:
+                    Main.setSelectedScene(new Main.Level2());
+                    break;
+                case 2:
+                    Main.setSelectedScene(new Main.Level3());
+                    break;
+                case 3:
+                    Main.setSelectedScene(new Main.End());
+                    break;
+            }
 
         }
     }
@@ -60,8 +69,8 @@ public class Player extends GameObject {
             //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
         }
         if(Input.isKeyPressed(Keys.SPACE)){
-            physicsBody.addForce(Vector2.up,60);
+            physicsBody.addForce(Vector2.up,120);
         }
-        UpdateThread.camera.setPosition(getPosition().subtract(new Vector2(200,200)));
+        UpdateThread.camera.setPosition(getPosition().subtract(Main.getWindowSize().devide(2)));
     }
 }

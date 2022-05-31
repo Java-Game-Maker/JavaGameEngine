@@ -2,6 +2,8 @@ package JavaGameEngine;
 import JavaGameEngine.Backend.GameWorld;
 import JavaGameEngine.Backend.Scene;
 import JavaGameEngine.Backend.UpdateThread;
+import JavaGameEngine.msc.Debug;
+import JavaGameEngine.msc.Vector2;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -16,8 +18,12 @@ public class JavaGameEngine {
     public static float DeltaTime;
     private int fpsecund;
     public static LinkedList<Scene> scenes = new LinkedList<>();
-    public static int selectedScene = 0;
     public static GameWorld gameWorld = new GameWorld();
+
+    /**
+     * This should be called before start
+     * it sets up a frame
+     */
     public void init()
     {
         frame = new JFrame();
@@ -45,34 +51,37 @@ public class JavaGameEngine {
     }
     public static float previous = System.nanoTime();
 
-    public static boolean startNewScene = false;
+    /**
+     * This is used by the engine (don't change it)
+     */
+    public static boolean startNewScene = true;
 
-    public static void setSelectedScene(int selectedScene) {
+
+    public static void setSelectedScene(Scene scene) {
         startNewScene = true;
-        gameWorld.setCurrentScene(scenes.get(selectedScene));
-        JavaGameEngine.selectedScene = selectedScene;
+        gameWorld.getCurrentScene().setActive(false);
+        gameWorld.setCurrentScene(scene);
     }
-
     public static Scene getScene(){
-        return scenes.get(selectedScene);
+        return gameWorld.getCurrentScene();
     }
 
-    public static float totalElapsed = 0.0f;
-
-    public static float deltaTime = 0f;
-
-    private static int fps = 0;
-    static float last=0;
-
+    /**
+     * @return Vector2 x window width y window height
+     */
+    public static Vector2 getWindowSize(){
+        return new Vector2((float) frame.getSize().getWidth(), (float) frame.getSize().getHeight());
+    }
 
     private void startGame(){
+        init();
+
         frame.setVisible(true);
         frame.add(gameWorld);
-        gameWorld.setCurrentScene(scenes.get(selectedScene));
+        gameWorld.setCurrentScene(getScene());
 
-        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,scenes.get(selectedScene));
+        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,getScene());
         calcThread.start();
-
     }
 
     public void update(){
