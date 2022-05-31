@@ -18,13 +18,31 @@ import java.util.Observer;
 
 public class Player extends GameObject {
     Label speed = new Label();
+    Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
     PhysicsBody physicsBody = new PhysicsBody();
     public Player(Vector2 pos) {
 
-        Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
-        sprite.loadAnimation(new Rectangle[]{new Rectangle(0,0,250,250),new Rectangle(0,250,250,250)},"/spritesheet.png");
-        //sprite.loadAnimation(new String[]{"/spritesheet.png"});
-        sprite.setLocalPosition(new Vector2(0,10));
+        Rectangle[] right = new Rectangle[4];
+        for(int i = 0;i<4;i++){
+            right[i] = new Rectangle(i*32,2*48,32,48);
+        }
+        Rectangle[] left = new Rectangle[4];
+        for(int i = 0;i<4;i++){
+            left[i] = new Rectangle(i*32,1*48,32,48);
+
+        }
+        Rectangle[] defaultAnimation = new Rectangle[4];
+        for(int i = 0;i<4;i++){
+            defaultAnimation[i] = new Rectangle(0*32,0*48,32,48);
+
+        }
+
+        sprite.loadAnimation(right,"/2.png");
+        sprite.loadAnimation(left,"/2.png");
+        sprite.loadAnimation(defaultAnimation,"/2.png");
+
+        sprite.setTimer(50);
+        sprite.setLocalPosition(new Vector2(0,3));
         addChild(sprite);
         setPosition(pos);
         setScale(new Vector2(100,100));
@@ -32,8 +50,7 @@ public class Player extends GameObject {
         addChild(physicsBody);
         setTag("player");
         SquareCollider s = new SquareCollider();
-        s.setLocalScale(new Vector2(0,-40));
-        s.setVisible(true);
+        s.setLocalScale(new Vector2(-20,0));
         addChild(s);
     }
     @Override
@@ -59,14 +76,18 @@ public class Player extends GameObject {
     public void update() {
         super.update();
 
-        if(Input.isKeyDown((Keys.D))){
+        if(Input.isKeyDown((Keys.D))) {
             movePosition(getPosition().add(Vector2.right.multiply(1.2f)));
-            //UpdateThread.camera.setX(UpdateThread.camera.getX()+2);
+            sprite.animationIndex = 0;
         }
-        if(Input.isKeyDown((Keys.A))){
+        else if(Input.isKeyDown((Keys.A))){
             movePosition(getPosition().add(Vector2.left.multiply(1.2f)));
+            sprite.animationIndex = 1;
 
             //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
+        }
+        else {
+            sprite.animationIndex =2;
         }
         if(Input.isKeyPressed(Keys.SPACE)){
             physicsBody.addForce(Vector2.up,120);

@@ -22,7 +22,7 @@ public class Main extends JavaGameEngine{
         Main m = new Main();
         PhysicsWorld.setGravityAcceleration(new Vector2(0,9.92f/1000));
 
-        setSelectedScene(new Start());
+        setSelectedScene(new Level1());
 
         m.start();
     }

@@ -25,7 +25,7 @@ public class Coin extends GameObject {
         SquareCollider b = new SquareCollider();
 
         b.setTrigger(true);
-        b.setVisible(true);
+        b.setVisible(false);
         addChild(b);
 
         setTag("Coin");
@@ -47,7 +47,7 @@ public class Coin extends GameObject {
         SquareCollider b = new SquareCollider();
 
         b.setTrigger(true);
-        b.setVisible(true);
+        b.setVisible(false);
         addChild(b);
 
         setTag("Coin");
