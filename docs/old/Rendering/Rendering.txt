@@ -1,6 +1,6 @@
 
 
-Rendering is is happening in the src.JavaGameEngine.Display.GameWorld.java class in the PaintComponent method.
+Rendering is is happening in the src.javagameengine.Display.GameWorld.java class in the PaintComponent method.
 This method is given to us from swing.
 
 First we draw the objects from the Objecthandler (see Objecthandler) then we draw the components(if they have a display method)

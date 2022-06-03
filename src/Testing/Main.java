@@ -1,17 +1,13 @@
 package Testing;
 
-import JavaGameEngine.Backend.Scene;
-import JavaGameEngine.Backend.UpdateThread;
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Physics.PhysicsWorld;
-import JavaGameEngine.Components.Ui.Label;
-import JavaGameEngine.JavaGameEngine;
-import JavaGameEngine.UI.Button;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.backend.Scene;
+import javagameengine.components.colliders.SquareCollider;
+import javagameengine.components.GameObject;
+import javagameengine.components.physics.PhysicsWorld;
+import javagameengine.JavaGameEngine;
+import javagameengine.msc.Vector2;
 
 import javax.swing.*;
-import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -22,7 +18,7 @@ public class Main extends JavaGameEngine{
         Main m = new Main();
         PhysicsWorld.setGravityAcceleration(new Vector2(0,9.92f/1000));
 
-        setSelectedScene(new Level1());
+        setSelectedScene(new Level4());
 
         m.start();
     }
@@ -76,7 +72,6 @@ public class Main extends JavaGameEngine{
 
             Player s = new Player(new Vector2(100,300));
             components.add(s);
-            components.add(new Label("1"));
             components.add(new Coin(new Vector2(500,400)));
             components.add(new Ground());
         }
@@ -88,7 +83,6 @@ public class Main extends JavaGameEngine{
             Main.level = 2;
 
             components.add(s);
-            components.add(new Label("2"));
 
             components.add(new Coin(new Vector2(500,200)));
             components.add(new Ground());
@@ -101,7 +95,6 @@ public class Main extends JavaGameEngine{
             id=2;
             Main.level = 3;
             components.add(s);
-            components.add(new Label("3"));
 
             components.add(new Coin(new Vector2(200,0)));
             components.add(new Ground());

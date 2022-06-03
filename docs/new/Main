@@ -1,5 +1,5 @@
-The start of the program should be contained in a class named JavaGameEngine
-this class should have a start method this method should start the JavaGameEngine
+The start of the program should be contained in a class named javagameengine
+this class should have a start method this method should start the javagameengine
 
 the user will have to extend this class when they want to create a game
 in there they can change everything about the window and the game world if they want.

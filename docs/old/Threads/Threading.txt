@@ -1,4 +1,4 @@
-The threads and gameloop is handeld in the src.JavaGameEngine.JavaGameEngine.java class
+The threads and gameloop is handeld in the src.javagameengine.javagameengine.java class
 
 We have two threads CalThread, Main thread (the main program thread)
 Calcthread is handeling all the component updates and the main thread is

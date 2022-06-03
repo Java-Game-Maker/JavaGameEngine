@@ -3,10 +3,10 @@ We will go though and create a simple game and show how to use the engine
 First we have to create a main class which we will
 start the engine
 
-import JavaGameEngine.JavaGameEngine;
-import JavaGameEngine.Msc.ObjectHandler;
-import JavaGameEngine.Msc.Vector2;
-import JavaGameEngine.Objects.Components.GameObject;
+import javagameengine.javagameengine;
+import javagameengine.Msc.ObjectHandler;
+import javagameengine.Msc.Vector2;
+import javagameengine.Objects.Components.GameObject;
 
 import javax.swing.*;
 
@@ -43,7 +43,7 @@ All your gameobjects from the begging should be added in the same way
 To add a custom gameobject so we can give the GameObject som logic we have to create a new class
 We call our player
 
-import JavaGameEngine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.GameObject;
 
 public class Player extends GameObject {
 
@@ -62,7 +62,7 @@ ObjectHandler.addObject(new Player());
 Lets make our player a bit skinnier this is done by
 setting scale in the constructor (you can change scale in runtime)
 
-import JavaGameEngine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.GameObject;
 
 public class Player extends GameObject {
 
@@ -73,12 +73,12 @@ public class Player extends GameObject {
 }
 
 note we set the scale as a Vector2 this is the defualt size and position type in
-JavaGameEngine
+javagameengine
 
 lets give the player som physics
 
-import JavaGameEngine.Objects.Components.GameObject;
-import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import javagameengine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.Physics.PhysicsBody;
 
 public class Player extends GameObject {
 
@@ -96,8 +96,8 @@ and now our player will fall for eternity, or until we close the game ...
 
 lets make a ground object so our player dont fall
 
-import JavaGameEngine.Objects.Components.GameObject;
-import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import javagameengine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.Physics.PhysicsBody;
 
 public class Ground extends GameObject {
 
@@ -116,8 +116,8 @@ dont forget to add it in the Objecthandler as the player
 if we run it we can se that the player falls through the ground
 this is because the player and the ground does not have a collider yet so lets add that
 
-import JavaGameEngine.Objects.Components.GameObject;
-import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import javagameengine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.Physics.PhysicsBody;
 
 public class Player extends GameObject {
 
@@ -134,8 +134,8 @@ public class Player extends GameObject {
     }
 }
 
-import JavaGameEngine.Objects.Components.GameObject;
-import JavaGameEngine.Objects.Components.Physics.PhysicsBody;
+import javagameengine.Objects.Components.GameObject;
+import javagameengine.Objects.Components.Physics.PhysicsBody;
 
 public class Ground extends GameObject {
 
@@ -167,9 +167,9 @@ first add the Update method in the player class and should look like this
    very important to include @Override and super.Update(); for the engine to work
    here we can check for keys to get pressed from the Input class
 
-    import JavaGameEngine.Msc.Input.Input;
-    import JavaGameEngine.Msc.Input.Keys;
-    import JavaGameEngine.Msc.Vector2;
+    import javagameengine.Msc.Input.Input;
+    import javagameengine.Msc.Input.Keys;
+    import javagameengine.Msc.Vector2;
 
     @Override
     public void Update() {

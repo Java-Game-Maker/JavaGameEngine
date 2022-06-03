@@ -1,8 +1,8 @@
 package Testing;
 
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.components.colliders.SquareCollider;
+import javagameengine.components.GameObject;
+import javagameengine.msc.Vector2;
 
 public class Ground extends GameObject {
 

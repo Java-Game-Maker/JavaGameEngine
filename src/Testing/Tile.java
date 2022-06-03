@@ -1,9 +1,9 @@
 package Testing;
 
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Sprite.Sprite;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.components.colliders.SquareCollider;
+import javagameengine.components.GameObject;
+import javagameengine.components.sprites.Sprite;
+import javagameengine.msc.Vector2;
 
 import java.awt.*;
 

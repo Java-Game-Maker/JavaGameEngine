@@ -1,9 +1,9 @@
 package Testing;
 
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Physics.PhysicsBody;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.components.colliders.SquareCollider;
+import javagameengine.components.GameObject;
+import javagameengine.components.physics.PhysicsBody;
+import javagameengine.msc.Vector2;
 
 public class Bullet extends GameObject {
 

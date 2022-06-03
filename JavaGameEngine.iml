@@ -6,10 +6,12 @@
       <sourceFolder url="file://$MODULE_DIR$/res" type="java-resource" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/docs/docs/src/JavaExampels" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/docs/Docs/openapi/code_samples/Java" isTestSource="false" />
       <excludeFolder url="file://$MODULE_DIR$/src/Testing/Physics" />
       <excludeFolder url="file://$MODULE_DIR$/src/Testing/Overhead" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
   </component>
 </module>

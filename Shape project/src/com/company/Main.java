@@ -1,12 +1,12 @@
 package com.company;
 
-import JavaGameEngine.Backend.ComponentHandler;
-import JavaGameEngine.Backend.Input.Input;
-import JavaGameEngine.Backend.Input.Keys;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.JavaGameEngine;
-import JavaGameEngine.msc.Debug;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.backend.ComponentHandler;
+import javagameengine.backend.input.Input;
+import javagameengine.backend.input.Keys;
+import javagameengine.components.GameObject;
+import javagameengine.JavaGameEngine;
+import javagameengine.msc.Debug;
+import javagameengine.msc.Vector2;
 
 import javax.swing.plaf.basic.BasicTreeUI;
 import java.awt.*;

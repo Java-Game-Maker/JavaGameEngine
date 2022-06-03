@@ -1,24 +1,17 @@
 package Testing;
 
-import JavaGameEngine.Backend.Input.Input;
-import JavaGameEngine.Backend.Input.Keys;
-import JavaGameEngine.Backend.UpdateThread;
-import JavaGameEngine.Components.Collider.SquareCollider;
-import JavaGameEngine.Components.Component;
-import JavaGameEngine.Components.GameObject;
-import JavaGameEngine.Components.Physics.PhysicsBody;
-import JavaGameEngine.Components.Sprite.Sprite;
-import JavaGameEngine.Components.Ui.Label;
-import JavaGameEngine.JavaGameEngine;
-import JavaGameEngine.msc.Debug;
-import JavaGameEngine.msc.Vector2;
+import javagameengine.components.colliders.SquareCollider;
+import javagameengine.components.Component;
+import javagameengine.components.GameObject;
+import javagameengine.components.physics.PhysicsBody;
+import javagameengine.components.sprites.Sprite;
+import javagameengine.msc.Vector2;
 
 import java.awt.*;
-import java.util.Observer;
 
 public class Player extends GameObject {
     Label speed = new Label();
-    Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
+    public Sprite sprite = new Sprite();//,new Rectangle(0,250,250,250)
     PhysicsBody physicsBody = new PhysicsBody();
     public Player(Vector2 pos) {
 
@@ -36,7 +29,6 @@ public class Player extends GameObject {
             defaultAnimation[i] = new Rectangle(0*32,0*48,32,48);
 
         }
-
         sprite.loadAnimation(right,"/2.png");
         sprite.loadAnimation(left,"/2.png");
         sprite.loadAnimation(defaultAnimation,"/2.png");
@@ -52,6 +44,8 @@ public class Player extends GameObject {
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(-20,0));
         addChild(s);
+        addChild(new PlayerMovement());
+
     }
     @Override
     public void onTrigger(Component c) {
@@ -71,27 +65,5 @@ public class Player extends GameObject {
             }
 
         }
-    }
-    @Override
-    public void update() {
-        super.update();
-
-        if(Input.isKeyDown((Keys.D))) {
-            movePosition(getPosition().add(Vector2.right.multiply(1.2f)));
-            sprite.animationIndex = 0;
-        }
-        else if(Input.isKeyDown((Keys.A))){
-            movePosition(getPosition().add(Vector2.left.multiply(1.2f)));
-            sprite.animationIndex = 1;
-
-            //UpdateThread.camera.setX(UpdateThread.camera.getX()-2);
-        }
-        else {
-            sprite.animationIndex =2;
-        }
-        if(Input.isKeyPressed(Keys.SPACE)){
-            physicsBody.addForce(Vector2.up,120);
-        }
-        UpdateThread.camera.setPosition(getPosition().subtract(Main.getWindowSize().devide(2)));
     }
 }
