@@ -1,6 +1,9 @@
 package javagameengine.components.physics;
 
+import javagameengine.JavaGameEngine;
+import javagameengine.backend.UpdateThread;
 import javagameengine.components.Component;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 /**
@@ -84,8 +87,8 @@ public class PhysicsBody extends Component {
      */
     public void addForce(Vector2 direction, float force)
     {
-        Vector2 direction1 = direction.multiply(force/100);
-        setVelocity(getVelocity().add(direction1));
+        Vector2 direction1 = direction.multiply(force/50);
+        setVelocity(getVelocity().add(direction1.multiply(1)));
 
         //getParent().setPosition(getParent().getPosition().add(direction1));
     }
@@ -99,8 +102,9 @@ public class PhysicsBody extends Component {
         if(useGravity)
         {
             Vector2 g = PhysicsWorld.getGravityAcceleration();
-            setVelocity(getVelocity().add(g));
+            setVelocity(getVelocity().add(g.multiply(UpdateThread.deltatime)));
+
         }
-        setVelocity(getParent().movePosition(getParent().getPosition().add(getVelocity())));
+        setVelocity(getParent().movePosition(getParent().getPosition().add(getVelocity()))); // this is so we reset the velocity in collision
     }
 }

@@ -15,11 +15,11 @@ import java.util.LinkedList;
  */
 public class Component {
 
-    Vector2 position = new Vector2(200,200); // world position
+    protected Vector2 position = null; // world position
     Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
     Vector2 cameraPosition = Vector2.zero; // camera offset
 
-    Vector2 scale = new Vector2(100,100); // scale with,height
+    protected Vector2 scale = new Vector2(100,100); // scale with,height
     Vector2 localScale=Vector2.zero; // local scale with,height
 
     Vector2 rotation=Vector2.zero; // rotation
@@ -27,7 +27,7 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
-
+    private Vector2 localOrigin = Vector2.zero;
 
 
     int layer = 0;
@@ -48,6 +48,7 @@ public class Component {
 
 
     public Component() {
+        position = new Vector2(0,0);
     }
     public Component(Vector2 pos) {
         this.position = pos;
@@ -101,7 +102,8 @@ public class Component {
      * @return current position
      */
     public Vector2 getPosition() {
-        return position;
+
+        return this.position;
     }
 
     /**
@@ -110,7 +112,20 @@ public class Component {
      * @param position vector2 positon
      */
     public void setPosition(Vector2 position) {
-        this.position = position;
+       // position = new Vector2(position.getX(),-position.getY());
+        if(isParent()){
+
+            if(position!=null){
+
+                this.position = position.add(JavaGameEngine.origin.subtract(localOrigin));
+            }
+            else{
+                this.position = position.add(JavaGameEngine.origin);
+            }
+        }
+        else{
+            this.position = position;
+        }
       //  updateChildren();
     }
     /**
@@ -127,7 +142,7 @@ public class Component {
 
     public Vector2 getSpriteScale(){
         //return getScale();
-        return getScale().subtract(UpdateThread.camera.getScale());
+        return getScale();
     }
 
     public Vector2 getLocalPosition() {
@@ -265,20 +280,25 @@ public class Component {
      * it updates all the children.
      */
     public void update() {
-            if (insideComp() && isEnabled()) {
-                if (!isMouseInside()) {
-                    onMouseEntered();
-                    setMouseInside(true);
-                }
+        //Updating relative to the middle
+        if(!JavaGameEngine.origin.equals(localOrigin)){
+            setPosition(getPosition());
+            localOrigin = JavaGameEngine.origin;
+        }
+        if (insideComp() && isEnabled()) {
+            if (!isMouseInside()) {
+                onMouseEntered();
+                setMouseInside(true);
+            }
 
-            } else if (isMouseInside() && isEnabled()) {
-                onMouseExit();
-                setMouseInside(false);
-            }
-            if (isMouseInside() && Input.isMousePressed() && isEnabled()) {
-                onMousePressed();
-                if (getParent() != null) getParent().onMousePressed();
-            }
+        } else if (isMouseInside() && isEnabled()) {
+            onMouseExit();
+            setMouseInside(false);
+        }
+        if (isMouseInside() && Input.isMousePressed() && isEnabled()) {
+            onMousePressed();
+            if (getParent() != null) getParent().onMousePressed();
+        }
 
         if(parent!=null) {
             float x = (parent.getPosition().getX()-((getScale().getX()/2)));

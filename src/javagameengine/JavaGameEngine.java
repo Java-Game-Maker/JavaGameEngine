@@ -2,6 +2,7 @@ package javagameengine;
 import javagameengine.backend.GameWorld;
 import javagameengine.backend.Scene;
 import javagameengine.backend.UpdateThread;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
@@ -17,6 +18,11 @@ public class JavaGameEngine {
     private int fpsecund;
     public static LinkedList<Scene> scenes = new LinkedList<>();
     public static GameWorld gameWorld = new GameWorld();
+    public static JavaGameEngine mainClass; // which class to call the update function to
+    /**
+     * point in middle
+     */
+    public static Vector2 origin = Vector2.zero;
 
     /**
      * This should be called before start
@@ -73,15 +79,13 @@ public class JavaGameEngine {
 
     private void startGame(){
         init();
-
         frame.setVisible(true);
         frame.add(gameWorld);
         gameWorld.setCurrentScene(getScene());
-
         UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,getScene());
         calcThread.start();
+        mainClass = this;
     }
-
     public void update(){
 
     }

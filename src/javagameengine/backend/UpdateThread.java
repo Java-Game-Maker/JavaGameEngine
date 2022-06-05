@@ -33,7 +33,17 @@ public class UpdateThread extends Thread{
     /**
      * This is the camera every component is going to be renderd offset to the cameras position
      */
-    public static Component camera = new Component(new Vector2(0,0),new Vector2(0,0));
+    public static Component camera = new Component(new Vector2(0,0),new Vector2(1,1)){
+        @Override
+        public void setPosition(Vector2 position) {
+            this.position = position;
+        }
+
+        @Override
+        public Vector2 getScale() {
+            return this.scale;
+        }
+    };
 
     //updates all the components
     private LinkedList<Component>  UpdateObjects()
@@ -70,18 +80,26 @@ public class UpdateThread extends Thread{
 
     }
     private long last = 0;
+    public static float deltatime;
+    private float prevTime = ((float)System.nanoTime())/1000000000;
     @Override
     public void run() {
         super.run();
         while(Thread.currentThread() == this){
+            float now = ((float)System.nanoTime())/1000000000;
+            deltatime = (now-prevTime)*100;
+            prevTime = now;
+
+//            Debug.log(deltatime);
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
-
+            camera.update();
             //Updates all the objects
             Update();
+            JavaGameEngine.mainClass.update();
             /*
              * If the os is linux we have to run that line
              * If windows it lags so... IFS
@@ -90,6 +108,7 @@ public class UpdateThread extends Thread{
                 Toolkit.getDefaultToolkit().sync();
 
             //Renders
+            JavaGameEngine.getScene().update();
             JavaGameEngine.gameWorld.validate();
             JavaGameEngine.gameWorld.repaint();
             if(JavaGameEngine.startNewScene){
@@ -105,7 +124,6 @@ public class UpdateThread extends Thread{
                 last = System.nanoTime();
             }
             fpsecund+=1;
-
         }
     }
 }

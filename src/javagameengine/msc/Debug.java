@@ -19,6 +19,9 @@ public class Debug {
     public static void endCount(){
         logPriv(String.valueOf((System.nanoTime()-a)));
     }
+    public static void endCountMiliSeconds(){
+        logPriv(String.valueOf((System.nanoTime()-a)/1000000));
+    }
     public static void endCount(int devide){
         logPriv(String.valueOf((System.nanoTime()-a)/devide));
     }
@@ -34,7 +37,10 @@ public class Debug {
     public static void log(float log){
         logPriv(String.valueOf(log));
     }
-
+    public static void log(Vector2 log){
+        logPriv(log.toString());
+    }
+    public static void log(Double log){logPriv(String.valueOf(log));}
     private static void logPriv(String log)
     {
         StackTraceElement[] stackTraceElements = Thread.currentThread().getStackTrace();

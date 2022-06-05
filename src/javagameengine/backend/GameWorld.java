@@ -25,7 +25,7 @@ public class GameWorld extends JPanel {
      */
     public GameWorld(){
         setLayout(new GridLayout(0, 1));
-        setBackground(Color.green);
+        setBackground(Color.black);
         setFocusable(true);
         addKeyListener(new KeyAdapter() {
             @Override
@@ -71,6 +71,7 @@ public class GameWorld extends JPanel {
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
+
     }
 
     /**

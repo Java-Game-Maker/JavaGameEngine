@@ -1,10 +1,14 @@
 package javagameengine.backend;
 
+import javagameengine.JavaGameEngine;
+import javagameengine.backend.input.Input;
 import javagameengine.components.Component;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -53,11 +57,22 @@ public class Scene extends JPanel{
         setActive(true);
         setBackground(new Color(44, 157, 228));
 
+        UpdateThread.camera.setPosition(new Vector2(0,0));
+
+    }
+    public void starts(){
         for(Component a : components){
             a.start();
         }
-        UpdateThread.camera.setPosition(new Vector2(0,0));
 
+    }
+
+    /**
+     * This method is run every update cycle
+     * updates thie origin point
+     */
+    public void update(){
+        JavaGameEngine.origin = JavaGameEngine.getWindowSize().devide(2);
     }
 
     /**
@@ -69,6 +84,16 @@ public class Scene extends JPanel{
         drawComponents(g);
     }
     private void drawComponents(Graphics g){
+        g.drawString(fps,10,20);
+
+        g.drawString(Input.getMouseWorldPosition().toString(), (int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
+
+        Graphics2D g1 = (Graphics2D) g;
+        Vector2 scale = UpdateThread.camera.getScale();
+        //scale = scale.devide(JavaGameEngine.getWindowSize());
+        g1.scale(scale.getX(),scale.getY());
+        g1.translate((g1.getClip().getBounds().width/2)*(1-scale.getX()),(g1.getClip().getBounds().height/2)*(1-scale.getY()));
+
         List<Component> list = components;
         Collections.sort(list, new Comparator<Component>() {
             @Override
@@ -78,8 +103,7 @@ public class Scene extends JPanel{
         });
 
         for(Component c : list){
-            (c).draw(g);
-            g.drawString(fps,10,20);
+            (c).draw(g1);
         }
     }
 }

@@ -8,7 +8,7 @@ import javagameengine.msc.Vector2;
  */
 public class PhysicsWorld {
 
-    private static Vector2 gravityAcceleration=new Vector2(0,9.82f*JavaGameEngine.DELAY/10000);
+    private static Vector2 gravityAcceleration=new Vector2(0,9.82f/500);
 
     /**
      * This is the acceleration of the gravity. It is a vector so it is simply added to the movement of a physics body
