@@ -105,7 +105,7 @@ public class Scene extends JPanel{
         float percentW = 1-scale.getX();
         float height = g1.getClip().getBounds().width/2;
         float percentH = 1-scale.getY();
-        
+
         g1.translate(width*percentW,height*percentH);
 
         List<Component> list = components;
