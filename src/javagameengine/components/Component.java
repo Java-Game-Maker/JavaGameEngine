@@ -403,6 +403,7 @@ public class Component {
     }
 
     public Vector2 movePosition(Vector2 add) {
+        setPosition(add);
         return add;
     }
 

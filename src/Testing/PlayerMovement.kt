@@ -17,15 +17,10 @@ class PlayerMovement : Component() {
         super.update()
 
         if(Input.isKeyDown(Keys.DOWNARROW)){
-            println("what")
             UpdateThread.camera.scale=UpdateThread.camera.scale.add(0.01F);
-
-
         }
         if(Input.isKeyDown(Keys.UPARROW)){
-            println("what")
             UpdateThread.camera.scale=UpdateThread.camera.scale.subtract(Vector2(0.01f,0.01f));
-
         }
 
         try {

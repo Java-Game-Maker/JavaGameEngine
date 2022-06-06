@@ -13,14 +13,20 @@ public class Input {
     private static boolean isPressed = false;
     private static boolean mouseIsPressed = false;
     private static Vector2 mousePosition=new Vector2(0,0);
-
+    private static float scrollValue=0;
     private static LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
 
     public static Vector2 getMousePosition() {
         return mousePosition;
     }
     public static Vector2 getMouseWorldPosition(){
-        return Input.getMousePosition().add(UpdateThread.camera.getPosition().subtract(JavaGameEngine.getWindowSize().devide(2)));
+        return Input.getMousePosition().add(UpdateThread.camera.getPosition().add(0).subtract(JavaGameEngine.getWindowSize().devide(2)));
+    }
+    public static void setScrollValue(float scrollValue1){
+        scrollValue = scrollValue1;
+    }
+    public static float getScrollValue(){
+        return scrollValue;
     }
     public static void setMousePosition(Vector2 mousePosition) {
         Input.mousePosition = mousePosition;

@@ -2,14 +2,12 @@ package javagameengine.backend;
 
 import javagameengine.backend.input.Input;
 import javagameengine.backend.input.Keys;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
+import java.awt.event.*;
 
 /**
  * GameWorld is the container all other scenes are displayed in.
@@ -67,11 +65,30 @@ public class GameWorld extends JPanel {
             public void mouseMoved(MouseEvent e) {
                 super.mouseMoved(e);
                 Input.setMousePosition(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
+
+            }
+            @Override
+            public void mouseWheelMoved(MouseWheelEvent e) {
+                super.mouseWheelMoved(e);
+                if (e.isControlDown())
+                {
+                    if (e.getWheelRotation() < 0)
+                    {
+                        System.out.println("mouse wheel Up");
+                    }
+                    else
+                    {
+                        System.out.println("mouse wheel Down");
+                    }
+                }
+                else
+                {
+                    getParent().dispatchEvent(e);
+                }
             }
         };
         addMouseListener(mouseAdapter);
         addMouseMotionListener(mouseAdapter);
-
     }
 
     /**

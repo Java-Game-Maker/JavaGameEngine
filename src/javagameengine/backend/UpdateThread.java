@@ -34,6 +34,7 @@ public class UpdateThread extends Thread{
      * This is the camera every component is going to be renderd offset to the cameras position
      */
     public static Component camera = new Component(new Vector2(0,0),new Vector2(1,1)){
+
         @Override
         public void setPosition(Vector2 position) {
             this.position = position;

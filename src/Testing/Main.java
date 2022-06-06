@@ -23,7 +23,7 @@ public class Main extends JavaGameEngine{
     public static int level = 0;
     public static void main(String[] args){
         Main m = new Main();
-        setSelectedScene(new Level1());
+        setSelectedScene(new Level4());
         m.start();
         //Debug.showWhere = true;
     }

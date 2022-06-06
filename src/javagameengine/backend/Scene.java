@@ -66,6 +66,14 @@ public class Scene extends JPanel{
         }
 
     }
+    /**
+     * This method will add the component to the component handler
+     * this means that you have created a new parent
+     * @param c the object to instantiate
+     */
+    public void instantiate(Component c){
+        UpdateThread.newObjects.add(c);
+    }
 
     /**
      * This method is run every update cycle
@@ -92,7 +100,13 @@ public class Scene extends JPanel{
         Vector2 scale = UpdateThread.camera.getScale();
         //scale = scale.devide(JavaGameEngine.getWindowSize());
         g1.scale(scale.getX(),scale.getY());
-        g1.translate((g1.getClip().getBounds().width/2)*(1-scale.getX()),(g1.getClip().getBounds().height/2)*(1-scale.getY()));
+
+        float width = g1.getClip().getBounds().height/2;
+        float percentW = 1-scale.getX();
+        float height = g1.getClip().getBounds().width/2;
+        float percentH = 1-scale.getY();
+        
+        g1.translate(width*percentW,height*percentH);
 
         List<Component> list = components;
         Collections.sort(list, new Comparator<Component>() {
