@@ -1,13 +1,20 @@
 package Testing;
 
+import javagameengine.backend.GameWorld;
 import javagameengine.backend.Scene;
+import javagameengine.backend.UpdateThread;
+import javagameengine.backend.input.Input;
+import javagameengine.backend.input.Keys;
+import javagameengine.components.Component;
 import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
 import javagameengine.components.physics.PhysicsWorld;
 import javagameengine.JavaGameEngine;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.swing.*;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -16,11 +23,19 @@ public class Main extends JavaGameEngine{
     public static int level = 0;
     public static void main(String[] args){
         Main m = new Main();
-        PhysicsWorld.setGravityAcceleration(new Vector2(0,9.92f/1000));
-
         setSelectedScene(new Level4());
-
         m.start();
+        //Debug.showWhere = true;
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        if(!UpdateThread.running){
+            setSelectedScene(new Start());
+            UpdateThread.running = true;
+        }
+
     }
 
     static class Start extends Scene{
@@ -54,7 +69,7 @@ public class Main extends JavaGameEngine{
             b2.addActionListener(new ActionListener() {
                 @Override
                 public void actionPerformed(ActionEvent actionEvent) {
-                    Main.setSelectedScene(new Level3());
+                    Main.setSelectedScene(new Level4());
                     System.out.println(3);
 
                 }
@@ -70,36 +85,36 @@ public class Main extends JavaGameEngine{
             id=0;
             Main.level = 1;
 
-            Player s = new Player(new Vector2(100,300));
+            Player s = new Player(new Vector2(0,-100));
             components.add(s);
-            components.add(new Coin(new Vector2(500,400)));
-            components.add(new Ground());
+            components.add(new Goal(new Vector2(100,-100)));
+            components.add(new Ground(new Vector2(0,0)));
+         //   components.add(new Goal());
         }
+
     }
     static class Level2 extends Scene{
         public Level2(){
-            Player s = new Player(new Vector2(200,300));
             id=1;
             Main.level = 2;
+            Player s = new Player(new Vector2(0,100));
 
             components.add(s);
-
-            components.add(new Coin(new Vector2(500,200)));
-            components.add(new Ground());
-            components.add(new Ground(new Vector2(600,300)));
+            components.add(new Goal(new Vector2(400,-100)));
+            components.add(new Ground(new Vector2(400,0)));
+            components.add(new Ground(new Vector2(120,200)));
         }
     }
     static class Level3 extends Scene{
         public Level3(){
-            Player s = new Player(new Vector2(200,300));
+            Player s = new Player(new Vector2(0,-100));
             id=2;
             Main.level = 3;
             components.add(s);
-
-            components.add(new Coin(new Vector2(200,0)));
-            components.add(new Ground());
-            components.add(new Ground(new Vector2(600,300)));
-            components.add(new Ground(new Vector2(200,100)));
+            components.add(new Ground(new Vector2(0,0)));
+            components.add(new Ground(new Vector2(400,-200)));
+            components.add(new Ground(new Vector2(0,-400)));
+            components.add(new Goal(new Vector2(-100,-500)));
         }
     }
     static class End extends Scene{
@@ -118,6 +133,7 @@ public class Main extends JavaGameEngine{
 
         }
     }
+
 
     static class T extends GameObject{
         public T(){

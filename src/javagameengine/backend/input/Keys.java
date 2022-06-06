@@ -8,7 +8,7 @@ public class Keys {
     public static final int UPARROW = 38;
     public static final int DOWNARROW = 40;
     public static final int LEFTARROW = 37;
-    public static final int RIGHTARROW = 40;
+    public static final int RIGHTARROW = 39;
     public static final int SPACE = 32;
     public static final int SHIFT = 16;
     public static final int ESCAPE = 27;

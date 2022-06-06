@@ -1,4 +1,5 @@
 package javagameengine.components;
+import javagameengine.backend.UpdateThread;
 import javagameengine.components.colliders.Collider;
 import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.physics.PhysicsBody;
@@ -67,18 +68,20 @@ public class GameObject extends Component{
      */
     @Override
     public void draw(Graphics g){
-        //g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
-       // g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
-        g.setColor(this.color);
-        Sprite sprite = (Sprite) getChild(new Sprite());
-        if(sprite!=null){
-            //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
-        }
-        else{
-            g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getSpriteScale().getX(), (int) getSpriteScale().getY());
-        }
+        if(getPosition().getDistance(UpdateThread.camera.getPosition())<5000){
+            //g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
+            // g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
+            g.setColor(this.color);
+            Sprite sprite = (Sprite) getChild(new Sprite());
+            if(sprite!=null){
+                //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
+            }
+            else{
+                g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getSpriteScale().getX(), (int) getSpriteScale().getY());
+            }
 
-        drawChildren(g);
+            drawChildren(g);
+        }
     }
     /**
      * This method is used to setPostion but with collison. It will check if the gamobject can be set/moved tho the new positon
@@ -119,6 +122,12 @@ public class GameObject extends Component{
         |----|
         1 is the one we check
         in this case we can't move in the y-axis but neither in the x*/
+        LinkedList<Component> components = new LinkedList<>();
+        for(Component ob : JavaGameEngine.getScene().components){
+            if(getPosition().getDistance(ob.getPosition())<500){
+                components.add(ob);
+            }
+        }
         Vector2 dir = position.subtract(getPosition());
         if(getChild(new PhysicsBody())==null) {
             setPosition(position);
@@ -136,8 +145,8 @@ public class GameObject extends Component{
                         xcolider.setPosition(getPosition().add(dir.removeX()));
                         xcolider.setParent(this);
 
-                        if((SquareCollider.isCollision(xcolider,c, JavaGameEngine.getScene().components))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(xcolider,c,JavaGameEngine.getScene().components);
+                        if((SquareCollider.isCollision(xcolider,c, components))!=null) {
+                            c2= (Collider) SquareCollider.isCollision(xcolider,c,components);
                             dir=(dir.removeY());
                         }
 
@@ -146,8 +155,8 @@ public class GameObject extends Component{
                         ycolider.setPosition(getPosition().add(dir.removeY()));
                         ycolider.setParent(this);
 
-                        if((SquareCollider.isCollision(ycolider,c,JavaGameEngine.getScene().components))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(ycolider,c,JavaGameEngine.getScene().components);
+                        if((SquareCollider.isCollision(ycolider,c,components))!=null) {
+                            c2= (Collider) SquareCollider.isCollision(ycolider,c,components);
                             dir=(dir.removeX());
                         }
 

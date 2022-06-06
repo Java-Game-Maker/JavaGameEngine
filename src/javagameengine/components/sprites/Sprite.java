@@ -1,6 +1,8 @@
 package javagameengine.components.sprites;
 
+import javagameengine.backend.UpdateThread;
 import javagameengine.components.Component;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.imageio.ImageIO;
@@ -19,7 +21,7 @@ public class Sprite extends Component {
     public ArrayList<BufferedImage[]> animations = new ArrayList<>();
     BufferedImage spriteSheet;
     public int animationIndex = 0;
-    private int spriteCounter;
+    private float spriteCounter;
     float timer = 10;
     int currentSprite = 0;
     float angle;
@@ -118,10 +120,12 @@ public class Sprite extends Component {
     public BufferedImage getAnimation(){
         int spritesLen = animations.get(animationIndex).length;
         //Adds until timer then 0
-        spriteCounter = (spriteCounter+1>=timer) ? 0 :spriteCounter+1;
+        spriteCounter = (spriteCounter+1>=timer) ? 0 :spriteCounter+1* UpdateThread.deltatime;
         //Sets the current sprite index (the image that will be displayed)
-        currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer - 1))) ? 0 :
-                ((spriteCounter >= (timer - 1)) ? (currentSprite + 1) :
+        currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer - 1))) ?
+                0 :
+                ((spriteCounter >= (timer - 1)) ?
+                        (currentSprite + 1) :
                         currentSprite);
 
         BufferedImage sprite = animations.get(animationIndex)[(currentSprite)];
@@ -133,23 +137,6 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        //SAVE ROTATION WHEN SETTING ANGLE AND THEN RETURN IT
-        /*
-        // The required drawing location
-        int drawLocationX = (int) (getSpritePosition().getX()+getScale().getX()/2);
-        int drawLocationY = (int) (getSpritePosition().getY()+getScale().getY()/2);
-
-// Rotation information
-        BufferedImage image = getAnimation();
-
-        double rotationRequired = Math.toRadians (angle);
-        double locationX = image.getWidth() / 2;
-        double locationY = image.getHeight() / 2;
-        AffineTransform tx = AffineTransform.getRotateInstance(rotationRequired, locationX, locationY);
-        AffineTransformOp op = new AffineTransformOp(tx, AffineTransformOp.TYPE_BICUBIC);
-
-        g.drawImage(op.filter(image, null), drawLocationX, drawLocationY, (int) getScale().getX(), (int) getScale().getY(),null);
-*/
         g.drawImage((Image) getAnimation(), (int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2), (int) getScale().getX(), (int) getScale().getY(),null);
     }
 
