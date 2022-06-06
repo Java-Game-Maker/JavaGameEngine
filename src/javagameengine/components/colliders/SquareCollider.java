@@ -1,8 +1,10 @@
 package javagameengine.components.colliders;
 
+import javagameengine.backend.UpdateThread;
 import javagameengine.components.Component;
 import javagameengine.components.GameObject;
 import javagameengine.msc.Debug;
+import javagameengine.msc.Vector2;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -126,7 +128,7 @@ public class SquareCollider extends Collider{
 
         if(isVisible()){
             g.setColor(Color.GREEN);
-            g.drawRect((int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2), (int) getScale().getX(), (int) getScale().getY());
+            g.drawRect(getSpritePosition().getIntX(),getSpritePosition().getIntY(),getScale().getIntX(),getScale().getIntY());
             g.setColor(Color.darkGray);
         }
         /*

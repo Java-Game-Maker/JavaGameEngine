@@ -41,6 +41,11 @@ public class UpdateThread extends Thread{
         }
 
         @Override
+        public Vector2 getPosition() {
+            return position;
+        }
+
+        @Override
         public Vector2 getScale() {
             return this.scale;
         }

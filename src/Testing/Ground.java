@@ -4,6 +4,8 @@ import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
 import javagameengine.msc.Vector2;
 
+import java.awt.*;
+
 public class Ground extends GameObject {
 
     public Ground() {
@@ -22,10 +24,16 @@ public class Ground extends GameObject {
         SquareCollider s = new SquareCollider();
         s.setVisible(true);
         s.setLocalPosition(new Vector2(0,0));
+
         addChild(s);
     }
 
 
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        g.drawString(getPosition().toString(),200,200);
+    }
 
     @Override
     public void update() {

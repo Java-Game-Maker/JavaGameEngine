@@ -18,6 +18,9 @@ public class Vector2 {
     public float getX() {
         return x;
     }
+    public int getIntX() {
+        return (int) x;
+    }
 
     public void setX(float x) {
         this.x = x;
@@ -26,7 +29,9 @@ public class Vector2 {
     public float getY() {
         return y;
     }
-
+    public int getIntY() {
+        return (int) y;
+    }
     public void setY(float y) {
         this.y = y;
     }

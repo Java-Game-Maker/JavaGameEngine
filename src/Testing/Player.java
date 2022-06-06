@@ -57,12 +57,19 @@ public class Player extends GameObject {
         setTag("player");
         SquareCollider s = new SquareCollider();
         s.setLocalScale(new Vector2(-20,0));
+        s.setVisible(true);
+
         addChild(s);
         addChild(new PlayerMovement());
 
 
     }
 
+    @Override
+    public void draw(Graphics g) {
+        super.draw(g);
+        g.drawString(getPosition().toString(),300,300);
+    }
 
     @Override
     public void onTrigger(Component c) {

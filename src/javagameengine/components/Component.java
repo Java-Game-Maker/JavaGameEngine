@@ -3,6 +3,7 @@ package javagameengine.components;
 import javagameengine.backend.input.Input;
 import javagameengine.backend.UpdateThread;
 import javagameengine.JavaGameEngine;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -102,29 +103,26 @@ public class Component {
      * @return current position
      */
     public Vector2 getPosition() {
-
-        return this.position;
+        //remove origins positon
+        return this.position.subtract(JavaGameEngine.origin);
     }
-
+    public Vector2 getRealPosition(){
+        return position;
+    }
     /**
      * This will only be set if the component isnt a child. This is because if the component
      * is a child it will set its positon to its parent + its local piston
      * @param position vector2 positon
      */
     public void setPosition(Vector2 position) {
-       // position = new Vector2(position.getX(),-position.getY());
-        if(isParent()){
+        //adds the origin pos to positon
 
-            if(position!=null){
-
-                this.position = position.add(JavaGameEngine.origin.subtract(localOrigin));
-            }
-            else{
-                this.position = position.add(JavaGameEngine.origin);
-            }
+        if(position!=null){
+        //    Debug.log("my new pos "+position);
+            this.position = position.add(JavaGameEngine.origin);
         }
         else{
-            this.position = position;
+            this.position = position.add(JavaGameEngine.origin);
         }
       //  updateChildren();
     }
@@ -134,10 +132,19 @@ public class Component {
      *
      */
     public Vector2 getSpritePosition(){
-        float x = (getPosition().subtract(UpdateThread.camera.getPosition()).getX()-((getScale().getX()/2)));
-        float y = (getPosition().subtract(UpdateThread.camera.getPosition()).getY()-((getScale().getY()/2)));
+        if(isParent()){
+            float x = (getPosition().subtract(UpdateThread.camera.getPosition()).getX()-((getScale().getX()/2)));
+            float y = (getPosition().subtract(UpdateThread.camera.getPosition()).getY()-((getScale().getY()/2)));
 
-        return new Vector2(x,y);
+            return new Vector2(x,y);
+        }
+        else{
+            float x = (getPosition().subtract(UpdateThread.camera.getPosition()).getX());
+            float y = (getPosition().subtract(UpdateThread.camera.getPosition()).getY());
+
+            return new Vector2(x,y);
+
+        }
     }
 
     public Vector2 getSpriteScale(){
@@ -300,7 +307,7 @@ public class Component {
             if (getParent() != null) getParent().onMousePressed();
         }
 
-        if(parent!=null) {
+        if(!isParent()) {
             float x = (parent.getPosition().getX()-((getScale().getX()/2)));
             float y = (parent.getPosition().getY()-((getScale().getY()/2)));
 

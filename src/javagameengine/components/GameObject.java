@@ -69,17 +69,10 @@ public class GameObject extends Component{
     @Override
     public void draw(Graphics g){
         if(getPosition().getDistance(UpdateThread.camera.getPosition())<5000){
-            //g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
-            // g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
-            g.setColor(this.color);
-            Sprite sprite = (Sprite) getChild(new Sprite());
-            if(sprite!=null){
-                //g.drawImage(sprite.getAnimation(),(int)sprite.getPosition().getX(),(int)sprite.getPosition().getY(),(int)sprite.getScale().getX(),(int)sprite.getScale().getY(),null);
-            }
-            else{
-                g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getSpriteScale().getX(), (int) getSpriteScale().getY());
-            }
 
+            g.setColor(this.color);
+            if(getChildren(new Sprite()).size()<=0)
+                g.fillRect((int) getSpritePosition().getX(), (int) getSpritePosition().getY(), (int) getSpriteScale().getX(), (int) getSpriteScale().getY());
             drawChildren(g);
         }
     }
