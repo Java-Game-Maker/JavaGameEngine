@@ -56,7 +56,6 @@ public class Scene extends JPanel{
 
         setActive(true);
         setBackground(new Color(44, 157, 228));
-
         UpdateThread.camera.setPosition(new Vector2(0,0));
 
     }

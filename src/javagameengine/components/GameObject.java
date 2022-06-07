@@ -18,6 +18,8 @@ import java.util.LinkedList;
 
 public class GameObject extends Component{
 
+    public GameObject(){}
+    public GameObject(Vector2 pos){this.position = pos;}
     private LinkedList<String> ignoreTags = new LinkedList<>();
 
     /**
