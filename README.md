@@ -82,8 +82,8 @@ When creating fun game projects there is a lot of code just to get you going so 
 go directly to the fun of gamemaking. 
 
 Here's why:
-* Your time should be focused on creating something amazing. A game that is very fun with great fetures
-* You shouldn't be doing the same tasks over and over like creating all the hidius game making code
+* Your time should be focused on creating something amazing. A game that is very fun with great features
+* You shouldn't be doing the same tasks over and over like creating all the hideous game making code
 * You should implement DRY principles to the rest of your life :smile:
 
 
@@ -93,7 +93,7 @@ Here's why:
 
 ### Built With
 
-The javagameengine is build with vanila java 1.8 with the swing framework as the input and drawing aspects
+The javagameengine is built with vanila java 1.8 using the swing framework for the input and drawing aspects
 
 * [Java](https://www.oracle.com/java/technologies/downloads/)
 
