@@ -1,6 +1,5 @@
 package javagameengine.networking;
 
-import com.google.gson.Gson;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -43,10 +42,6 @@ class socket_handler implements Runnable {
 
             reader = new BufferedReader(new InputStreamReader(input));
             data = reader.readLine();
-
-            Gson json_parser = new Gson();
-
-            parsed = json_parser.fromJson(data, BufferData.class);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }

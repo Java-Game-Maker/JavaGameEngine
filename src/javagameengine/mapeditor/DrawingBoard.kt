@@ -28,7 +28,7 @@ class DrawingBoard : Scene(){
     var size : Vector2 = Vector2(50f,50f);
 
     init {
-
+        components.add(GameObject())
         UpdateThread.camera.addChild(CameraMovement(4f))
     }
 

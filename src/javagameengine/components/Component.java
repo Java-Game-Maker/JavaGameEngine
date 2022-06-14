@@ -3,6 +3,7 @@ package javagameengine.components;
 import javagameengine.backend.input.Input;
 import javagameengine.backend.UpdateThread;
 import javagameengine.JavaGameEngine;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -328,8 +329,36 @@ public class Component {
 
         float mx = Input.getMousePosition().getX();
         float my = Input.getMousePosition().getY();
+        // if mouse is indide
+        if(mx > xMin && mx < xMax && my > yMin && my < yMax){
+            // colla alla objects
+            LinkedList<Component> components = JavaGameEngine.getScene().components;
+            Component l = this;
+            for(Component c : components){
+                width = c.getScale().getX();
+                height = c.getScale().getY();
+                xMin = c.getSpritePosition().getX();
+                xMax = c.getSpritePosition().getX()+width;
+                yMin = c.getSpritePosition().getY();
+                yMax = c.getSpritePosition().getY()+height;
+                mx = Input.getMousePosition().getX();
+                my = Input.getMousePosition().getY();
+                //if mouse is inside component
+                if(mx > xMin && mx < xMax && my > yMin && my < yMax){
+                    //if components layer is bigger then me mouse is not over
+                    if(c.getLayer()>l.getLayer()){
+                        return false;
+                    }
+                    //if mouse was is inside another we are not over
+                    if(c!=this && c.isMouseInside()){
+                        return false;
+                    }
+                }
+            }
+        return true;
+        }
+        return false;
 
-        return mx > xMin && mx < xMax && my > yMin && my < yMax;
     }
 
     /**
@@ -411,6 +440,7 @@ public class Component {
     }
 
     public void onMouseEntered() {
+        //Debug.log("entered "+this);
     }
 
     public void onMouseExit() {

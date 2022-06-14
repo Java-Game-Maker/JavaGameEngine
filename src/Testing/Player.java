@@ -67,7 +67,7 @@ public class Player extends GameObject {
     @Override
     public void onTrigger(Component c) {
         super.onTrigger(c);
-        Debug.log(c.getPosition());
+        //Debug.log(c.getPosition());
         if(c.getTag().equals("Coin")){
             switch (Main.level){
                 case 1:
