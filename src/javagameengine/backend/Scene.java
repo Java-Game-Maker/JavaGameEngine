@@ -1,7 +1,9 @@
 package javagameengine.backend;
 
+import Testing.Main;
 import javagameengine.JavaGameEngine;
 import javagameengine.backend.input.Input;
+import javagameengine.components.Camera;
 import javagameengine.components.Component;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
@@ -34,6 +36,7 @@ public class Scene extends JPanel{
     public static String fps = "0";
 
     public int id=120313;
+    private Camera camera = new Camera();
 
     private boolean active = false;
 
@@ -56,7 +59,7 @@ public class Scene extends JPanel{
 
         setActive(true);
         setBackground(new Color(44, 157, 228));
-        UpdateThread.camera.setPosition(new Vector2(0,0));
+        getCamera().setPosition(new Vector2(0,0));
 
     }
     public void starts(){
@@ -82,6 +85,13 @@ public class Scene extends JPanel{
         JavaGameEngine.origin = JavaGameEngine.getWindowSize().devide(2);
     }
 
+    public void setCamera(Camera c){
+        this.camera = c;
+    }
+    public Camera getCamera(){
+        return camera;
+    }
+
     /**
      * Here is the main drawing function
      * */
@@ -96,7 +106,7 @@ public class Scene extends JPanel{
         //g.drawString(Input.getMouseWorldPosition().toString(), (int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
 
         Graphics2D g1 = (Graphics2D) g;
-        Vector2 scale = UpdateThread.camera.getScale();
+        Vector2 scale = getCamera().getScale();
         //scale = scale.devide(JavaGameEngine.getWindowSize());
         g1.scale(scale.getX(),scale.getY());
 

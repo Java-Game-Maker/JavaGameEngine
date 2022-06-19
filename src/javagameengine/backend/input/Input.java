@@ -1,5 +1,6 @@
 package javagameengine.backend.input;
 
+import Testing.Main;
 import javagameengine.JavaGameEngine;
 import javagameengine.backend.UpdateThread;
 import javagameengine.msc.Vector2;
@@ -20,7 +21,7 @@ public class Input {
         return mousePosition;
     }
     public static Vector2 getMouseWorldPosition(){
-        return Input.getMousePosition().add(UpdateThread.camera.getPosition().add(0).subtract(JavaGameEngine.getWindowSize().devide(2)));
+        return Input.getMousePosition().add(Main.getScene().getCamera().getPosition().add(0).subtract(JavaGameEngine.getWindowSize().devide(2)));
     }
     public static void setScrollValue(float scrollValue1){
         scrollValue = scrollValue1;

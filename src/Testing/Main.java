@@ -5,6 +5,7 @@ import javagameengine.backend.Scene;
 import javagameengine.backend.UpdateThread;
 import javagameengine.backend.input.Input;
 import javagameengine.backend.input.Keys;
+import javagameengine.components.Camera;
 import javagameengine.components.Component;
 import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
@@ -23,7 +24,9 @@ public class Main extends JavaGameEngine{
     public static int level = 0;
     public static void main(String[] args){
         Main m = new Main();
-        setSelectedScene(new Level4());
+        Level1 l = new Level1();
+        setSelectedScene(l);
+
         m.start();
         //Debug.showWhere = true;
     }

@@ -29,7 +29,7 @@ class DrawingBoard : Scene(){
 
     init {
         components.add(GameObject())
-        UpdateThread.camera.addChild(CameraMovement(4f))
+        //UpdateThread.camera.addChild(CameraMovement(4f))
     }
 
     override fun paintComponents(g: Graphics?) {

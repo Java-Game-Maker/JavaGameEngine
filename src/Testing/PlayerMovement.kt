@@ -17,10 +17,10 @@ class PlayerMovement : Component() {
         super.update()
 
         if(Input.isKeyDown(Keys.DOWNARROW)){
-            UpdateThread.camera.scale=UpdateThread.camera.scale.add(0.01F);
+            Main.getScene().camera.scale= Main.getScene().camera.scale?.add(0.01F);
         }
         if(Input.isKeyDown(Keys.UPARROW)){
-            UpdateThread.camera.scale=UpdateThread.camera.scale.subtract(Vector2(0.01f,0.01f));
+            Main.getScene().camera.scale=Main.getScene().camera.scale?.subtract(Vector2(0.01f,0.01f));
         }
 
         try {
@@ -41,7 +41,7 @@ class PlayerMovement : Component() {
             if (Input.isKeyPressed(Keys.SPACE)) {
                 physicsBody.addForce(Vector2.up, 120f*UpdateThread.deltatime)
             }
-            UpdateThread.camera.position = parent.position.subtract(Main.getWindowSize().devide(2f))
+            Main.getScene().camera.position = Main.getScene().camera.position.add(parent.position.subtract(Main.getWindowSize().devide(2)))
         }
         catch (e: Exception){
             e.printStackTrace()

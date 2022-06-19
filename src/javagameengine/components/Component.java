@@ -1,5 +1,6 @@
 package javagameengine.components;
 
+import Testing.Main;
 import javagameengine.backend.input.Input;
 import javagameengine.backend.UpdateThread;
 import javagameengine.JavaGameEngine;
@@ -135,8 +136,8 @@ public class Component {
      *
      */
     public Vector2 getSpritePosition(){
-        float x = (getPosition().subtract(UpdateThread.camera.getPosition()).getX()-((getScale().getX()/2)));
-        float y = (getPosition().subtract(UpdateThread.camera.getPosition()).getY()-((getScale().getY()/2)));
+        float x = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getX()-((getScale().getX()/2)));
+        float y = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getY()-((getScale().getY()/2)));
 
         return new Vector2(x,y);
     }

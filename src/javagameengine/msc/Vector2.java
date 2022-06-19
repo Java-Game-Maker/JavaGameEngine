@@ -1,5 +1,7 @@
 package javagameengine.msc;
 
+import org.jetbrains.annotations.NotNull;
+
 import java.util.Objects;
 
 public class Vector2 {
@@ -122,5 +124,10 @@ public class Vector2 {
     }
     public Vector2 removeX(){
         return new Vector2(0,y);
+    }
+
+    @NotNull
+    public Vector2 devide(int i) {
+        return this.devide(new Vector2(i,i));
     }
 }

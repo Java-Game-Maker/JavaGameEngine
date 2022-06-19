@@ -1,4 +1,5 @@
 package javagameengine.components;
+import Testing.Main;
 import javagameengine.backend.UpdateThread;
 import javagameengine.components.colliders.Collider;
 import javagameengine.components.colliders.SquareCollider;
@@ -70,7 +71,7 @@ public class GameObject extends Component{
      */
     @Override
     public void draw(Graphics g){
-        if(getPosition().getDistance(UpdateThread.camera.getPosition())<5000){
+        if(getPosition().getDistance(Main.getScene().getCamera().getPosition())<5000){
             //g.drawString(getPosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-50));
             // g.drawString(getSpritePosition().toString(), (int) getSpritePosition().getX(), (int) (getSpritePosition().getY()-20));
             g.setColor(this.color);
