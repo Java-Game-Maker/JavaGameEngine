@@ -41,7 +41,7 @@ class PlayerMovement : Component() {
             if (Input.isKeyPressed(Keys.SPACE)) {
                 physicsBody.addForce(Vector2.up, 120f*UpdateThread.deltatime)
             }
-            Main.getScene().camera.position = Main.getScene().camera.position.add(parent.position.subtract(Main.getWindowSize().devide(2)))
+            Main.getScene().camera.position = parent.position.subtract(Main.getWindowSize().devide(2))
         }
         catch (e: Exception){
             e.printStackTrace()
