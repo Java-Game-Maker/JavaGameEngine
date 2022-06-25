@@ -100,6 +100,7 @@ public class Scene extends JPanel{
         super.paintComponent(g);
         drawComponents(g);
     }
+
     private void drawComponents(Graphics g){
         g.drawString(fps,10,20);
 
@@ -124,9 +125,11 @@ public class Scene extends JPanel{
                 return o1.getLayer() - o2.getLayer();
             }
         });
-
+        int i = 0;
         for(Component c : list){
+           // c.setLayer(i);
             (c).draw(g1);
+            i++;
         }
     }
 }

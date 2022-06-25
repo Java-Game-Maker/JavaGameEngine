@@ -14,6 +14,12 @@ public class SquareCollider extends Collider{
 
     private boolean hasCollided = false;
 
+    public SquareCollider(){}
+    public SquareCollider(boolean isVisible){
+        this.setVisible(isVisible);
+    }
+
+
     /**
      * Sends to the components that has collided or been triggerd
      * @param ob2 the secound component

@@ -24,7 +24,7 @@ public class Main extends JavaGameEngine{
     public static int level = 0;
     public static void main(String[] args){
         Main m = new Main();
-        Level1 l = new Level1();
+        ChildCollide l = new ChildCollide();
         setSelectedScene(l);
 
         m.start();

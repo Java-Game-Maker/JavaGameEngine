@@ -17,6 +17,10 @@ public class PhysicsBody extends Component {
     private Vector2 velocity = Vector2.zero;
     private float friction = 0;
 
+    public PhysicsBody(){}
+    public PhysicsBody(boolean useGravity){
+        this.useGravity = useGravity;
+    }
     /**
      *
      * @return true if the compnent is effected by gravity
