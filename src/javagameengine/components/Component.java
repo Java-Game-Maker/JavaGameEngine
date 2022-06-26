@@ -32,22 +32,11 @@ public class Component {
     private Vector2 localOrigin = Vector2.zero;
 
 
-    int layer = 0;
-
-    public int getLayer() {
-        return layer;
-    }
-
-    public void setLayer(int layer) {
-        JavaGameEngine.getScene().layerList.add(this);
-        this.layer = layer;
-    }
-
     private boolean mouseInside = false;
 
     boolean isEnabled = true;
     private String tag = "";
-
+    int layer = 0;
 
     public Component() {
         position = new Vector2(0,0);
@@ -59,6 +48,19 @@ public class Component {
         this.scale = scale;
         this.position = pos;
     }
+    public int getLayer() {
+        return layer;
+    }
+
+    public void setLayer(int layer) {
+        JavaGameEngine.getScene().layerList.add(this);
+        this.layer = layer;
+    }
+
+    public void setChildren(LinkedList<Component> children){
+        this.components = children;
+    }
+
     public void setMouseInside(boolean mouseInside) {
         this.mouseInside = mouseInside;
     }

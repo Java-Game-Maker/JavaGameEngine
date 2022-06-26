@@ -200,7 +200,6 @@ public class GameObject extends Component{
 
 
                 if(collisionComponent!=null){
-                    Debug.log(getTag());
 
                     this.onCollision(collisionComponent);
                     collisionComponent.onCollision(this);
@@ -219,7 +218,6 @@ public class GameObject extends Component{
                 collisionComponent = SquareCollider.hasCollided(yMyCollider,worldCollider);
 
                 if(collisionComponent!=null){
-                    Debug.log("asldjs");
                     this.onCollision(collisionComponent);
                     collisionComponent.onCollision(this);
 

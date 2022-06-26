@@ -131,18 +131,10 @@ public class SquareCollider extends Collider{
 
     public static Component hasCollided(SquareCollider collider1, SquareCollider collider2){
 
-        Point p1 = new Point(collider2.shape.x , collider2.shape.y);
-        Point p2 = new Point(collider2.shape.x + collider2.shape.width , collider2.shape.y);
-        Point p3 = new Point(collider2.shape.x , collider2.shape.y+collider2.shape.height);
-        Point p4 = new Point(collider2.shape.x + collider2.shape.width , collider2.shape.y+collider2.shape.height);
-
-
         if(collider1.shape.intersects(collider2.shape)) {
-            Debug.log("col5");
             return collider2.getParent();
         }
         if(collider2.shape.intersects(collider1.shape)) {
-            Debug.log("col5");
             return collider2.getParent();
         }
         return null;
