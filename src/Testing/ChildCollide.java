@@ -2,6 +2,7 @@ package Testing;
 
 import javagameengine.backend.Scene;
 import javagameengine.backend.input.Input;
+import javagameengine.backend.input.Keys;
 import javagameengine.components.Component;
 import javagameengine.components.GameObject;
 import javagameengine.components.colliders.SquareCollider;
@@ -79,5 +80,15 @@ public class ChildCollide extends Scene {
         components.add(parent2);
 
     }
+    @Override
+    public void update() {
+        super.update();
+        if(Input.isKeyPressed(Keys.A)){
+            Debug.log("A");
+        }
+        if(Input.isKeyPressed(Keys.D)){
+            Debug.log("D");
+        }
 
+    }
 }
