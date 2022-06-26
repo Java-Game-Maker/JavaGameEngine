@@ -6,10 +6,13 @@ import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.physics.PhysicsBody;
 import javagameengine.components.sprites.Sprite;
 import javagameengine.JavaGameEngine;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.Objects;
 
 
 /**
@@ -86,13 +89,52 @@ public class GameObject extends Component{
             drawChildren(g);
         }
     }
+
+    @Override
+    public void onCollision(Component c) {
+        super.onCollision(c);
+   //     Debug.log("Collision with "+c.getTag());
+    }
+
+    public ArrayList<SquareCollider> myColliders(){
+        ArrayList<SquareCollider> myColliders = new ArrayList<>();
+        for(Component child : getChildren()){
+            if(child instanceof SquareCollider){
+                myColliders.add((SquareCollider) child);
+            }
+            else if(child instanceof GameObject){
+                myColliders.addAll(((GameObject)child).myColliders());
+            }
+        }
+        return myColliders;
+    }
+
+    public ArrayList<SquareCollider> getWorldColliders(){
+        ArrayList<SquareCollider> worldColliders = new ArrayList<>();
+        for(Component parent : Main.getScene().components){
+            if(parent!=this){
+                for(Component child : parent.getChildren()){
+
+                    if(child instanceof SquareCollider){
+                        worldColliders.add((SquareCollider) child);
+                    }
+                    else if(child instanceof GameObject){
+                        worldColliders.addAll(((GameObject)child).myColliders());
+                    }
+                }
+            }
+        }
+
+
+        return worldColliders;
+    }
+
     /**
      * This method is used to setPostion but with collison. It will check if the gamobject can be set/moved tho the new positon
      * and if so it will move it there else it will not.
      * @param position the position to test
      * @return returns the directory we can move
      */
-
     @Override
     public Vector2 movePosition(Vector2 position) {
         /*
@@ -125,54 +167,70 @@ public class GameObject extends Component{
         |----|
         1 is the one we check
         in this case we can't move in the y-axis but neither in the x*/
-        LinkedList<Component> components = new LinkedList<>();
-        for(Component ob : JavaGameEngine.getScene().components){
-            if(getPosition().getDistance(ob.getPosition())<500){
-                components.add(ob);
-            }
-        }
+
+        /*
+
+            We create a new collider and move it first in the x axis and check if it collides
+            and if so we remove the x movment from the new position
+             then we create a new collider and move it in the y axios and check if it collides
+             and if so we remove the y movment
+
+
+         */
         Vector2 dir = position.subtract(getPosition());
-        if(getChild(new PhysicsBody())==null) {
-            setPosition(position);
-        }
-        else {
-            if(getChildren(new SquareCollider()).size()>0)
-            {
-                for(Collider c : getChildren(new SquareCollider())) {
-                    if(!c.isTrigger()) {
 
-                        Collider c2=null; //will be the other object we collide with (if)
+        ArrayList<SquareCollider> myColliders = myColliders();
 
-                        //checks if we can move the object on the y-axis
-                        SquareCollider xcolider = (SquareCollider) c.copy();
-                        xcolider.setPosition(getPosition().add(dir.removeX()));
-                        xcolider.setParent(this);
+        ArrayList<SquareCollider> worldColliders = getWorldColliders();
 
-                        if((SquareCollider.isCollision(xcolider,c, components))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(xcolider,c,components);
-                            dir=(dir.removeY());
-                        }
+        //check collison
+        for(SquareCollider myCollider : myColliders){
+            for(SquareCollider worldCollider : worldColliders){
 
-                        //checks if we can move the object on the x-axis
-                        SquareCollider ycolider = (SquareCollider) c.copy();
-                        ycolider.setPosition(getPosition().add(dir.removeY()));
-                        ycolider.setParent(this);
+                SquareCollider xMyCollider = myCollider.copy();
+                xMyCollider.setPosition(myCollider.getPosition().add(dir.removeX()));
+                xMyCollider.shape.x = (int) myCollider.getPosition().add(dir.removeX()).getX();
+                xMyCollider.shape.y = (int) myCollider.getPosition().add(dir.removeX()).getY();
+                xMyCollider.shape.width = (int) myCollider.getScale().getX();
+                xMyCollider.shape.height = (int) myCollider.getScale().getY();
 
-                        if((SquareCollider.isCollision(ycolider,c,components))!=null) {
-                            c2= (Collider) SquareCollider.isCollision(ycolider,c,components);
-                            dir=(dir.removeX());
-                        }
+                xMyCollider.setParent(this);
+                Component collisionComponent = SquareCollider.hasCollided(xMyCollider,worldCollider);
 
-                        c.collisionHandler(c2);
 
-                        setPosition(getPosition().add(dir));
-                    }
-                    else setPosition(position);
+
+                if(collisionComponent!=null){
+                    Debug.log(getTag());
+
+                    this.onCollision(collisionComponent);
+                    collisionComponent.onCollision(this);
+
+                    dir = (dir.removeY());
                 }
+
+                SquareCollider yMyCollider = myCollider.copy();
+                yMyCollider.setPosition(getPosition().add(dir.removeY()));
+                yMyCollider.shape.x = (int) myCollider.getPosition().add(dir.removeY()).getX();
+                yMyCollider.shape.y = (int) myCollider.getPosition().add(dir.removeY()).getY();
+                yMyCollider.shape.width = (int) myCollider.getScale().getX();
+                yMyCollider.shape.height = (int) myCollider.getScale().getY();
+                yMyCollider.setParent(this);
+
+                collisionComponent = SquareCollider.hasCollided(yMyCollider,worldCollider);
+
+                if(collisionComponent!=null){
+                    Debug.log("asldjs");
+                    this.onCollision(collisionComponent);
+                    collisionComponent.onCollision(this);
+
+                    dir = (dir.removeX());
+                }
+
             }
-            else
-                setPosition(position);
         }
+
+        setPosition(getPosition().add(dir));
+
         return dir;
     }
 

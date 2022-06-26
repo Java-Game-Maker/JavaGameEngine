@@ -14,7 +14,10 @@ public class SquareCollider extends Collider{
 
     private boolean hasCollided = false;
 
-    public SquareCollider(){}
+    public Rectangle shape = new Rectangle();
+
+    public SquareCollider(){
+    }
     public SquareCollider(boolean isVisible){
         this.setVisible(isVisible);
     }
@@ -124,6 +127,35 @@ public class SquareCollider extends Collider{
             }
         }
         return null;
+    }
+
+    public static Component hasCollided(SquareCollider collider1, SquareCollider collider2){
+
+        Point p1 = new Point(collider2.shape.x , collider2.shape.y);
+        Point p2 = new Point(collider2.shape.x + collider2.shape.width , collider2.shape.y);
+        Point p3 = new Point(collider2.shape.x , collider2.shape.y+collider2.shape.height);
+        Point p4 = new Point(collider2.shape.x + collider2.shape.width , collider2.shape.y+collider2.shape.height);
+
+
+        if(collider1.shape.intersects(collider2.shape)) {
+            Debug.log("col5");
+            return collider2.getParent();
+        }
+        if(collider2.shape.intersects(collider1.shape)) {
+            Debug.log("col5");
+            return collider2.getParent();
+        }
+        return null;
+    }
+
+    @Override
+    public void update() {
+        super.update();
+
+        shape.height = (int) getScale().getY();
+        shape.width = (int) getScale().getX();
+        shape.x = (int) getPosition().getX();
+        shape.y = (int) getPosition().getY();
     }
 
     @Override

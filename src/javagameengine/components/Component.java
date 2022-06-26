@@ -46,7 +46,7 @@ public class Component {
     private boolean mouseInside = false;
 
     boolean isEnabled = true;
-    private String tag = "unnamed";
+    private String tag = "";
 
 
     public Component() {
