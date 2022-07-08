@@ -197,13 +197,16 @@ public class GameObject extends Component{
                 xMyCollider.setParent(this);
                 Component collisionComponent = SquareCollider.hasCollided(xMyCollider,worldCollider);
 
-
-
                 if(collisionComponent!=null){
-
-                    this.onCollision(collisionComponent);
-                    collisionComponent.onCollision(this);
-
+                    if(xMyCollider.isTrigger()||worldCollider.isTrigger()
+                    ){
+                        this.onTrigger(collisionComponent);
+                        collisionComponent.onTrigger(this);
+                    }
+                    else{
+                        this.onCollision(collisionComponent);
+                        collisionComponent.onCollision(this);
+                    }
                     dir = (dir.removeY());
                 }
 
@@ -218,8 +221,14 @@ public class GameObject extends Component{
                 collisionComponent = SquareCollider.hasCollided(yMyCollider,worldCollider);
 
                 if(collisionComponent!=null){
-                    this.onCollision(collisionComponent);
-                    collisionComponent.onCollision(this);
+                    if(yMyCollider.isTrigger()||worldCollider.isTrigger()){
+                        this.onTrigger(collisionComponent);
+                        collisionComponent.onTrigger(this);
+                    }
+                    else{
+                        this.onCollision(collisionComponent);
+                        collisionComponent.onCollision(this);
+                    }
 
                     dir = (dir.removeX());
                 }
