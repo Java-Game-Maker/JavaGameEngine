@@ -143,39 +143,36 @@ public class GameObject extends Component{
         We create temp colliders to se if the next posistion will be a collistion
         We check the different coordinates, this is because if you collide on one
         side you should be able to move on the other
-        |----|
-        |    |
-        |----|
-    |----|
-    | 1  |
-    |----|
-       |----|
-       |    |
-       |----|
+        |-----|
+        |     |
+        |-----|
+    |-----|
+    |  1  |
+    |-----|
+       |-----|
+       |     |
+       |-----|
 
         1 is the one we check
         in this case we can't move in the y-axis but we can move in the x
 
-        |----|
-        |    |
-        |----|
-    |----||----||----|
-    |    ||  1 ||    |
-    |----||----||----|
-        |----|
-        |    |
-        |----|
+        |-----|
+        |     |
+        |-----|
+    |-----||-----||-----|
+    |     ||  1  ||     |
+    |-----||-----||-----|
+        |-----|
+        |     |
+        |-----|
         1 is the one we check
         in this case we can't move in the y-axis but neither in the x*/
 
         /*
-
             We create a new collider and move it first in the x axis and check if it collides
             and if so we remove the x movment from the new position
              then we create a new collider and move it in the y axios and check if it collides
              and if so we remove the y movment
-
-
          */
         Vector2 dir = position.subtract(getPosition());
 
@@ -229,15 +226,11 @@ public class GameObject extends Component{
                         this.onCollision(collisionComponent);
                         collisionComponent.onCollision(this);
                     }
-
                     dir = (dir.removeX());
                 }
-
             }
         }
-
         setPosition(getPosition().add(dir));
-
         return dir;
     }
 

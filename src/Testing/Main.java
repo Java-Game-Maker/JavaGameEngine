@@ -38,7 +38,6 @@ public class Main extends JavaGameEngine{
             setSelectedScene(new Start());
             UpdateThread.running = true;
         }
-
     }
 
     static class Start extends Scene{
