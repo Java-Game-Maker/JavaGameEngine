@@ -1,17 +1,11 @@
 package Testing;
 
-import javagameengine.backend.GameWorld;
 import javagameengine.backend.Scene;
 import javagameengine.backend.UpdateThread;
-import javagameengine.backend.input.Input;
-import javagameengine.backend.input.Keys;
-import javagameengine.components.Camera;
 import javagameengine.components.Component;
 import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
-import javagameengine.components.physics.PhysicsWorld;
 import javagameengine.JavaGameEngine;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.swing.*;

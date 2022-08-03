@@ -79,11 +79,11 @@ public class Input {
             keyDowns.remove(new Integer(e.getKeyCode()));
     }
     public static boolean isKeyPressed(int keyCode){
-        return false;/*
+
         boolean pressed =  isKeyDown(keyCode);
         if(pressed)
             keyDowns.remove(new Integer(keyCode));
-        return pressed;*/
+        return pressed;
     }
 
 
