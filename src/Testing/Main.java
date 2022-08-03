@@ -24,10 +24,15 @@ public class Main extends JavaGameEngine{
     public static int level = 0;
     public static void main(String[] args){
         Main m = new Main();
-        ChildCollide l = new ChildCollide();
+        Level1 l = new Level1();
+
         setSelectedScene(l);
 
-        m.start();
+        JFrame frame = new JFrame();
+        frame.setSize(1020,640);
+        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+
+        m.start(frame);
         //Debug.showWhere = true;
     }
 
@@ -87,10 +92,17 @@ public class Main extends JavaGameEngine{
             id=0;
             Main.level = 1;
 
-            Player s = new Player(new Vector2(0,-100));
+            Player s = new Player(new Vector2(-100,-110));
             components.add(s);
             components.add(new Goal(new Vector2(100,-100)));
             components.add(new Ground(new Vector2(0,0)));
+            components.add(new Component(){
+                @Override
+                public void draw(Graphics g) {
+                    super.draw(g);
+                    g.drawString(String.valueOf(UpdateThread.deltatime),100,200);
+                }
+            });
          //   components.add(new Goal());
         }
 

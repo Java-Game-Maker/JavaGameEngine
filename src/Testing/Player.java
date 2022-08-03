@@ -42,7 +42,7 @@ public class Player extends GameObject {
         sprite.loadAnimation(left,"/2.png");
         sprite.loadAnimation(defaultAnimation,"/2.png");
 
-        sprite.setTimer(UpdateThread.deltatime);
+        sprite.setTimer((float) UpdateThread.deltatime);
         sprite.setLocalPosition(new Vector2(0,3));
         addChild(sprite);
         setPosition(pos);

@@ -39,7 +39,7 @@ class PlayerMovement : Component() {
                 sprite.animationIndex = 2
             }
             if (Input.isKeyPressed(Keys.SPACE)) {
-                physicsBody.addForce(Vector2.up, 120f*UpdateThread.deltatime)
+                physicsBody.addForce(Vector2.up, (120f*UpdateThread.deltatime).toFloat())
             }
             Main.getScene().camera.position = parent.position.subtract(Main.getWindowSize().devide(2))
         }

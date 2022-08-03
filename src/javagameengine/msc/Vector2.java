@@ -41,6 +41,9 @@ public class Vector2 {
     public Vector2 multiply(float multiple) {
         return new Vector2(x*multiple,y*multiple);
     }
+    public Vector2 multiply(double multiple) {
+        return new Vector2((float) (x*multiple), (float) (y*multiple));
+    }
     public Vector2 multiply(Vector2 vector2) {
         return new Vector2(x*vector2.x,y*vector2.y);
     }

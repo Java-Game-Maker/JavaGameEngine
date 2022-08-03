@@ -65,17 +65,19 @@ public class UpdateThread extends Thread{
 
     }
     private long last = 0;
-    public static float deltatime;
-    private float prevTime = ((float)System.nanoTime())/1000000000;
+    public static double deltatime=1.0f;
+    private double prevTime = ((double)System.currentTimeMillis());
     @Override
     public void run() {
         super.run();
         while(Thread.currentThread() == this){
-            float now = ((float)System.nanoTime())/1000000000;
-            deltatime = (now-prevTime)*100;
+            double now = ((double)System.currentTimeMillis());
+            deltatime = (now-prevTime)/10;
+            Debug.log(prevTime);
             prevTime = now;
+            Debug.log(now);
+            Debug.log(deltatime);
 
-//            Debug.log(deltatime);
             try {
                 Thread.sleep(JavaGameEngine.DELAY);
             } catch (InterruptedException e) {

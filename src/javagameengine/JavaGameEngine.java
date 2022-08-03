@@ -41,8 +41,8 @@ public class JavaGameEngine {
      * do every setup thing before calling start
      */
     public void start() {
-            frame = JavaGameEngine.frame;
-            startGame();
+        init();
+        startGame();
     }
     /**
      * this it the method to start the game engine
@@ -78,7 +78,6 @@ public class JavaGameEngine {
     }
 
     private void startGame(){
-        init();
         frame.setVisible(true);
         frame.add(gameWorld);
         gameWorld.setCurrentScene(getScene());

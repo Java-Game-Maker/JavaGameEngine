@@ -120,7 +120,7 @@ public class Sprite extends Component {
     public BufferedImage getAnimation(){
         int spritesLen = animations.get(animationIndex).length;
         //Adds until timer then 0
-        spriteCounter = (spriteCounter+1>=timer) ? 0 :spriteCounter+1* UpdateThread.deltatime;
+        spriteCounter = (spriteCounter+1>=timer) ? 0 : (float) (spriteCounter + 1 * UpdateThread.deltatime);
         //Sets the current sprite index (the image that will be displayed)
         currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer - 1))) ?
                 0 :
