@@ -1,6 +1,0 @@
-The Objecthandler is a static class that handles all the main objects
-instantiated in the the gameworld (not children of objects)
-
-The Objecthandler is like a middleman for the Calcthread and the main render thread.
-it provides all the information the render needs which is which objects to render
-and heir children.

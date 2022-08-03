@@ -1,9 +1,0 @@
-
-
-Rendering is is happening in the src.javagameengine.Display.GameWorld.java class in the PaintComponent method.
-This method is given to us from swing.
-
-First we draw the objects from the Objecthandler (see Objecthandler) then we draw the components(if they have a display method)
-from the objects inside of the objecthandler and then we are drawing thier componentes.
-
-We also draws the colliders if the collider component has the isVisible boolean checked.
