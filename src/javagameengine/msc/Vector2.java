@@ -35,7 +35,7 @@ public class Vector2 {
 
     public String toString()
     {
-        return ("x:{"+x+"} y:{"+y+"}");
+        return ("{x:{"+x+"} y:{"+y+"}}");
     }
 
     public Vector2 multiply(float multiple) {
