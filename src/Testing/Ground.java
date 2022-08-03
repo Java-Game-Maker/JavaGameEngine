@@ -12,7 +12,6 @@ public class Ground extends GameObject {
 
         SquareCollider s = new SquareCollider();
         s.setVisible(true);
-        s.setLocalPosition(new Vector2(0,0));
         addChild(s);
     }
     public Ground(Vector2 pos) {
@@ -21,7 +20,6 @@ public class Ground extends GameObject {
 
         SquareCollider s = new SquareCollider();
         s.setVisible(true);
-        s.setLocalPosition(new Vector2(0,0));
         addChild(s);
     }
 

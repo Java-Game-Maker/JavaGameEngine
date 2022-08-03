@@ -5,6 +5,7 @@ import javagameengine.backend.input.Input
 import javagameengine.backend.input.Keys
 import javagameengine.components.Component
 import java.awt.Graphics
+import java.beans.FeatureDescriptor
 
 class CameraMovement(speed:Float=1f) : Component() {
 
@@ -17,6 +18,7 @@ class CameraMovement(speed:Float=1f) : Component() {
         super.update();
         if(Input.isKeyDown(Keys.W)){
             parent.position = parent.position.add(Vector2.up.multiply(speed*UpdateThread.deltatime))
+            Debug.log("camera moved up")
         }
         if(Input.isKeyDown(Keys.S)){
             parent.position = parent.position.add(Vector2.down.multiply(speed*UpdateThread.deltatime))

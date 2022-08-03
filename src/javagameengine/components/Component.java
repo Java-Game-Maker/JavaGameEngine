@@ -1,6 +1,7 @@
 package javagameengine.components;
 
 import Testing.Main;
+import com.sun.jdi.InconsistentDebugInfoException;
 import javagameengine.backend.input.Input;
 import javagameengine.backend.UpdateThread;
 import javagameengine.JavaGameEngine;
@@ -29,7 +30,7 @@ public class Component {
 
     Component parent = null; // if component has parent it should update with some of the parents data
     LinkedList<Component> components = new LinkedList<>(); // children
-    private Vector2 localOrigin = Vector2.zero;
+    public Vector2 localOrigin = Vector2.zero;
 
 
     private boolean mouseInside = false;
@@ -305,8 +306,8 @@ public class Component {
         }
 
         if(parent!=null) {
-            float x = (parent.getPosition().getX()-((getScale().getX()/2)));
-            float y = (parent.getPosition().getY()-((getScale().getY()/2)));
+            float x = (parent.getPosition().getX())-scale.getX()/2;
+            float y = (parent.getPosition().getY())-scale.getY()/2;
 
             setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
             // update this in the setScale and setRotation instead
@@ -320,7 +321,8 @@ public class Component {
         //mouse enter and exit
 
     }
-    private boolean insideComp(){
+    public boolean insideComp(){
+
         float width = getScale().getX();
         float height = getScale().getY();
 
@@ -337,28 +339,33 @@ public class Component {
             // colla alla objects
             LinkedList<Component> components = JavaGameEngine.getScene().components;
             Component l = this;
-            for(Component c : components){
-                width = c.getScale().getX();
-                height = c.getScale().getY();
-                xMin = c.getSpritePosition().getX();
-                xMax = c.getSpritePosition().getX()+width;
-                yMin = c.getSpritePosition().getY();
-                yMax = c.getSpritePosition().getY()+height;
-                mx = Input.getMousePosition().getX();
-                my = Input.getMousePosition().getY();
-                //if mouse is inside component
-                if(mx > xMin && mx < xMax && my > yMin && my < yMax){
-                    //if components layer is bigger then me mouse is not over
-                    if(c.getLayer()>l.getLayer()){
-                        return false;
-                    }
-                    //if mouse was is inside another we are not over
-                    if(c!=this && c.isMouseInside()){
-                        return false;
+            for(Component parent : components){
+                for(Component c : parent.components) {
+                    width = c.getScale().getX();
+                    height = c.getScale().getY();
+                    xMin = c.getSpritePosition().getX();
+                    xMax = c.getSpritePosition().getX()+width;
+                    yMin = c.getSpritePosition().getY();
+                    yMax = c.getSpritePosition().getY()+height;
+                    mx = Input.getMousePosition().getX();
+                    my = Input.getMousePosition().getY();
+                    //if mouse is inside component
+                    if(mx > xMin && mx < xMax && my > yMin && my < yMax){
+                        //if components layer is bigger then me mouse is not over
+                        if(c.getLayer()>l.getLayer()){
+                            return false;
+                        }
+                        else {
+                            //c.mouseInside = false;
+                        }
+                        //if mouse was is inside another we are not over
+                        if(c!=this && c.isMouseInside()){
+                            return false;
+                        }
                     }
                 }
             }
-        return true;
+            return true;
         }
         return false;
 
@@ -440,6 +447,7 @@ public class Component {
     }
 
     public void onMousePressed() {
+        Debug.log("pressed on "+this+" :/");
     }
 
     public void onMouseEntered() {

@@ -27,7 +27,6 @@ class Goal(pos : Vector2 = Vector2(0f,0f)) : GameObject() {
         sprite.loadAnimation(sprites)
         addChild(sprite);
     }
-
     override fun onTrigger(c: Component?) {
         super.onTrigger(c)
     }

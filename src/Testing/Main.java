@@ -7,6 +7,10 @@ import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
 import javagameengine.JavaGameEngine;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.Button;
+import javagameengine.ui.HorizontalLayout;
+import javagameengine.ui.Panel;
+import javagameengine.ui.Text;
 
 import javax.swing.*;
 import java.awt.*;
@@ -79,6 +83,13 @@ public class Main extends JavaGameEngine{
             b2.setBounds(600,200,100,50);
 
         }
+
+        @Override
+        public void update() {
+            super.update();
+            setFocusable(false);
+
+        }
     }
 
     static class Level1 extends Scene{
@@ -86,18 +97,25 @@ public class Main extends JavaGameEngine{
             id=0;
             Main.level = 1;
 
+            Panel mainPanel = new Panel();
+            mainPanel.setFixed(true);
+            mainPanel.setPosition(new Vector2(140,60));
+            mainPanel.setLayer(100);
+            mainPanel.setLayout(new HorizontalLayout());
+            mainPanel.setFixed(true);
+
+            mainPanel.addChild(new Text("Hej alli vad gör du nu tri hi"));
+            mainPanel.addChild(new Button());
+
+            add(mainPanel);
+
             Player s = new Player(new Vector2(-100,-110));
             components.add(s);
             components.add(new Goal(new Vector2(100,-100)));
             components.add(new Ground(new Vector2(0,0)));
-            components.add(new Component(){
-                @Override
-                public void draw(Graphics g) {
-                    super.draw(g);
-                    g.drawString(String.valueOf(UpdateThread.deltatime),100,200);
-                }
-            });
-         //   components.add(new Goal());
+
+
+
         }
 
     }

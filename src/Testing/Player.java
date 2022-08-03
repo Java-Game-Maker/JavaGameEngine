@@ -8,6 +8,10 @@ import javagameengine.components.physics.PhysicsBody;
 import javagameengine.components.sprites.Sprite;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.Button;
+import javagameengine.ui.HorizontalLayout;
+import javagameengine.ui.Panel;
+import javagameengine.ui.Text;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -22,7 +26,7 @@ public class Player extends GameObject {
 
     public Player(Vector2 pos) {
 
-        setLayer(100);
+        setLayer(10);
 
         Rectangle[] right = new Rectangle[4];
         for(int i = 0;i<4;i++){
@@ -50,7 +54,6 @@ public class Player extends GameObject {
 
 
 
-
         sprite.setTimer(20);
 
         addChild(physicsBody);
@@ -59,6 +62,8 @@ public class Player extends GameObject {
         s.setLocalScale(new Vector2(-20,0));
         addChild(s);
         addChild(new PlayerMovement());
+
+
 
 
     }

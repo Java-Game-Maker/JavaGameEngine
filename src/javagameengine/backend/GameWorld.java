@@ -29,6 +29,7 @@ public class GameWorld extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
+                Debug.log(e.getKeyCode());
                 if(e.getKeyCode()== Keys.ESCAPE){
                     UpdateThread.running = !UpdateThread.running;
                 }

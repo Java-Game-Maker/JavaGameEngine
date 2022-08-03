@@ -70,7 +70,9 @@ public class Vector2 {
     public Vector2 subtract(Vector2 vector2) {
         return new Vector2(x- vector2.x,y- vector2.y);
     }
-
+    public Vector2 subtract(float val) {
+        return new Vector2(x - val,y - val);
+    }
     public Vector2 getDirection(double angle) {
         float x = (float) Math.cos(Math.toRadians(angle));
         float y = (float) Math.sin(Math.toRadians(angle));

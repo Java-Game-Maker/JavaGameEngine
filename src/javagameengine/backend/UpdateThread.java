@@ -73,10 +73,8 @@ public class UpdateThread extends Thread{
         while(Thread.currentThread() == this){
             double now = ((double)System.currentTimeMillis());
             deltatime = (now-prevTime)/10;
-            Debug.log(prevTime);
             prevTime = now;
-            Debug.log(now);
-            Debug.log(deltatime);
+
 
             try {
                 Thread.sleep(JavaGameEngine.DELAY);

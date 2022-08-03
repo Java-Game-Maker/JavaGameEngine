@@ -68,6 +68,11 @@ public class Scene extends JPanel{
         }
 
     }
+
+    public void add(Component component) {
+        components.add(component);
+    }
+
     /**
      * This method will add the component to the component handler
      * this means that you have created a new parent
