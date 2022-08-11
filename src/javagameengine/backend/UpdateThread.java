@@ -51,6 +51,7 @@ public class UpdateThread extends Thread{
             JavaGameEngine.getScene().components=(UpdateObjects());
             if(UpdateThread.newObjects.size()>0) {
                 for (Component o : UpdateThread.newObjects) {
+                    o.setPosition(o.getPosition().add(JavaGameEngine.origin));
                     JavaGameEngine.getScene().components.add(o);
                 }
                 newObjects.clear();

@@ -7,7 +7,7 @@ import java.util.LinkedList;
 
 public class Text extends UiElement{
 
-    private String text = "Example text";
+    public String text = "Example text";
 
     public Text(String text) {
         this.text = text;

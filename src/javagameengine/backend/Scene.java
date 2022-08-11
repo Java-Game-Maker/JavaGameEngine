@@ -109,11 +109,14 @@ public class Scene extends JPanel{
     private void drawComponents(Graphics g){
         g.drawString(fps,10,20);
 
-        //g.drawString(Input.getMouseWorldPosition().toString(), (int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
 
         Graphics2D g1 = (Graphics2D) g;
-        Vector2 scale = getCamera().getScale();
-        //scale = scale.devide(JavaGameEngine.getWindowSize());
+
+        Vector2 scale = JavaGameEngine.getWindowSize().devide(new Vector2(1920,1080));
+        scale = scale.multiply(getCamera().getScale());
+
+        g.drawString(String.valueOf(scale),10,50);
+
         g1.scale(scale.getX(),scale.getY());
 
         float width = g1.getClip().getBounds().width/2;

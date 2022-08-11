@@ -107,7 +107,7 @@ public class Main extends JavaGameEngine{
             mainPanel.addChild(new Text("Hej alli vad gör du nu tri hi"));
             mainPanel.addChild(new Button());
 
-            add(mainPanel);
+           // add(mainPanel);
 
             Player s = new Player(new Vector2(-100,-110));
             components.add(s);

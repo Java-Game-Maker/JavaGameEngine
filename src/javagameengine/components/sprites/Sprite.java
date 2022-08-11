@@ -25,6 +25,7 @@ public class Sprite extends Component {
     float timer = 10;
     int currentSprite = 0;
     float angle;
+    boolean inverted = false;
 
     public void setAngle(float angle) {
         ArrayList<BufferedImage[]> newAnimations = new ArrayList<>();
@@ -45,6 +46,17 @@ public class Sprite extends Component {
         }
         animations = newAnimations;
 
+    }
+
+    public boolean isInverted() {
+        return inverted;
+    }
+
+    public void setInverted(boolean inverted) {
+        if(inverted){
+
+        }
+        this.inverted = inverted;
     }
 
     public float getAngle() {
@@ -137,7 +149,7 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.drawImage((Image) getAnimation(), (int) ((int) getSpritePosition().getX()+getScale().getX()/2), (int) ((int) getSpritePosition().getY()+getScale().getY()/2), (int) getScale().getX(), (int) getScale().getY(),null);
+        g.drawImage((Image) getAnimation(), (int) ((int) getSpritePosition().getX()), (int) ((int) getSpritePosition().getY()), (int) getScale().getX(), (int) getScale().getY(),null);
     }
 
     public static BufferedImage resize(BufferedImage img, Vector2 scale) {

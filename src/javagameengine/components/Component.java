@@ -49,6 +49,7 @@ public class Component {
         this.scale = scale;
         this.position = pos;
     }
+
     public int getLayer() {
         return layer;
     }
@@ -177,7 +178,6 @@ public class Component {
     public void setLocalScale(Vector2 localScale) {
         this.localScale = localScale;
     }
-
     public Vector2 getRotation() {
         return rotation;
     }
