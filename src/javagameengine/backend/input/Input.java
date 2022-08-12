@@ -93,6 +93,22 @@ public class Input {
             keyDowns.remove(new Integer(keyCode));
         return pressed;
     }
+    
+    public static getHorizontal()
+    {
+        if(isKeyDown(Keys.D))
+            return 1
+        if(isKeyDown(Keys.A))
+            return -1
+    }
+    
+    public static getVertical()
+    {
+        if(isKeyDown(Keys.W))
+            return 1
+        if(isKeyDown(Keys.S))
+            return -1
+    }
 
 
 }
