@@ -94,20 +94,22 @@ public class Input {
         return pressed;
     }
     
-    public static getHorizontal()
+    public static int getHorizontal()
     {
         if(isKeyDown(Keys.D))
-            return 1
+            return 1;
         if(isKeyDown(Keys.A))
-            return -1
+            return -1;
+        return 0;
     }
     
-    public static getVertical()
+    public static int getVertical()
     {
         if(isKeyDown(Keys.W))
-            return 1
+            return 1;
         if(isKeyDown(Keys.S))
-            return -1
+            return -1;
+        return 0;
     }
 
 
