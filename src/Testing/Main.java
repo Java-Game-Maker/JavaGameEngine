@@ -2,6 +2,7 @@ package Testing;
 
 import javagameengine.backend.Scene;
 import javagameengine.backend.UpdateThread;
+import javagameengine.backend.input.Input;
 import javagameengine.components.Component;
 import javagameengine.components.colliders.SquareCollider;
 import javagameengine.components.GameObject;
@@ -109,11 +110,21 @@ public class Main extends JavaGameEngine{
 
            // add(mainPanel);
 
-            Player s = new Player(new Vector2(-100,-110));
+           /* Player s = new Player(new Vector2(-100,-110));
             components.add(s);
             components.add(new Goal(new Vector2(100,-100)));
-            components.add(new Ground(new Vector2(0,0)));
+            components.add(new Ground(new Vector2(0,0)));*/
 
+            GameObject g = new GameObject(){
+                @Override
+                public void draw(Graphics g) {
+                    super.draw(g);
+                    g.fillOval((int) Input.getMouseWorldPosition().getX(), (int) Input.getMouseWorldPosition().getY(),10,10);
+                }
+            };
+            g.addChild(new GameObject());
+
+            add(g);
 
 
         }

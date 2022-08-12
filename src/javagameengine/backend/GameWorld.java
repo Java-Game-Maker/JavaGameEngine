@@ -110,5 +110,4 @@ public class GameWorld extends JPanel {
     public Scene getCurrentScene() {
         return currentScene;
     }
-
 }

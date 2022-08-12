@@ -2,7 +2,6 @@ package javagameengine;
 import javagameengine.backend.GameWorld;
 import javagameengine.backend.Scene;
 import javagameengine.backend.UpdateThread;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
@@ -85,8 +84,12 @@ public class JavaGameEngine {
         calcThread.start();
         mainClass = this;
     }
+    boolean started = false;
     public void update(){
-
+        if(!started && getWindowSize().getX()>0){
+            started = true;
+            getScene().startScene();
+        }
     }
 
 }

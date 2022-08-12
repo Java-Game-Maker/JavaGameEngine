@@ -149,7 +149,7 @@ public class Sprite extends Component {
     @Override
     public void draw(Graphics g) {
         super.draw(g);
-        g.drawImage((Image) getAnimation(), (int) ((int) getSpritePosition().getX()), (int) ((int) getSpritePosition().getY()), (int) getScale().getX(), (int) getScale().getY(),null);
+        g.drawImage(getAnimation(), ((int) getSpritePosition().getX()), ((int) getSpritePosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
     }
 
     public static BufferedImage resize(BufferedImage img, Vector2 scale) {

@@ -2,8 +2,6 @@ package javagameengine.backend;
 
 import javagameengine.components.Component;
 import javagameengine.JavaGameEngine;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -51,7 +49,8 @@ public class UpdateThread extends Thread{
             JavaGameEngine.getScene().components=(UpdateObjects());
             if(UpdateThread.newObjects.size()>0) {
                 for (Component o : UpdateThread.newObjects) {
-                    o.setPosition(o.getPosition().add(JavaGameEngine.origin));
+                    o.localOrigin = JavaGameEngine.origin;
+                    o.setPosition(o.getPosition());
                     JavaGameEngine.getScene().components.add(o);
                 }
                 newObjects.clear();
@@ -98,7 +97,7 @@ public class UpdateThread extends Thread{
             JavaGameEngine.gameWorld.validate();
             JavaGameEngine.gameWorld.repaint();
             if(JavaGameEngine.startNewScene){
-                JavaGameEngine.gameWorld.getCurrentScene().start();
+                JavaGameEngine.gameWorld.getCurrentScene().startScene();
                 JavaGameEngine.startNewScene = false;
             }
 

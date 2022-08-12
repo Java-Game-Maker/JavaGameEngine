@@ -58,7 +58,7 @@ public class Player extends GameObject {
 
         addChild(physicsBody);
         setTag("player");
-        SquareCollider s = new SquareCollider();
+        SquareCollider s = new SquareCollider(true);
         s.setLocalScale(new Vector2(-20,0));
         addChild(s);
         addChild(new PlayerMovement());

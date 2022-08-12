@@ -1,16 +1,12 @@
 package javagameengine.backend;
 
-import Testing.Main;
 import javagameengine.JavaGameEngine;
-import javagameengine.backend.input.Input;
 import javagameengine.components.Camera;
 import javagameengine.components.Component;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.AffineTransform;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -55,13 +51,21 @@ public class Scene extends JPanel{
     /**
         Start the scene. Sets som default values
      */
-    public void start(){
+    public void startScene(){
 
         setActive(true);
         setBackground(new Color(44, 157, 228));
         getCamera().setPosition(new Vector2(0,0));
 
     }
+
+    /**
+     * This method is called when the frame has been initialized
+     */
+    public void start(){
+
+    }
+
     public void starts(){
         for(Component a : components){
             a.start();

@@ -140,8 +140,8 @@ public class Component {
      *
      */
     public Vector2 getSpritePosition(){
-        float x = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getX()-((getScale().getX()/2)));
-        float y = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getY()-((getScale().getY()/2)));
+        float x = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getX());
+        float y = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getY());
 
         return new Vector2(x,y);
     }
@@ -301,13 +301,14 @@ public class Component {
             setMouseInside(false);
         }
         if (isMouseInside() && Input.isMousePressed() && isEnabled()) {
+            onMousePressed(Input.getMouseDown());
             onMousePressed();
             if (getParent() != null) getParent().onMousePressed();
         }
 
         if(parent!=null) {
-            float x = (parent.getPosition().getX())-scale.getX()/2;
-            float y = (parent.getPosition().getY())-scale.getY()/2;
+            float x = (parent.getPosition().getX());
+            float y = (parent.getPosition().getY());
 
             setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
             // update this in the setScale and setRotation instead
@@ -446,10 +447,10 @@ public class Component {
         return add;
     }
 
-    public void onMousePressed() {
-        Debug.log("pressed on "+this+" :/");
+    public void onMousePressed(LinkedList<Integer> mouseKeys) {
     }
-
+    public void onMousePressed() {
+    }
     public void onMouseEntered() {
         //Debug.log("entered "+this);
     }

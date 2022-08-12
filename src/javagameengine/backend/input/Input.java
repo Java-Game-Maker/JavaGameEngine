@@ -3,6 +3,7 @@ package javagameengine.backend.input;
 import Testing.Main;
 import javagameengine.JavaGameEngine;
 import javagameengine.backend.UpdateThread;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.event.KeyEvent;
@@ -21,7 +22,12 @@ public class Input {
         return mousePosition;
     }
     public static Vector2 getMouseWorldPosition(){
-        return Input.getMousePosition().add(Main.getScene().getCamera().getPosition().add(0).subtract(JavaGameEngine.getWindowSize().devide(2)));
+        Vector2 scale = JavaGameEngine.getWindowSize().devide(new Vector2(1920,1080));
+        scale = scale.multiply(JavaGameEngine.getScene().getCamera().getScale());
+
+        Vector2 pos = Input.getMousePosition().devide(scale).add(JavaGameEngine.getWindowSize().subtract(new Vector2(1920,1080)).devide(2));
+
+        return pos;
     }
     public static void setScrollValue(float scrollValue1){
         scrollValue = scrollValue1;
@@ -46,11 +52,13 @@ public class Input {
         if(isMouseDown(e.getButton()))
             mouseButtonDowns.remove(new Integer(e.getButton()));
     }
+    public static LinkedList<Integer> getMouseDown(){
+        return mouseButtonDowns;
+    }
     public static boolean isMouseDown(int mouseButtonDown)
     {
         return(mouseButtonDowns.contains(mouseButtonDown));
     }
-
     public static boolean isMouseDown() {
         return mouseButtonDowns.size() > 0;
     }
