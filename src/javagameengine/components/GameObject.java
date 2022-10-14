@@ -34,6 +34,7 @@ public class GameObject extends Component{
     @Override
     public void update() {
         super.update();
+
     }
 
     @Override

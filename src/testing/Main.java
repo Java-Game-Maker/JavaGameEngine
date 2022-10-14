@@ -5,6 +5,8 @@ import javagameengine.Scene;
 import javagameengine.components.*;
 import javagameengine.msc.Vector2;
 
+import java.awt.*;
+
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
@@ -15,6 +17,7 @@ public class Main extends JavaGameEngine {
         gameObject.setPosition(new Vector2(100,100));
         gameObject.add(new PhysicsBody());
         scene1.add(gameObject);
+
 
         scene1.add(new GameObject());
 
