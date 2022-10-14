@@ -9,50 +9,53 @@ import javagameengine.components.shapes.Rect;
 import javagameengine.input.Input;
 import javagameengine.input.Keys;
 import javagameengine.msc.Debug;
+import javagameengine.msc.Padding;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.Button;
+import javagameengine.ui.Column;
+import javagameengine.ui.Panel;
+import javagameengine.ui.UiElement;
 
 import java.awt.*;
 
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
-        Player p = new Player();
+
         Scene scene1 = new Scene();
-        Scene scene2 = new Scene(){
-            @Override
-            public void update() {
-                super.update();
-              /*  if(Input.isKeyDown(Keys.UPARROW)) getCamera().setScale(getCamera().getScale().add(getCamera().getScale().divide(100)));
-                if(Input.isKeyDown(Keys.DOWNARROW)) getCamera().setScale(getCamera().getScale().subtract(getCamera().getScale().divide(100)));
-                */
 
-            if(Input.isKeyDown(Keys.ESCAPE)){
-                Debug.log(fpsCap);
-                if(Input.getScrollValue()<0) fpsCap+=10;
-                if(Input.getScrollValue()>0) fpsCap-=10;
-            }
+        Panel twoCols = new Panel();
+        twoCols.setPadding(new Padding(5));
+        twoCols.setColor(Color.red);
+        twoCols.setPosition(new Vector2(100,100));
 
-            }
-        };
+        Panel col1 = new Panel();
+        col1.setPadding(new Padding(4));
+        Column column = new Column(col1);
+        col1.setLayout(column);
 
+        col1.setColor(Color.green);
+        col1.add(new Button("1"));
+        col1.add(new Button("2"));
+        col1.add(new Button("3"));
 
 
-        GameObject pl = new GameObject(new Rect(50,40));
-        pl.add(new PhysicsBody());
-        pl.add(new PlayerCharacter((PhysicsBody) pl.getChild(new PhysicsBody())));
-        pl.add(new Collider(pl.getLocalVertices()));
+        Panel col2 = new Panel();
+        col2.setPadding(new Padding(4));
+        Column column1 = new Column(col2);
+        col2.setLayout(column1);
 
-        scene1.add(pl);
+        col2.setColor(Color.blue);
+        col2.add(new Button("4"));
+        col2.add(new Button("5"));
+        col2.add(new Button("6"));
+
+        twoCols.add(col2);
+        twoCols.add(col1);
+
+        scene1.add(twoCols);
+
         scene1.getCamera().add(new CameraMovement());
-        scene1.add(new GameObject(new Circle(100,100)){
-            @Override
-            public void start() {
-                super.start();
-                setPosition(new Vector2(200,0));
-                add(new Collider(localVertices));
-                add(new PhysicsBody());
-            }
-        });
 
         setSelectedScene(scene1);
 
