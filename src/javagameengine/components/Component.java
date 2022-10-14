@@ -401,6 +401,12 @@ public class Component {
     }
 
     public void updateSecund(){
-
     }
+
+    public void save(){
+    }
+    public void load(){
+        
+    }
+
 }
