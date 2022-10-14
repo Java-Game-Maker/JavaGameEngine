@@ -5,6 +5,7 @@ import javagameengine.components.GameObject;
 import javagameengine.components.shapes.Circle;
 import javagameengine.components.shapes.Rect;
 import javagameengine.input.Input;
+import javagameengine.input.Keys;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Padding;
 
@@ -31,7 +32,7 @@ public class UiElement extends Component {
     @Override
     public void update() {
         super.update();
-        if(Input.isMousePressed()){
+        if(Input.isMouseDown(Keys.LEFTCLICK) && mouseInside){
             onClick();
         }
     }

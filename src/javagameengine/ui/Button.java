@@ -4,6 +4,7 @@ import javagameengine.components.shapes.Rect;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Padding;
 import javagameengine.msc.Vector2;
+import testing.Main;
 
 import java.awt.*;
 
@@ -21,13 +22,22 @@ public class Button extends UiFillElement{
     @Override
     public void mouseEntered() {
         super.mouseEntered();
-        Debug.log("asdsad");
+        setScale(getScale().add(10));
     }
 
     @Override
     public void mouseLeft() {
         super.mouseLeft();
-        setPadding(new Padding(0));
+        setScale(getScale().subtract(10));
+    }
+
+    @Override
+    public void update() {
+        super.update();
+        try{
+          //  Debug.log(Main.getSelectedScene().hasA.toString());
+        }catch (Exception e){}
+
     }
 
     @Override

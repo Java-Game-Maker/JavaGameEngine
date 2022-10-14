@@ -18,6 +18,14 @@ public class Layout {
         this.parent = parent;
     }
 
+    public UiElement getParent() {
+        return parent;
+    }
+
+    public void setParent(UiElement parent) {
+        this.parent = parent;
+    }
+
     public void orient(LinkedList<Component> elements) {
 
     }

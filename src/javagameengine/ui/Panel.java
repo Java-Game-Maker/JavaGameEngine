@@ -1,8 +1,11 @@
-package javagameengine.ui.layout;
+package javagameengine.ui;
 
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
-import javagameengine.ui.Row;
 import javagameengine.ui.UiFillElement;
+import javagameengine.ui.layout.Layout;
+import javagameengine.ui.layout.Row;
+import testing.Main;
 
 import java.awt.*;
 
@@ -17,7 +20,7 @@ public class Panel extends UiFillElement {
         setColor(new Color(126, 126, 126));
         setScale(new Vector2(100,100));
         this.layout = layout;
-        layout.parent = this;
+        layout.setParent(this);
     }
 
     public Layout getLayout() {
@@ -32,5 +35,6 @@ public class Panel extends UiFillElement {
     public void update() {
         layout.orient(getChildren());
         super.update();
+        Debug.log((Main.getSelectedScene().hasA!=null?Main.getSelectedScene().hasA.toString():""));
     }
 }

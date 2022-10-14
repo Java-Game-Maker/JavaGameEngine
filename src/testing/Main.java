@@ -2,47 +2,28 @@ package testing;
 
 import javagameengine.JavaGameEngine;
 import javagameengine.Scene;
-import javagameengine.components.*;
+import javagameengine.msc.Debug;
+import javagameengine.msc.Padding;
 import javagameengine.msc.Vector2;
-
-import java.awt.*;
+import javagameengine.ui.Button;
+import javagameengine.ui.Panel;
 
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
 
-        Scene scene1 = new Scene(){
+        Scene scene1 = new Scene();
+
+        Button b = new Button("Text"){
             @Override
-            protected void paintComponent(Graphics g) {
-                super.paintComponent(g);
-                g.drawString(((hasA!=null)?hasA.toString():""),-100,-100);
+            public void onClick() {
+                super.onClick();
+                Debug.log("asdasd");
             }
         };
+        b.setLayer(10);
 
-
-        GameObject gameObject = new GameObject();
-        gameObject.setPosition(new Vector2(100,100));
-        gameObject.setColor(Color.GREEN);
-        gameObject.add(new GameObject(){
-            @Override
-            public void start() {
-                super.start();
-                setColor(Color.red);
-                setLayer(30);
-                setScale(new Vector2(60,60));
-                setParentOffset(new Vector2(80,80));
-            }
-        });
-
-        scene1.add(gameObject);
-        scene1.add(new GameObject(){
-            @Override
-            public void start() {
-                super.start();
-                setLayer(20);
-            }
-        });
-
+        scene1.add(b);
 
         setSelectedScene(scene1);
 
@@ -50,8 +31,5 @@ public class Main extends JavaGameEngine {
 
         start();
 
-
     }
-
-
 }

@@ -1,5 +1,7 @@
 package javagameengine.ui;
 
+import javagameengine.msc.Debug;
+
 import java.awt.*;
 
 public class Text extends UiElement{
@@ -9,8 +11,9 @@ public class Text extends UiElement{
     public Text(String text){
         this.text = text;
         setColor(Color.WHITE);
+        setLayer(0);
     }
-    
+
     public float getLength(){
         return text.length()*font.getSize();
     }

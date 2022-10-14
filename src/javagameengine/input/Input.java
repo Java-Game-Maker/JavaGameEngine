@@ -69,10 +69,11 @@ public class Input {
         return mouseButtonDowns.size() > 0;
     }
 
-    public static boolean isMousePressed(){
-        boolean temp = mouseIsPressed;
-        mouseIsPressed = false;
-        return temp;
+    public static boolean isMousePressed(int keyCode){
+        boolean pressed =  isMouseDown(keyCode);
+        if(pressed)
+            mouseButtonDowns.remove(new Integer(keyCode));
+        return pressed;
     }
     /**
      * @param keyCode the key to check
