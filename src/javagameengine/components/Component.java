@@ -1,53 +1,57 @@
 package javagameengine.components;
 
-import Testing.Main;
-import com.sun.jdi.InconsistentDebugInfoException;
-import javagameengine.backend.input.Input;
-import javagameengine.backend.UpdateThread;
+import javagameengine.CollisionEvent;
 import javagameengine.JavaGameEngine;
+import javagameengine.components.shapes.Rect;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
-/**
- * The component class is the default object that can be rendered and updated in the engine.
- * You can build modules of components and add them to your Pbjects for example.
- * You could create a playermovement component and add that to the player object to seperate chnunks of code.
- */
 public class Component {
 
-    protected Vector2 position = null; // world position
-    Vector2 localPosition=Vector2.zero; // local position this is that children to a parent should change to change position
-    Vector2 cameraPosition = Vector2.zero; // camera offset
+    protected int layer = 10;
+    protected String tag = "";
+    protected float angle = 0;
+    protected boolean visible = true;
+    protected Vector2 position = new Vector2(0,0);
+    protected Vector2 parentOffset = new Vector2(0,0);
+    protected Vector2 scale = new Vector2(100,100);
+    protected LinkedList<Vector2> localVertices = new LinkedList<>();
+    protected LinkedList<Vector2> vertices = new LinkedList<>();
+    protected LinkedList<Component> children = new LinkedList<>();
+    protected Component parent;
+    protected Vector2 prevPosition = Vector2.zero;
+    protected boolean mouseInside = false;
 
-    protected Vector2 scale = new Vector2(100,100); // scale with,height
-    Vector2 localScale=Vector2.zero; // local scale with,height
+    protected Vector2 lastPosition;
 
-    Vector2 rotation=Vector2.zero; // rotation
-    Vector2 localRotation=Vector2.zero; // local rotation this is to let children rotate separate to parent
-
-    Component parent = null; // if component has parent it should update with some of the parents data
-    LinkedList<Component> components = new LinkedList<>(); // children
-    public Vector2 localOrigin = Vector2.zero;
-
-
-    private boolean mouseInside = false;
-
-    boolean isEnabled = true;
-    private String tag = "";
-    int layer = 0;
-
-    public Component() {
-        position = new Vector2(0,0);
+    public Component(LinkedList<Vector2> localVertices){
+        this.localVertices = localVertices;
     }
-    public Component(Vector2 pos) {
-        this.position = pos;
+    public Component(){
+       localVertices = new Rect(100,100);
+
+        vertices.add(new Vector2(-50,-50)); // top left
+        vertices.add(new Vector2(-50,50)); // bottom left
+        vertices.add(new Vector2(50,50)); // bottom right
+        vertices.add(new Vector2(50,-50)); // top right
+
     }
-    public Component(Vector2 pos,Vector2 scale) {
-        this.scale = scale;
-        this.position = pos;
+
+    /**
+     * This will return the widest and highest from the vertices
+     * @return vector2
+     */
+    public Vector2 getScale() {
+
+        float xSize = localVertices.get(0).getX() - localVertices.get(2).getX();
+        float ySize = localVertices.get(1).getX() - localVertices.get(3).getX();
+        return scale;
     }
 
     public int getLayer() {
@@ -55,20 +59,15 @@ public class Component {
     }
 
     public void setLayer(int layer) {
-        JavaGameEngine.getScene().layerList.add(this);
+        JavaGameEngine.getSelectedScene().layerList.add(this);
         this.layer = layer;
     }
 
-    public void setChildren(LinkedList<Component> children){
-        this.components = children;
-    }
-
-    public void setMouseInside(boolean mouseInside) {
-        this.mouseInside = mouseInside;
-    }
-
-    public boolean isMouseInside() {
-        return mouseInside;
+    /**
+     * this methods will be called when the game starts
+     */
+    public void start(){
+        for(Component c : children) c.start();
     }
 
     public String getTag() {
@@ -79,382 +78,299 @@ public class Component {
         this.tag = tag;
     }
 
-    public Vector2 getLocalRotation() {
-        return localRotation;
+    public boolean isVisible() {
+        return visible;
     }
 
-    public void setLocalRotation(Vector2 localRotation) {
-        this.localRotation = localRotation;
+    public void setVisible(boolean visible) {
+        this.visible = visible;
+    }
+
+    public Vector2 getPrevPosition() {
+        return prevPosition;
+    }
+
+    public void setPrevPosition(Vector2 prevPosition) {
+        this.prevPosition = prevPosition;
+    }
+
+    public Vector2 getParentOffset() {
+        return parentOffset;
+    }
+
+    public void setParentOffset(Vector2 parentOffset) {
+        this.parentOffset = parentOffset;
+    }
+
+    public void setScale(Vector2 scale) {
+        this.scale = scale;
+    }
+
+    public Vector2 getPosition() {
+        return position;
+    }
+
+    public void setPosition(Vector2 position) {
+        //this.lastPosition = this.position;
+
+        if(getParent()!=null){
+            this.position = position.add(parentOffset).add(rotOffset);
+
+        }else{
+            prevPosition = this.position;
+            this.position = position;
+        }
+        for(Component c : getChildren()){
+            c.setPosition(position);
+        }
+        updateVertices();
+
+    }
+
+    public LinkedList<Component> getChildren() {
+        return children;
+    }
+
+    public void setChildren(LinkedList<Component> children) {
+        this.children = children;
     }
 
     public Component getParent() {
         return parent;
     }
+
     public void setParent(Component parent) {
         this.parent = parent;
     }
-    public boolean isParent(){
-        return getParent()==null;
+
+    public LinkedList<Vector2> getVertices() {
+        return vertices;
     }
-    public Component getFirstObject(){
-        if(!isParent()){
-            return getParent().getFirstObject();
+
+    public LinkedList<Vector2> getLocalVertices() {
+        return localVertices;
+    }
+
+    public void setLocalVertices(LinkedList<Vector2> localVertices) {
+        this.localVertices = localVertices;
+    }
+
+    public void setVertices(LinkedList<Vector2> vertices) {
+        this.vertices = vertices;
+    }
+
+    public void setAngle(float angle) {
+        this.angle = angle;
+    }
+
+    public float getAngle() {
+        return angle;
+    }
+
+    protected void updateVertices(){
+        LinkedList<Vector2> ver = new LinkedList<>();
+        for(Vector2 vertex : localVertices){
+            ver.add(vertex.add(position.subtract(rotOffset)));
+        }
+        vertices = ver;
+    }
+
+    /**
+     * Use this function to add children. Do not add to the list itself
+     * @param component the new children
+     */
+    public void add(Component component){
+        component.setParent(this);
+        children.add(component);
+    }
+
+    public Component getFirstParent(){
+        if(getParent()!=null){
+            return getParent().getFirstParent();
         }
         return this;
     }
+    public void updateMili(){
 
+    }
     /**
-     * This is the global position everything counts on this. it is from the left top cornde of the sprite
-     * @return current position
+     * This method updates all the values to the component
      */
-    public Vector2 getPosition() {
+    public void update(){
+        for(Component child : children){
+            child.update();
+        }
+    }
+    /**
+     * @return polygon based on components vertices
+     */
+    public Polygon getPolygon(){
+        int[] x = new int[vertices.size()];
+        int[] y = new int[vertices.size()];
+        int i = 0;
 
-        return this.position;
+        for(Vector2 point : vertices){
+            x[i] = (int) point.getX();
+            y[i] = (int) point.getY();
+            i++;
+        }
+
+        return new Polygon(x,y,vertices.size());
     }
 
-    /**
-     * This will only be set if the component isnt a child. This is because if the component
-     * is a child it will set its positon to its parent + its local piston
-     * @param position vector2 positon
-     */
-    public void setPosition(Vector2 position) {
-       // position = new Vector2(position.getX(),-position.getY());
-        if(isParent()){
-
-            if(position!=null){
-
-                this.position = position.add(JavaGameEngine.origin.subtract(localOrigin));
+    public LinkedList<Component> getChildren(Component type){
+        LinkedList<Component> children = new LinkedList<>();
+        for (Component child : this.children){
+            if(child.getClass() == type.getClass()){
+                children.add(child);
             }
-            else{
-                this.position = position.add(JavaGameEngine.origin);
+        }
+        return children;
+    }
+    public LinkedList<Component> getAllChildren(Component type){
+        LinkedList<Component> children = new LinkedList<>();
+        for (Component child : this.children){
+            children.addAll(child.getAllChildren(type));
+            if(child.getClass() == type.getClass()){
+                children.add(child);
             }
         }
-        else{
-            this.position = position;
-        }
-      //  updateChildren();
-    }
-    /**
-     * This has its origo in the middle of the object.
-     * It is also affected by the camera position.
-     *
-     */
-    public Vector2 getSpritePosition(){
-        float x = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getX());
-        float y = (getPosition().subtract(Main.getScene().getCamera().getPosition()).getY());
 
-        return new Vector2(x,y);
+        return children;
     }
+    public Component getChild(Component type) {
 
-    public Vector2 getSpriteScale(){
-        //return getScale();
-        return getScale();
-    }
-
-    public Vector2 getLocalPosition() {
-        return localPosition;
-    }
-
-    /**
-     * The localpositon is used for offseting the child from the parent.
-     * If parent has pos 1,1 and we want the child to have 1,2 our localpositon should be set 0,1
-     * because it is a offset.
-     * @param localPosition vector2
-     */
-    public void setLocalPosition(Vector2 localPosition) {
-        this.localPosition = localPosition;
-    }
-
-    public Vector2 getScale() {
-        return scale;
-    }
-    public void setScale(Vector2 scale) {
-        this.scale = scale;
-    }
-
-    public Vector2 getLocalScale() {
-        return localScale;
-    }
-    public void setLocalScale(Vector2 localScale) {
-        this.localScale = localScale;
-    }
-    public Vector2 getRotation() {
-        return rotation;
-    }
-    public void setRotation(Vector2 rotation) {
-        this.rotation = rotation;
-        updateChildren();
-    }
-    /**
-     *@return true if the component is enabled and returns parent isEnabled if it is a child
-     */
-    public boolean isEnabled() {
-        if(isParent()){
-            return isEnabled;
-        }
-        else{
-            return getParent().isEnabled();
-        }
-    }
-
-    /**
-     * If enabled is false the component will not bwe updated and not bw drawn.
-     * @param enabled true to be updated and drawn
-     */
-    public void setEnabled(boolean enabled) {
-        isEnabled = enabled;
-    }
-
-    /**
-     * This function adds a child to the parent
-     * it could be any JavaGameEngine component GameObject, Physics-body and so on
-     * @param c the child you want to add
-     */
-    public void addChild(Component c){
-        c.setParent(this);
-        //Debug.log("added "+c);
-        this.components.add(c);
-    }
-
-
-    /**
-     *This method will return the first child in the children with the same type as the argument
-     * example GameObject a = this.getChild(new GameObject());
-     * @param t the class of the child to be retured
-     * @param <T> idk
-     * @return the first child that is of type T
-     */
-    public <T extends Component> Component getChild(T t){
-        for(Component c : components){
-            if(c.getClass().equals(t.getClass())){
-                return c;
+        for (Component child : this.children){
+            if(child.getClass() == type.getClass()){
+                return child;
             }
         }
         return null;
     }
-
-    /**
-     * This method will return the all children in the children with the same type as the argument
-     * example  a = this.getChild(new GameObject());
-     * @param t Type of children to return
-     * @param <T> idk
-     * @return list of children of type T
-     */
-    public <T extends Component> LinkedList<T> getChildren(T t){
-        LinkedList<T> childrenToRet = new LinkedList<>();
-        for(Component c : components){
-            if(c.getClass().equals(t.getClass())){
-                childrenToRet.add((T) c);
-            }
+    public Vector2 getBodyPosition(){
+        return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
+    }
+    public void onCollisionEnter(CollisionEvent event){
+        for(Component c : children){
+            c.onCollisionEnter(event);
         }
-        return childrenToRet;
+
+    }
+    public void rotateTo(float angle, Vector2 pivot){
+        rotate(angle-this.angle,pivot);
     }
     /**
-     * This method will return the all children in the children with the same type as the argument
-     * example a = this.getChild(new GameObject());
-     * @return list of all children
+     * rotates the local vertices to by the angle
+     * @param angle the angle to rate the vertices with
      */
-    public LinkedList<Component> getChildren(){
-        return components;
+    public void rotate(float angle){
+
+        this.angle += angle * JavaGameEngine.deltaTime;
+
+        double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
+        LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+        for (int i = 0; i <localVertices.size();i++){
+            Vector2 vertex = localVertices.get(i);
+            // matrix rotation
+            float[] matrix = {
+            (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
+            (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians)) };
+
+            vertices1.add(new Vector2(matrix[0],matrix[1]));
+        }
+        // set the localvertice to our new rotated matrix
+
+
+        for(Component child : children){
+            child.rotate((float) (angle*JavaGameEngine.deltaTime),child.parentOffset.multiply(-1));
+        }
+
+        this.localVertices = vertices1;
     }
-    public void removeChild(Component child){
-        components.remove(child);
-    }
+    Vector2 rotOffset = Vector2.zero;
     /**
-     * This method will add the component to the component handler
-     * this means that you have created a new parent
-     * @param c the object to instantiate
+     * rotates the localc vertices to by the angle
+     * @param angle the angle to rate the vertice with
      */
-    public void instantiate(Component c){
-        UpdateThread.newObjects.add(c);
+    public void rotate(float angle,Vector2 pivot){
+        //Vector2 pivot1 = new Vector2(-50,0);
+        this.angle += angle;
+
+
+        double radians = Math.toRadians(angle); // turns to radians from angle
+        LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+        for (int i = 0; i <localVertices.size();i++){
+            Vector2 vertex = localVertices.get(i).subtract(pivot);
+            // he wrote collide as collied
+            // matrix rotation
+            float[] matrix = {
+                    (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
+                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians)) };
+
+            vertices1.add(new Vector2(matrix[0],matrix[1]).add(pivot));
+        }
+        //Vector2 poly = new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
+
+      //  rotOffset = poly.subtract(parent.getPosition()).subtract(pivot);
+        /*
+
+        float x = (float) Math.cos(Math.toRadians(this.angle));
+        float y = (float) Math.sin(Math.toRadians(this.angle));
+
+        Vector2 pos = new Vector2(
+                pivot.getX()*x - pivot.getY()*y,
+                pivot.getX()*y + pivot.getY()*x);
+        setParentOffset(pos);
+
+
+*/
+        // set the localvertice to our new rotated matrix
+
+        rotateChildren(pivot);
+
+        this.localVertices = vertices1;
     }
-    /**
-     * This method will destroy this object it will remove it from the component handler
-     */
+    public void rotateChildren(Vector2 pivot){
+        for(Component child : children){
+            child.rotate(angle,pivot);
+        }
+
+    }
+    public boolean isMouseInside() {
+        return mouseInside;
+    }
+
+    public void setMouseInside(boolean mouseInside) {
+        this.mouseInside = mouseInside;
+    }
+
+    public void mouseInside(){
+    }
+    public void mouseEntered(){
+        this.mouseInside = true;
+    }
+    public void mouseLeft(){
+    }
     public void destroy(){
-        if(this.parent !=null){
-            parent.removeChild(this);
-        }
-        if(components.size()>0){
-            components.clear();
-        }
-        UpdateThread.delObjects.add(this);
-    }
-    /***
-     * this is the update function. It will be called on every game update
-     * it updates all the children.
-     */
-    public void update() {
-        //Updating relative to the middle
-        if(!JavaGameEngine.origin.equals(localOrigin)){
-            setPosition(getPosition());
-            localOrigin = JavaGameEngine.origin;
-        }
-        if (insideComp() && isEnabled()) {
-            if (!isMouseInside()) {
-                onMouseEntered();
-                setMouseInside(true);
-            }
-
-        } else if (isMouseInside() && isEnabled()) {
-            onMouseExit();
-            setMouseInside(false);
-        }
-        if (isMouseInside() && Input.isMousePressed() && isEnabled()) {
-            onMousePressed(Input.getMouseDown());
-            onMousePressed();
-            if (getParent() != null) getParent().onMousePressed();
-        }
-
-        if(parent!=null) {
-            float x = (parent.getPosition().getX());
-            float y = (parent.getPosition().getY());
-
-            setPosition(new Vector2(x,y).add(getLocalPosition())); // we get the parents position and we add our localPosition
-            // update this in the setScale and setRotation instead
-            setRotation(parent.getRotation().add(getLocalRotation()));
-            setScale(parent.getScale().add(getLocalScale()));
-
-        }
-        if(components.size()>0){
-            updateChildren(); // updates all the children
-        }
-        //mouse enter and exit
-
-    }
-    public boolean insideComp(){
-
-        float width = getScale().getX();
-        float height = getScale().getY();
-
-        float xMin = getSpritePosition().getX();
-        float xMax = getSpritePosition().getX()+width;
-
-        float yMin = getSpritePosition().getY();
-        float yMax = getSpritePosition().getY()+height;
-
-        float mx = Input.getMousePosition().getX();
-        float my = Input.getMousePosition().getY();
-        // if mouse is indide
-        if(mx > xMin && mx < xMax && my > yMin && my < yMax){
-            // colla alla objects
-            LinkedList<Component> components = JavaGameEngine.getScene().components;
-            Component l = this;
-            for(Component parent : components){
-                for(Component c : parent.components) {
-                    width = c.getScale().getX();
-                    height = c.getScale().getY();
-                    xMin = c.getSpritePosition().getX();
-                    xMax = c.getSpritePosition().getX()+width;
-                    yMin = c.getSpritePosition().getY();
-                    yMax = c.getSpritePosition().getY()+height;
-                    mx = Input.getMousePosition().getX();
-                    my = Input.getMousePosition().getY();
-                    //if mouse is inside component
-                    if(mx > xMin && mx < xMax && my > yMin && my < yMax){
-                        //if components layer is bigger then me mouse is not over
-                        if(c.getLayer()>l.getLayer()){
-                            return false;
-                        }
-                        else {
-                            //c.mouseInside = false;
-                        }
-                        //if mouse was is inside another we are not over
-                        if(c!=this && c.isMouseInside()){
-                            return false;
-                        }
-                    }
-                }
-            }
-            return true;
-        }
-        return false;
-
-    }
-
-    /**
-     * Updates all the children
-     */
-    public void updateChildren(){
-        LinkedList<Component> s =  getChildren();
-        for (Component component :s) {
-            component.update();
-        }
-    }
-
-    /**
-     * This will be called when a collision is detected if the component has a collider as a child
-     * @param c Component collided with
-     */
-    public void onCollisionEnter(Component c){
+        JavaGameEngine.getSelectedScene().destroy(this);
     }
     /**
-     * This will be called when a collision is no longer happening if the component has a collider as a child
-     * @param c Component collided with
+     * Renders the component
+     * @param g what graphics to render to
      */
-    public void onCollisionExit(Component c){
-    }
-    /**
-     * This will be called when a collision is happening if the component has a collider as a child
-     * @param c Component collided with
-     */
-    public void onCollision(Component c){
-    }
-    public void onTriggerEnter(Component c){
-    }
-    /**
-     * This will be called when a triggered is no longer happening if the component has a collider as a child
-     * @param c Component triggered with
-     */
-    public void onTriggerExit(Component c){
-    }
-    /**
-     * This will be called when a triggered is happening if the component has a collider as a child
-     * @param c Component triggered with
-     */
-    public void onTrigger(Component c){
-    }
+    public void render(Graphics2D g){
+        List<Component> list = getChildren();
 
-    /**
-     * Draws all components children
-     * If this is not called in compnets children will not be drawn.
-     * If you dont use super in the draw you have to call this fucntion so the children gets drawn
-     * @param g the Grapcis object you get from the draw function
-     */
-    public void drawChildren(Graphics g){
-        for (Component c: getChildren()) {
-            c.draw(g);
+        for (Component child : list){
+            child.render(g);
         }
-    }
-
-    /**
-     * This is where the component will be drawn (rendered)
-     * @param g Graphics that can be used for draing
-     */
-    public void draw(Graphics g) {
-        drawChildren(g);
-    }
-
-    /**
-     * Runs after gameworld has been initilized
-     */
-    public void start(){
 
     }
 
-    public Vector2 movePosition(Vector2 add) {
-        setPosition(add);
-        return add;
+    protected void onTriggerEnter(CollisionEvent collisionEvent) {
     }
 
-    public void onMousePressed(LinkedList<Integer> mouseKeys) {
-    }
-    public void onMousePressed() {
-    }
-    public void onMouseEntered() {
-        //Debug.log("entered "+this);
-    }
+    public void updateSecund(){
 
-    public void onMouseExit() {
     }
 }

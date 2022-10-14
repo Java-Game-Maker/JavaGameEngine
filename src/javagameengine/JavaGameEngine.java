@@ -1,95 +1,120 @@
 package javagameengine;
-import javagameengine.backend.GameWorld;
-import javagameengine.backend.Scene;
-import javagameengine.backend.UpdateThread;
+
+import javagameengine.components.Component;
+import javagameengine.input.Input;
+import javagameengine.input.Keys;
 import javagameengine.msc.Vector2;
 
+import javax.swing.*;
+import java.awt.*;
 import java.util.LinkedList;
 
-import javax.swing.*;
+public class JavaGameEngine{
 
-public class JavaGameEngine {
+    public static JavaGameEngine gameInstance;
+    private static boolean newScene = false;
+    public static int DELAY = 5;
+    /**this is the JPanel that is rendering our scenes and retrieving inputs*/
+    public static final GameWorld gameWorld = new GameWorld();
+    /** the scene that is renderned and updated*/
+    static Scene selectedScene = new Scene();
 
-    public static int DELAY = 3;
-    static JFrame frame;
-    private static float start;
-    public static float DeltaTime;
-    private int fpsecund;
-    public static LinkedList<Scene> scenes = new LinkedList<>();
-    public static GameWorld gameWorld = new GameWorld();
-    public static JavaGameEngine mainClass; // which class to call the update function to
-    /**
-     * point in middle
-     */
-    public static Vector2 origin = Vector2.zero;
+    public static Vector2 g = new Vector2(0,0.03982f);
+    public static Vector2 size = new Vector2(720,500);
+    public static JFrame gameWindow = new JFrame();
 
-    /**
-     * This should be called before start
-     * it sets up a frame
-     */
-    public void init()
-    {
-        frame = new JFrame();
-        frame.setSize(600,600);
-        frame.setTitle("Java Game Engine");
-        frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+    /**return selected scene*/
+    public static Scene getSelectedScene() {
+        return selectedScene;
+    }
+    /** sets the scene that is inputed and sets it to the game world*/
+    public static void setSelectedScene(Scene selectedScene) {
+        newScene = true;
+        gameWorld.remove(getSelectedScene());
+        selectedScene.startScene();
+        gameWorld.add(selectedScene);
+        JavaGameEngine.selectedScene = selectedScene;
+    }
+    public JavaGameEngine() {
+
     }
 
     /**
-     * this it the method to start the game engine
-     * do every setup thing before calling start
+     * Time since last update (ms)
      */
-    public void start() {
-        init();
-        startGame();
-    }
+    public static double deltaTime = 0;
+    private static double prevTime = ((double)System.currentTimeMillis());
+
+    private static double time = System.currentTimeMillis();
     /**
-     * this it the method to start the game engine
-     * do every setup thing before calling start
-     * @param frame the frame you want to render in
+     * this is the amount of frames drawn every second
      */
-    public void start(JFrame frame) {
-        JavaGameEngine.frame = frame;
-        startGame();
-    }
-    public static float previous = System.nanoTime();
-
+    public static float fps = 5;
+    private static float counter = 5;
     /**
-     * This is used by the engine (don't change it)
+     * This caps the amount of frames drawn in a second (0 = uncapped)
      */
-    public static boolean startNewScene = true;
+    public static float fpsCap = 0;
 
-
-    public static void setSelectedScene(Scene scene) {
-        startNewScene = true;
-        gameWorld.getCurrentScene().setActive(false);
-        gameWorld.setCurrentScene(scene);
-    }
-    public static Scene getScene(){
-        return gameWorld.getCurrentScene();
-    }
-
-    /**
-     * @return Vector2 x window width y window height
-     */
     public static Vector2 getWindowSize(){
-        return new Vector2((float) frame.getSize().getWidth(), (float) frame.getSize().getHeight());
+        return new Vector2(gameWindow.getSize().width,gameWindow.getSize().height);
     }
 
-    private void startGame(){
-        frame.setVisible(true);
-        frame.add(gameWorld);
-        gameWorld.setCurrentScene(getScene());
-        UpdateThread calcThread = new UpdateThread(JavaGameEngine.getScene().components,getScene());
-        calcThread.start();
-        mainClass = this;
-    }
-    boolean started = false;
-    public void update(){
-        if(!started && getWindowSize().getX()>0){
-            started = true;
-            getScene().startScene();
+    private static void update(){
+        double now = ((double)System.currentTimeMillis());
+        //Increases counter every tick but when a 1/10 of a second we reset the counter
+        //and sets the fps to the counter
+        // To cap the fps we just increase the delay if our fps is too high
+        // and decrease it when it is too low
+        if(now-time>=100){
+            fps = counter*10;
+            gameWindow.setTitle("FPS "+String.valueOf(fps));
+            if(fpsCap > 0 && fps>fpsCap) DELAY++;
+            if(fpsCap > 0 && fps<fpsCap && DELAY>5) DELAY--;
+
+            counter = 0;
+            time = now;
         }
+        counter++;
+
+        // delta time is the time from previous frame (tick speed)
+        deltaTime = (now-prevTime)/10;
+        prevTime = now;
+
+        try {
+            Thread.sleep(DELAY);
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+
+        selectedScene.update();
+        gameWindow.repaint();
+
+        //For linux
+        Toolkit.getDefaultToolkit().sync();
+        Input.setScrollValue(0);
+
+        if(newScene){
+            gameWindow.validate();
+            selectedScene.start();
+
+            newScene = false;
+        }
+    }
+
+    public static void start(){
+
+        //Set som basic properties
+        gameWindow.setSize((int) size.getX(), (int) size.getY());
+        gameWindow.setContentPane(gameWorld);
+        gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
+        gameWindow.setVisible(true);
+        selectedScene.start();
+
+        while(true){
+             update();
+        }
+
     }
 
 }

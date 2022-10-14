@@ -1,6 +1,6 @@
 package javagameengine.msc;
 
-import org.jetbrains.annotations.NotNull;
+import testing.spel1.Main;
 
 import java.util.Objects;
 
@@ -16,6 +16,10 @@ public class Vector2 {
     public Vector2(float x, float y) {
         this.x = x;
         this.y = y;
+    }
+    public Vector2(Vector2 vector2) {
+        this.x = vector2.x;
+        this.y = vector2.y;
     }
     public float getX() {
         return x;
@@ -47,6 +51,7 @@ public class Vector2 {
     public Vector2 multiply(Vector2 vector2) {
         return new Vector2(x*vector2.x,y*vector2.y);
     }
+
     public float getMagnitude (){
         return (float) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
     }
@@ -55,10 +60,10 @@ public class Vector2 {
         return new Vector2(y,x);
     }
 
-    public Vector2 devide(float a){
+    public Vector2 divide(float a){
         return new Vector2(x/a,y/a);
     }
-    public Vector2 devide(Vector2 a){
+    public Vector2 divide(Vector2 a){
         return new Vector2(x/a.getX(),y/a.getY());
     }
     public Vector2 add(Vector2 vector2) {
@@ -68,20 +73,18 @@ public class Vector2 {
         return new Vector2(x+ a,y+ a);
     }
     public Vector2 subtract(Vector2 vector2) {
-        return new Vector2(x- vector2.x,y- vector2.y);
+        return new Vector2(x - vector2.x,y - vector2.y);
     }
-    public Vector2 subtract(float val) {
-        return new Vector2(x - val,y - val);
+    public Vector2 subtract(float value) {
+        return new Vector2( x- value,y - value);
     }
-    public Vector2 getDirection(double angle) {
-        float x = (float) Math.cos(Math.toRadians(angle));
-        float y = (float) Math.sin(Math.toRadians(angle));
-        return new Vector2(x,y);
-    }
+
 
     public Vector2 getNormalized()
     {
-        return devide(getHighest());
+        if(getHighest()!=0)
+            return divide(getHighest());
+        return Vector2.zero;
     }
 
     private float getHighest() {
@@ -106,18 +109,39 @@ public class Vector2 {
         Vector2 vector2 = (Vector2) o;
         return Float.compare(vector2.x, x) == 0 && Float.compare(vector2.y, y) == 0;
     }
+    public static Vector2 getDirection(double angle) {
+        float x = (float) Math.cos(Math.toRadians(angle));
+        float y = (float) Math.sin(Math.toRadians(angle));
+        return new Vector2(x,y);
+    }
     /**
      Returns the angle between object position and vector given
      @param toLookAt the vector to look at
      @return the degrees from this to the toLookAt vector
      **/
-    public double LookAt(Vector2 toLookAt)
+    public float lookAt(Vector2 toLookAt)
     {
-        float b = getX()-toLookAt.getX();
-        float a = getY()-toLookAt.getY();
-        //a/b=tan v
-        //System.out.println("a; "+a+"b: "+b);
-        return(Math.toDegrees(Math.atan(a/b)));
+        float angle;
+        if((toLookAt.getX()>getX())){
+            float b = getX()-toLookAt.getX();
+            float a = getY()-toLookAt.getY();
+            //a/b=tan v
+            //System.out.println("a; "+a+"b: "+b);
+             angle = (float) Math.toDegrees(Math.atan(a/b));
+        }else{
+            float b = getX()-toLookAt.getX();
+            float a = getY()-toLookAt.getY();
+            //a/b=tan v
+            //System.out.println("a; "+a+"b: "+b);
+            angle = 180+(float) Math.toDegrees(Math.atan(a/b));
+        }
+        return angle;
+    }
+    public static double angleFromOriginCounterClockwise(Vector2 a) {
+        double degrees = Math.toDegrees(Math.atan(a.getY()/a.getX()));
+        if(a.getX() < 0.0) return degrees+180.0;
+        else if(a.getY() < 0.0) return degrees+360.0;
+        else return degrees;
     }
     @Override
     public int hashCode() {
@@ -131,8 +155,7 @@ public class Vector2 {
         return new Vector2(0,y);
     }
 
-    @NotNull
-    public Vector2 devide(int i) {
-        return this.devide(new Vector2(i,i));
+    public Vector2 divide(int i) {
+        return this.divide(new Vector2(i,i));
     }
 }
