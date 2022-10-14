@@ -5,6 +5,8 @@ import javagameengine.Scene;
 import javagameengine.components.*;
 import javagameengine.msc.Vector2;
 
+import java.awt.*;
+
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
@@ -12,8 +14,12 @@ public class Main extends JavaGameEngine {
         Scene scene1 = new Scene();
 
 
+        GameObject gameObject = new GameObject();
+        gameObject.setPosition(new Vector2(100,100));
+        gameObject.setColor(Color.GREEN);
+        scene1.add(gameObject);
+        scene1.add(new GameObject());
 
-        scene1.getCamera().add(new CameraMovement());
 
         setSelectedScene(scene1);
 
