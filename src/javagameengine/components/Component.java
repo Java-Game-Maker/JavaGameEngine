@@ -3,8 +3,10 @@ package javagameengine.components;
 import javagameengine.CollisionEvent;
 import javagameengine.JavaGameEngine;
 import javagameengine.components.shapes.Rect;
+import javagameengine.input.Input;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
+import testing.Main;
 
 import java.awt.*;
 import java.util.Collections;
@@ -202,6 +204,29 @@ public class Component {
      * This method updates all the values to the component
      */
     public void update(){
+        Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
+                /*
+                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
+                    if mouse is inside, and we have been we don't call mouse entered
+                    if mouse is not inside, and we are previously we call mouse left
+                 */
+        Component prev = Main.getSelectedScene().hasA;
+        if(getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
+            if(isMouseInside()){
+                mouseInside();
+            }
+            else{
+                mouseEntered();
+            }
+            Main.getSelectedScene().hasA = this;
+
+        }
+        else if(isMouseInside()){
+            setMouseInside(false);
+            mouseLeft();
+            Main.getSelectedScene().hasA = null;
+        }
+
         for(Component child : children){
             child.update();
         }

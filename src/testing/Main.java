@@ -11,7 +11,13 @@ public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
 
-        Scene scene1 = new Scene();
+        Scene scene1 = new Scene(){
+            @Override
+            protected void paintComponent(Graphics g) {
+                super.paintComponent(g);
+                g.drawString(((hasA!=null)?hasA.toString():""),-100,-100);
+            }
+        };
 
 
         GameObject gameObject = new GameObject();
@@ -21,12 +27,21 @@ public class Main extends JavaGameEngine {
             @Override
             public void start() {
                 super.start();
-                setParentOffset(new Vector2(50,50));
+                setColor(Color.red);
+                setLayer(30);
+                setScale(new Vector2(60,60));
+                setParentOffset(new Vector2(80,80));
             }
         });
 
         scene1.add(gameObject);
-        scene1.add(new GameObject());
+        scene1.add(new GameObject(){
+            @Override
+            public void start() {
+                super.start();
+                setLayer(20);
+            }
+        });
 
 
         setSelectedScene(scene1);
