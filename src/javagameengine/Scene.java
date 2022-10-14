@@ -83,7 +83,7 @@ public class Scene extends JPanel {
                     if mouse is not inside, and we are previously we call mouse left
                  */
                 if(component.getPolygon().contains(p) && (hasA == null || hasA == component)){
-                    if(component.isMouseInside() ){
+                    if(component.isMouseInside()){
                         component.mouseInside();
                         hasA = component;
                     }
