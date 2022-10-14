@@ -3,6 +3,7 @@ package javagameengine.components;
 import javagameengine.CollisionEvent;
 import javagameengine.JavaGameEngine;
 import javagameengine.components.shapes.Rect;
+import javagameengine.input.Input;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
@@ -377,5 +378,13 @@ public class Component {
 
     public void updateSecund(){
 
+    }
+
+    public void debugUpdate() {
+        for(Component c : getChildren()) c.debugUpdate();
+
+        if(mouseInside && Input.isMouseDown()) {
+            setPosition(Input.getMousePosition());
+        }
     }
 }

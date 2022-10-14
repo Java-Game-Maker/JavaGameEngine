@@ -1,6 +1,7 @@
 package javagameengine;
 
 import javagameengine.components.Camera;
+import javagameengine.components.CameraMovement;
 import javagameengine.components.Component;
 import javagameengine.input.Input;
 import javagameengine.msc.Debug;
@@ -17,6 +18,7 @@ public class Scene extends JPanel {
     private LinkedList<Component> newComponents = new LinkedList<>();
     private LinkedList<Component> remove = new LinkedList<>();
     Camera camera = new Camera();
+    boolean debugMode = true;
 
     public Scene(){
         setBackground(new Color(40,125,255));
@@ -33,6 +35,9 @@ public class Scene extends JPanel {
     }
 
     public void start(){
+        if(debugMode){
+            camera.add(new CameraMovement());
+        }
         camera.start();
         for(Component c : getComponents1()){
             c.start();
@@ -50,6 +55,13 @@ public class Scene extends JPanel {
     }
     public Camera getCamera() {
         return camera;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 
     public void setCamera(Camera camera) {
@@ -93,7 +105,11 @@ public class Scene extends JPanel {
                     component.mouseLeft();
                 }
 
-                component.update();
+                if(!debugMode) {
+                    component.update();
+                }else{
+                    component.debugUpdate();
+                }
             }
         }
 

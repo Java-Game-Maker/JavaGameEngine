@@ -11,9 +11,12 @@ public class Main extends JavaGameEngine {
 
         Scene scene1 = new Scene();
 
+        GameObject gameObject = new GameObject();
+        gameObject.setPosition(new Vector2(100,100));
+        gameObject.add(new PhysicsBody());
+        scene1.add(gameObject);
 
-
-        scene1.getCamera().add(new CameraMovement());
+        scene1.add(new GameObject());
 
         setSelectedScene(scene1);
 

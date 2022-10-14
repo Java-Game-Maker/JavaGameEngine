@@ -1,6 +1,8 @@
 package javagameengine.components;
 
+import javagameengine.JavaGameEngine;
 import javagameengine.components.shapes.Rect;
+import javagameengine.input.Input;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -27,6 +29,11 @@ public class GameObject extends Component{
 
     public void setColor(Color color) {
         this.color = color;
+    }
+
+    @Override
+    public void update() {
+        super.update();
     }
 
     @Override
