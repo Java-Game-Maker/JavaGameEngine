@@ -6,8 +6,6 @@ import java.util.LinkedList;
 
 public class Rect extends LinkedList<Vector2> {
 
-    int width, height;
-
     public Rect(int width, int height){
         add(new Vector2(-width/2,-height/2)); // top left
         add(new Vector2(-width/2,height/2));  // bottom left

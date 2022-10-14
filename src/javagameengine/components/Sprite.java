@@ -125,6 +125,15 @@ public class Sprite extends Component {
         return (animations.get(animationIndex)[(currentSprite)]);
     }
 
+    @Override
+    public Vector2 getScale() {
+        return scale;
+    }
+
+    @Override
+    public void setScale(Vector2 scale) {
+        this.scale = scale;
+    }
 
     @Override
     public void setPosition(Vector2 position) {
@@ -141,8 +150,8 @@ public class Sprite extends Component {
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
             g.transform( trans );
             g.drawImage((Image) getAnimation(),
-                    (int) (getPosition().getX()-scale.divide(2).getX()),
-                    (int) (getPosition().getY()-scale.divide(2).getY()),
+                    (int) (getPosition().getX()-getScale().divide(2).getX()),
+                    (int) (getPosition().getY()-getScale().divide(2).getY()),
                     (int) getScale().getX(),
                     (int) getScale().getY(),
                     null);  // the actual location of the sprite

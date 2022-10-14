@@ -22,7 +22,6 @@ public class Button extends UiFillElement{
     public void mouseEntered() {
         super.mouseEntered();
         Debug.log("asdsad");
-        setPadding(new Padding(10));
     }
 
     @Override

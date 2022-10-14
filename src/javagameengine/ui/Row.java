@@ -23,7 +23,7 @@ public class Row extends Layout {
         for( Component element : elements ){
             float def = (parent.getPosition().getX())+(count*element.getScale().getX())-parent.getScale().getX()/2 + element.getScale().getX()/2;
             //((def + element.getScale().getY()/2) + element.getScale().getY()*count)+((count==0)?0:gap) + parent.getPadding().getTop())
-            element.setPosition(new Vector2( (def + parent.getPadding().getTop()) , parent.getPosition().getY()));
+            element.setPosition(new Vector2( (def + parent.getPadding().getLeft()) , parent.getPosition().getY()));
             //element.setScale(new Vector2(100,50).add(((UiElement)element).getPadding().getX()));
 
             scale = scale.add(element.getScale());

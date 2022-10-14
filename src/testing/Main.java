@@ -43,10 +43,11 @@ public class Main extends JavaGameEngine {
         col2.add(new Button("5"));
         col2.add(new Button("6"));
 
-      //  twoCols.add(col2);
+        twoCols.add(col2);
         twoCols.add(col1);
+        twoCols.add(new Button("sad"));
 
-        scene1.add(col2);
+        scene1.add(twoCols);
 
         scene1.getCamera().add(new CameraMovement());
 

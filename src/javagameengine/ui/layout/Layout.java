@@ -9,7 +9,8 @@ import javagameengine.ui.UiElement;
 import java.util.LinkedList;
 
 public class Layout {
-    UiElement parent = new UiElement();
+    protected UiElement parent = new UiElement();
+
     int gap = 3;
     public Layout() {
     }

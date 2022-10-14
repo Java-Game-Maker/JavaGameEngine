@@ -16,4 +16,9 @@ public class Camera extends Component{
     public Vector2 getScale() {
         return scale;
     }
+
+    @Override
+    public void setScale(Vector2 scale) {
+        this.scale = scale;
+    }
 }
