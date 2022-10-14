@@ -58,7 +58,7 @@ public class Scene extends JPanel {
     private float time = 0;
     private int lastSec = 0;
     private int lastMili = 0;
-    Component hasA = null;
+    public Component hasA = null;
     public void update(){
         time += JavaGameEngine.deltaTime;
         if((int) time/100 > lastSec){
@@ -76,26 +76,7 @@ public class Scene extends JPanel {
         for(Component component : components){
             if(inside(component)) {
 
-                Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
-                /*
-                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
-                    if mouse is inside, and we have been we don't call mouse entered
-                    if mouse is not inside, and we are previously we call mouse left
-                 */
-                if(component.getPolygon().contains(p) && (hasA == null || hasA == component)){
-                    if(component.isMouseInside()){
-                        component.mouseInside();
-                        hasA = component;
-                    }
-                    else{
-                        component.mouseEntered();
-                    }
-                }
-                else if(component.isMouseInside()){
-                    component.setMouseInside(false);
-                    component.mouseLeft();
-                    hasA = null;
-                }
+
 
                 component.update();
             }
