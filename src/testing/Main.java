@@ -15,11 +15,16 @@ public class Main extends JavaGameEngine {
 
         GameObject gameObject = new GameObject();
         gameObject.setPosition(new Vector2(100,100));
-        gameObject.add(new PhysicsBody());
+
+        GameObject child = new GameObject();
+        child.setParentOffset(new Vector2(200,50));
+
+        gameObject.add(child);
+
         scene1.add(gameObject);
 
 
-        scene1.add(new GameObject());
+       // scene1.add(new GameObject());
 
         setSelectedScene(scene1);
 

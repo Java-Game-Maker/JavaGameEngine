@@ -4,6 +4,7 @@ import javagameengine.JavaGameEngine;
 import javagameengine.components.shapes.Rect;
 import javagameengine.input.Input;
 import javagameengine.msc.Vector2;
+import testing.Main;
 
 import java.awt.*;
 import java.util.LinkedList;
@@ -25,6 +26,14 @@ public class GameObject extends Component{
 
     public Color getColor() {
         return color;
+    }
+
+    @Override
+    public void start() {
+        super.start();
+
+        if(Main.getSelectedScene().isDebugMode()){
+        }
     }
 
     public void setColor(Color color) {

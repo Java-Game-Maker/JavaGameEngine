@@ -68,6 +68,8 @@ public class Component {
      */
     public void start(){
         for(Component c : children) c.start();
+
+
     }
 
     public String getTag() {
@@ -204,6 +206,29 @@ public class Component {
      * This method updates all the values to the component
      */
     public void update(){
+        checkMouse();
+
+        for(Component child : children){
+            child.update();
+        }
+    }
+    /**
+     * @return polygon based on components vertices
+     */
+    public Polygon getPolygon(){
+        int[] x = new int[vertices.size()];
+        int[] y = new int[vertices.size()];
+        int i = 0;
+
+        for(Vector2 point : vertices){
+            x[i] = (int) point.getX();
+            y[i] = (int) point.getY();
+            i++;
+        }
+
+        return new Polygon(x,y,vertices.size());
+    }
+    public void checkMouse(){
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
                 /*
                     if mouse is inside, and we have not been we call mouse entered and we say it is entered
@@ -226,28 +251,7 @@ public class Component {
             mouseLeft();
             Main.getSelectedScene().hasA = null;
         }
-
-        for(Component child : children){
-            child.update();
-        }
     }
-    /**
-     * @return polygon based on components vertices
-     */
-    public Polygon getPolygon(){
-        int[] x = new int[vertices.size()];
-        int[] y = new int[vertices.size()];
-        int i = 0;
-
-        for(Vector2 point : vertices){
-            x[i] = (int) point.getX();
-            y[i] = (int) point.getY();
-            i++;
-        }
-
-        return new Polygon(x,y,vertices.size());
-    }
-
     public LinkedList<Component> getChildren(Component type){
         LinkedList<Component> children = new LinkedList<>();
         for (Component child : this.children){
@@ -403,12 +407,24 @@ public class Component {
     public void updateSecund(){
 
     }
-
+    private Vector2 offset = null;
     public void debugUpdate() {
+        checkMouse();
+
         for(Component c : getChildren()) c.debugUpdate();
 
-        if(mouseInside && Input.isMouseDown()) {
-            setPosition(Input.getMousePosition());
+        if(Input.isMouseDown() && mouseInside) {
+            if(offset==null)
+                offset = getPosition().subtract(Input.getMousePosition());
+            if(getParent()==null)
+                setPosition(Input.getMousePosition().add(offset));
+            else{
+                setParentOffset(Input.getMousePosition().add(offset).subtract(parent.getPosition()));
+                parent.setPosition(parent.getPosition());
+            }
+        }else{
+            offset = null;
+
         }
     }
 }
