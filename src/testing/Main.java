@@ -17,6 +17,14 @@ public class Main extends JavaGameEngine {
         GameObject gameObject = new GameObject();
         gameObject.setPosition(new Vector2(100,100));
         gameObject.setColor(Color.GREEN);
+        gameObject.add(new GameObject(){
+            @Override
+            public void start() {
+                super.start();
+                setParentOffset(new Vector2(50,50));
+            }
+        });
+
         scene1.add(gameObject);
         scene1.add(new GameObject());
 
