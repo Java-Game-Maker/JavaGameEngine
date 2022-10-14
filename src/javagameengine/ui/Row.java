@@ -2,10 +2,11 @@ package javagameengine.ui;
 
 import javagameengine.components.Component;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.layout.Layout;
 
 import java.util.LinkedList;
 
-public class Row extends Layout{
+public class Row extends Layout {
     public Row(UiElement parent) {
         super(parent);
     }

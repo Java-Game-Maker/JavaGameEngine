@@ -3,18 +3,11 @@ package testing;
 import javagameengine.JavaGameEngine;
 import javagameengine.Scene;
 import javagameengine.components.*;
-import javagameengine.components.Component;
-import javagameengine.components.shapes.Circle;
-import javagameengine.components.shapes.Rect;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Padding;
 import javagameengine.msc.Vector2;
 import javagameengine.ui.Button;
-import javagameengine.ui.Column;
-import javagameengine.ui.Panel;
-import javagameengine.ui.UiElement;
+import javagameengine.ui.layout.Column;
+import javagameengine.ui.layout.Panel;
 
 import java.awt.*;
 
@@ -50,10 +43,10 @@ public class Main extends JavaGameEngine {
         col2.add(new Button("5"));
         col2.add(new Button("6"));
 
-        twoCols.add(col2);
+      //  twoCols.add(col2);
         twoCols.add(col1);
 
-        scene1.add(twoCols);
+        scene1.add(col2);
 
         scene1.getCamera().add(new CameraMovement());
 

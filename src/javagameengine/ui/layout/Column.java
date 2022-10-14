@@ -1,8 +1,8 @@
-package javagameengine.ui;
+package javagameengine.ui.layout;
 
 import javagameengine.components.Component;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.UiElement;
 
 import java.util.LinkedList;
 

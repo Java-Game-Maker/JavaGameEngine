@@ -1,13 +1,12 @@
-package javagameengine.ui;
+package javagameengine.ui.layout;
 
-import javagameengine.components.shapes.Rect;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Padding;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.Row;
+import javagameengine.ui.UiFillElement;
 
 import java.awt.*;
 
-public class Panel extends UiFillElement{
+public class Panel extends UiFillElement {
 
     Layout layout = new Row(this);
     public Panel(){
@@ -31,7 +30,7 @@ public class Panel extends UiFillElement{
 
     @Override
     public void update() {
-        super.update();
         layout.orient(getChildren());
+        super.update();
     }
 }
