@@ -49,9 +49,7 @@ public class Component {
      */
     public Vector2 getScale() {
 
-        float xSize = localVertices.get(0).getX() - localVertices.get(2).getX();
-        float ySize = localVertices.get(1).getX() - localVertices.get(3).getX();
-        return scale;
+        return new Vector2((float) getPolygon().getBounds().getWidth(), (float) getPolygon().getBounds().getHeight());
     }
 
     public int getLayer() {
@@ -103,7 +101,14 @@ public class Component {
     }
 
     public void setScale(Vector2 scale) {
-        this.scale = scale;
+        Vector2 d = scale.divide(getScale());
+        LinkedList<Vector2> newVertices =new LinkedList<>();
+        for(Vector2 vertex : localVertices){
+            Vector2 newV = vertex.multiply(d);
+            newVertices.add(newV);
+        }
+        localVertices = newVertices;
+        updateVertices();
     }
 
     public Vector2 getPosition() {
@@ -167,7 +172,7 @@ public class Component {
         return angle;
     }
 
-    protected void updateVertices(){
+    public void updateVertices(){
         LinkedList<Vector2> ver = new LinkedList<>();
         for(Vector2 vertex : localVertices){
             ver.add(vertex.add(position.subtract(rotOffset)));
