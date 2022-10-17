@@ -10,6 +10,7 @@ import javagameengine.input.Keys;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Random;
 import javagameengine.msc.Vector2;
+import javagameengine.ui.Button;
 import testing.Player;
 
 import javax.swing.plaf.basic.BasicDesktopIconUI;
@@ -96,6 +97,17 @@ public class Main extends JavaGameEngine {
         public Pause(String points){
             layer = 100;
             this.points = points;
+            Button b = new Button("Starta eller?"){
+                @Override
+                public void onClick() {
+                    super.onClick();
+                    Main.ship = new Ship();
+                    Main.getSelectedScene().instantiate(ship);
+                    destroy();
+                }
+            };
+            b.setPosition(new Vector2(0,100));
+            add(b);
         }
         float time = 0;
         @Override

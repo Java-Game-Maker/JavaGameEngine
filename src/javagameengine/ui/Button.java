@@ -43,6 +43,5 @@ public class Button extends UiFillElement{
     @Override
     public void onClick() {
         super.onClick();
-        Debug.log("clicked");
     }
 }
