@@ -135,7 +135,7 @@ public class Scene extends JPanel {
 
     private void debugUpdate(){
 
-        if(Input.isKeyDown(Keys.ESCAPE)){
+        if(Input.isKeyDown(Keys.DEL)){
             components.remove(selectedComponent);
             selectedComponent = null;
             hasA = null;
