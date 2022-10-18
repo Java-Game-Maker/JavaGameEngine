@@ -9,7 +9,7 @@ import java.util.LinkedList;
 public class Input {
     private static LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
-    private static boolean mouseIsPressed = false;
+    private static int mouseIsPressed = 1000;
     private static Vector2 mousePosition=new Vector2(0,0);
     private static Vector2 mousePositionOnCanvas =new Vector2(0,0);
     private static float scrollValue=0;
@@ -40,11 +40,8 @@ public class Input {
     public static void addMouseButton(MouseEvent e) {
         if(!isMouseDown(e.getButton()))
             mouseButtonDowns.add(new Integer(e.getButton()));
+        mouseIsPressed = new Integer(e.getButton());
 
-        if(!mouseIsPressed)
-        {
-            mouseIsPressed = true;
-        }
     }
 
     public static Vector2 getMousePositionOnCanvas() {
@@ -70,9 +67,17 @@ public class Input {
     }
 
     public static boolean isMousePressed(){
-        boolean temp = mouseIsPressed;
-        mouseIsPressed = false;
-        return temp;
+        return mouseIsPressed!=1000;
+    }
+
+    /**
+     * Returns true the frame the mousebutton was pressed
+     * Can only be called in the update (not in updateSecound)
+     * @param keyCode the button to check
+     * @return true
+     */
+    public static boolean isMousePressed(int keyCode){
+        return mouseIsPressed == keyCode;
     }
     /**
      * @param keyCode the key to check
@@ -100,4 +105,7 @@ public class Input {
     }
 
 
+    public static void setMousePressed(int i) {
+        mouseIsPressed = i;
+    }
 }
