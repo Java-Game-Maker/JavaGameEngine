@@ -29,6 +29,7 @@ public class Scene extends JPanel {
     private LinkedList<Component> newComponents = new LinkedList<>();
     private LinkedList<Component> remove = new LinkedList<>();
     Camera camera = new Camera();
+    public Component selectedComponent;
     boolean debugMode = true;
 
     public Scene(){
@@ -84,6 +85,7 @@ public class Scene extends JPanel {
     public Component hasA = null;
     public void update(){
 
+
         if(debugMode){
             if(Input.isMousePressed(Keys.RIGHTCLICK)){
                 GameObject g = new GameObject();
@@ -127,8 +129,19 @@ public class Scene extends JPanel {
             remove.clear();
         }
         Input.setMousePressed(1000);
+        debugUpdate();
 
     }
+
+    private void debugUpdate(){
+
+        if(Input.isKeyDown(Keys.ESCAPE)){
+            components.remove(selectedComponent);
+            selectedComponent = null;
+            hasA = null;
+        }
+    }
+
     public void destroy(Component c){
         remove.add(c);
     }
@@ -142,6 +155,9 @@ public class Scene extends JPanel {
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
+
+        if(selectedComponent!=null)
+            graphics2D.drawString(selectedComponent.toString(),100,100);
 
         //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 

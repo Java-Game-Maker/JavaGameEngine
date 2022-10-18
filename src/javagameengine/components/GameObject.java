@@ -46,20 +46,26 @@ public class GameObject extends Component{
     }
 
     @Override
-    public void mouseEntered() {
-        super.mouseEntered();
-        setScale(getScale().add(10));
-    }
-
-    @Override
-    public void mouseLeft() {
-        super.mouseLeft();
-        setScale(getScale().subtract(10));
-    }
-
-    @Override
     public void render(Graphics2D g) {
-        if(visible){
+        if(JavaGameEngine.getSelectedScene().isDebugMode()){
+            Color prev = g.getColor();
+            if(getChild(new Sprite())==null){
+
+                g.setColor(color);
+                g.fillPolygon(getPolygon());
+                if(JavaGameEngine.getSelectedScene().selectedComponent == this){
+                    g.setColor(Color.GREEN);
+                    g.drawPolygon(getPolygon());
+                }
+                g.setColor(prev);
+            }
+            g.setColor(color);
+            g.fillPolygon(getPolygon());
+            g.setColor(prev);
+
+            super.render(g);
+        }
+        else if(visible){
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
                 g.setColor(color);
@@ -71,5 +77,6 @@ public class GameObject extends Component{
             g.setColor(prev);
             super.render(g);
         }
+
     }
 }

@@ -4,6 +4,7 @@ import javagameengine.CollisionEvent;
 import javagameengine.JavaGameEngine;
 import javagameengine.components.shapes.Rect;
 import javagameengine.input.Input;
+import javagameengine.input.Keys;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 import testing.Main;
@@ -413,7 +414,10 @@ public class Component {
 
         for(Component c : getChildren()) c.debugUpdate();
 
-        if(Input.isMouseDown() && mouseInside) {
+        if(Input.isMousePressed(Keys.LEFTCLICK) && mouseInside ){
+            JavaGameEngine.getSelectedScene().selectedComponent = this;
+        }
+        if(Input.isMouseDown(Keys.LEFTCLICK) && mouseInside ) {
             if(offset==null)
                 offset = getPosition().subtract(Input.getMousePosition());
             if(getParent()==null)
