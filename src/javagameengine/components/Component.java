@@ -414,6 +414,8 @@ public class Component {
 
     }
     private Vector2 offset = null;
+    private Vector2 prev = null;
+
     public void debugUpdate() {
         checkMouse();
 
@@ -431,9 +433,17 @@ public class Component {
                 setParentOffset(Input.getMousePosition().add(offset).subtract(parent.getPosition()));
                 parent.setPosition(parent.getPosition());
             }
-        }else{
-            offset = null;
-
         }
+
+        else if(Input.isMouseDown(Keys.MIDDLECLICK) && JavaGameEngine.getSelectedScene().selectedComponent == this){
+            if(prev!=null)
+                setScale(getScale().subtract(Input.getMousePosition().subtract(prev).multiply(new Vector2(-1,1))));
+            prev = Input.getMousePosition();
+        }
+        else{
+            offset = null;
+        }
+
     }
+
 }
