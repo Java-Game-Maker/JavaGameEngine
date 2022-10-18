@@ -75,9 +75,6 @@ public class Scene extends JPanel {
         }
         for(Component component : components){
             if(inside(component)) {
-
-
-
                 component.update();
             }
         }
@@ -92,6 +89,8 @@ public class Scene extends JPanel {
             components.removeAll(remove);
             remove.clear();
         }
+        Input.setMousePressed(1000);
+
     }
     public void destroy(Component c){
         remove.add(c);

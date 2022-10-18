@@ -2,6 +2,8 @@ package javagameengine.components;
 
 import javagameengine.components.shapes.Rect;
 import javagameengine.input.Input;
+import javagameengine.input.Keys;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -40,7 +42,8 @@ public class GameObject extends Component{
                 setParentOffset(Input.getMousePosition().subtract(parent.getPosition()));
                 parent.setPosition(parent.getPosition());
             }
-        }
+        }//
+
     }
 
     @Override
