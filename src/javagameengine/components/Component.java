@@ -445,7 +445,6 @@ public class Component {
         }
 
     }
-
     @Override
     public String toString() {
         return "{position : "+position.toString()+",\n" +

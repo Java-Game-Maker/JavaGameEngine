@@ -163,6 +163,8 @@ public class Scene extends JPanel {
         if(selectedComponent!=null)
             graphics2D.drawString(selectedComponent.toString(),100,100);
 
+
+
         //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         Vector2 scale = camera.getScale();
@@ -181,6 +183,26 @@ public class Scene extends JPanel {
 
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
+
+        if(debugMode){
+
+            //lines through zero
+
+            int x1 = 0;
+            int x2 = 0;
+            int y1 = (int) ((int) (camera.getPosition().getY()+JavaGameEngine.getWindowSize().getY())/getCamera().getScale().getY());
+            int y2 = -(int) ((int) (camera.getPosition().getY()+JavaGameEngine.getWindowSize().getY())/getCamera().getScale().getY());
+
+            g.drawLine(x1,y1,x2,y2);
+
+            int x11 = (int) ((int) (camera.getPosition().getX()+JavaGameEngine.getWindowSize().getX())/getCamera().getScale().getX());
+            int x21 = -(int) ((int) (camera.getPosition().getX()+JavaGameEngine.getWindowSize().getX())/getCamera().getScale().getX());
+            int y11 = 0;
+            int y21 = 0;
+
+            g.drawLine(x11,y11,x21,y21);
+
+        }
 
         Input.setMousePosition(new Vector2(x,y));
         List<Component> list = components;
