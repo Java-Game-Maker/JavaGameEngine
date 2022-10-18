@@ -382,7 +382,11 @@ public class Component {
     public void mouseLeft(){
     }
     public void destroy(){
-        JavaGameEngine.getSelectedScene().destroy(this);
+        if(getParent()==null)
+            JavaGameEngine.getSelectedScene().destroy(this);
+        else{
+            getParent().children.remove(this);
+        }
     }
     /**
      * Renders the component
@@ -396,6 +400,7 @@ public class Component {
         }
 
     }
+
 
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
     }
