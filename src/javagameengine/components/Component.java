@@ -446,4 +446,10 @@ public class Component {
 
     }
 
+    @Override
+    public String toString() {
+        return "{position : "+position.toString()+",\n" +
+                "scale:"+getScale().toString()+",\n" +
+                "children: ["+getChildren()+"]}";
+    }
 }
