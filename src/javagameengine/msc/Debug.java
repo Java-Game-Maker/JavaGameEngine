@@ -28,6 +28,9 @@ public class Debug {
     public static void log(Component log){
         logPriv((log.toString()));
     }
+    public static void log(Boolean log){
+        logPriv((log.toString()));
+    }
     public static void log(String log){
         logPriv((log));
     }
