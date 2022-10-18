@@ -3,7 +3,9 @@ package javagameengine;
 import javagameengine.components.Camera;
 import javagameengine.components.CameraMovement;
 import javagameengine.components.Component;
+import javagameengine.components.GameObject;
 import javagameengine.input.Input;
+import javagameengine.input.Keys;
 import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
@@ -11,6 +13,15 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.*;
 import java.util.List;
+
+/**
+ * TODO
+ * We must have a selected object where we can change properties
+ * this should be selected by clicking on it
+ * then can we change pos, rotation size
+ *
+ */
+
 
 public class Scene extends JPanel {
     public LinkedList<Component> layerList = new LinkedList<>();
@@ -72,6 +83,16 @@ public class Scene extends JPanel {
     private int lastMili = 0;
     public Component hasA = null;
     public void update(){
+
+        if(debugMode){
+            if(Input.isMousePressed(Keys.RIGHTCLICK)){
+                GameObject g = new GameObject();
+                g.setPosition(Input.getMousePosition());
+                instantiate(g);
+            }
+
+        }
+
         time += JavaGameEngine.deltaTime;
         if((int) time/100 > lastSec){
             lastSec = (int) (time/100);
@@ -87,9 +108,6 @@ public class Scene extends JPanel {
         }
         for(Component component : components){
             if(inside(component)) {
-
-
-
                 if(!debugMode) {
                     component.update();
                 }else{
@@ -108,6 +126,8 @@ public class Scene extends JPanel {
             components.removeAll(remove);
             remove.clear();
         }
+        Input.setMousePressed(1000);
+
     }
     public void destroy(Component c){
         remove.add(c);

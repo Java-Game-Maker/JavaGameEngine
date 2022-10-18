@@ -1,5 +1,6 @@
 package javagameengine.input;
 
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.awt.event.KeyEvent;
@@ -38,9 +39,11 @@ public class Input {
         Input.mousePosition = mousePosition;
     }
     public static void addMouseButton(MouseEvent e) {
-        if(!isMouseDown(e.getButton()))
+        if(!isMouseDown(e.getButton())){
             mouseButtonDowns.add(new Integer(e.getButton()));
-        mouseIsPressed = new Integer(e.getButton());
+            mouseIsPressed = new Integer(e.getButton());
+        }
+
 
     }
 
@@ -77,6 +80,7 @@ public class Input {
      * @return true
      */
     public static boolean isMousePressed(int keyCode){
+
         return mouseIsPressed == keyCode;
     }
     /**
