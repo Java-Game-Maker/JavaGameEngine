@@ -75,6 +75,7 @@ public class Keys {
 
     public static final int ALT = 18;
 
+    public static final int DEL = 127;
 
     public static final int LEFTCLICK = 1;
     public static final int RIGHTCLICK = 3;
