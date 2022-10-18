@@ -2,7 +2,6 @@ package javagameengine.components.Animation;
 
 import javagameengine.JavaGameEngine;
 import javagameengine.components.Component;
-import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
@@ -49,7 +48,6 @@ public class Animation extends Component {
         if(pointIndex + 1 < selectedPoints.size() ){
            // if delta time is bigger then
             int deltaTime = (selectedPoints.get(pointIndex+1).getTime() - selectedPoints.get(pointIndex).getTime() );
-            Debug.log("delta time "+deltaTime);
             if(deltaTime > 1 && inBetweenPoints.size() <= 0 ){
                 //distance for each in between point
                 Vector2 distance = selectedPoints.get(pointIndex+1).subtract(selectedPoints.get(pointIndex)).divide(deltaTime);
@@ -58,7 +56,6 @@ public class Animation extends Component {
                     point.setTime(selectedPoints.get(pointIndex).getTime()+i);
                     inBetweenPoints.add(point);
                 }
-                Debug.log(inBetweenPoints.toString());
                 return inBetweenPoints.pop();
 
            }else{
@@ -68,8 +65,7 @@ public class Animation extends Component {
        }
         pointIndex ++;
         return selectedPoints.get(pointIndex-1);
-        //}
-       // return Vector2.zero;
+
     }
 
     public boolean isRepeat() {

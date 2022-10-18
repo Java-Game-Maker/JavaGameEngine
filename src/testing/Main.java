@@ -32,16 +32,14 @@ public class Main extends JavaGameEngine {
         public Coin(){
 
             LinkedList<AnimationPoint> points = new LinkedList<>();
-            points.add(new AnimationPoint(0,0,0));
-            points.add(new AnimationPoint(0,100,5));
-            points.add(new AnimationPoint(0,50,15));
-            points.add(new AnimationPoint(0,25,25));
-            points.add(new AnimationPoint(0,0,32));
+            points.add(new AnimationPoint(0,-45,0));
+            points.add(new AnimationPoint(0,45,5));
+            points.add(new AnimationPoint(0,-45,10));
 
 
             a.setSelectedPoints(points);
 
-            setScale(new Vector2(10,10));
+            setScale(new Vector2(50,100));
 
         }
         int index = 0;
@@ -49,13 +47,12 @@ public class Main extends JavaGameEngine {
         public void update() {
             super.update();
             Vector2 pos = a.getPoint();
-            Debug.log(pos);
-            Debug.log(a.getPointIndex());
-            setPosition(pos);
-           // setScale(pos.add(10));
 
-
+            //setPosition(pos);
+            rotateTo(pos.getY(), new Vector2(0,-50));
+            updateVertices();
         }
+
     }
 
 }
