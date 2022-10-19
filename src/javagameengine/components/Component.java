@@ -102,10 +102,7 @@ public class Component {
     }
 
     public void setParentOffset(Vector2 parentOffset) {
-        Vector2 deltaOffset = parentOffset.subtract(this.parentOffset);
-        for(Component c : children){
-            c.setParentOffset(c.getParentOffset().add(offset));
-        }
+        Vector2 deltaOffset = this.parentOffset.subtract(parentOffset);
         this.parentOffset = parentOffset;
     }
 
@@ -129,14 +126,18 @@ public class Component {
 
         if(getParent()!=null){
             this.position = position.add(parentOffset).add(rotOffset);
+            for(Component c : getChildren()){
+                c.setPosition(this.position);
+            }
 
         }else{
             prevPosition = this.position;
             this.position = position;
+            for(Component c : getChildren()){
+                c.setPosition(position);
+            }
         }
-        for(Component c : getChildren()){
-            c.setPosition(position);
-        }
+
         updateVertices();
 
     }
@@ -438,7 +439,8 @@ public class Component {
             if(getParent()==null)
                 setPosition(Input.getMousePosition().add(offset));
             else{
-                setParentOffset(Input.getMousePosition().add(offset).subtract(getFirstParent().getPosition()));
+                setParentOffset(Input.getMousePosition().add(offset).subtract(getParent().getPosition()));
+                Debug.log(parentOffset);
                 getFirstParent().setPosition(getFirstParent().getPosition());
             }
         }
