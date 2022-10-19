@@ -1,10 +1,11 @@
-package javagameengine.components;
+package javagameengine.components.Animation;
 
+import javagameengine.components.Component;
 import javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
 
-public class Animation extends Component{
+public class Animation extends Component {
 
     boolean             repeat = false;                 // repeat or not
     int                 time   =     0;                 // how long the animation is
