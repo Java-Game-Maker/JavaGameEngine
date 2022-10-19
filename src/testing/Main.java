@@ -30,7 +30,6 @@ public class Main extends JavaGameEngine {
     static class Coin extends GameObject{
         Animation a = new Animation();
         public Coin(){
-
             LinkedList<AnimationPoint> points = new LinkedList<>();
             points.add(new AnimationPoint(0,-45,0));
             points.add(new AnimationPoint(0,45,5));
@@ -40,7 +39,6 @@ public class Main extends JavaGameEngine {
             a.setSelectedPoints(points);
 
             setScale(new Vector2(50,100));
-
         }
         int index = 0;
         @Override
@@ -48,9 +46,10 @@ public class Main extends JavaGameEngine {
             super.update();
             Vector2 pos = a.getPoint();
 
-            //setPosition(pos);
+           // setPosition(pos);
             rotateTo(pos.getY(), new Vector2(0,-50));
             updateVertices();
+
         }
 
     }
