@@ -30,6 +30,7 @@ public class Scene extends JPanel {
     private LinkedList<Component> remove = new LinkedList<>();
     Camera camera = new Camera();
     public Component selectedComponent;
+    public Component childSelected; // selects when selecgedn and pressing c
     boolean debugMode = true;
 
     public Scene(){
@@ -144,6 +145,20 @@ public class Scene extends JPanel {
             selectedComponent = null;
             hasA = null;
         }
+        if(selectedComponent !=null && childSelected !=null && Input.isKeyPressed(Keys.SPACE)){
+            if(childSelected.getParent() == null)
+                components.remove(childSelected);
+            else
+                childSelected.destroy();
+            if(selectedComponent.getParent()==null)
+                childSelected.setParentOffset(childSelected.getPosition().subtract(selectedComponent.getPosition()));
+            else
+                childSelected.setParentOffset(childSelected.getPosition().subtract(selectedComponent.getPosition()));
+
+            selectedComponent.add(childSelected);
+
+        }
+
     }
 
     public void destroy(Component c){

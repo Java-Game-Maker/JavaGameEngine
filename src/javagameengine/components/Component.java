@@ -102,6 +102,10 @@ public class Component {
     }
 
     public void setParentOffset(Vector2 parentOffset) {
+        Vector2 deltaOffset = parentOffset.subtract(this.parentOffset);
+        for(Component c : children){
+            c.setParentOffset(c.getParentOffset().add(offset));
+        }
         this.parentOffset = parentOffset;
     }
 
@@ -424,14 +428,18 @@ public class Component {
         if(Input.isMousePressed(Keys.LEFTCLICK) && mouseInside ){
             JavaGameEngine.getSelectedScene().selectedComponent = this;
         }
+
+        if(JavaGameEngine.getSelectedScene().selectedComponent == this && Input.isKeyPressed(Keys.C)){
+            JavaGameEngine.getSelectedScene().childSelected = this;
+        }
         if(Input.isMouseDown(Keys.LEFTCLICK) && mouseInside ) {
             if(offset==null)
                 offset = getPosition().subtract(Input.getMousePosition());
             if(getParent()==null)
                 setPosition(Input.getMousePosition().add(offset));
             else{
-                setParentOffset(Input.getMousePosition().add(offset).subtract(parent.getPosition()));
-                parent.setPosition(parent.getPosition());
+                setParentOffset(Input.getMousePosition().add(offset).subtract(getFirstParent().getPosition()));
+                getFirstParent().setPosition(getFirstParent().getPosition());
             }
         }
 
