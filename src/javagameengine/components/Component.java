@@ -440,7 +440,6 @@ public class Component {
                 setPosition(Input.getMousePosition().add(offset));
             else{
                 setParentOffset(Input.getMousePosition().add(offset).subtract(getParent().getPosition()));
-                Debug.log(parentOffset);
                 getFirstParent().setPosition(getFirstParent().getPosition());
             }
         }
