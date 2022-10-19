@@ -299,7 +299,7 @@ public class Component {
 
         double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
         LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
-        for (int i = 0; i <localVertices.size();i++){
+        for (int i = 0; i < localVertices.size();i++){
             Vector2 vertex = localVertices.get(i);
             // matrix rotation
             float[] matrix = {

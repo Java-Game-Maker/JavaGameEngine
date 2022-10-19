@@ -33,26 +33,14 @@ public class GameObject extends Component{
     @Override
     public void update() {
         super.update();
-        if(Input.isMouseDown() && mouseInside) {
+        /*if(Input.isMouseDown() && mouseInside) {
             if(getParent()==null)
                 setPosition(Input.getMousePosition());
             else{
                 setParentOffset(Input.getMousePosition().subtract(parent.getPosition()));
                 parent.setPosition(parent.getPosition());
             }
-        }
-    }
-
-    @Override
-    public void mouseEntered() {
-        super.mouseEntered();
-        setScale(getScale().add(10));
-    }
-
-    @Override
-    public void mouseLeft() {
-        super.mouseLeft();
-        setScale(getScale().subtract(10));
+        }*/
     }
 
     @Override
