@@ -3,11 +3,12 @@ package javagameengine.components;
 import javagameengine.JavaGameEngine;
 import javagameengine.input.Input;
 import javagameengine.input.Keys;
+import javagameengine.msc.Debug;
 import javagameengine.msc.Vector2;
 
 public class CameraMovement extends Component{
     float speed = 2;
-
+    Vector2 startPos = null;
     @Override
     public void update() {
         super.update();

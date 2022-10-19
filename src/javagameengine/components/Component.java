@@ -433,7 +433,7 @@ public class Component {
         if(JavaGameEngine.getSelectedScene().selectedComponent == this && Input.isKeyPressed(Keys.C)){
             JavaGameEngine.getSelectedScene().childSelected = this;
         }
-        if(Input.isMouseDown(Keys.LEFTCLICK) && mouseInside ) {
+        if(Input.isMouseDown(Keys.LEFTCLICK) && !Input.isKeyDown(Keys.CTRL) && mouseInside ) {
             if(offset==null)
                 offset = getPosition().subtract(Input.getMousePosition());
             if(getParent()==null)
@@ -445,7 +445,7 @@ public class Component {
             }
         }
 
-        else if(Input.isMouseDown(Keys.MIDDLECLICK) && JavaGameEngine.getSelectedScene().selectedComponent == this){
+        else if(Input.isMouseDown(Keys.LEFTCLICK) && Input.isKeyDown(Keys.CTRL) && JavaGameEngine.getSelectedScene().selectedComponent == this){
             if(prev!=null)
                 setScale(getScale().subtract(Input.getMousePosition().subtract(prev).multiply(new Vector2(-1,1))));
             prev = Input.getMousePosition();
