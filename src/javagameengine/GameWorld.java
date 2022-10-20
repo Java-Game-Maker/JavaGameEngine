@@ -38,6 +38,8 @@ public class GameWorld extends JPanel {
                 super.mousePressed(e);
                 Input.addMouseButton(e);
                 Input.setMouseEvent(e);
+                Debug.log("asd");
+                requestFocus();
 
             }
             @Override

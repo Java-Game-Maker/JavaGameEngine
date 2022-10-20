@@ -25,11 +25,11 @@ import java.util.List;
 
 public class Scene extends JPanel {
     public LinkedList<Component> layerList = new LinkedList<>();
-    private ArrayList<Component> components = new ArrayList<>();
+    private LinkedList<Component> components = new LinkedList<>();
     private LinkedList<Component> newComponents = new LinkedList<>();
     private LinkedList<Component> remove = new LinkedList<>();
     Camera camera = new Camera();
-    public Component selectedComponent;
+    private Component selectedComponent;
     public Component childSelected; // selects when selecgedn and pressing c
     boolean debugMode = true;
 
@@ -57,13 +57,21 @@ public class Scene extends JPanel {
         }
     }
 
+    public Component getSelectedComponent() {
+        return selectedComponent;
+    }
+
+    public void setSelectedComponent(Component selectedComponent) {
+        this.selectedComponent = selectedComponent;
+    }
+
     public void add(Component component){
         components.add(component);
     }
-    public ArrayList<Component> getComponents1() {
+    public LinkedList<Component> getComponents1() {
         return components;
     }
-    public void setComponents(ArrayList<Component> components) {
+    public void setComponents(LinkedList<Component> components) {
         this.components = components;
     }
     public Camera getCamera() {

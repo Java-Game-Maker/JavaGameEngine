@@ -57,10 +57,10 @@ public class JavaGameEngine{
     public static float fpsCap = 0;
 
     public static Vector2 getWindowSize(){
-        return new Vector2(gameWindow.getSize().width,gameWindow.getSize().height);
+        return new Vector2(gameWorld.getSize().width,gameWorld.getSize().height);
     }
 
-    private static void update(){
+    public static void update(){
         double now = ((double)System.currentTimeMillis());
         //Increases counter every tick but when a 1/10 of a second we reset the counter
         //and sets the fps to the counter

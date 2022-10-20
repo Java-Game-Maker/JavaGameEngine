@@ -53,7 +53,7 @@ public class GameObject extends Component{
 
                 g.setColor(color);
                 g.fillPolygon(getPolygon());
-                if(JavaGameEngine.getSelectedScene().selectedComponent == this){
+                if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
                     g.setColor(Color.GREEN);
                     g.drawPolygon(getPolygon());
                 }
