@@ -9,12 +9,12 @@ import java.awt.*;
 
 public class PhysicsBody extends Component{
 
-    private boolean useGravity = false;
+    protected boolean useGravity = false;
     Vector2 massPoint = new Vector2(0,0);
     private float rotationalForce = 0;
-    private Vector2 rotationalPoint = new Vector2(1,1);
+    protected Vector2 rotationalPoint = new Vector2(1,1);
     public float mass=10;
-    private boolean freeze = false;
+    protected boolean freeze = false;
     public boolean isFreeze() {
         return freeze;
     }

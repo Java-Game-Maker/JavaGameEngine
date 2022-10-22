@@ -2,9 +2,10 @@ package javagameengine.msc;
 
 import testing.spel1.Main;
 
+import java.io.Serializable;
 import java.util.Objects;
 
-public class Vector2 {
+public class Vector2 implements Serializable {
 
     public static Vector2 up = new Vector2(0,-1);
     public static Vector2 down = new Vector2(0,1);

@@ -10,12 +10,11 @@ import javagameengine.msc.Vector2;
 import testing.Main;
 
 import java.awt.*;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.LinkedList;
+import java.io.Serializable;
+import java.util.*;
 import java.util.List;
 
-public class Component {
+public class Component implements Serializable {
 
     protected int layer = 10;
     protected String tag = "";
@@ -408,6 +407,24 @@ public class Component {
         for (Component child : list){
             child.render(g);
         }
+        Color color = Color.WHITE;
+        if(JavaGameEngine.getSelectedScene().isDebugMode()){
+            Color prev = g.getColor();
+
+            g.setColor(color);
+            g.fillPolygon(getPolygon());
+            if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
+                g.setColor(Color.GREEN);
+                g.drawPolygon(getPolygon());
+            }
+            g.setColor(prev);
+
+            g.setColor(color);
+            g.drawPolygon(getPolygon());
+            g.setColor(prev);
+
+        }
+
 
     }
 
@@ -454,6 +471,20 @@ public class Component {
         }
 
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Component component = (Component) o;
+        return layer == component.layer && Float.compare(component.angle, angle) == 0 && visible == component.visible && mouseInside == component.mouseInside && Objects.equals(tag, component.tag) && Objects.equals(position, component.position) && Objects.equals(parentOffset, component.parentOffset) && Objects.equals(scale, component.scale) && Objects.equals(localVertices, component.localVertices) && Objects.equals(vertices, component.vertices) && Objects.equals(children, component.children) && Objects.equals(parent, component.parent) && Objects.equals(prevPosition, component.prevPosition) && Objects.equals(lastPosition, component.lastPosition) && Objects.equals(rotOffset, component.rotOffset) && Objects.equals(offset, component.offset) && Objects.equals(prev, component.prev);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(layer, tag, angle, visible, position, parentOffset, scale, localVertices, vertices, children, parent, prevPosition, mouseInside, lastPosition, rotOffset, offset, prev);
+    }
+
     @Override
     public String toString() {
         return "{position : "+position.toString()+",\n" +

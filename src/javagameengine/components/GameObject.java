@@ -47,7 +47,9 @@ public class GameObject extends Component{
 
     @Override
     public void render(Graphics2D g) {
+
         if(JavaGameEngine.getSelectedScene().isDebugMode()){
+            super.render(g);
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
 
@@ -63,7 +65,6 @@ public class GameObject extends Component{
             g.fillPolygon(getPolygon());
             g.setColor(prev);
 
-            super.render(g);
         }
         else if(visible){
             Color prev = g.getColor();

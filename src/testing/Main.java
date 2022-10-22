@@ -23,6 +23,7 @@ public class Main extends JavaGameEngine {
 
         scene1.add(gameObject);
 
+        scene1.load();
 
        // scene1.add(new GameObject());
 

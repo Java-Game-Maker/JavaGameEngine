@@ -11,6 +11,12 @@ import javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.*;
 import java.util.List;
 
@@ -35,6 +41,10 @@ public class Scene extends JPanel {
 
     public Scene(){
         setBackground(new Color(40,125,255));
+    }
+
+    public void reload(){
+        start();
     }
 
     public void instantiate(Component component){
@@ -94,16 +104,6 @@ public class Scene extends JPanel {
     public Component hasA = null;
     public void update(){
 
-
-        if(debugMode){
-            if(Input.isMousePressed(Keys.RIGHTCLICK)){
-                GameObject g = new GameObject();
-                g.setPosition(Input.getMousePosition());
-                instantiate(g);
-            }
-
-        }
-
         time += JavaGameEngine.deltaTime;
         if((int) time/100 > lastSec){
             lastSec = (int) (time/100);
@@ -137,12 +137,17 @@ public class Scene extends JPanel {
             components.removeAll(remove);
             remove.clear();
         }
-        Input.setMousePressed(1000);
         debugUpdate();
+        Input.setMousePressed(1000);
 
     }
 
     private void debugUpdate(){
+        if(Input.isMousePressed(Keys.RIGHTCLICK)){
+            GameObject g = new GameObject();
+            g.setPosition(Input.getMousePosition());
+            instantiate(g);
+        }
 
         if(Input.isKeyDown(Keys.DEL) && selectedComponent!=null){
             if(selectedComponent.getParent() == null)
@@ -164,7 +169,10 @@ public class Scene extends JPanel {
                 childSelected.setParentOffset(childSelected.getPosition().subtract(selectedComponent.getPosition()));
 
             selectedComponent.add(childSelected);
+        }
 
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.S)) {
+            save();
         }
 
     }
@@ -244,6 +252,31 @@ public class Scene extends JPanel {
             }
         }catch (Exception e){
         
+        }
+    }
+
+    public void save() {
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try {
+            fos = new FileOutputStream("filename",false);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(components);
+            out.close();
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void load(){
+        FileInputStream fos;
+        try {
+            fos = new FileInputStream("filename");
+            ObjectInputStream oos = new ObjectInputStream(fos);
+            components = (LinkedList<Component>) oos.readObject();
+            fos.close();
+        }
+        catch (Exception e){
+
         }
     }
 }
