@@ -439,35 +439,39 @@ public class Component implements Serializable {
     private Vector2 prev = null;
 
     public void debugUpdate() {
-        checkMouse();
-
-        for(Component c : getChildren()) c.debugUpdate();
-
-        if(Input.isMousePressed(Keys.LEFTCLICK) && mouseInside ){
+        this.checkMouse();
+        for (final Component c : this.getChildren()) {
+            c.debugUpdate();
+        }
+        if (Input.isMousePressed(1) && this.mouseInside) {
             JavaGameEngine.getSelectedScene().setSelectedComponent(this);
         }
-
-        if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(Keys.C)){
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isMousePressed(1) && !this.isMouseInside()) {
+            JavaGameEngine.getSelectedScene().setSelectedComponent((Component)null);
+        }
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(67)) {
             JavaGameEngine.getSelectedScene().childSelected = this;
         }
-        if(Input.isMouseDown(Keys.LEFTCLICK) && !Input.isKeyDown(Keys.CTRL) && mouseInside ) {
-            if(offset==null)
-                offset = getPosition().subtract(Input.getMousePosition());
-            if(getParent()==null)
-                setPosition(Input.getMousePosition().add(offset));
-            else{
-                setParentOffset(Input.getMousePosition().add(offset).subtract(getParent().getPosition()));
-                getFirstParent().setPosition(getFirstParent().getPosition());
+        if (Input.isMouseDown(1) && !Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.offset == null) {
+                this.offset = this.getPosition().subtract(Input.getMousePosition());
+            }
+            if (this.getParent() == null) {
+                this.setPosition(Input.getMousePosition().add(this.offset));
+            }
+            else {
+                this.setParentOffset(Input.getMousePosition().add(this.offset).subtract(this.getParent().getPosition()));
+                this.getFirstParent().setPosition(this.getFirstParent().getPosition());
             }
         }
-
-        else if(Input.isMouseDown(Keys.LEFTCLICK) && Input.isKeyDown(Keys.CTRL) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
-            if(prev!=null)
-                setScale(getScale().subtract(Input.getMousePosition().subtract(prev).multiply(new Vector2(-1,1))));
-            prev = Input.getMousePosition();
+        else if (Input.isMouseDown(1) && Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.prev != null) {
+                this.setScale(this.getScale().subtract(Input.getMousePosition().subtract(this.prev).multiply(new Vector2(-1.0f, 1.0f))));
+            }
+            this.prev = Input.getMousePosition();
         }
-        else{
-            offset = null;
+        else {
+            this.offset = null;
         }
 
     }
