@@ -21,7 +21,7 @@
 <div align="center">
   
 
-<h3 align="center">javagameengine</h3>
+<h3 align="center">com.asd.javagameengine</h3>
 
   <p align="center">
     An awesome Game Engine to jumpstart your game projects!
@@ -71,9 +71,9 @@
 
 ## Examples
 <h3><a href="https://github.com/Java-Game-Maker/Demo1">Link to demo1</a></h3>
-<img src="https://github.com/Java-Game-Maker/javagameengine/blob/main/images/demo1.gif" name="image-name">
+<img src="https://github.com/Java-Game-Maker/com.asd.javagameengine/blob/main/images/demo1.gif" name="image-name">
 <h3><a href="https://github.com/Java-Game-Maker/Demo2">Link to demo2</a></h3>
-<img src="https://github.com/Java-Game-Maker/javagameengine/blob/main/images/demo2.gif" name="image-name">
+<img src="https://github.com/Java-Game-Maker/com.asd.javagameengine/blob/main/images/demo2.gif" name="image-name">
 
 <!-- ABOUT THE PROJECT -->
 ## About The Project
@@ -93,7 +93,7 @@ Here's why:
 
 ### Built With
 
-The javagameengine is built with vanila java 1.8 using the swing framework for the input and drawing aspects
+The com.asd.javagameengine is built with vanila java 1.8 using the swing framework for the input and drawing aspects
 
 * [Java](https://www.oracle.com/java/technologies/downloads/)
 
@@ -118,11 +118,11 @@ Be sure yoy have the jre installed
 ### Installation
 
  You can clone this repo and play around with the Testing package where we test the engine and then build the artifact and import the jar to your own project. 
- Or you can download the jar file in the <a href="https://github.com/Java-Game-Maker/javagameengine/blob/main/out/artifacts/JavaGameEngine_jar/javagameengine.jar" >output folder<a> and import the jar to your project.
+ Or you can download the jar file in the <a href="https://github.com/Java-Game-Maker/com.asd.javagameengine/blob/main/out/artifacts/JavaGameEngine_jar/com.asd.javagameengine.jar" >output folder<a> and import the jar to your project.
   
 1. Clone the repo
    ```sh
-   git clone https://github.com/Java-Game-Maker/javagameengine.git
+   git clone https://github.com/Java-Game-Maker/com.asd.javagameengine.git
    ```
 
 
@@ -135,7 +135,7 @@ Be sure yoy have the jre installed
 
 _For more examples, please refer to the [Documentation](https://example.com)_
 
-To get started create a main.java file where you extend the javagameengine class
+To get started create a main.java file where you extend the com.asd.javagameengine class
 In your public static void main(String[] args){} method
 
 ```
@@ -167,17 +167,17 @@ A example on how to use it
 ```
 package example;
 
-import javagameengine.backend.ComponentHandler;
-import javagameengine.backend.UpdateThread;
-import javagameengine.components.GameObject;
-import javagameengine.javagameengine;
-import javagameengine.msc.Vector2;
+import com.asd.javagameengine.backend.ComponentHandler;
+import com.asd.javagameengine.backend.UpdateThread;
+import GameObject;
+import com.asd.javagameengine.com.asd.javagameengine;
+import Vector2;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class Main extends javagameengine{
+public class Main extends com.asd.javagameengine{
 
     public static Ob parent;
     public static Ob child;
@@ -290,7 +290,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Alfred Roos - alfred@stensatter.se
 
-Project Link: [https://github.com/Java-Game-Maker/javagameengine](https://github.com/Java-Game-Maker/JavaGameEngine)
+Project Link: [https://github.com/Java-Game-Maker/com.asd.javagameengine](https://github.com/Java-Game-Maker/JavaGameEngine)
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

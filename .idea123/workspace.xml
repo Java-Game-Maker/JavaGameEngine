@@ -19,7 +19,7 @@
       <change beforePath="$PROJECT_DIR$/.idea/uiDesigner.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/out/production/JavaGameEngine/META-INF/MANIFEST.MF" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/javagameengine/components/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/javagameengine/components/Component.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com.asd.javagameengine/components/Component.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com.asd.javagameengine/components/Component.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -37,14 +37,14 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/Scene.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/components/Component.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/components/GameObject.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/components/PhysicsBody.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/msc/Debug.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/msc/Random.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/msc/Vector2.java" root0="FORCE_HIGHLIGHTING" />
-    <setting file="file://$PROJECT_DIR$/src/javagameengine/networking/BufferData.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/Scene.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/components/Component.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/components/GameObject.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/components/PhysicsBody.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/msc/Debug.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/msc/Random.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/msc/Vector2.java" root0="FORCE_HIGHLIGHTING" />
+    <setting file="file://$PROJECT_DIR$/src/com.asd.javagameengine/networking/BufferData.java" root0="FORCE_HIGHLIGHTING" />
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -68,7 +68,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CreateClassDialog.RecentsKey">
-      <recent name="javagameengine" />
+      <recent name="com.asd.javagameengine" />
     </key>
     <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
       <recent name="" />
@@ -76,11 +76,11 @@
   </component>
   <component name="RunManager" selected="Application.Main">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="testing.Main" />
+      <option name="MAIN_CLASS_NAME" value="com.javagamemaker.testing.Main" />
       <module name="JavaGameEngine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="testing.*" />
+          <option name="PATTERN" value="com.asd.testing.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -88,12 +88,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="com.testing.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.testing.Main" />
+    <configuration name="com.com.javagamemaker.testing.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.com.javagamemaker.testing.Main" />
       <module name="JavaGameEngine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="testing.*" />
+          <option name="PATTERN" value="com.asd.testing.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -101,12 +101,12 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="testing.spel1.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="testing.spel1.Main" />
+    <configuration name="com.javagamemaker.testing.spel1.Main" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="com.javagamemaker.testing.spel1.Main" />
       <module name="JavaGameEngine" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="testing.spel1.*" />
+          <option name="PATTERN" value="com.asd.testing.spel1.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
@@ -130,8 +130,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="Application.Main" />
-        <item itemvalue="Application.testing.spel1.Main" />
-        <item itemvalue="Application.com.testing.Main" />
+        <item itemvalue="Application.com.javagamemaker.testing.spel1.Main" />
+        <item itemvalue="Application.com.com.javagamemaker.testing.Main" />
       </list>
     </recent_temporary>
   </component>
