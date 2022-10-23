@@ -468,7 +468,7 @@ public class Component implements Serializable {
                 this.offset = this.getPosition().subtract(Input.getMousePosition());
             }
             if (this.getParent() == null) {
-                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnaping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnaping.getY();
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
 
                 float x = Math.round(Input.getMousePosition().add(this.offset).getX() / gridCubeWidth) * gridCubeWidth;
                 float y = Math.round(Input.getMousePosition().add(this.offset).getY() / gridCubeHeight) * gridCubeHeight;
@@ -476,7 +476,7 @@ public class Component implements Serializable {
 
             }
             else {
-                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnaping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnaping.getY();
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
                 Vector2 pos = Input.getMousePosition().add(this.offset).subtract(this.getParent().getPosition());
 
                 float x = Math.round(pos.getX() / gridCubeWidth) * gridCubeWidth;

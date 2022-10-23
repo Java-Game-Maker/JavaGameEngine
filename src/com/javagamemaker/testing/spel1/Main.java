@@ -2,7 +2,6 @@ package com.javagamemaker.testing.spel1;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.asd.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.CameraMovement;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.components.Sprite;

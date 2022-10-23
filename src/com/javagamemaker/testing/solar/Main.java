@@ -2,10 +2,8 @@ package com.javagamemaker.testing.solar;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.asd.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
-import javagameengine.com.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;

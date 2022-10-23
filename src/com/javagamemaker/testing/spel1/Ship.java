@@ -2,7 +2,6 @@ package com.javagamemaker.testing.spel1;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
-import com.asd.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.components.Sprite;

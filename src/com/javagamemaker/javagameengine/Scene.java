@@ -36,7 +36,8 @@ public class Scene extends JPanel {
     private Component selectedComponent;
     public Component childSelected; // selects when selecgedn and pressing c
     boolean debugMode = true;
-    public Vector2 gridSnaping = new Vector2(10,10);
+    public Vector2 gridSnapping = new Vector2(10,10);
+    public Vector2 scaleGridSnapping = new Vector2(10,10);
 
     public Scene(){
         setBackground(new Color(40,125,255));

@@ -2,7 +2,6 @@ package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.asd.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.GameObject;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
