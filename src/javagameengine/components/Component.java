@@ -45,6 +45,10 @@ public class Component {
 
     }
 
+    public Component(Vector2 vector2) {
+        setPosition(vector2);
+    }
+
     /**
      * This will return the widest and highest from the vertices
      * @return vector2
@@ -188,6 +192,7 @@ public class Component {
      */
     public void add(Component component){
         component.setParent(this);
+        component.setPosition(getPosition());
         children.add(component);
     }
 

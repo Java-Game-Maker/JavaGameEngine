@@ -24,38 +24,16 @@ public class GameObject extends Component{
         super();
     }
 
+    public GameObject(Vector2 vector2) {
+        super(vector2);
+    }
+
     public Color getColor() {
         return color;
     }
 
     public void setColor(Color color) {
         this.color = color;
-    }
-
-    @Override
-    public void update() {
-        super.update();
-        if(Input.isMouseDown() && mouseInside) {
-            if(getParent()==null)
-                setPosition(Input.getMousePosition());
-            else{
-                setParentOffset(Input.getMousePosition().subtract(parent.getPosition()));
-                parent.setPosition(parent.getPosition());
-            }
-        }//
-
-    }
-
-    @Override
-    public void mouseEntered() {
-        super.mouseEntered();
-        setScale(getScale().add(10));
-    }
-
-    @Override
-    public void mouseLeft() {
-        super.mouseLeft();
-        setScale(getScale().subtract(10));
     }
 
     @Override

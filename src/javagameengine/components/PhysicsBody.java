@@ -92,7 +92,6 @@ public class PhysicsBody extends Component{
         // remove rotationalforce
         rotationalForce = rotationalForce-(rotationalForce*0.01f);
 
-
     }
 
     public void response(CollisionEvent event){
