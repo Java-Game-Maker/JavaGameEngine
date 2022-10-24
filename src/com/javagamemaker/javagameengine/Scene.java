@@ -191,11 +191,6 @@ public class Scene extends JPanel {
         super.paintComponent(g);
         Graphics2D graphics2D = (Graphics2D) g;
 
-        if(selectedComponent!=null)
-            graphics2D.drawString(selectedComponent.toString(),100,100);
-
-
-
         //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
         Vector2 scale = camera.getScale();
