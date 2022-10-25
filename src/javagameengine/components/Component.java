@@ -203,7 +203,6 @@ public class Component {
         return this;
     }
     public void updateMili(){
-
     }
     /**
      * This method updates all the values to the component
@@ -331,41 +330,22 @@ public class Component {
         //Vector2 pivot1 = new Vector2(-50,0);
         this.angle += angle;
 
-
         double radians = Math.toRadians(angle); // turns to radians from angle
         LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+
         for (int i = 0; i <localVertices.size();i++){
             Vector2 vertex = localVertices.get(i).subtract(pivot);
-            // he wrote collide as collied
-            // matrix rotation
+
             float[] matrix = {
                     (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
                     (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians)) };
 
             vertices1.add(new Vector2(matrix[0],matrix[1]).add(pivot));
         }
-        //Vector2 poly = new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
-
-      //  rotOffset = poly.subtract(parent.getPosition()).subtract(pivot);
-        /*
-
-        float x = (float) Math.cos(Math.toRadians(this.angle));
-        float y = (float) Math.sin(Math.toRadians(this.angle));
-
-        Vector2 pos = new Vector2(
-                pivot.getX()*x - pivot.getY()*y,
-                pivot.getX()*y + pivot.getY()*x);
-        setParentOffset(pos);
-
-
-*/
-        // set the localvertice to our new rotated matrix
-
-        rotateChildren(pivot);
-
+        rotateChildren(angle, pivot);
         this.localVertices = vertices1;
     }
-    public void rotateChildren(Vector2 pivot){
+    public void rotateChildren(float angle,Vector2 pivot){
         for(Component child : children){
             child.rotate(angle,pivot);
         }

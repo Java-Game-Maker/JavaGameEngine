@@ -82,7 +82,9 @@ public class PhysicsBody extends Component{
 
         //rotation
         // m = f * l
-        getParent().rotate((float) (getParent().getPosition().getDistance(rotationalPoint) * rotationalForce/100));
+        getParent().rotate(rotationalForce/10);
+
+
 
         if(useGravity)
             velocity = velocity.add(JavaGameEngine.g.multiply(JavaGameEngine.deltaTime));
@@ -90,15 +92,19 @@ public class PhysicsBody extends Component{
         // friction
         velocity = velocity.subtract(velocity.getNormalized().multiply(friction).multiply(JavaGameEngine.deltaTime));
         // remove rotationalforce
-        rotationalForce = rotationalForce-(rotationalForce*0.01f);
+        //rotationalForce = rotationalForce-(rotationalForce*0.01f);
+
 
     }
 
     public void response(CollisionEvent event){
         try{
+
             PhysicsBody me = event.getPhysicsBody1();
             PhysicsBody other = event.getPhysicsBody2();
-
+            if(other == null)
+                me.velocity = Vector2.zero;
+            else{
             float cor = 1;
 
             Vector2 newb = ((me.velocity.multiply(me.mass).add
@@ -124,13 +130,23 @@ public class PhysicsBody extends Component{
             other.setRotationalPoint(event.getCollisionPoint());
         */
 
-            me.velocity = (!me.isFreeze())?newb:me.velocity;
-            other.velocity = (!other.isFreeze())?newCb:other.velocity;
+                me.velocity = (!me.isFreeze())?newb:me.velocity;
+                other.velocity = (!other.isFreeze())?newCb:other.velocity;
+            }
+
+
+
 
         }catch (NullPointerException e){
         }
 
 
+    }
+
+    @Override
+    public void render(Graphics2D g) {
+        super.render(g);
+        g.fillOval((int) rotationalPoint.getX(), (int) rotationalPoint.getY(),10,10);
     }
 
     public Vector2 getForce(){

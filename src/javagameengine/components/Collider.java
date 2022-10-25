@@ -109,23 +109,35 @@ public class Collider extends Component{
      * @param point is the point which collided
      */
     public void moveBack(Component c, Vector2 point){
+        Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
+        if(!((Float) getFirstParent().getPosition().lookAt(prevPosition)).isNaN()){
+            int i = 0;
 
-        Vector2 dir = getPosition().subtract(point).getNormalized();
-
-        int i = 0;
-
-        while(true){
-            // gets the direction to move (this is currenlty wrong)
-            getFirstParent().setPosition(getFirstParent().getPosition().add(dir)); // move back
-            getFirstParent().updateVertices(); // update shape
-            vertices = getFirstParent().vertices; // update collider shape
-            if(collision( (Collider) c )==null){ // check if we still are collided if so we stop
-                break;
+            while(true){
+                // gets the direction to move (this is currenlty wrong)
+                getFirstParent().setPosition(getFirstParent().getPosition().add(dir)); // move back
+                getFirstParent().updateVertices(); // update shape
+                vertices = getFirstParent().vertices; // update collider shape
+                if(collision( (Collider) c )==null){ // check if we still are collided if so we stop
+                    break;
+                }
+                if(i>=10000)
+                    break;
+                i++;
             }
-            if(i>=10000)
-                break;
-            i++;
         }
+
+        PhysicsBody b = ((PhysicsBody) getFirstParent().getChild(new PhysicsBody()));
+        if(b!=null){
+
+            float deltaS = (float) point.subtract(b.massPoint).getX();
+
+            b.setRotationalPoint(point);
+            b.setRotationalForce(JavaGameEngine.g.getY() *  -deltaS * b.mass / 10);
+
+        }
+
+
     }
     public boolean inside(Component component){
         //Debug.log(component.getPosition().getDistance(JavaGameEngine.getSelectedScene().getCamera().getPosition()));
@@ -133,13 +145,13 @@ public class Collider extends Component{
         //Debug.log(String.valueOf(JavaGameEngine.getSelectedScene().getCamera().getPosition().add(component.getPosition()).getMagnitude()<1000));
         return JavaGameEngine.getSelectedScene().getCamera().getPosition().add(component.getPosition()).getMagnitude()<1000;
     }
-    Vector2 point = new Vector2(0,0);
+    Vector2 point = null;
     LinkedList<Vector2> lastVerices = new LinkedList<>();
     @Override
     public void update() {
         super.update();
         //loops though all the components in the scene
-        point = Vector2.zero;
+        point = null;
         for(Component component: JavaGameEngine.getSelectedScene().getComponents1()){
             if(component != getFirstParent()){ // dont check us
                 Collider c = (Collider) component.getChild(new Collider());
@@ -158,7 +170,6 @@ public class Collider extends Component{
                                 getFirstParent().onTriggerEnter(collisionEvent);
                                 c.getFirstParent().onTriggerEnter(collisionEvent);
                             }else{
-
                                 moveBack(c, point);
 
                                 me.response(collisionEvent);
@@ -172,6 +183,7 @@ public class Collider extends Component{
                     }
                     else{
                         lastVerices = localVertices;
+                        prevPosition = getFirstParent().getPosition();
                     }
 
                 }
@@ -191,9 +203,9 @@ public class Collider extends Component{
             g.setColor(Color.green);
             g.drawPolygon(getPolygon());
             g.setColor(Color.red);
-            Vector2 dir = getPosition().subtract(point).getNormalized();
-
-            g.drawLine((int) dir.getX(), (int) dir.getY(), (int) point.getX(), (int) point.getY());
+            Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
+            /*if(point != null)
+                g.fillOval((int) point.getX(), (int) point.getY(),10,10);*/
             g.setColor(c);
 
         }
