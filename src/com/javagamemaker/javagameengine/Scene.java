@@ -1,13 +1,11 @@
 package com.javagamemaker.javagameengine;
 
-import com.javagamemaker.javagameengine.components.Camera;
-import com.javagamemaker.javagameengine.components.CameraMovement;
-import com.javagamemaker.javagameengine.components.GameObject;
+import com.javagamemaker.javagameengine.components.*;
+import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
-import com.javagamemaker.javagameengine.components.Component;
 
 import javax.swing.*;
 import java.awt.*;
@@ -174,9 +172,17 @@ public class Scene extends JPanel {
         if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.S)) {
             save();
         }
-
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyDown(Keys.X)) {
+            Debug.log("copied");
+            copyComp = selectedComponent;
+        }
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.V)) {
+            Component c = copyComp.clone();
+            c.setPosition(Input.getMousePosition());
+            components.add(c);
+        }
     }
-
+    private Component copyComp = null;
     public void destroy(Component c){
         remove.add(c);
     }
@@ -239,11 +245,12 @@ public class Scene extends JPanel {
             }
         });*/
         try{
+            int i = 0;
             for(Component c : list){
-                if(inside(c)) {
+                if(inside(c) && i<=100) {
                     (c).render(graphics2D);
                 }
-
+                i++;
             }
         }catch (Exception e){
         
@@ -268,11 +275,24 @@ public class Scene extends JPanel {
         try {
             fos = new FileInputStream("filename");
             ObjectInputStream oos = new ObjectInputStream(fos);
-            components = (LinkedList<Component>) oos.readObject();
+
+            for(Component c : (LinkedList<Component>) oos.readObject()){
+                if(c.getClass() == Sprite.class){
+                    LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;
+                    ((Sprite) c).tiles = new LinkedList<>();
+                    ((Sprite) c).animations = new ArrayList<>();
+                    ((Sprite) c).animations1 = new ArrayList<>();
+
+                    for(Rectangle[] animation : oldTiles){
+                        ((Sprite) c).loadAnimation(animation,((Sprite)c).spriteSheetString);
+                    }
+                }
+                components.add(c);
+            }
             fos.close();
         }
         catch (Exception e){
-
+            e.printStackTrace();
         }
     }
 }

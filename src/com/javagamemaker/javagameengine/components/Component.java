@@ -418,24 +418,6 @@ public class Component implements Serializable {
         for (Component child : list){
             child.render(g);
         }
-        Color color = Color.WHITE;
-        if(JavaGameEngine.getSelectedScene().isDebugMode()){
-            Color prev = g.getColor();
-
-            g.setColor(color);
-            g.fillPolygon(getPolygon());
-            if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
-                g.setColor(Color.GREEN);
-                g.drawPolygon(getPolygon());
-            }
-            g.setColor(prev);
-
-            g.setColor(color);
-            g.drawPolygon(getPolygon());
-            g.setColor(prev);
-
-        }
-
 
     }
 
@@ -511,6 +493,22 @@ public class Component implements Serializable {
     @Override
     public int hashCode() {
         return Objects.hash(layer, tag, angle, visible, position, parentOffset, scale, localVertices, vertices, children, parent, prevPosition, mouseInside, lastPosition, rotOffset, offset, prev);
+    }
+
+    @Override
+    public Component clone() {
+        Component c = new Component();
+        c.setPosition(getPosition());
+        c.setScale(getScale());
+        c.setTag(getTag());
+        c.setChildren(getChildren());
+        c.setParentOffset(getParentOffset());
+        c.setParent(getParent());
+        c.setLocalVertices(getLocalVertices());
+        c.setVisible(isVisible());
+        c.setLayer(layer);
+        c.setPrevPosition(getPrevPosition());
+        return c;
     }
 
     @Override
