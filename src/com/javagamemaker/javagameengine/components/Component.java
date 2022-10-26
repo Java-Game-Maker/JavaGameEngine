@@ -419,6 +419,14 @@ public class Component implements Serializable {
             child.render(g);
         }
 
+        if(JavaGameEngine.getSelectedScene().isDebugMode() && JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
+            Color color = g.getColor();
+            g.setColor(Color.GREEN);
+            g.setStroke(new BasicStroke(10));
+            g.drawPolygon(getPolygon());
+            g.setColor(color);
+        }
+
     }
 
 
