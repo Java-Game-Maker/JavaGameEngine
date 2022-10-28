@@ -109,12 +109,13 @@ public class Collider extends Component{
      * @param point is the point which collided
      */
     public void moveBack(Component c, Vector2 point){
+        // the direction to move back the object
         Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
         if(!((Float) getFirstParent().getPosition().lookAt(prevPosition)).isNaN()){
             int i = 0;
 
             while(true){
-                // gets the direction to move (this is currenlty wrong)
+                // gets the direction to move
                 getFirstParent().setPosition(getFirstParent().getPosition().add(dir)); // move back
                 getFirstParent().updateVertices(); // update shape
                 vertices = getFirstParent().vertices; // update collider shape
@@ -126,12 +127,15 @@ public class Collider extends Component{
                 i++;
             }
         }
-
+        //sets the rotational point
         PhysicsBody b = ((PhysicsBody) getFirstParent().getChild(new PhysicsBody()));
         if(b!=null){
             b.setRotationalPoint(point);
         }
-
+        PhysicsBody b2 = ((PhysicsBody) c.getFirstParent().getChild(new PhysicsBody()));
+        if(b2!=null){
+            b2.setRotationalPoint(point);
+        }
 
     }
     public boolean inside(Component component){
@@ -146,15 +150,17 @@ public class Collider extends Component{
     public void update() {
         super.update();
         //loops though all the components in the scene
+        // and checks if their colliders are colling and resolve it
         point = null;
         for(Component component: JavaGameEngine.getSelectedScene().getComponents1()){
             if(component != getFirstParent()){ // dont check us
                 Collider c = (Collider) component.getChild(new Collider());
-
+                //ignores objects with a tag that is inside ignore tag
                 if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
                     Point collsionPoint = null; // the point which collided (null if not collided)
+
                     if((collsionPoint=collision( (Collider) c ) )!=null){
-                            point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
+                        point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
                         try{
                             // first we move back our object then we can response
@@ -165,12 +171,13 @@ public class Collider extends Component{
                                 getFirstParent().onTriggerEnter(collisionEvent);
                                 c.getFirstParent().onTriggerEnter(collisionEvent);
                             }else{
-                                moveBack(c, point);
+                                moveBack(c, point); // move the object back
                                 try {
-                                    me.response(collisionEvent);
+                                    me.response(collisionEvent); // responde with physics
                                 }catch (NullPointerException e){
                                     Debug.log(getFirstParent()+" has no physicsbody to respond to the collision ");
                                 }
+                                // calls events
                                 getFirstParent().onCollisionEnter(collisionEvent);
                                 c.getFirstParent().onCollisionEnter(collisionEvent);
                             }
