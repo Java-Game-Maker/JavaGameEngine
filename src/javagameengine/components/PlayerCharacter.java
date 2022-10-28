@@ -18,7 +18,6 @@ public class PlayerCharacter extends Component{
         super.update();
         if(Input.isKeyDown(Keys.A)){
             getFirstParent().rotate(-1);            //body.setRotationalPoint(new Vector2(0,0));
-
         }
         if(Input.isKeyDown(Keys.D)){
             //body.setRotationalForce(0.9f);
