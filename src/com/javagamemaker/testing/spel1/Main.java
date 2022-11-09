@@ -70,7 +70,7 @@ public class Main extends JavaGameEngine {
         };
         s.setBackground(new Color(0,5,20));
         //JavaGameEngine.fpsCap = 10;
-        s.getCamera().add(new CameraMovement());
+        //s.getCamera().add(new CameraMovement());
         //s.add(new Turret(new Vector2(200,0)));
         Debug.showWhere = true;
 
@@ -107,6 +107,8 @@ public class Main extends JavaGameEngine {
                 Main.getSelectedScene().instantiate(ship);
                 destroy();
             }
+            Debug.log(getWindowSize().divide(2));
+            getSelectedScene().getCamera().setPosition(getWindowSize().divide(2));
         }
 
         @Override

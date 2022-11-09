@@ -126,9 +126,9 @@ public class Ship extends Sprite {
         health-=10*time;
         if(health<=0)
         {
-            destroy();
             Main.getSelectedScene().getCamera().start();
             Main.getSelectedScene().instantiate(new Main.Pause(String.valueOf(points)));
+            destroy();
         }
     }
 

@@ -147,7 +147,6 @@ public class PhysicsBody extends Component{
         super.render(g);
         Color color = g.getColor();
         g.setColor(Color.red);
-        g.drawLine((int) rotationalPoint.getX(), (int) rotationalPoint.getY(), (int) massPoint.getX(), (int) massPoint.getY());
         g.setColor(color);
     }
 
