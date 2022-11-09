@@ -1,8 +1,8 @@
-package javagameengine;
+package com.javagamemaker.javagameengine;
 
-import javagameengine.components.Collider;
-import javagameengine.components.PhysicsBody;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.components.Collider;
+import com.javagamemaker.javagameengine.components.PhysicsBody;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class CollisionEvent {
 

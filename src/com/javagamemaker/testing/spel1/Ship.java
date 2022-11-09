@@ -1,16 +1,14 @@
-package testing.spel1;
+package com.javagamemaker.testing.spel1;
 
-import javagameengine.CollisionEvent;
-import javagameengine.JavaGameEngine;
-import javagameengine.components.*;
-import javagameengine.components.Component;
-import javagameengine.components.shapes.Circle;
-import javagameengine.components.shapes.Rect;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Random;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.CollisionEvent;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.*;
+import com.javagamemaker.javagameengine.components.shapes.Circle;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Random;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 import java.util.LinkedList;

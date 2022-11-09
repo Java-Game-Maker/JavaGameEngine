@@ -1,9 +1,8 @@
-package javagameengine.components;
+package com.javagamemaker.javagameengine.components;
 
-import javagameengine.CollisionEvent;
-import javagameengine.JavaGameEngine;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.CollisionEvent;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 

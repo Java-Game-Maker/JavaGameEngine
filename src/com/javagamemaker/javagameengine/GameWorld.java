@@ -1,8 +1,7 @@
-package javagameengine;
+package com.javagamemaker.javagameengine;
 
-import javagameengine.input.Input;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;

@@ -1,4 +1,4 @@
-package javagameengine.networking;
+package com.javagamemaker.javagameengine.networking;
 
 
 import java.io.BufferedReader;

@@ -1,6 +1,6 @@
-package javagameengine.msc;
+package com.javagamemaker.javagameengine.msc;
 
-import javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.Component;
 
 public class Debug {
     static float a = 0;

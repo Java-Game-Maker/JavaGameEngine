@@ -1,7 +1,7 @@
-package javagameengine.components;
+package com.javagamemaker.javagameengine.components;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class Camera extends Component{
 

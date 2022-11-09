@@ -1,19 +1,15 @@
-package testing.car;
+package com.javagamemaker.testing.car;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.Scene;
-import javagameengine.components.CameraMovement;
-import javagameengine.components.Component;
-import javagameengine.components.GameObject;
-import javagameengine.components.Sprite;
-import javagameengine.components.shapes.Rect;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
-
-import java.awt.*;
-import java.awt.image.Kernel;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.CameraMovement;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.GameObject;
+import com.javagamemaker.javagameengine.components.Sprite;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class Main extends JavaGameEngine {
 

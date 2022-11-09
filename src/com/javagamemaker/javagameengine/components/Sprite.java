@@ -1,14 +1,10 @@
-package javagameengine.components;
+package com.javagamemaker.javagameengine.components;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
-import java.awt.image.AffineTransformOp;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;

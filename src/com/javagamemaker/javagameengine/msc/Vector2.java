@@ -1,6 +1,4 @@
-package javagameengine.msc;
-
-import testing.spel1.Main;
+package com.javagamemaker.javagameengine.msc;
 
 import java.util.Objects;
 

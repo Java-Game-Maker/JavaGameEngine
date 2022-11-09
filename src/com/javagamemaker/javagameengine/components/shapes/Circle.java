@@ -1,6 +1,6 @@
-package javagameengine.components.shapes;
+package com.javagamemaker.javagameengine.components.shapes;
 
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
 

@@ -1,4 +1,4 @@
-package javagameengine.input;
+package com.javagamemaker.javagameengine.input;
 
 public class Keys {
     public static final int Q = 81;

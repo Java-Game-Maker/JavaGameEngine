@@ -1,13 +1,13 @@
-package testing.spel1;
+package com.javagamemaker.testing.spel1;
 
-import javagameengine.CollisionEvent;
-import javagameengine.JavaGameEngine;
-import javagameengine.components.Collider;
-import javagameengine.components.Component;
-import javagameengine.components.PhysicsBody;
-import javagameengine.components.Sprite;
-import javagameengine.components.shapes.Rect;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.CollisionEvent;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.Collider;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.PhysicsBody;
+import com.javagamemaker.javagameengine.components.Sprite;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 
 public class Laser extends Sprite {

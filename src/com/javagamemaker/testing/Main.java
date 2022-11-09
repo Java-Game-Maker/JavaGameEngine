@@ -1,16 +1,10 @@
-package testing;
+package com.javagamemaker.testing;
 
-import javagameengine.CollisionEvent;
-import javagameengine.JavaGameEngine;
-import javagameengine.Scene;
-import javagameengine.components.*;
-import javagameengine.components.Component;
-import javagameengine.components.shapes.Circle;
-import javagameengine.components.shapes.Rect;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.*;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 

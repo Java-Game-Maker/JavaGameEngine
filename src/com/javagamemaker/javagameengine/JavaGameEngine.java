@@ -1,13 +1,10 @@
-package javagameengine;
+package com.javagamemaker.javagameengine;
 
-import javagameengine.components.Component;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.LinkedList;
 
 public class JavaGameEngine{
 

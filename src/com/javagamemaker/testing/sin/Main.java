@@ -1,13 +1,12 @@
-package testing.sin;
+package com.javagamemaker.testing.sin;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.Scene;
-import javagameengine.components.CameraMovement;
-import javagameengine.components.Component;
-import javagameengine.components.GameObject;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.CameraMovement;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 

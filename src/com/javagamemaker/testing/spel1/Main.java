@@ -1,21 +1,16 @@
-package testing.spel1;
+package com.javagamemaker.testing.spel1;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.Scene;
-import javagameengine.components.*;
-import javagameengine.components.Component;
-import javagameengine.components.shapes.Circle;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Random;
-import javagameengine.msc.Vector2;
-import testing.Player;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.*;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Debug;
+import com.javagamemaker.javagameengine.msc.Random;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
-import javax.swing.plaf.basic.BasicDesktopIconUI;
 import java.awt.*;
-import java.awt.image.BufferedImage;
-import java.util.ArrayList;
 
 /*
 

@@ -1,6 +1,6 @@
-package javagameengine.networking;
+package com.javagamemaker.javagameengine.networking;
 
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
 

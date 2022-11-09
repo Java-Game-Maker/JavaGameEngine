@@ -1,12 +1,8 @@
-package testing.spel1;
+package com.javagamemaker.testing.spel1;
 
-import javagameengine.CollisionEvent;
-import javagameengine.JavaGameEngine;
-import javagameengine.components.Collider;
-import javagameengine.components.Sprite;
-import javagameengine.input.Input;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.Sprite;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 

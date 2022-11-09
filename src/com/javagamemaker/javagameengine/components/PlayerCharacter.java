@@ -1,10 +1,9 @@
-package javagameengine.components;
+package com.javagamemaker.javagameengine.components;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Vector2;
-import testing.Player;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class PlayerCharacter extends Component{
     PhysicsBody body = new PhysicsBody();

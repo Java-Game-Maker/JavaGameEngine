@@ -1,4 +1,4 @@
-package javagameengine.msc;
+package com.javagamemaker.javagameengine.msc;
 
 public class Random extends java.util.Random {
 

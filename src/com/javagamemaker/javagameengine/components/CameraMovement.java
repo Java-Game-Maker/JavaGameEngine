@@ -1,9 +1,8 @@
-package javagameengine.components;
+package com.javagamemaker.javagameengine.components;
 
-import javagameengine.JavaGameEngine;
-import javagameengine.input.Input;
-import javagameengine.input.Keys;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class CameraMovement extends Component{
 

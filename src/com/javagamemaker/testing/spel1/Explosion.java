@@ -1,9 +1,8 @@
-package testing.spel1;
+package com.javagamemaker.testing.spel1;
 
-import javagameengine.components.Sprite;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.components.Sprite;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
-import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.util.ArrayList;
 

@@ -1,6 +1,6 @@
-package javagameengine.input;
+package com.javagamemaker.javagameengine.input;
 
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
