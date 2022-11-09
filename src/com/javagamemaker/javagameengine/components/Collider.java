@@ -6,6 +6,7 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 import com.javagamemaker.testing.Main;
 
 import java.awt.*;
+import java.rmi.server.ExportException;
 import java.util.LinkedList;
 
 public class Collider extends Component{
@@ -159,8 +160,9 @@ public class Collider extends Component{
                             }else{
 
                                 moveBack(c, point);
-
-                                me.response(collisionEvent);
+                                try{
+                                    me.response(collisionEvent);
+                                }catch (Exception e){}
                                 getFirstParent().onCollisionEnter(collisionEvent);
                                 c.getFirstParent().onCollisionEnter(collisionEvent);
                             }
