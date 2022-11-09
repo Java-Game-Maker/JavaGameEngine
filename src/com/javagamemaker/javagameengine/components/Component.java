@@ -282,7 +282,7 @@ public class Component {
         return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
     }
     public void onCollisionEnter(CollisionEvent collisionEvent){
-        getParent().onTriggerEnter(collisionEvent);
+        if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
         for(Component c : children){
             c.onCollisionEnter(collisionEvent);
         }
@@ -386,7 +386,7 @@ public class Component {
 
 
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
-        getParent().onTriggerEnter(collisionEvent);
+        if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
     }
 
     public void updateSecund(){
