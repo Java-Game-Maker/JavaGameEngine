@@ -69,6 +69,7 @@ public class Main extends JavaGameEngine {
                 }
             }
         };
+        s.setDebugMode(false);
         s.setBackground(new Color(0,5,20));
         //JavaGameEngine.fpsCap = 10;
         s.getCamera().add(new CameraMovement());

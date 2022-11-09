@@ -2,14 +2,8 @@ package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
-
-import java.awt.*;
-import java.io.FileInputStream;
-import java.io.ObjectInputStream;
-import java.util.LinkedList;
 
 public class Main extends JavaGameEngine {
 
@@ -37,8 +31,6 @@ public class Main extends JavaGameEngine {
         JavaGameEngine.size = new Vector2(1920/2,1080/2);
 
         start();
-
-
     }
 
 
