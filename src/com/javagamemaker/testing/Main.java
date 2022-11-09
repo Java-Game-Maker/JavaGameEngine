@@ -11,8 +11,8 @@ import java.awt.*;
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args) {
-        /*PhysicsTest t = new PhysicsTest();
-        setSelectedScene(t);*/
+        PhysicsTest t = new PhysicsTest();
+        setSelectedScene(t);
 
 
 
