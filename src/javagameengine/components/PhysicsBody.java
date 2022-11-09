@@ -148,7 +148,10 @@ public class PhysicsBody extends Component{
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-        g.fillOval((int) rotationalPoint.getX(), (int) rotationalPoint.getY(),10,10);
+        Color color = g.getColor();
+        g.setColor(Color.red);
+        g.drawLine((int) rotationalPoint.getX(), (int) rotationalPoint.getY(), (int) massPoint.getX(), (int) massPoint.getY());
+        g.setColor(color);
     }
 
     public Vector2 getForce(){

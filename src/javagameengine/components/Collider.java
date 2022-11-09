@@ -110,7 +110,7 @@ public class Collider extends Component{
      */
     public void moveBack(Component c, Vector2 point){
         // the direction to move back the object
-        Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
+        /*Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
         if(!((Float) getFirstParent().getPosition().lookAt(prevPosition)).isNaN()){
             int i = 0;
 
@@ -126,7 +126,8 @@ public class Collider extends Component{
                     break;
                 i++;
             }
-        }
+        }*/
+        setPosition(prevPosition);
         //sets the rotational point
         PhysicsBody b = ((PhysicsBody) getFirstParent().getChild(new PhysicsBody()));
         if(b!=null){
