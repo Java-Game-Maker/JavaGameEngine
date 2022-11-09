@@ -128,14 +128,7 @@ public class Collider extends Component{
             }
         }
         //sets the rotational point
-        PhysicsBody b = ((PhysicsBody) getFirstParent().getChild(new PhysicsBody()));
-        if(b!=null){
-            b.setRotationalPoint(point);
-        }
-        PhysicsBody b2 = ((PhysicsBody) c.getFirstParent().getChild(new PhysicsBody()));
-        if(b2!=null){
-            b2.setRotationalPoint(point);
-        }
+
 
     }
     public boolean inside(Component component){

@@ -86,8 +86,6 @@ public class PhysicsBody extends Component{
 
         float deltaS = (float) rotationalPoint.subtract(massPoint).getX();
 
-        setRotationalForce(JavaGameEngine.g.getY() *  -deltaS * mass);
-        setRotationalPoint(massPoint);
         if(useGravity)
             velocity = velocity.add(JavaGameEngine.g.multiply(JavaGameEngine.deltaTime));
 
