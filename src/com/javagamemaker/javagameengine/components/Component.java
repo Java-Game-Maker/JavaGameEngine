@@ -281,9 +281,10 @@ public class Component {
     public Vector2 getBodyPosition(){
         return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
     }
-    public void onCollisionEnter(CollisionEvent event){
+    public void onCollisionEnter(CollisionEvent collisionEvent){
+        getParent().onTriggerEnter(collisionEvent);
         for(Component c : children){
-            c.onCollisionEnter(event);
+            c.onCollisionEnter(collisionEvent);
         }
 
     }
@@ -385,6 +386,7 @@ public class Component {
 
 
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
+        getParent().onTriggerEnter(collisionEvent);
     }
 
     public void updateSecund(){
