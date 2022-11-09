@@ -148,38 +148,40 @@ public class Collider extends Component{
         point = null;
         for(Component component: JavaGameEngine.getSelectedScene().getComponents1()){
             if(component != getFirstParent()){ // dont check us
-                Collider c = (Collider) component.getChild(new Collider());
                 //ignores objects with a tag that is inside ignore tag
-                if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
-                    Point collsionPoint = null; // the point which collided (null if not collided)
+                for(Component colliderHolder : component.getChildren(new Collider())){
+                    Collider c = (Collider) colliderHolder;
+                    if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
+                        Point collsionPoint = null; // the point which collided (null if not collided)
 
-                    if((collsionPoint=collision( (Collider) c ) )!=null){
-                        point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
+                        if((collsionPoint=collision( c) )!=null){
+                            point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
-                        CollisionEvent collisionEvent = new CollisionEvent(this,(Collider) c,point);
-                        if(isTrigger() && ((Collider) c).isTrigger()){
-                            getParent().onTriggerEnter(collisionEvent);
-                            c.getParent().onTriggerEnter(collisionEvent);
-                        }else{
-                            moveBack(c, point); // move the object back
-                            try {
-                                PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
-                                me.response(collisionEvent); // responde with physics
-                            }catch (NullPointerException e){
-                                Debug.log(getFirstParent()+" has no physicsbody to respond to the collision ");
+                            CollisionEvent collisionEvent = new CollisionEvent(this,(Collider) c,point);
+                            if(isTrigger() && ((Collider) c).isTrigger()){
+                                getParent().onTriggerEnter(collisionEvent);
+                                c.getParent().onTriggerEnter(collisionEvent);
+                            }else{
+                                moveBack(c, point); // move the object back
+                                try {
+                                    PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
+                                    me.response(collisionEvent); // responde with physics
+                                }catch (NullPointerException e){
+                                    Debug.log(getFirstParent()+" has no physicsbody to respond to the collision ");
+                                }
+                                // calls events
+                                getParent().onCollisionEnter(collisionEvent);
+                                c.getParent().onCollisionEnter(collisionEvent);
                             }
-                            // calls events
-                            getParent().onCollisionEnter(collisionEvent);
-                            c.getParent().onCollisionEnter(collisionEvent);
+
+
+                        }
+                        else{
+                            lastVerices = localVertices;
+                            prevPosition = getFirstParent().getPosition();
                         }
 
-
                     }
-                    else{
-                        lastVerices = localVertices;
-                        prevPosition = getFirstParent().getPosition();
-                    }
-
                 }
             }
         }

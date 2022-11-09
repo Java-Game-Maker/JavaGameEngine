@@ -1,5 +1,6 @@
 package com.javagamemaker.testing;
 
+import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.GameObject;
@@ -7,6 +8,7 @@ import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.components.shapes.Circle;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -14,9 +16,9 @@ import java.awt.*;
 public class Player extends GameObject {
 
     PhysicsBody body = new PhysicsBody();
+
     public Player() {
         super();
-
         /*
 
         localVertices.clear();
@@ -46,7 +48,6 @@ public class Player extends GameObject {
         //add(g);
 
     }
-
     @Override
     public void update() {
         super.update();

@@ -100,7 +100,16 @@ public class Component {
     }
 
     public void setParentOffset(Vector2 parentOffset) {
-        this.parentOffset = parentOffset;
+        if(getParent()!=null){
+            this.parentOffset = parentOffset;
+
+        }else{
+            this.parentOffset = parentOffset;
+        }
+        for(Component c : getChildren()){
+            c.setParentOffset(parentOffset);
+        }
+        updateVertices();
     }
 
     public void setScale(Vector2 scale) {
@@ -355,6 +364,9 @@ public class Component {
 
     public void setMouseInside(boolean mouseInside) {
         this.mouseInside = mouseInside;
+        for(Component c : children){
+
+        }
     }
 
     public void mouseInside(){
