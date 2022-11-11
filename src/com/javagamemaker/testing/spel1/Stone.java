@@ -38,8 +38,8 @@ public class Stone extends Sprite {
     }
 
     @Override
-    public void updateSecund() {
-        super.updateSecund();
+    public void updateSecond() {
+        super.updateSecond();
         if(getPosition().getDistance(Main.ship.getPosition())>1000){
             Vector2 maxBox = Main.ship.getPosition().add(JavaGameEngine.getWindowSize().multiply(3));
             Vector2 minBox = Main.ship.getPosition().subtract(JavaGameEngine.getWindowSize().multiply(3));

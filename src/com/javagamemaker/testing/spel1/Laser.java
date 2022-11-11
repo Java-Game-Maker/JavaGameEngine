@@ -45,7 +45,7 @@ public class Laser extends Sprite {
     }
 
     @Override
-    public void updateSecund() {
+    public void updateSecond() {
         sec++;
         if(sec>2)
             destroy();

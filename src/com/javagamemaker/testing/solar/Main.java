@@ -24,14 +24,14 @@ public class Main extends JavaGameEngine {
 
         sun = new GameObject(new Rect(50,50)){
             @Override
-            public void mouseEntered() {
-                super.mouseEntered();
+            public void onMouseEntered() {
+                super.onMouseEntered();
                 setColor(Color.green);
             }
 
             @Override
-            public void mouseLeft() {
-                super.mouseLeft();
+            public void onMouseLeft() {
+                super.onMouseLeft();
                 setColor(Color.darkGray);
             }
 

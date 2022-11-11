@@ -112,8 +112,8 @@ public class Main extends JavaGameEngine {
         }
 
         @Override
-        public void updateSecund() {
-            super.updateSecund();
+        public void updateSecond() {
+            super.updateSecond();
             time++;
         }
 

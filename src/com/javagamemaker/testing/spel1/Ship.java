@@ -71,7 +71,7 @@ public class Ship extends Sprite {
     Vector2 mos = getPosition();
     float time = 1;
     @Override
-    public void updateSecund() {
+    public void updateSecond() {
         time+=0.1;
     }
     @Override

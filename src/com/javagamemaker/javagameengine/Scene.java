@@ -63,7 +63,7 @@ public class Scene extends JPanel {
         if((int) time/100 > lastSec){
             lastSec = (int) (time/100);
             for(Component component : components) {
-                component.updateSecund();
+                component.updateSecond();
             }
         }
         if((int) time/10 > lastMili){

@@ -39,8 +39,8 @@ public class Turret extends Stone{
     }
 
     @Override
-    public void updateSecund() {
-        super.updateSecund();
+    public void updateSecond() {
+        super.updateSecond();
         if(getPosition().getDistance(Main.ship.getPosition())<Main.getWindowSize().getMagnitude()/2){
             Laser laser = new Laser(turret.getAngle(),getPosition().add(Vector2.getDirection(turret.getAngle()+90).multiply(-40)),null);
             laser.c.setTag("turret tag");

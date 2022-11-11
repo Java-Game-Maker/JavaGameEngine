@@ -51,21 +51,27 @@ public class Component {
      * @return vector2
      */
     public Vector2 getScale() {
-
         return new Vector2((float) getPolygon().getBounds().getWidth(), (float) getPolygon().getBounds().getHeight());
     }
 
+    /**
+     * @return the layer the component is
+     */
     public int getLayer() {
         return layer;
     }
 
+    /**
+     * @param layer the layer the component should be in
+     */
     public void setLayer(int layer) {
         JavaGameEngine.getSelectedScene().layerList.add(this);
         this.layer = layer;
     }
 
     /**
-     * this methods will be called when the game starts
+     * this methods will be called when the game starts and gamewindow has inilized
+     *
      */
     public void start(){
         for(Component c : children) c.start();
@@ -79,10 +85,16 @@ public class Component {
         this.tag = tag;
     }
 
+    /**
+     * @return true if it is visible
+     */
     public boolean isVisible() {
         return visible;
     }
 
+    /**
+     * @param visible should be visable or not
+     */
     public void setVisible(boolean visible) {
         this.visible = visible;
     }
@@ -99,6 +111,9 @@ public class Component {
         return parentOffset;
     }
 
+    /**
+     * @param parentOffset the offset a child has to its parent
+     */
     public void setParentOffset(Vector2 parentOffset) {
         if(getParent()!=null){
             this.parentOffset = parentOffset;
@@ -112,6 +127,10 @@ public class Component {
         updateVertices();
     }
 
+    /**
+     *
+     * @param scale new scale
+     */
     public void setScale(Vector2 scale) {
         Vector2 d = scale.divide(getScale());
         LinkedList<Vector2> newVertices =new LinkedList<>();
@@ -127,6 +146,11 @@ public class Component {
         return position;
     }
 
+    /**
+     * if component is a child it will add its parent offset to the position
+     * it will update all its childrens positions aswell
+     * @param position new position not translate
+     */
     public void setPosition(Vector2 position) {
         //this.lastPosition = this.position;
 
@@ -184,6 +208,9 @@ public class Component {
         return angle;
     }
 
+    /**
+     * update all shape points based on position
+     */
     public void updateVertices(){
         LinkedList<Vector2> ver = new LinkedList<>();
         for(Vector2 vertex : localVertices){
@@ -202,12 +229,20 @@ public class Component {
         children.add(component);
     }
 
+    /**
+     *
+     * @return the first component in the tree
+     */
     public Component getFirstParent(){
         if(getParent()!=null){
             return getParent().getFirstParent();
         }
         return this;
     }
+
+    /**
+     * updates every millisecond
+     */
     public void updateMili(){
     }
     /**
@@ -223,17 +258,17 @@ public class Component {
         Component prev = Main.getSelectedScene().hasA;
         if(getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
             if(isMouseInside()){
-                mouseInside();
+                onMouseInside();
             }
             else{
-                mouseEntered();
+                onMouseEntered();
             }
             Main.getSelectedScene().hasA = this;
 
         }
         else if(isMouseInside()){
             setMouseInside(false);
-            mouseLeft();
+            onMouseLeft();
             Main.getSelectedScene().hasA = null;
         }
 
@@ -257,7 +292,11 @@ public class Component {
 
         return new Polygon(x,y,vertices.size());
     }
-
+    /**
+     *
+     * @param type the specified type of the children to be returned
+     * @return if type is (new PhysicsBody()) it will return the children that is a physicsBody as LinkedList<Component>
+     */
     public LinkedList<Component> getChildren(Component type){
         LinkedList<Component> children = new LinkedList<>();
         for (Component child : this.children){
@@ -267,6 +306,12 @@ public class Component {
         }
         return children;
     }
+
+    /**
+     *
+     * @param type the specified type of the children to be returned
+     * @return if type is (new PhysicsBody()) it will return the all children and all children's children that is a physicsBody as LinkedList<Component>
+     */
     public LinkedList<Component> getAllChildren(Component type){
         LinkedList<Component> children = new LinkedList<>();
         for (Component child : this.children){
@@ -278,6 +323,11 @@ public class Component {
 
         return children;
     }
+
+    /**
+     * @param type the specified type of the children to be returned
+     * @return if type is (new PhysicsBody()) it will return the first child that is a physicsBody as Component
+     */
     public Component getChild(Component type) {
 
         for (Component child : this.children){
@@ -290,13 +340,23 @@ public class Component {
     public Vector2 getBodyPosition(){
         return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
     }
+    /**
+     * class when a collision from a collider is triggered
+     * @param collisionEvent information about the collision
+     */
     public void onCollisionEnter(CollisionEvent collisionEvent){
-        if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
+        if(getParent()!=null) getParent().onCollisionEnter(collisionEvent);
         for(Component c : children){
             c.onCollisionEnter(collisionEvent);
         }
 
     }
+
+    /**
+     * rotate to specified angle
+     * @param angle angle to rotate to
+     * @param pivot the povit to rotate around
+     */
     public void rotateTo(float angle, Vector2 pivot){
         rotate(angle-this.angle,pivot);
     }
@@ -352,16 +412,30 @@ public class Component {
         rotateChildren(angle, pivot);
         this.localVertices = vertices1;
     }
+
+    /**
+     * rotate children with an angle and around a poivot
+     * @param angle angle to rotate
+     * @param pivot rotate around
+     */
     public void rotateChildren(float angle,Vector2 pivot){
         for(Component child : children){
             child.rotate(angle,pivot);
         }
 
     }
+
+    /**
+     * @return true if mouse is inside
+     */
     public boolean isMouseInside() {
         return mouseInside;
     }
 
+    /**
+     * sets if the mouse is inside
+     * @param mouseInside the value of mouse is inside
+     */
     public void setMouseInside(boolean mouseInside) {
         this.mouseInside = mouseInside;
         for(Component c : children){
@@ -369,13 +443,28 @@ public class Component {
         }
     }
 
-    public void mouseInside(){
+    /**
+     * Triggers when mouse is inside
+     */
+    public void onMouseInside(){
     }
-    public void mouseEntered(){
+
+    /**
+     * triggers when mouse enters component
+     */
+    public void onMouseEntered(){
         this.mouseInside = true;
     }
-    public void mouseLeft(){
+
+    /**
+     * triggers when mouse left component
+     */
+    public void onMouseLeft(){
     }
+
+    /**
+     * removes component from parent or from scene
+     */
     public void destroy(){
         if(getParent()==null)
             JavaGameEngine.getSelectedScene().destroy(this);
@@ -396,20 +485,33 @@ public class Component {
 
     }
 
-
+    /**
+     * triggers then a collider is a trigger and  collides with another trigger
+     * @param collisionEvent holds information about the collision
+     */
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
         if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
     }
 
-    public void updateSecund(){
+    /**
+     * updates every second
+     */
+    public void updateSecond(){
     }
 
+    /**
+     * save the component to a file (serlizeable) linked list
+     */
     public void save(){
     }
     public void load(){
         
     }
 
+    /**
+     *
+     * @return
+     */
     @Override
     public String toString() {
         return "{position : "+position.toString()+",\n" +
