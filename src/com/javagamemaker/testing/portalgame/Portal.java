@@ -1,4 +1,4 @@
-package com.javagamemaker.testing.portalgame;
+package testing.portalgame;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.components.Collider;

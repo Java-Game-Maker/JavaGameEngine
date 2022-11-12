@@ -1,4 +1,4 @@
-package com.javagamemaker.testing.spel1;
+package testing.spel1;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Sprite;
@@ -28,7 +28,7 @@ public class Turret extends Stone{
             if(i == 13)
                 break;
         }
-        turret.loadAnimation(rectangles,"/spel1/turret.png");
+        turret.loadAnimation(rectangles, "/spel1/turret.png");
         add(turret);
     }
     @Override

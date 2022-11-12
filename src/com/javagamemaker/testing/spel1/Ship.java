@@ -1,4 +1,4 @@
-package com.javagamemaker.testing.spel1;
+package testing.spel1;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
@@ -21,7 +21,7 @@ public class Ship extends Sprite {
 
     public Ship(){
 
-        thruster.loadAnimation(new Rectangle[]{new Rectangle(0,0,32,32),new Rectangle(32,0,32,32),new Rectangle(0,32,32,32)},"/spel1/thruster.png");
+        thruster.loadAnimation(new Rectangle[]{new Rectangle(0,0,32,32),new Rectangle(32,0,32,32),new Rectangle(0,32,32,32)}, "/spel1/thruster.png");
         thruster.setScale(new Vector2(30,30));
         thruster.setParentOffset(new Vector2(0,29));
         thruster.setVisible(false);
@@ -29,7 +29,7 @@ public class Ship extends Sprite {
         add(thruster);
 
         setScale(new Vector2(50,50));
-        loadAnimation(new Rectangle[]{new Rectangle(117,120,50,30)},"/spel1/spacegame.png");
+        loadAnimation(new Rectangle[]{new Rectangle(117,120,50,30)}, "/spel1/spacegame.png");
 
         Collider collider = new Collider(new Rect(50,50));
         collider.setTrigger(true);

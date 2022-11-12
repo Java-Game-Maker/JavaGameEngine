@@ -1,4 +1,4 @@
-package com.javagamemaker.testing.spel1;
+package testing.spel1;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
@@ -38,7 +38,7 @@ public class Main extends JavaGameEngine {
                 i++;
             }
         }
-        animations.loadAnimation(rectangles,"/spel1/explosion.png");
+        animations.loadAnimation(rectangles, "/spel1/explosion.png");
 
         Main.size = new Vector2(1920/2,1080/2);
 

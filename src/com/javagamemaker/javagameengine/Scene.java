@@ -21,6 +21,9 @@ public class Scene extends JPanel {
         setBackground(new Color(40,125,255));
     }
 
+    /**
+     * @param component the new component to be added to the scene
+     */
     public void instantiate(Component component){
         component.start();
         newComponents.add(component);

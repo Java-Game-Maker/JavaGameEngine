@@ -1,4 +1,4 @@
-package com.javagamemaker.testing.spel1;
+package testing.spel1;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
@@ -20,7 +20,7 @@ public class Stone extends Sprite {
         float s = r.nextFloat(10,400);
         health = s;
         setScale(new Vector2(s,s));
-        loadAnimation(new Rectangle[]{new Rectangle(0,0,45,45)},"/spel1/stone.png");
+        loadAnimation(new Rectangle[]{new Rectangle(0,0,45,45)}, "/spel1/stone.png");
         Collider c = new Collider(false);
         c.setTrigger(true);
         c.setTag("Stone");
