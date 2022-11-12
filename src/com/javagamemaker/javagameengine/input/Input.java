@@ -7,13 +7,13 @@ import java.awt.event.MouseEvent;
 import java.util.LinkedList;
 
 public class Input {
-    private static LinkedList<Integer> keyDowns = new LinkedList<>();
+    private static final LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
     private static int mouseIsPressed = 1000;
     private static Vector2 mousePosition=new Vector2(0,0);
     private static Vector2 mousePositionOnCanvas =new Vector2(0,0);
-    private static float scrollValue=0;
-    private static LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
+    private static final LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
+    private static float scrollValue = 0;
 
     private static MouseEvent mouseEvent = null;
     public static Vector2 getMousePosition() {
@@ -37,10 +37,11 @@ public class Input {
     public static void setMousePosition(Vector2 mousePosition) {
         Input.mousePosition = mousePosition;
     }
+
     public static void addMouseButton(MouseEvent e) {
-        if(!isMouseDown(e.getButton()))
-            mouseButtonDowns.add(new Integer(e.getButton()));
-        mouseIsPressed = new Integer(e.getButton());
+        if (!isMouseDown(e.getButton()))
+            mouseButtonDowns.add(Integer.valueOf(e.getButton()));
+        mouseIsPressed = Integer.valueOf(e.getButton());
 
     }
 
@@ -55,7 +56,7 @@ public class Input {
     public static void removeMouseButton(MouseEvent e) {
 
         if(isMouseDown(e.getButton()))
-            mouseButtonDowns.remove(new Integer(e.getButton()));
+            mouseButtonDowns.remove(Integer.valueOf(e.getButton()));
     }
     public static boolean isMouseDown(int mouseButtonDown)
     {
@@ -89,18 +90,18 @@ public class Input {
 
     public static void addKey(KeyEvent e){
         if(!isKeyDown(e.getKeyCode()))
-            keyDowns.add(new Integer(e.getKeyCode()));
+            keyDowns.add(Integer.valueOf(e.getKeyCode()));
         if(!isPressed)
             isPressed = true;
     }
     public static void removeKey(KeyEvent e) {
         if(isKeyDown(e.getKeyCode()))
-            keyDowns.remove(new Integer(e.getKeyCode()));
+            keyDowns.remove(Integer.valueOf(e.getKeyCode()));
     }
     public static boolean isKeyPressed(int keyCode){
         boolean pressed =  isKeyDown(keyCode);
         if(pressed)
-            keyDowns.remove(new Integer(keyCode));
+            keyDowns.remove(Integer.valueOf(keyCode));
         return pressed;
     }
 

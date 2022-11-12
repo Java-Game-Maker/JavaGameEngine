@@ -1,4 +1,4 @@
-package testing.sin;
+package com.javagamemaker.testing.sin;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;

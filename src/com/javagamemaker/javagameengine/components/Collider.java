@@ -3,7 +3,6 @@ package com.javagamemaker.javagameengine.components;
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.msc.Debug;
-import com.javagamemaker.testing.Main;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -79,7 +78,7 @@ public class Collider extends Component{
      */
     public static Point isCollision(Component me){
         // check if my points are inside c
-        for(Component component: Main.gameInstance.getSelectedScene().getComponents1()) {
+        for (Component component : JavaGameEngine.getSelectedScene().getComponents1()) {
             if (component != me) {
                 for (Component c : component.getChildren(new Collider())) {
                     for (Vector2 vertex : me.vertices) {
@@ -154,20 +153,20 @@ public class Collider extends Component{
                     if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
                         Point collsionPoint = null; // the point which collided (null if not collided)
 
-                        if((collsionPoint=collision( c) )!=null){
+                        if((collsionPoint=collision( c) )!=null) {
                             point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
-                            CollisionEvent collisionEvent = new CollisionEvent(this,(Collider) c,point);
-                            if(isTrigger() && ((Collider) c).isTrigger()){
+                            CollisionEvent collisionEvent = new CollisionEvent(this, c, point);
+                            if (isTrigger() && c.isTrigger()) {
                                 getParent().onTriggerEnter(collisionEvent);
                                 c.getParent().onTriggerEnter(collisionEvent);
-                            }else{
+                            } else {
                                 moveBack(c, point); // move the object back
                                 try {
                                     PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
                                     me.response(collisionEvent); // responde with physics
-                                }catch (NullPointerException e){
-                                    Debug.log(getFirstParent()+" has no physicsbody to respond to the collision ");
+                                } catch (NullPointerException e) {
+                                    Debug.log(getFirstParent() + " has no physicsbody to respond to the collision ");
                                 }
                                 // calls events
                                 getParent().onCollisionEnter(collisionEvent);

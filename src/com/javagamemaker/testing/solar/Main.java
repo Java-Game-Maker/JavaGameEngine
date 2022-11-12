@@ -1,4 +1,4 @@
-package testing.solar;
+package com.javagamemaker.testing.solar;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;

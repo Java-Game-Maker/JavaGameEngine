@@ -108,7 +108,7 @@ public class Sprite extends Component {
     public BufferedImage getAnimation(){
         int spritesLen = animations.get(animationIndex).length;
         //Adds until timer then 0
-        spriteCounter = (spriteCounter+1 >=timer) ? 0 : (float) (spriteCounter + 1 );
+        spriteCounter = (spriteCounter + 1 >= timer) ? 0 : (spriteCounter + 1);
         //Sets the current sprite index (the image that will be displayed)
         currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer- 1))) ?
                 0 :
@@ -145,9 +145,9 @@ public class Sprite extends Component {
             AffineTransform trans = new AffineTransform();
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
             g.transform( trans );
-            g.drawImage((Image) getAnimation(),
-                    (int) (getPosition().getX()-getScale().divide(2).getX()),
-                    (int) (getPosition().getY()-getScale().divide(2).getY()),
+            g.drawImage(getAnimation(),
+                    (int) (getPosition().getX() - getScale().divide(2).getX()),
+                    (int) (getPosition().getY() - getScale().divide(2).getY()),
                     (int) getScale().getX(),
                     (int) getScale().getY(),
                     null);  // the actual location of the sprite

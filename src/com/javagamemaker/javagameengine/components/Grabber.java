@@ -1,6 +1,5 @@
 package com.javagamemaker.javagameengine.components;
 
-import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;

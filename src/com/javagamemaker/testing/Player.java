@@ -1,4 +1,4 @@
-package testing;
+package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Collider;

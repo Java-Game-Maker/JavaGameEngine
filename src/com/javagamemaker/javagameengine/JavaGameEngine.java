@@ -53,20 +53,29 @@ public class JavaGameEngine{
      */
     public static float fpsCap = 0;
 
-    public static Vector2 getWindowSize(){
-        return new Vector2(gameWindow.getSize().width,gameWindow.getSize().height);
+    /**
+     * This function can not be called in a components constructor because the game window has not been
+     * initialized yet. If you need the size in the start use the start function instead of the constructor.
+     *
+     * @return GameWindow size
+     */
+    public static Vector2 getWindowSize() {
+        return new Vector2(gameWindow.getSize().width, gameWindow.getSize().height);
     }
 
-    private static void update(){
-        double now = ((double)System.currentTimeMillis());
+    /**
+     * update loop
+     */
+    private static void update() {
+        double now = ((double) System.currentTimeMillis());
         //Increases counter every tick but when a 1/10 of a second we reset the counter
         //and sets the fps to the counter
         // To cap the fps we just increase the delay if our fps is too high
         // and decrease it when it is too low
-        if(now-time>=100){
-            fps = counter*10;
-            gameWindow.setTitle("FPS "+String.valueOf(fps));
-            if(fpsCap > 0 && fps>fpsCap) DELAY++;
+        if (now - time >= 100) {
+            fps = counter * 10;
+            gameWindow.setTitle("FPS " + fps);
+            if (fpsCap > 0 && fps > fpsCap) DELAY++;
             if(fpsCap > 0 && fps<fpsCap && DELAY>5) DELAY--;
 
             counter = 0;
@@ -91,7 +100,7 @@ public class JavaGameEngine{
         Toolkit.getDefaultToolkit().sync();
         Input.setScrollValue(0);
 
-        if(newScene){
+        if (newScene) {
             gameWindow.validate();
             selectedScene.start();
 
@@ -99,7 +108,10 @@ public class JavaGameEngine{
         }
     }
 
-    public static void start(){
+    /**
+     * Starts the game
+     */
+    public static void start() {
 
         //Set som basic properties
         gameWindow.setSize((int) size.getX(), (int) size.getY());
@@ -109,7 +121,7 @@ public class JavaGameEngine{
         selectedScene.start();
 
         while(true){
-             update();
+            update();
         }
 
     }

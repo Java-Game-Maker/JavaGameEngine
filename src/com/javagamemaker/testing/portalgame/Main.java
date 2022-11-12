@@ -1,4 +1,4 @@
-package testing.portalgame;
+package com.javagamemaker.testing.portalgame;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
@@ -6,7 +6,7 @@ import com.javagamemaker.javagameengine.components.CameraMovement;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.msc.Vector2;
-import testing.Player;
+import com.javagamemaker.testing.Player;
 
 public class Main extends JavaGameEngine {
 
