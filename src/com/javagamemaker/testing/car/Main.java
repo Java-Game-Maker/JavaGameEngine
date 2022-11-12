@@ -19,8 +19,7 @@ public class Main extends JavaGameEngine {
         Scene scene = new Scene();
         scene.add(new Car());
         scene.getCamera().add(new CameraMovement());
-        gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
-        gameWindow.setUndecorated(true);
+
         setSelectedScene(scene);
         start();
 

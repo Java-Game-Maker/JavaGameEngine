@@ -11,9 +11,8 @@ public class GameWorld extends JPanel {
     
     public GameWorld(){
         setLayout(new GridLayout(0, 1));
-        setBackground(Color.cyan);
+        setBackground(Color.WHITE);
         setFocusable(true);
-
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent e) {
