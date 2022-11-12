@@ -11,12 +11,16 @@ import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
+
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
         Scene scene = new Scene();
         scene.add(new Car());
         scene.getCamera().add(new CameraMovement());
+        gameWindow.setExtendedState(JFrame.MAXIMIZED_BOTH);
+        gameWindow.setUndecorated(true);
         setSelectedScene(scene);
         start();
 

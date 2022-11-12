@@ -6,6 +6,10 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 import javax.swing.*;
 import java.awt.*;
 
+/**
+ * This is the main class in the JavaGameEngine gameengine
+ * To start your game extend this class and run the start(); function to start the game
+ */
 public class JavaGameEngine{
 
     public static JavaGameEngine gameInstance;
