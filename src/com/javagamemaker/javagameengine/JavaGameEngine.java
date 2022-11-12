@@ -76,7 +76,7 @@ public class JavaGameEngine{
             fps = counter * 10;
             gameWindow.setTitle("FPS " + fps);
             if (fpsCap > 0 && fps > fpsCap) DELAY++;
-            if(fpsCap > 0 && fps<fpsCap && DELAY>5) DELAY--;
+            if (fpsCap > 0 && fps < fpsCap && DELAY > 5) DELAY--;
 
             counter = 0;
             time = now;
@@ -84,7 +84,7 @@ public class JavaGameEngine{
         counter++;
 
         // delta time is the time from previous frame (tick speed)
-        deltaTime = (now-prevTime)/10;
+        deltaTime = (now - prevTime) / 10;
         prevTime = now;
 
         try {
@@ -120,7 +120,7 @@ public class JavaGameEngine{
         gameWindow.setVisible(true);
         selectedScene.start();
 
-        while(true){
+        while (true) {
             update();
         }
 

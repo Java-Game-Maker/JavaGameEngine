@@ -56,17 +56,18 @@ public class Scene extends JPanel {
     }
 
     /**
+     *
      * @return list of all components in the scene
      */
     public ArrayList<Component> getComponents1() {
         return components;
     }
-
     public void setComponents(ArrayList<Component> components) {
         this.components = components;
     }
 
     /**
+     *
      * @return the scene camera
      */
     public Camera getCamera() {
@@ -76,7 +77,6 @@ public class Scene extends JPanel {
     public void setCamera(Camera camera) {
         this.camera = camera;
     }
-
     private float time = 0;
     private int lastSec = 0;
     private int lastMili = 0;
@@ -95,19 +95,19 @@ public class Scene extends JPanel {
         }
         if ((int) time / 10 > lastMili) {
             lastMili = (int) (time / 10);
-            for(Component component : components) {
+            for (Component component : components) {
                 component.updateMili();
             }
         }
-        for(Component component : components){
-            if(inside(component)) {
+        for (Component component : components) {
+            if (inside(component)) {
                 component.update();
             }
         }
 
         camera.update();
 
-        if(newComponents.size()>0){
+        if (newComponents.size() > 0) {
             components.addAll(newComponents);
             newComponents.clear();
         }
@@ -137,6 +137,7 @@ public class Scene extends JPanel {
     }
 
     /**
+     *
      * @param g the <code>Graphics</code> object to protect
      */
     @Override

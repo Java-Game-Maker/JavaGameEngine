@@ -153,7 +153,7 @@ public class Collider extends Component{
                     if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
                         Point collsionPoint = null; // the point which collided (null if not collided)
 
-                        if((collsionPoint=collision( c) )!=null) {
+                        if ((collsionPoint = collision(c)) != null) {
                             point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
                             CollisionEvent collisionEvent = new CollisionEvent(this, c, point);

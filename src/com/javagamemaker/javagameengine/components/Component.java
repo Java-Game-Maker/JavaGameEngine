@@ -35,9 +35,8 @@ public class Component {
     public Component(LinkedList<Vector2> localVertices){
         this.localVertices = localVertices;
     }
-
     public Component(){
-        localVertices = new Rect(100,100);
+       localVertices = new Rect(100, 100);
 
         vertices.add(new Vector2(-50,-50)); // top left
         vertices.add(new Vector2(-50,50)); // bottom left
@@ -249,7 +248,6 @@ public class Component {
      */
     public void updateMili(){
     }
-
     /**
      * This method updates all the values to the component
      */
@@ -261,15 +259,15 @@ public class Component {
                     if mouse is not inside, and we are previously we call mouse left
                  */
         Component prev = JavaGameEngine.getSelectedScene().hasA;
-        if(getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
-            if(isMouseInside()){
+        if (getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer())) {
+            if (isMouseInside()) {
                 onMouseInside();
-            } else{
+            } else {
                 onMouseEntered();
             }
             JavaGameEngine.getSelectedScene().hasA = this;
 
-        } else if(isMouseInside()){
+        } else if (isMouseInside()) {
             setMouseInside(false);
             onMouseLeft();
             JavaGameEngine.getSelectedScene().hasA = null;
@@ -279,7 +277,6 @@ public class Component {
             child.update();
         }
     }
-
     /**
      * @return polygon based on components vertices
      */
@@ -296,7 +293,6 @@ public class Component {
 
         return new Polygon(x,y,vertices.size());
     }
-
     /**
      *
      * @param type the specified type of the children to be returned
@@ -342,11 +338,9 @@ public class Component {
         }
         return null;
     }
-
     public Vector2 getBodyPosition(){
         return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
     }
-
     /**
      * class when a collision from a collider is triggered
      * @param collisionEvent information about the collision
@@ -364,7 +358,6 @@ public class Component {
     public void rotateTo(float angle, Vector2 pivot){
         rotate(angle-this.angle,pivot);
     }
-
     /**
      * rotates the local vertices to by the angle
      * @param angle the angle to rate the vertices with
@@ -375,14 +368,14 @@ public class Component {
 
         double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
         LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
-        for (int i = 0; i <localVertices.size(); i++){
+        for (int i = 0; i < localVertices.size(); i++) {
             Vector2 vertex = localVertices.get(i);
             // matrix rotation
             float[] matrix = {
                     (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
-                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians)) };
+                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
 
-            vertices1.add(new Vector2(matrix[0],matrix[1]));
+            vertices1.add(new Vector2(matrix[0], matrix[1]));
         }
         // set the localvertice to our new rotated matrix
 
@@ -393,9 +386,7 @@ public class Component {
 
         this.localVertices = vertices1;
     }
-
     Vector2 rotOffset = Vector2.zero;
-
     /**
      * rotates the localc vertices to by the angle
      * @param angle the angle to rate the vertice with
@@ -407,14 +398,14 @@ public class Component {
         double radians = Math.toRadians(angle); // turns to radians from angle
         LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
 
-        for (int i = 0; i <localVertices.size(); i++){
+        for (int i = 0; i < localVertices.size(); i++) {
             Vector2 vertex = localVertices.get(i).subtract(pivot);
 
             float[] matrix = {
                     (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
-                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians)) };
+                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
 
-            vertices1.add(new Vector2(matrix[0],matrix[1]).add(pivot));
+            vertices1.add(new Vector2(matrix[0], matrix[1]).add(pivot));
         }
         rotateChildren(angle, pivot);
         this.localVertices = vertices1;
@@ -479,7 +470,6 @@ public class Component {
             getParent().children.remove(this);
         }
     }
-
     /**
      * Renders the component
      * @param g what graphics to render to
@@ -512,7 +502,6 @@ public class Component {
      */
     public void save(){
     }
-
     public void load(){
 
     }

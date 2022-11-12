@@ -10,12 +10,13 @@ public class Input {
     private static final LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
     private static int mouseIsPressed = 1000;
-    private static Vector2 mousePosition=new Vector2(0,0);
-    private static Vector2 mousePositionOnCanvas =new Vector2(0,0);
     private static final LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
+    private static Vector2 mousePosition = new Vector2(0, 0);
     private static float scrollValue = 0;
+    private static Vector2 mousePositionOnCanvas = new Vector2(0, 0);
 
     private static MouseEvent mouseEvent = null;
+
     public static Vector2 getMousePosition() {
         return mousePosition;
     }
@@ -37,7 +38,6 @@ public class Input {
     public static void setMousePosition(Vector2 mousePosition) {
         Input.mousePosition = mousePosition;
     }
-
     public static void addMouseButton(MouseEvent e) {
         if (!isMouseDown(e.getButton()))
             mouseButtonDowns.add(Integer.valueOf(e.getButton()));
