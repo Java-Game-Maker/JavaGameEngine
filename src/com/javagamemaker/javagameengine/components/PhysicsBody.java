@@ -6,6 +6,10 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 
+/**
+ * The PhysicsBody is a component that gived physics to parent component in form of
+ * collision and gravity
+ */
 public class PhysicsBody extends Component{
 
     private boolean useGravity = false;
@@ -65,6 +69,10 @@ public class PhysicsBody extends Component{
         super.setPosition(position);
     }
 
+    /**
+     * add force to the body in form of a vector ((10,0) fo to the right)
+     * @param force to be added
+     */
     public void addForce(Vector2 force){
         //F=ma
         //a = f/mas
@@ -92,10 +100,13 @@ public class PhysicsBody extends Component{
         velocity = velocity.subtract(velocity.getNormalized().multiply(friction).multiply(JavaGameEngine.deltaTime));
         // remove rotationalforce
         rotationalForce = rotationalForce-(rotationalForce*0.01f);
-
-
     }
 
+    /**
+     * this function is called when a collision happends and is suppose to
+     * respond to the collision with physics
+     * @param event
+     */
     public void response(CollisionEvent event){
         try{
 
@@ -115,8 +126,6 @@ public class PhysicsBody extends Component{
                     (other.velocity.multiply(other.mass).add
                             ((me.velocity.subtract(other.velocity).multiply(me.mass)))).divide
                     (me.mass+other.mass));
-
-
         /*
             float f1 = newb.getX() - newb.getY();
             float f2 = newCb.getX() - newCb.getY();
@@ -132,14 +141,8 @@ public class PhysicsBody extends Component{
                 me.velocity = (!me.isFreeze())?newb:me.velocity;
                 other.velocity = (!other.isFreeze())?newCb:other.velocity;
             }
-
-
-
-
         }catch (NullPointerException e){
         }
-
-
     }
 
     @Override
@@ -150,12 +153,12 @@ public class PhysicsBody extends Component{
         g.setColor(color);
     }
 
+    /**
+     * @return current force applied (f=am)
+     */
     public Vector2 getForce(){
-
         Vector2 a = (velocity.subtract(velocity0)).divide((float) JavaGameEngine.deltaTime);
-
         return a.multiply(mass);
-
     }
 
 }

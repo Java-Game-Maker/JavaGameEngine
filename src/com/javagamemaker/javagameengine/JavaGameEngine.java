@@ -15,8 +15,13 @@ public class JavaGameEngine{
     public static final GameWorld gameWorld = new GameWorld();
     /** the scene that is renderned and updated*/
     static Scene selectedScene = new Scene();
-
+    /**
+     * this is the gravity constant
+     */
     public static Vector2 g = new Vector2(0,0.03982f);
+    /**
+     * default game window size
+     */
     public static Vector2 size = new Vector2(720,500);
     public static JFrame gameWindow = new JFrame();
 
