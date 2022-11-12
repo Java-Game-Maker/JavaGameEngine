@@ -10,7 +10,10 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 
-
+/**
+ * The sprite class is a component that is rendering an animation specified in loadAnimation
+ * The sprite has a list of animation which are a list of images
+ */
 public class Sprite extends Component {
 
     ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
@@ -42,6 +45,11 @@ public class Sprite extends Component {
     public float getTimer() {
         return timer;
     }
+
+    /**
+     *
+     * @param timer how long to next animation change
+     */
     public void setTimer(float timer) {
         this.timer = timer;
     }
@@ -105,6 +113,10 @@ public class Sprite extends Component {
          */
     }
 
+    /**
+     *
+     * @return the current image in the selected animation
+     */
     public BufferedImage getAnimation(){
         int spritesLen = animations.get(animationIndex).length;
         //Adds until timer then 0
@@ -157,6 +169,10 @@ public class Sprite extends Component {
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
         }
     }
+
+    /**
+     * triggers then a animation loop is done playing
+     */
     public void animationDone(){
 
     }
