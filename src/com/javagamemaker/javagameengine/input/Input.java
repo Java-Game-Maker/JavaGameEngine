@@ -17,6 +17,10 @@ public class Input {
 
     private static MouseEvent mouseEvent = null;
 
+    /**
+     *
+     * @return mouse position in world
+     */
     public static Vector2 getMousePosition() {
         return mousePosition;
     }
@@ -45,6 +49,10 @@ public class Input {
 
     }
 
+    /**
+     *
+     * @return mouse position of panel so top right = 0,0
+     */
     public static Vector2 getMousePositionOnCanvas() {
         return mousePositionOnCanvas;
     }

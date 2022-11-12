@@ -26,10 +26,17 @@ public class Collider extends Component{
         return trigger;
     }
 
+    /**
+     *
+     * @param trigger set it the collider should collide or just trigger when enter
+     */
     public void setTrigger(boolean trigger) {
         this.trigger = trigger;
     }
 
+    /**
+     * @param s the tag the collider should ignore
+     */
     public void addIgnoreTag(String s) {
         ignoreTags.add(s);
     }
@@ -40,16 +47,16 @@ public class Collider extends Component{
         return ignoreTags;
     }
     /**
-     * If true it will be renderd as a green outline
-     * @return true if it should be renderd
+     * If true it will be rendered as a green outline
+     * @return true if it should be rendered
      */
     public boolean isVisible() {
         return visible;
     }
 
     /**
-     * If true it will render as a green outline
-     * @param visible
+     * I
+     * @param visibl ef true it will render as a green outline
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
@@ -172,8 +179,6 @@ public class Collider extends Component{
                                 getParent().onCollisionEnter(collisionEvent);
                                 c.getParent().onCollisionEnter(collisionEvent);
                             }
-
-
                         }
                         else{
                             lastVerices = localVertices;

@@ -4,8 +4,12 @@ import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+/**
+ * This class holds information about a collision
+ * It holds the two colliders that was in the collision,
+ * the point that collision happened in
+ */
 public class CollisionEvent {
-
     Collider collider1;
     Collider collider2;
     PhysicsBody physicsBody1;

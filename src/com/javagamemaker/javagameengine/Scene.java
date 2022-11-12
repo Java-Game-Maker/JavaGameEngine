@@ -13,6 +13,11 @@ import java.util.List;
 
 /**
  * Scene is the level where the game is playing out. Scenes can be changed by calling JavaGameEngine.setSelectedScene(new Scene())
+ * <h1>to add components to the scene</h1>
+ * (before start) run myscene.add(new Component())
+ * (after start) myscene.instantiate(new Component())
+ * <h1>remove component</h1>
+ * (after start) myscene.destroy(new Component())
  */
 public class Scene extends JPanel {
     public LinkedList<Component> layerList = new LinkedList<>();

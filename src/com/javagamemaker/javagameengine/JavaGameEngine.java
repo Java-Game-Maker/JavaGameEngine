@@ -24,7 +24,11 @@ public class JavaGameEngine{
     public static Scene getSelectedScene() {
         return selectedScene;
     }
-    /** sets the scene that is inputed and sets it to the game world*/
+
+    /**
+     * Changes the active scene
+     * @param selectedScene new scene to
+     */
     public static void setSelectedScene(Scene selectedScene) {
         newScene = true;
         gameWorld.remove(getSelectedScene());
@@ -110,6 +114,7 @@ public class JavaGameEngine{
 
     /**
      * Starts the game
+     * call this last in your main function
      */
     public static void start() {
 

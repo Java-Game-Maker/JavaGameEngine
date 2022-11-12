@@ -13,6 +13,9 @@ import java.util.List;
 /**
  * This is the first element in the JavaGameEngine
  * it has a lot of functions as update, render positions scale shape
+ * the shape of the component is set by a number of points (localVerticies)
+ * there is classes in the com.javagamemaker.javagameengine.components.shapes package which
+ * are templates (rec, circle)
  */
 public class Component {
 

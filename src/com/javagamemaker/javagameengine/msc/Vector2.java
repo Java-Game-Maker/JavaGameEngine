@@ -54,7 +54,11 @@ public class Vector2 {
         return (float) Math.sqrt((double) this.x * (double) this.x + (double) this.y * (double) this.y);
     }
 
-    public Vector2 getNegative(){
+    /**
+     *
+     * @return (x,y) => (y,x)
+     */
+    public Vector2 getOpposite(){
         return new Vector2(y,x);
     }
 
@@ -77,7 +81,6 @@ public class Vector2 {
         return new Vector2( x- value,y - value);
     }
 
-
     public Vector2 getNormalized()
     {
         if(getHighest()!=0)
@@ -89,6 +92,11 @@ public class Vector2 {
         return Math.max(Math.abs(x), Math.abs(y));
     }
 
+    /**
+     * distance between this and param
+     * @param vector2 next point
+     * @return distance as double
+     */
     public double getDistance(Vector2 vector2)
     {
         return Math.sqrt(Math.pow(Math.abs(vector2.getY()-y),2)+Math.pow(Math.abs(vector2.getX()-x),2));
