@@ -38,7 +38,7 @@ public class Collider extends Component{
      * @param s the tag the collider should ignore
      */
     public void addIgnoreTag(String s) {
-        ignoreTags.add(s);
+        this.ignoreTags.add(s);
     }
     public void removeIgnoreTag(String s){
         ignoreTags.remove(s);
@@ -55,8 +55,7 @@ public class Collider extends Component{
     }
 
     /**
-     * I
-     * @param visibl ef true it will render as a green outline
+     * @param visible if true it will render as a green outline
      */
     public void setVisible(boolean visible) {
         this.visible = visible;
@@ -158,8 +157,8 @@ public class Collider extends Component{
                 for(Component colliderHolder : component.getChildren(new Collider())){
                     Collider c = (Collider) colliderHolder;
                     if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
-                        Point collsionPoint = null; // the point which collided (null if not collided)
 
+                        Point collsionPoint = null; // the point which collided (null if not collided)
                         if ((collsionPoint = collision(c)) != null) {
                             point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
@@ -173,7 +172,7 @@ public class Collider extends Component{
                                     PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
                                     me.response(collisionEvent); // responde with physics
                                 } catch (NullPointerException e) {
-                                    Debug.log(getFirstParent() + " has no physicsbody to respond to the collision ");
+                                    //Debug.log(getFirstParent().getClass().getName() + " has no physicsbody to respond to the collision ");
                                 }
                                 // calls events
                                 getParent().onCollisionEnter(collisionEvent);

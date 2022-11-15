@@ -36,7 +36,7 @@ public class GameWorld extends JPanel {
                 super.mousePressed(e);
                 Input.addMouseButton(e);
                 Input.setMouseEvent(e);
-
+                Input.setMousePressed(e.getButton());
             }
             @Override
             public void mouseReleased(MouseEvent e) {

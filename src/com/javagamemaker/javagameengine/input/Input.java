@@ -76,7 +76,7 @@ public class Input {
     }
 
     public static boolean isMousePressed(){
-        return mouseIsPressed!=1000;
+        return mouseIsPressed !=1000;
     }
 
     /**

@@ -151,7 +151,6 @@ public class Sprite extends Component {
 
     @Override
     public void render(Graphics2D g) {
-        super.render(g);
         if(visible){
             AffineTransform backup = g.getTransform();
             AffineTransform trans = new AffineTransform();
@@ -165,9 +164,9 @@ public class Sprite extends Component {
                     null);  // the actual location of the sprite
 
             g.setTransform( backup ); // restore previous transform
-
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
         }
+        super.render(g);
     }
 
     /**
