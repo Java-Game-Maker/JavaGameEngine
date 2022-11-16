@@ -165,7 +165,7 @@ public class Collider extends Component{
                             CollisionEvent collisionEvent = new CollisionEvent(this, c, point);
                             if (isTrigger() && c.isTrigger()) {
                                 getParent().onTriggerEnter(collisionEvent);
-                                c.getParent().onTriggerEnter(collisionEvent);
+                                //c.getParent().onTriggerEnter(collisionEvent);
                             } else {
                                 moveBack(c, point); // move the object back
                                 try {
@@ -176,7 +176,7 @@ public class Collider extends Component{
                                 }
                                 // calls events
                                 getParent().onCollisionEnter(collisionEvent);
-                                c.getParent().onCollisionEnter(collisionEvent);
+                                //c.getParent().onCollisionEnter(collisionEvent);
                             }
                         }
                         else{
