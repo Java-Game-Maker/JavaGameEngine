@@ -21,6 +21,7 @@ public class Tank extends Sprite {
             c.setTag(getClass().getName());
             c.setTrigger(true);
             add(c);
+        //  add(new Collider());
             setPosition(pos);
             tag = "player";
 

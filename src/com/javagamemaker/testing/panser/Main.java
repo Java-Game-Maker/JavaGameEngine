@@ -43,7 +43,6 @@ public class Main extends JavaGameEngine {
             public void update() {
                 if(Input.isMousePressed(Keys.RIGHTCLICK)){
                     Bot b = new Bot(Input.getMousePosition());
-                    Debug.log(getComponents1().size());
                     instantiate(b);
                 }
                 super.update();
@@ -51,6 +50,10 @@ public class Main extends JavaGameEngine {
         };
         s.getCamera().add(new CameraMovement());
         s.add(tank);
+        Wall w = new Wall();
+        w.setPosition(new Vector2(-200,100));
+        s.add(w);
+
         for(int in = 0;in < 5; in++){
             s.add(new Bot(new Vector2(200,(in*110)-400)));
         }

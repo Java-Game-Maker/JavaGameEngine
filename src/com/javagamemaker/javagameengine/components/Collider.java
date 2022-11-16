@@ -203,7 +203,7 @@ public class Collider extends Component{
             g.drawPolygon(getPolygon());
             g.setColor(Color.red);
             Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
-            /*if(point != null)
+            /*if(point != null) 1öp
                 g.fillOval((int) point.getX(), (int) point.getY(),10,10);*/
             g.setColor(c);
 

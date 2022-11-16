@@ -59,7 +59,7 @@ public class Bot extends Tank{
             setPosition(getPosition().add(Vector2.getDirection(angle-90)));
         }
 
-        float value = (getPosition().lookAt(Main.tank.getPosition())-90-head.getAngle())+ new Random().nextFloat(0,40);
+        float value = (getPosition().lookAt(Main.tank.getPosition())-90-head.getAngle())+ new Random().nextFloat(0,10   );
         head.rotate(value/50,new Vector2(0,-10));
     }
 
