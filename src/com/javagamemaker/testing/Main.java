@@ -4,6 +4,8 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -15,21 +17,26 @@ import java.awt.event.ActionListener;
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args) {
-
-        Scene s = new Scene();
-        JTextField t = new JTextField();
-        JButton b =  new JButton("Test");
-        b.addActionListener(new ActionListener() {
+        JPanel p = new JPanel();
+        p.setLayout(new BorderLayout());
+        Scene s = new Scene(){
             @Override
-            public void actionPerformed(ActionEvent e) {
-                Debug.log("asd");
+            public void update() {
+            super.update();
+            if(Input.isKeyPressed(Keys.E)){
+                p.setVisible(!p.isVisible());
             }
-        });
-        b.setLocation(new Point(100,100));
-        b.setSize(100,100);
-        s.add(b);
-        t.setLocation(100,150);
-        t.setSize(100,50);
+
+            }
+        };
+        JTextField t = new JTextField();
+        t.setSize(199,19);
+        p.add(t);
+        p.add(new JButton("Subbmit"));
+
+        p.setSize(100,100);
+        p.setLocation(100,100);
+        s.add(p);
 
         setSelectedScene(s);
         start();

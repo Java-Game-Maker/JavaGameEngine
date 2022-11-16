@@ -1,6 +1,7 @@
 package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
@@ -40,8 +41,18 @@ public class JavaGameEngine{
      */
     public static void setSelectedScene(Scene selectedScene) {
         newScene = true;
+
+        for(Component c : getSelectedScene().getUiElements()){
+            gameWorld.remove(c);
+        }
+
         gameWorld.remove(getSelectedScene());
         selectedScene.startScene();
+        for(Component c : selectedScene.getUiElements()){
+            Debug.log(c.toString());
+            gameWorld.add(c);
+        }
+
         gameWorld.add(selectedScene);
         JavaGameEngine.selectedScene = selectedScene;
     }
@@ -128,6 +139,7 @@ public class JavaGameEngine{
     public static void start() {
 
         //Set som basic properties
+        gameWorld.setLayout(null);
         gameWindow.setSize((int) size.getX(), (int) size.getY());
         gameWindow.setContentPane(gameWorld);
         gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
@@ -136,6 +148,7 @@ public class JavaGameEngine{
 
         while (true) {
             update();
+            getSelectedScene().setSize(gameWorld.getSize());
         }
 
     }

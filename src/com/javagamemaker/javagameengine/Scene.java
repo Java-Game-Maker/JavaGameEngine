@@ -24,11 +24,11 @@ public class Scene extends JPanel {
     private ArrayList<Component> components = new ArrayList<>();
     private final LinkedList<Component> newComponents = new LinkedList<>();
     private final LinkedList<Component> remove = new LinkedList<>();
+    private LinkedList<java.awt.Component> uiElements = new LinkedList<>();
     Camera camera = new Camera();
 
     public Scene() {
         setBackground(new Color(40, 125, 255));
-        setLayout(null);
     }
 
     /**
@@ -52,6 +52,22 @@ public class Scene extends JPanel {
     }
 
     /**
+     *
+     * @return list of all ui in the scene
+     */
+    public LinkedList<java.awt.Component> getUiElements() {
+        return uiElements;
+    }
+
+    /**
+     * sets the ui list with the param
+     * @param uiElements list to set to
+     */
+    public void setUiElements(LinkedList<java.awt.Component> uiElements) {
+        this.uiElements = uiElements;
+    }
+
+    /**
      * Adds a new component to the scene
      * DONT USE THIS WHILE THE GAME IS RUNNING USE instantiate INSTEAD
      *
@@ -59,6 +75,28 @@ public class Scene extends JPanel {
      */
     public void add(Component component) {
         components.add(component);
+    }
+
+    /**
+     * For ui adding. This will add ui to the gameworld
+     * @param comp   the component to be added
+     * @return       the arbument
+     */
+    @Override
+    public java.awt.Component add(java.awt.Component comp) {
+       // JavaGameEngine.gameWorld.add(comp);
+        uiElements.add(comp);
+        return comp;
+    }
+
+    /**
+     * for ui removal
+     * @param comp the component to be removed
+     */
+    @Override
+    public void remove(java.awt.Component comp) {
+      //  JavaGameEngine.gameWorld.remove(comp);
+        uiElements.remove(comp);
     }
 
     /**

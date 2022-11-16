@@ -37,6 +37,7 @@ public class GameWorld extends JPanel {
                 Input.addMouseButton(e);
                 Input.setMouseEvent(e);
                 Input.setMousePressed(e.getButton());
+                requestFocus();
             }
             @Override
             public void mouseReleased(MouseEvent e) {
@@ -57,7 +58,7 @@ public class GameWorld extends JPanel {
                 super.mouseMoved(e);
                 Input.setMousePositionOnCanvas(new Vector2((float) e.getPoint().getX(), (float) e.getPoint().getY()));
                 Input.setMouseEvent(e);
-
+                requestFocus();
             }
             @Override
             public void mouseWheelMoved(MouseWheelEvent e) {
