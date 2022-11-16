@@ -4,18 +4,34 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args) {
-        PhysicsTest t = new PhysicsTest();
-        setSelectedScene(t);
 
+        Scene s = new Scene();
+        JTextField t = new JTextField();
+        JButton b =  new JButton("Test");
+        b.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                Debug.log("asd");
+            }
+        });
+        b.setLocation(new Point(100,100));
+        b.setSize(100,100);
+        s.add(b);
+        t.setLocation(100,150);
+        t.setSize(100,50);
 
-
+        setSelectedScene(s);
         start();
     }
 
