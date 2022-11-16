@@ -15,14 +15,21 @@ import java.awt.*;
 
 public class Tank extends Sprite {
         Sprite head = new Sprite();
+        int health = 10;
         public Tank(Vector2 pos, Vector2 img){
             loadAnimation(new Rectangle[]{new Rectangle((int) img.getX()*150, (int) img.getY()*210,150,180)},"/2.png");
             Collider c = new Collider(false);
             c.setTag(getClass().getName());
             c.setTrigger(true);
             add(c);
-        //  add(new Collider());
             setPosition(pos);
+
+            head.loadAnimation(new String[]{"/head.png"});
+            //head.setParentOffset(new Vector2(0,10));
+            add(head);
+           // head.setScale(new Vector2(80,80));
+
+        //  add(new Collider());
             tag = "player";
 
         }
@@ -30,10 +37,7 @@ public class Tank extends Sprite {
     @Override
     public void start() {
         super.start();
-        head.loadAnimation(new String[]{"/head.png"});
-        head.setParentOffset(new Vector2(0,10));
-        add(head);
-        head.setScale(new Vector2(80,80));
+
 
     }
 
@@ -54,28 +58,44 @@ public class Tank extends Sprite {
                 angle = -90;
                 setPosition(getPosition().add(Vector2.right));
             }
-            if(Input.isMousePressed(Keys.LEFTCLICK)){
-                Explosion e = new Explosion(getPosition(),Main.animations.animations);
+            if(Input.isKeyPressed(Keys.SPACE)){
+                Explosion e = new Explosion(getPosition().add(Vector2.getDirection(head.getAngle()+90).multiply(40).add(head.getParentOffset())),Main.animations.animations);
                 e.setScale(new Vector2(50,50));
+
                 JavaGameEngine.getSelectedScene().instantiate(e);
                 JavaGameEngine.getSelectedScene().instantiate(new Bullet(getPosition(),head.getAngle(),getChild(new Collider()).getTag()));
             }
-            float value = (getPosition().lookAt(Input.getMousePosition())-90-head.getAngle());
-            head.rotate(value/50,new Vector2(0,-10));
+        if(Input.isKeyDown(Keys.E)){
+            head.rotate(1,new Vector2(0,-10));
+        }
+        if(Input.isKeyDown(Keys.Q)){
+            head.rotate(-1,new Vector2(0,-10));
+        }
 
         }
 
-        @Override
+    @Override
+    public void updateSecond() {
+        super.updateSecond();
+
+    }
+
+    @Override
         public void update() {
             super.update();
             doAction();
+
         }
 
         @Override
         protected void onTriggerEnter(CollisionEvent collisionEvent) {
             super.onTriggerEnter(collisionEvent);
-            JavaGameEngine.getSelectedScene().instantiate(new Explosion(getPosition(),Main.animations.animations));
             collisionEvent.getCollider1().getFirstParent().destroy();
-            destroy();
+            JavaGameEngine.getSelectedScene().instantiate(new Explosion(getPosition(),Main.animations.animations));
+
+            if(health<=0){
+                destroy();
+            }
+            health--;
         }
 }

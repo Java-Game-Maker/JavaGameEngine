@@ -1,6 +1,7 @@
 package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
@@ -17,7 +18,6 @@ public class GameWorld extends JPanel {
             @Override
             public void keyPressed(KeyEvent e) {
                 super.keyPressed(e);
-
                 Input.addKey(e);
             }
             @Override

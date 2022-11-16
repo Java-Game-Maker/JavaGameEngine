@@ -74,6 +74,7 @@ public class Keys {
     public static final int CTRL = 17;
 
     public static final int ALT = 18;
+    public static final int ALTGR = 65406;
 
 
     public static final int LEFTCLICK = 1;

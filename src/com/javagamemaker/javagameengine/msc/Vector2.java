@@ -128,19 +128,21 @@ public class Vector2 {
     public float lookAt(Vector2 toLookAt)
     {
         float angle;
-        if((toLookAt.getX()>getX())){
-            float b = getX()-toLookAt.getX();
-            float a = getY()-toLookAt.getY();
-            //a/b=tan v
-            //System.out.println("a; "+a+"b: "+b);
-             angle = (float) Math.toDegrees(Math.atan(a/b));
+
+        float b = getX()-toLookAt.getX();
+        float a = getY()-toLookAt.getY();
+        //a/b=tan v
+        //System.out.println("a; "+a+"b: "+b);
+        if(b == 0)
+            return 0;
+
+        if (toLookAt.getX()>getX()){
+            angle = (float) Math.toDegrees(Math.atan(a/b));
         }else{
-            float b = getX()-toLookAt.getX();
-            float a = getY()-toLookAt.getY();
-            //a/b=tan v
-            //System.out.println("a; "+a+"b: "+b);
-            angle = 180+(float) Math.toDegrees(Math.atan(a/b));
+            angle = (float) Math.toDegrees(Math.atan(a/b))+180;
         }
+
+
         return angle;
     }
     public static double angleFromOriginCounterClockwise(Vector2 a) {
