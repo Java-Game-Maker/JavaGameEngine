@@ -574,8 +574,9 @@ public class Component implements Serializable {
     private Vector2 prev = null;
 
     public void debugUpdate() {
+        //updateVertices();
         this.checkMouse();
-        for (final Component c : this.getChildren()) {
+        for (Component c : this.getChildren()) {
             c.debugUpdate();
         }
         if (Input.isMousePressed(1) && this.mouseInside) {
