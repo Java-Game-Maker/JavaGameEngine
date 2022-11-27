@@ -74,22 +74,12 @@ public class Keys {
     public static final int CTRL = 17;
 
     public static final int ALT = 18;
-    public static final int ALTGR = 65406;
 
+    public static final int DEL = 127;
 
     public static final int LEFTCLICK = 1;
     public static final int RIGHTCLICK = 3;
     public static final int MIDDLECLICK = 2;
 
-    public static final int ONE  = 49;
-    public static final int TWO  = 50;
-    public static final int THREE= 51;
-    public static final int FOUR = 52;
-    public static final int FIVE = 53;
-    public static final int SIX  = 54;
-    public static final int SEVEN= 55;
-    public static final int EIGHT= 56;
-    public static final int NINE = 57;
-    public static final int ZERO = 48;
 
 }

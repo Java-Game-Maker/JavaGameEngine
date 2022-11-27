@@ -3,10 +3,19 @@ package com.javagamemaker.javagameengine;
 import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.components.*;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -19,34 +28,45 @@ import java.util.List;
  * <h1>remove component</h1>
  * (after start) myscene.destroy(new Component())
  */
+
 public class Scene extends JPanel {
     public LinkedList<Component> layerList = new LinkedList<>();
     private ArrayList<Component> components = new ArrayList<>();
-    private final LinkedList<Component> newComponents = new LinkedList<>();
-    private final LinkedList<Component> remove = new LinkedList<>();
+    private LinkedList<Component> newComponents = new LinkedList<>();
+    private LinkedList<Component> remove = new LinkedList<>();
     private LinkedList<java.awt.Component> uiElements = new LinkedList<>();
-    Camera camera = new Camera();
 
-    public Scene() {
-        setBackground(new Color(40, 125, 255));
+    Camera camera = new Camera();
+    private Component selectedComponent;
+    public Component childSelected; // selects when selecgedn and pressing c
+    boolean debugMode = true;
+    public Vector2 gridSnapping = new Vector2(10,10);
+    public Vector2 scaleGridSnapping = new Vector2(10,10);
+
+    public Scene(){
+        setBackground(new Color(40,125,255));
     }
 
-    /**
-     * @param component the new component to be added to the scene
-     */
-    public void instantiate(Component component) {
+    public void reload(){
+        start();
+    }
+
+    public void instantiate(Component component){
         component.start();
         newComponents.add(component);
     }
 
-    public void startScene() {
-        camera.setScale(new Vector2(1, 1));
-        camera.setPosition(new Vector2(0, 0));
+    public void startScene(){
+        camera.setScale(new Vector2(1,1));
+        camera.setPosition(new Vector2(0,0));
     }
 
-    public void start() {
+    public void start(){
+        if(debugMode){
+            camera.add(new CameraMovement());
+        }
         camera.start();
-        for (Component c : getComponents1()) {
+        for(Component c : getComponents1()){
             c.start();
         }
     }
@@ -114,8 +134,23 @@ public class Scene extends JPanel {
      *
      * @return the scene camera
      */
+    public Component getSelectedComponent() {
+        return selectedComponent;
+    }
+
+    public void setSelectedComponent(Component selectedComponent) {
+        this.selectedComponent = selectedComponent;
+    }
+
     public Camera getCamera() {
         return camera;
+    }
+
+    public boolean isDebugMode() {
+        return debugMode;
+    }
+    public void setDebugMode(boolean debugMode) {
+        this.debugMode = debugMode;
     }
 
     public void setCamera(Camera camera) {
@@ -125,32 +160,32 @@ public class Scene extends JPanel {
     private int lastSec = 0;
     private int lastMili = 0;
     public Component hasA = null;
+    public void update(){
 
-    /**
-     * Updates all the components and calculates delta time and fps
-     */
-    public void update() {
         time += JavaGameEngine.deltaTime;
-        if ((int) time / 100 > lastSec) {
-            lastSec = (int) (time / 100);
-            for (Component component : components) {
-                component.updateSecond();
+        if((int) time/100 > lastSec){
+            lastSec = (int) (time/100);
+            for(Component component : components) {
+                component.updateSecund();
             }
         }
-        if ((int) time / 10 > lastMili) {
-            lastMili = (int) (time / 10);
-            for (Component component : components) {
+        if((int) time/10 > lastMili){
+            lastMili = (int) (time/10);
+            for(Component component : components) {
                 component.updateMili();
             }
         }
-        for (Component component : components) {
-            if (inside(component)) {
-                component.update();
+        for(Component component : components){
+            if(inside(component)) {
+                if(!debugMode) {
+                    component.update();
+                }else{
+                    component.debugUpdate();
+                }
             }
         }
 
         camera.update();
-
         if (newComponents.size() > 0) {
             components.addAll(newComponents);
             newComponents.clear();
@@ -159,6 +194,7 @@ public class Scene extends JPanel {
             components.removeAll(remove);
             remove.clear();
         }
+        debugUpdate();
         Input.setMousePressed(1000);
     }
 
@@ -179,10 +215,51 @@ public class Scene extends JPanel {
         //return JavaGameEngine.getSelectedScene().getCamera().getPosition().add(component.getPosition()).getMagnitude()<JavaGameEngine.getWindowSize().getMagnitude();
     }
 
-    /**
-     *
-     * @param g the <code>Graphics</code> object to protect
-     */
+    private void debugUpdate(){
+        if(Input.isKeyPressed(Keys.SPACE)){
+            Debug.log("instantiate");
+            GameObject g = new GameObject();
+            g.setPosition(Input.getMousePosition());
+            Debug.log(g.getPosition());
+            instantiate(g);
+        }
+
+        if(Input.isKeyDown(Keys.DEL) && selectedComponent!=null){
+            if(selectedComponent.getParent() == null)
+                components.remove(selectedComponent);
+            else
+                selectedComponent.destroy();
+
+            selectedComponent = null;
+            hasA = null;
+        }
+        if(selectedComponent !=null && childSelected !=null && Input.isKeyPressed(Keys.SPACE)){
+            if(childSelected.getParent() == null)
+                components.remove(childSelected);
+            else
+                childSelected.destroy();
+            if(selectedComponent.getParent()==null)
+                childSelected.setParentOffset(childSelected.getPosition().subtract(selectedComponent.getPosition()));
+            else
+                childSelected.setParentOffset(childSelected.getPosition().subtract(selectedComponent.getPosition()));
+
+            selectedComponent.add(childSelected);
+        }
+
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.S)) {
+            save();
+        }
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyDown(Keys.X)) {
+            Debug.log("copied");
+            copyComp = selectedComponent;
+        }
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.V)) {
+            Component c = copyComp.clone();
+            c.setPosition(Input.getMousePosition());
+            components.add(c);
+        }
+    }
+    private Component copyComp = null;
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
@@ -207,6 +284,26 @@ public class Scene extends JPanel {
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
 
+        if(debugMode){
+
+            //lines through zero
+
+            int x1 = 0;
+            int x2 = 0;
+            int y1 = (int) ((int) (camera.getPosition().getY()+JavaGameEngine.getWindowSize().getY())/getCamera().getScale().getY());
+            int y2 = -(int) ((int) (camera.getPosition().getY()+JavaGameEngine.getWindowSize().getY())/getCamera().getScale().getY());
+
+            g.drawLine(x1,y1,x2,y2);
+
+            int x11 = (int) ((int) (camera.getPosition().getX()+JavaGameEngine.getWindowSize().getX())/getCamera().getScale().getX());
+            int x21 = -(int) ((int) (camera.getPosition().getX()+JavaGameEngine.getWindowSize().getX())/getCamera().getScale().getX());
+            int y11 = 0;
+            int y21 = 0;
+
+            g.drawLine(x11,y11,x21,y21);
+
+        }
+
         Input.setMousePosition(new Vector2(x,y));
         List<Component> list = components;
         /*Collections.sort(list, new Comparator<Component>() {
@@ -216,14 +313,54 @@ public class Scene extends JPanel {
             }
         });*/
         try{
+            int i = 0;
             for(Component c : list){
-                if(inside(c)) {
+                if(inside(c) && i<=100) {
                     (c).render(graphics2D);
                 }
-
+                i++;
             }
         }catch (Exception e){
+        
+        }
+    }
 
+    public void save() {
+        FileOutputStream fos = null;
+        ObjectOutputStream out = null;
+        try {
+            fos = new FileOutputStream("filename",false);
+            out = new ObjectOutputStream(fos);
+            out.writeObject(components);
+            out.close();
+            Debug.log("Saved");
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+    }
+    public void load(){
+        FileInputStream fos;
+        try {
+            fos = new FileInputStream("filename");
+            ObjectInputStream oos = new ObjectInputStream(fos);
+
+            for(Component c : (LinkedList<Component>) oos.readObject()){
+                if(c.getClass() == Sprite.class){
+                    LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;
+                    ((Sprite) c).tiles = new LinkedList<>();
+                    ((Sprite) c).animations = new ArrayList<>();
+                    ((Sprite) c).animations1 = new ArrayList<>();
+
+                    for(Rectangle[] animation : oldTiles){
+                        ((Sprite) c).loadAnimation(animation,((Sprite)c).spriteSheetString);
+                    }
+                }
+                components.add(c);
+            }
+            fos.close();
+        }
+        catch (Exception e){
+            e.printStackTrace();
         }
     }
 }

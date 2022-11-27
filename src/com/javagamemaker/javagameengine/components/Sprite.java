@@ -1,6 +1,5 @@
 package com.javagamemaker.javagameengine.components;
 
-import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.imageio.ImageIO;
@@ -9,22 +8,23 @@ import java.awt.geom.AffineTransform;
 import java.awt.image.BufferedImage;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.LinkedList;
 
-/**
- * The sprite class is a component that is rendering an animation specified in loadAnimation
- * The sprite has a list of animation which are a list of images
- */
-public class Sprite extends Component {
 
-    ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
-    public ArrayList<BufferedImage[]> animations = new ArrayList<>();
-    BufferedImage spriteSheet;
+public class Sprite extends Component implements Serializable {
+
+    transient public ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
+    transient public ArrayList<BufferedImage[]> animations = new ArrayList<>();
+    transient BufferedImage spriteSheet;
     public int animationIndex = 0;
     private float spriteCounter;
     float timer = 10;
     int currentSprite = 0;
     boolean inverted = false;
+    public LinkedList<Rectangle[]> tiles = new LinkedList<>();
+    public String spriteSheetString = "";
 
     public Sprite(){}
 
@@ -36,6 +36,14 @@ public class Sprite extends Component {
         return inverted;
     }
 
+    public Sprite(Sprite c){
+        super();
+        animations = c.animations;
+        animationIndex = c.animationIndex;
+        angle = c.angle;
+        timer = c.timer;
+    }
+
     public void setInverted(boolean inverted) {
         if(inverted){
 
@@ -43,14 +51,57 @@ public class Sprite extends Component {
         this.inverted = inverted;
     }
 
+    public ArrayList<BufferedImage[]> getAnimations1() {
+        return animations1;
+    }
+
+    public void setAnimations1(ArrayList<BufferedImage[]> animations1) {
+        this.animations1 = animations1;
+    }
+
+    public ArrayList<BufferedImage[]> getAnimations() {
+        return animations;
+    }
+
+    public void setAnimations(ArrayList<BufferedImage[]> animations) {
+        this.animations = animations;
+    }
+
+    public BufferedImage getSpriteSheet() {
+        return spriteSheet;
+    }
+
+    public void setSpriteSheet(BufferedImage spriteSheet) {
+        this.spriteSheet = spriteSheet;
+    }
+
+    public int getAnimationIndex() {
+        return animationIndex;
+    }
+
+    public void setAnimationIndex(int animationIndex) {
+        this.animationIndex = animationIndex;
+    }
+
+    public float getSpriteCounter() {
+        return spriteCounter;
+    }
+
+    public void setSpriteCounter(float spriteCounter) {
+        this.spriteCounter = spriteCounter;
+    }
+
+    public int getCurrentSprite() {
+        return currentSprite;
+    }
+
+    public void setCurrentSprite(int currentSprite) {
+        this.currentSprite = currentSprite;
+    }
+
     public float getTimer() {
         return timer;
     }
-
-    /**
-     *
-     * @param timer how long to next animation change
-     */
     public void setTimer(float timer) {
         this.timer = timer;
     }
@@ -62,6 +113,9 @@ public class Sprite extends Component {
      */
     public void loadAnimation(Rectangle[] tiles,String spriteSheetPath){
         BufferedImage sprite = null;
+        spriteSheetString = spriteSheetPath;
+        this.tiles.add(tiles);
+
         try {
             InputStream in = this.getClass().getResourceAsStream(spriteSheetPath);
             sprite = ImageIO.read(in);
@@ -97,7 +151,7 @@ public class Sprite extends Component {
             } catch (IOException e) {
                 e.printStackTrace();
             }
-            //add image to temp animation
+            //add image to temp animation.an
             images[i] = sprite;
         }
         animations.add(images);
@@ -114,14 +168,10 @@ public class Sprite extends Component {
          */
     }
 
-    /**
-     *
-     * @return the current image in the selected animation
-     */
     public BufferedImage getAnimation(){
         int spritesLen = animations.get(animationIndex).length;
         //Adds until timer then 0
-        spriteCounter = (spriteCounter + 1 >= timer) ? 0 : (spriteCounter + 1);
+        spriteCounter = (spriteCounter+1 >=timer) ? 0 : (float) (spriteCounter + 1 );
         //Sets the current sprite index (the image that will be displayed)
         currentSprite = (((currentSprite + 1) >= spritesLen) && (spriteCounter >= (timer- 1))) ?
                 0 :
@@ -152,27 +202,24 @@ public class Sprite extends Component {
 
     @Override
     public void render(Graphics2D g) {
+        super.render(g);
         if(visible){
-            super.render(g);
             AffineTransform backup = g.getTransform();
             AffineTransform trans = new AffineTransform();
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
             g.transform( trans );
-            g.drawImage(getAnimation(),
-                    (int) (getPosition().getX() - getScale().divide(2).getX()),
-                    (int) (getPosition().getY() - getScale().divide(2).getY()),
+            g.drawImage((Image) getAnimation(),
+                    (int) (getPosition().getX()-getScale().divide(2).getX()),
+                    (int) (getPosition().getY()-getScale().divide(2).getY()),
                     (int) getScale().getX(),
                     (int) getScale().getY(),
                     null);  // the actual location of the sprite
 
             g.setTransform( backup ); // restore previous transform
+
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
         }
     }
-
-    /**
-     * triggers then a animation loop is done playing
-     */
     public void animationDone(){
 
     }
@@ -189,11 +236,8 @@ public class Sprite extends Component {
     private Vector2 pivot = Vector2.zero;
     @Override
     public void rotate(float angle, Vector2 pivot) {
-        this.angle += angle;
+        this.angle += angle ;
         this.pivot = pivot;
-        for(Component child : children){
-            child.rotate((float) (angle ),child.parentOffset.multiply(-1));
-        }
     }
 
     public BufferedImage rotate(double angle, BufferedImage image) {
@@ -220,4 +264,43 @@ public class Sprite extends Component {
         // Return rotated buffer image
         return((newImage));
     }
+
+    public void setTiles(LinkedList<Rectangle[]> tiles) {
+        this.tiles = tiles;
+    }
+
+    public LinkedList<Rectangle[]> getTiles() {
+        return tiles;
+    }
+
+    public String getSpriteSheetString() {
+        return spriteSheetString;
+    }
+
+    public void setSpriteSheetString(String spriteSheetString) {
+        this.spriteSheetString = spriteSheetString;
+    }
+
+    public Sprite clone() {
+        Sprite c = new Sprite();
+        c.setPosition(getPosition());
+        c.setScale(getScale());
+        c.setTag(getTag());
+        c.setChildren(getChildren());
+        c.setParentOffset(getParentOffset());
+        c.setParent(getParent());
+        c.setLocalVertices(getLocalVertices());
+        c.setVisible(isVisible());
+        c.setLayer(layer);
+        c.setPrevPosition(getPrevPosition());
+        c.setAnimations(animations);
+        c.setTimer(timer);
+        c.setAngle(angle);
+        c.setAnimationIndex(animationIndex);
+        c.setInverted(inverted);
+        c.setTiles(tiles);
+        c.setSpriteSheetString(spriteSheetString);
+        return c;
+    }
+
 }

@@ -2,66 +2,42 @@ package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.javagamemaker.javagameengine.components.*;
-import com.javagamemaker.javagameengine.components.Component;
-import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.input.Keys;
+import com.javagamemaker.javagameengine.components.GameObject;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
-import javax.swing.*;
-import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-
 public class Main extends JavaGameEngine {
 
-    public static void main(String[] args) {
+    public static void main(String[] args){
 
-        setSelectedScene(new PhysicsTest());
+        Scene scene1 = new Scene(){
+            @Override
+            public void start() {
+                super.start();
+                getCamera().setScale(new Vector2(2,2));
+                //getCamera().setPosition(new Vector2(100,0));
+            }
+
+            @Override
+            public void update() {
+                super.update();
+                Debug.log(getComponents1().size());
+            }
+        };
+        //scene1.load();
+
+        //scene1.add(new GameObject());
+
+        scene1.setDebugMode(true);
+
+       // scene1.add(new GameObject());
+
+        setSelectedScene(scene1);
+
+        JavaGameEngine.size = new Vector2(1920/2,1080/2);
+
         start();
     }
 
-    static class PhysicsTest extends Scene{
-        public PhysicsTest(){
-            this.getCamera().add(new CameraMovement());
-            GameObject g = new GameObject();
-            g.add(new Collider());
-            g.setScale(new Vector2(1000,100));
-            g.setPosition(new Vector2(0,200));
-            add(g);
-
-            GameObject g1 = new GameObject();
-            g1.add(new Collider());
-            g1.setScale(new Vector2(100,100));
-            g1.setPosition(new Vector2(100,50));
-            add(g1);
-
-            GameObject player = new GameObject(){
-                @Override
-                public void update() {
-                    super.update();
-                    if(Input.isKeyDown(Keys.A)){
-                        translate(Vector2.left);
-                    }
-                    if(Input.isKeyDown(Keys.D)){
-                        Debug.log("d");
-                        translate(Vector2.right);
-                    }
-
-                    if(Input.isKeyPressed(Keys.SPACE)){
-                        ((PhysicsBody) getChild(new PhysicsBody())).addForce(Vector2.up.multiply(50));
-                    }
-                }
-            };
-            player.add(new Collider());
-            player.add(new PhysicsBody(true));
-            add(player);
-        }
-        @Override
-        public boolean inside(Component component) {
-            return true;
-        }
-    }
 
 }
