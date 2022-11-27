@@ -4,6 +4,7 @@ import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -32,6 +33,7 @@ public class Component {
     protected Component parent;
     protected Vector2 prevPosition = Vector2.zero;
     protected boolean mouseInside = false;
+    protected boolean freezeRotation = false;
 
     protected Vector2 lastPosition;
 
@@ -50,6 +52,14 @@ public class Component {
 
     public Component(Vector2 vector2) {
         setPosition(vector2);
+    }
+
+    public void setFreezeRotation(boolean freezeRotation) {
+        this.freezeRotation = freezeRotation;
+    }
+
+    public boolean isFreezeRotation() {
+        return freezeRotation;
     }
 
     /**
@@ -80,6 +90,10 @@ public class Component {
      *
      */
     public void start(){
+        if(getParent()!=null){
+            localVertices = getParent().getLocalVertices();
+            updateVertices();
+        }
         for(Component c : children) c.start();
     }
 
@@ -152,6 +166,50 @@ public class Component {
         return position;
     }
 
+    /**
+     * This will move the object with concirn of collisio
+     * if the component collides it will not continue translating
+     *
+     * We check all the components
+     *
+     * @param towards amount to move
+     */
+    public void translate(Vector2 towards){
+
+        Collider collider = ((Collider) getChild(new Collider()));
+        Vector2 newPos = new Vector2(towards.getX(),towards.getY());
+        if(collider!=null){
+            Collider addedX = new Collider();
+            addedX.localVertices = collider.getLocalVertices();
+            addedX.setPosition(getPosition().add(towards.removeY()));
+            addedX.updateVertices();
+
+            Collider addedY = new Collider();
+            addedY.localVertices = collider.getLocalVertices();
+            addedY.setPosition(getPosition().add(towards.removeX()));
+            addedY.updateVertices();
+
+            // all components in the scene
+            for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                if(c != this){ // don't check us
+                    for ( Component cc : c.getChildren(new Collider()) ){
+                        Collider otherCollider = (Collider) cc;
+                        if((addedX.collision(otherCollider)) != null ){
+                            Debug.log("x");
+                            newPos.setX(0);
+                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                        }
+                        if((addedY.collision(otherCollider)) !=null ){
+                            newPos.setY(0);
+                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
+                        }
+                    }
+                }
+            }
+        }
+        //Debug.log(newPos);
+        setPosition(getPosition().add(newPos));
+    }
     /**
      * if component is a child it will add its parent offset to the position
      * it will update all its childrens positions aswell
@@ -359,7 +417,8 @@ public class Component {
      * @param pivot the povit to rotate around
      */
     public void rotateTo(float angle, Vector2 pivot){
-        rotate(angle-this.angle,pivot);
+        if(!isFreezeRotation())
+            rotate(angle-this.angle,pivot);
     }
     /**
      * rotates the local vertices to by the angle
@@ -367,27 +426,31 @@ public class Component {
      */
     public void rotate(float angle){
 
-        this.angle += angle * JavaGameEngine.deltaTime;
+        if(!isFreezeRotation()) {
+            this.angle += angle * JavaGameEngine.deltaTime;
 
-        double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
-        LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
-        for (int i = 0; i < localVertices.size(); i++) {
-            Vector2 vertex = localVertices.get(i);
-            // matrix rotation
-            float[] matrix = {
-                    (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
-                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
+            double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
+            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            for (int i = 0; i < localVertices.size(); i++) {
+                Vector2 vertex = localVertices.get(i);
+                // matrix rotation
+                float[] matrix = {
+                        (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
+                        (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
 
-            vertices1.add(new Vector2(matrix[0], matrix[1]));
+                vertices1.add(new Vector2(matrix[0], matrix[1]));
+            }
+            // set the localvertice to our new rotated matrix
+
+
+            for(Component child : children){
+                if(!child.isFreezeRotation())
+                    child.rotate((float) (angle*JavaGameEngine.deltaTime),child.parentOffset.multiply(-1));
+            }
+
+            this.localVertices = vertices1;
         }
-        // set the localvertice to our new rotated matrix
 
-
-        for(Component child : children){
-            child.rotate((float) (angle*JavaGameEngine.deltaTime),child.parentOffset.multiply(-1));
-        }
-
-        this.localVertices = vertices1;
     }
     Vector2 rotOffset = Vector2.zero;
     /**
@@ -396,22 +459,24 @@ public class Component {
      */
     public void rotate(float angle,Vector2 pivot){
         //Vector2 pivot1 = new Vector2(-50,0);
-        this.angle += angle;
+        if(!isFreezeRotation()) {
+            this.angle += angle;
 
-        double radians = Math.toRadians(angle); // turns to radians from angle
-        LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            double radians = Math.toRadians(angle); // turns to radians from angle
+            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
 
-        for (int i = 0; i < localVertices.size(); i++) {
-            Vector2 vertex = localVertices.get(i).subtract(pivot);
+            for (int i = 0; i < localVertices.size(); i++) {
+                Vector2 vertex = localVertices.get(i).subtract(pivot);
 
-            float[] matrix = {
-                    (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
-                    (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
+                float[] matrix = {
+                        (float) (vertex.getX() * Math.cos(radians) - vertex.getY() * Math.sin(radians)),
+                        (float) (vertex.getX() * Math.sin(radians) + vertex.getY() * Math.cos(radians))};
 
-            vertices1.add(new Vector2(matrix[0], matrix[1]).add(pivot));
+                vertices1.add(new Vector2(matrix[0], matrix[1]).add(pivot));
+            }
+            rotateChildren(angle, pivot);
+            this.localVertices = vertices1;
         }
-        rotateChildren(angle, pivot);
-        this.localVertices = vertices1;
     }
 
     /**
@@ -421,7 +486,8 @@ public class Component {
      */
     public void rotateChildren(float angle,Vector2 pivot){
         for(Component child : children){
-            child.rotate(angle,pivot);
+            if(!child.isFreezeRotation())
+                child.rotate(angle,pivot);
         }
 
     }

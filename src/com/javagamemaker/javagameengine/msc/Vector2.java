@@ -125,8 +125,7 @@ public class Vector2 {
      @param toLookAt the vector to look at
      @return the degrees from this to the toLookAt vector
      **/
-    public float lookAt(Vector2 toLookAt)
-    {
+    public float lookAtDouble(Vector2 toLookAt) {
         float angle;
 
         float b = getX()-toLookAt.getX();
@@ -141,9 +140,29 @@ public class Vector2 {
         }else{
             angle = (float) Math.toDegrees(Math.atan(a/b))+180;
         }
-
-
         return angle;
+    }
+    /**
+     Returns the angle between object position and vector given
+     @param toLookAt the vector to look at
+     @return the degrees from this to the toLookAt vector
+     **/
+    public Vector2 lookAt(Vector2 toLookAt) {
+        float angle;
+
+        float b = getX()-toLookAt.getX();
+        float a = getY()-toLookAt.getY();
+        //a/b=tan v
+        //System.out.println("a; "+a+"b: "+b);
+        if(b == 0)
+            return Vector2.zero;
+
+        if (toLookAt.getX()>getX()){
+            angle = (float) Math.toDegrees(Math.atan(a/b));
+        }else{
+            angle = (float) Math.toDegrees(Math.atan(a/b))+180;
+        }
+        return Vector2.getDirection(angle);
     }
     public static double angleFromOriginCounterClockwise(Vector2 a) {
         double degrees = Math.toDegrees(Math.atan(a.getY()/a.getX()));

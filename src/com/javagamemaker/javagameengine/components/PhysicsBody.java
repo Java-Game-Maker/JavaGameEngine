@@ -85,7 +85,7 @@ public class PhysicsBody extends Component{
         super.update();
 
         //sets our velocity to our parent
-        getFirstParent().setPosition(getFirstParent().getPosition().add(velocity.multiply(JavaGameEngine.deltaTime)));
+        getFirstParent().translate(velocity.multiply(JavaGameEngine.deltaTime));
 
         //rotation
         // m = f * l

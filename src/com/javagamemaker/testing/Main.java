@@ -17,53 +17,46 @@ import java.awt.event.ActionListener;
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args) {
-        JPanel p = new JPanel();
-        p.setLayout(new BorderLayout());
-        Scene s = new Scene(){
-            @Override
-            public void update() {
-            super.update();
-            if(Input.isKeyPressed(Keys.E)){
-                p.setVisible(!p.isVisible());
-            }
 
-            }
-        };
-        JTextField t = new JTextField();
-        t.setSize(199,19);
-        p.add(t);
-        p.add(new JButton("Subbmit"));
-
-        p.setSize(100,100);
-        p.setLocation(100,100);
-        s.add(p);
-
-        setSelectedScene(s);
+        setSelectedScene(new PhysicsTest());
         start();
     }
 
     static class PhysicsTest extends Scene{
         public PhysicsTest(){
-
             this.getCamera().add(new CameraMovement());
+            GameObject g = new GameObject();
+            g.add(new Collider());
+            g.setScale(new Vector2(1000,100));
+            g.setPosition(new Vector2(0,200));
+            add(g);
 
-            GameObject left = new GameObject();
-            left.setColor(Color.GREEN);
-            left.add(new PhysicsBody());
-            left.add(new Collider());
-            ((PhysicsBody) left.getChild(new PhysicsBody())).velocity = new Vector2(5,0.1f);
-            ((PhysicsBody) left.getChild(new PhysicsBody())).mass = 20;
-            left.setPosition(new Vector2(-400,0));
+            GameObject g1 = new GameObject();
+            g1.add(new Collider());
+            g1.setScale(new Vector2(100,100));
+            g1.setPosition(new Vector2(100,50));
+            add(g1);
 
-            this.add(left);
+            GameObject player = new GameObject(){
+                @Override
+                public void update() {
+                    super.update();
+                    if(Input.isKeyDown(Keys.A)){
+                        translate(Vector2.left);
+                    }
+                    if(Input.isKeyDown(Keys.D)){
+                        Debug.log("d");
+                        translate(Vector2.right);
+                    }
 
-            GameObject right = new GameObject();
-            right.add(new PhysicsBody());
-            right.add(new Collider());
-            ((PhysicsBody) right.getChild(new PhysicsBody())).velocity = new Vector2(-5,0.1f);
-            right.setPosition(new Vector2(400,0));
-
-            this.add(right);
+                    if(Input.isKeyPressed(Keys.SPACE)){
+                        ((PhysicsBody) getChild(new PhysicsBody())).addForce(Vector2.up.multiply(50));
+                    }
+                }
+            };
+            player.add(new Collider());
+            player.add(new PhysicsBody(true));
+            add(player);
         }
         @Override
         public boolean inside(Component component) {

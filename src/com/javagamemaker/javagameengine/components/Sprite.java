@@ -1,5 +1,6 @@
 package com.javagamemaker.javagameengine.components;
 
+import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.imageio.ImageIO;
@@ -152,6 +153,7 @@ public class Sprite extends Component {
     @Override
     public void render(Graphics2D g) {
         if(visible){
+            super.render(g);
             AffineTransform backup = g.getTransform();
             AffineTransform trans = new AffineTransform();
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
@@ -166,7 +168,6 @@ public class Sprite extends Component {
             g.setTransform( backup ); // restore previous transform
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
         }
-        super.render(g);
     }
 
     /**
@@ -188,8 +189,11 @@ public class Sprite extends Component {
     private Vector2 pivot = Vector2.zero;
     @Override
     public void rotate(float angle, Vector2 pivot) {
-        this.angle += angle ;
+        this.angle += angle;
         this.pivot = pivot;
+        for(Component child : children){
+            child.rotate((float) (angle ),child.parentOffset.multiply(-1));
+        }
     }
 
     public BufferedImage rotate(double angle, BufferedImage image) {

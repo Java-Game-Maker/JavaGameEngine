@@ -138,10 +138,7 @@ public class Collider extends Component{
                 i++;
             }
         }*/
-        setPosition(prevPosition);
-        //sets the rotational point
-
-
+        getFirstParent().setPosition(prevPosition);
     }
     public boolean inside(Component component){
         //Debug.log(component.getPosition().getDistance(JavaGameEngine.getSelectedScene().getCamera().getPosition()));
@@ -156,44 +153,43 @@ public class Collider extends Component{
         super.update();
         //loops though all the components in the scene
         // and checks if their colliders are colling and resolve it
-        point = null;
-        for(Component component: JavaGameEngine.getSelectedScene().getComponents1()){
-            if(component != getFirstParent()){ // dont check us
-                //ignores objects with a tag that is inside ignore tag
-                for(Component colliderHolder : component.getChildren(new Collider())){
-                    Collider c = (Collider) colliderHolder;
-                    if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
+       // point = null;
+       // for(Component component: JavaGameEngine.getSelectedScene().getComponents1()){
+       //     if(component != getFirstParent()){ // dont check us
+       //         //ignores objects with a tag that is inside ignore tag
+       //         for(Component colliderHolder : component.getChildren(new Collider())){
+       //             Collider c = (Collider) colliderHolder;
+       //             if (c!=null && !ignoreTags.contains(c.getTag()) && !c.ignoreTags.contains(getTag())){
 
-                        Point collsionPoint = null; // the point which collided (null if not collided)
-                        if ((collsionPoint = collision(c)) != null) {
-                            point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
+       //                 Point collsionPoint = null; // the point which collided (null if not collided)
+       //                 if ((collsionPoint = collision(c)) != null) {
+       //                     point = new Vector2((float) collsionPoint.getX(), (float) collsionPoint.getY());
 
-                            CollisionEvent collisionEvent = new CollisionEvent(this, c, point);
-                            if (isTrigger() && c.isTrigger()) {
-                                getParent().onTriggerEnter(collisionEvent);
-                                //c.getParent().onTriggerEnter(collisionEvent);
-                            } else {
-                                moveBack(c, point); // move the object back
-                                try {
-                                    PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
-                                    me.response(collisionEvent); // responde with physics
-                                } catch (NullPointerException e) {
-                                    //Debug.log(getFirstParent().getClass().getName() + " has no physicsbody to respond to the collision ");
-                                }
-                                // calls events
-                                getParent().onCollisionEnter(collisionEvent);
-                                //c.getParent().onCollisionEnter(collisionEvent);
-                            }
-                        }
-                        else{
-                            lastVerices = localVertices;
-                            prevPosition = getFirstParent().getPosition();
-                        }
-
-                    }
-                }
-            }
-        }
+       //                     CollisionEvent collisionEvent = new CollisionEvent(this, c, point);
+       //                     if (isTrigger() && c.isTrigger()) {
+       //                         getParent().onTriggerEnter(collisionEvent);
+       //                         //c.getParent().onTriggerEnter(collisionEvent);
+       //                     } else {
+       //                         moveBack(c, point); // move the object back
+       //                         try {
+       //                             PhysicsBody me = (PhysicsBody) getFirstParent().getChild(new PhysicsBody());
+       //                             me.response(collisionEvent); // responde with physics
+       //                         } catch (NullPointerException e) {
+       //                             //Debug.log(getFirstParent().getClass().getName() + " has no physicsbody to respond to the collision ");
+       //                         }
+       //                         // calls events
+       //                         getParent().onCollisionEnter(collisionEvent);
+       //                         //c.getParent().onCollisionEnter(collisionEvent);
+       //                     }
+       //                 }
+       //                 else{
+       //                     lastVerices = localVertices;
+       //                     prevPosition = getFirstParent().getPosition();
+       //                 }
+       //             }
+       //         }
+       //     }
+       // }
     }
 
     /**
@@ -208,7 +204,7 @@ public class Collider extends Component{
             g.setColor(Color.green);
             g.drawPolygon(getPolygon());
             g.setColor(Color.red);
-            Vector2 dir = Vector2.getDirection(getFirstParent().getPosition().lookAt(prevPosition));
+            Vector2 dir = (getFirstParent().getPosition().lookAt(prevPosition));
             /*if(point != null) 1öp
                 g.fillOval((int) point.getX(), (int) point.getY(),10,10);*/
             g.setColor(c);
