@@ -4,6 +4,7 @@ import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -41,13 +42,16 @@ public class Component implements Serializable {
 
     public Component(LinkedList<Vector2> localVertices){
         this.localVertices = localVertices;
+        updateVertices();
     }
     public Component(){
         this.localVertices = new Rect(100,100);
+        updateVertices();
     }
 
     public Component(Vector2 vector2) {
         setPosition(vector2);
+        updateVertices();
     }
 
     public void setFreezeRotation(boolean freezeRotation) {
@@ -583,7 +587,7 @@ public class Component implements Serializable {
         if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isMousePressed(1) && !this.isMouseInside()) {
             JavaGameEngine.getSelectedScene().setSelectedComponent((Component)null);
         }
-        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(67)) {
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(Keys.C)) {
             JavaGameEngine.getSelectedScene().childSelected = this;
         }
         if (Input.isMouseDown(1) && !Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {

@@ -31,10 +31,11 @@ public class Main extends JavaGameEngine {
                 super.update();
             }
         };
-        //scene1.load();
+        scene1.load();
+
+        scene1.setDebugMode(true);
 
         scene1.add(new GameObject());
-        scene1.setDebugMode(true);
 
         setSelectedScene(scene1);
 

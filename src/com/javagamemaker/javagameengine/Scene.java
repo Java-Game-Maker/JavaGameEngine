@@ -335,7 +335,7 @@ public class Scene extends JPanel {
             fos = new FileInputStream("filename");
             ObjectInputStream oos = new ObjectInputStream(fos);
 
-            for(Component c : (LinkedList<Component>) oos.readObject()){
+            for(Component c : (ArrayList<Component>) oos.readObject()){
                 if(c.getClass() == Sprite.class){
                     LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;
                     ((Sprite) c).tiles = new LinkedList<>();
