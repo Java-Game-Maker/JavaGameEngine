@@ -118,6 +118,7 @@ public class JavaGameEngine{
         }
 
         selectedScene.update();
+        gameWindow.validate();
         gameWindow.repaint();
 
         //For linux

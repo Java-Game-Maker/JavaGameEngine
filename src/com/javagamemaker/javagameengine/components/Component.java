@@ -2,10 +2,10 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
-import org.w3c.dom.css.Rect;
 
 import java.awt.*;
 import java.io.Serializable;
@@ -43,12 +43,7 @@ public class Component implements Serializable {
         this.localVertices = localVertices;
     }
     public Component(){
-
-        vertices.add(new Vector2(-50,-50)); // top left
-        vertices.add(new Vector2(-50,50)); // bottom left
-        vertices.add(new Vector2(50,50)); // bottom right
-        vertices.add(new Vector2(50,-50)); // top right
-
+        this.localVertices = new Rect(100,100);
     }
 
     public Component(Vector2 vector2) {
@@ -319,7 +314,6 @@ public class Component implements Serializable {
      */
     public void update(){
         checkMouse();
-
         for(Component child : children){
             child.update();
         }
@@ -337,17 +331,16 @@ public class Component implements Serializable {
             y[i] = (int) point.getY();
             i++;
         }
-
         return new Polygon(x,y,vertices.size());
     }
     
     public void checkMouse(){
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
-                /*
-                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
-                    if mouse is inside, and we have been we don't call mouse entered
-                    if mouse is not inside, and we are previously we call mouse left
-                 */
+        /*
+            if mouse is inside, and we have not been we call mouse entered and we say it is entered
+            if mouse is inside, and we have been we don't call mouse entered
+            if mouse is not inside, and we are previously we call mouse left
+         */
         Component prev = JavaGameEngine.getSelectedScene().hasA;
         if(getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
             if(isMouseInside()){
@@ -551,7 +544,6 @@ public class Component implements Serializable {
      */
     public void render(Graphics2D g){
         List<Component> list = getChildren();
-
         for (Component child : list){
             child.render(g);
         }
@@ -581,9 +573,8 @@ public class Component implements Serializable {
     private Vector2 prev = null;
 
     public void debugUpdate() {
-        //updateVertices();
         this.checkMouse();
-        for (Component c : this.getChildren()) {
+        for (final Component c : this.getChildren()) {
             c.debugUpdate();
         }
         if (Input.isMousePressed(1) && this.mouseInside) {
@@ -604,6 +595,8 @@ public class Component implements Serializable {
 
                 float x = Math.round(Input.getMousePosition().add(this.offset).getX() / gridCubeWidth) * gridCubeWidth;
                 float y = Math.round(Input.getMousePosition().add(this.offset).getY() / gridCubeHeight) * gridCubeHeight;
+                Debug.log(new Vector2(x,y));
+
                 this.setPosition(new Vector2(x,y));
 
             }

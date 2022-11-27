@@ -176,13 +176,11 @@ public class Scene extends JPanel {
             }
         }
         for(Component component : components){
-            if(inside(component)) {
-                if(!debugMode) {
-                    component.update();
-                }else{
-                    component.debugUpdate();
-                }
-            }
+            if(!debugMode) {
+                component.update();
+             }else{
+                 component.debugUpdate();
+             }
         }
 
         camera.update();
@@ -194,7 +192,9 @@ public class Scene extends JPanel {
             components.removeAll(remove);
             remove.clear();
         }
-        debugUpdate();
+
+        if(debugMode)
+            debugUpdate();
         Input.setMousePressed(1000);
     }
 
@@ -216,11 +216,9 @@ public class Scene extends JPanel {
     }
 
     private void debugUpdate(){
-        if(Input.isKeyPressed(Keys.SPACE)){
-            Debug.log("instantiate");
+        if(Input.isMousePressed(Keys.RIGHTCLICK)){
             GameObject g = new GameObject();
             g.setPosition(Input.getMousePosition());
-            Debug.log(g.getPosition());
             instantiate(g);
         }
 
@@ -312,16 +310,9 @@ public class Scene extends JPanel {
                 return o1.getLayer() - o2.getLayer();
             }
         });*/
-        try{
-            int i = 0;
-            for(Component c : list){
-                if(inside(c) && i<=100) {
-                    (c).render(graphics2D);
-                }
-                i++;
-            }
-        }catch (Exception e){
-        
+        int i = 0;
+        for(Component c : getComponents1()){
+            (c).render(graphics2D);
         }
     }
 

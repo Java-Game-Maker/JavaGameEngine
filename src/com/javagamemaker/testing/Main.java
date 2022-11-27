@@ -2,9 +2,17 @@ package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.GameObject;
+import com.javagamemaker.javagameengine.components.PhysicsBody;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
+
+import java.awt.*;
+import java.lang.invoke.VolatileCallSite;
 
 public class Main extends JavaGameEngine {
 
@@ -14,23 +22,19 @@ public class Main extends JavaGameEngine {
             @Override
             public void start() {
                 super.start();
-                getCamera().setScale(new Vector2(2,2));
+                getCamera().setScale(new Vector2(1,1));
                 //getCamera().setPosition(new Vector2(100,0));
             }
 
             @Override
             public void update() {
                 super.update();
-                Debug.log(getComponents1().size());
             }
         };
         //scene1.load();
 
-        //scene1.add(new GameObject());
-
+        scene1.add(new GameObject());
         scene1.setDebugMode(true);
-
-       // scene1.add(new GameObject());
 
         setSelectedScene(scene1);
 
