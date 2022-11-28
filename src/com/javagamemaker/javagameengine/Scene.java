@@ -4,8 +4,6 @@ import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.components.*;
-import com.javagamemaker.javagameengine.components.Component;
-import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
@@ -166,7 +164,7 @@ public class Scene extends JPanel {
         if((int) time/100 > lastSec){
             lastSec = (int) (time/100);
             for(Component component : components) {
-                component.updateSecund();
+                component.updateSecond();
             }
         }
         if((int) time/10 > lastMili){
@@ -311,8 +309,12 @@ public class Scene extends JPanel {
             }
         });*/
         int i = 0;
-        for(Component c : getComponents1()){
-            (c).render(graphics2D);
+        try{
+            for(Component c : getComponents1()){
+                (c).render(graphics2D);
+            }
+        }catch (Exception e){
+
         }
     }
 

@@ -570,7 +570,7 @@ public class Component implements Serializable {
     /**
      * updates every second
      */
-    public void updateSecund(){
+    public void updateSecond(){
 
     }
     private Vector2 offset = null;
