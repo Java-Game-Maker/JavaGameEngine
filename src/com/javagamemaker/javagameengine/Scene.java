@@ -330,11 +330,28 @@ public class Scene extends JPanel {
         }
     }
     public void load(){
+        load(false);
+    }
+
+    /**
+     * This function will load objects from a save file
+     * This can be used to save game state. Remember it will save all the objects in the scene
+     * so the file can become larger than needed for your application.
+     * <h1>Scene editing</h1>
+     * If you want to declare your objects with code then change them with the scene editor it is recommended
+     * to first start scene editing without load then when you have saved (ctr+S) you close and add load(true).
+     * this will override the additions you have made privous and only load the saved components.
+     *
+     * @param clear = true => will clear all previous added components.
+     */
+    public void load(boolean clear){
         FileInputStream fos;
         try {
             fos = new FileInputStream("filename");
             ObjectInputStream oos = new ObjectInputStream(fos);
-
+            if(clear){
+                components.clear();
+            }
             for(Component c : (ArrayList<Component>) oos.readObject()){
                 if(c.getClass() == Sprite.class){
                     LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;

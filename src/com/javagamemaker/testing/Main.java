@@ -11,6 +11,7 @@ import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
 import java.awt.*;
 import java.lang.invoke.VolatileCallSite;
 
@@ -31,16 +32,15 @@ public class Main extends JavaGameEngine {
                 super.update();
             }
         };
-        scene1.load();
-
-        scene1.setDebugMode(true);
 
         scene1.add(new GameObject());
+        scene1.setDebugMode(true);
+
+        scene1.load(true);
 
         setSelectedScene(scene1);
 
         JavaGameEngine.size = new Vector2(1920/2,1080/2);
-
         start();
     }
 
