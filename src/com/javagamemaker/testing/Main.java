@@ -17,6 +17,23 @@ import java.awt.event.ActionListener;
 public class Main extends JavaGameEngine {
 
     public static void main(String[] args) {
+        Scene scene = new Scene();
+
+        GameObject g1 = new GameObject();
+        g1.add(new Collider());
+        g1.add(new PhysicsBody());
+        ((PhysicsBody) g1.getChild(new PhysicsBody())).velocity = new Vector2(5,0);
+        g1.setPosition(new Vector2(-400,0));
+        scene.add(g1);
+
+        GameObject g2 = new GameObject();
+        g2.add(new Collider());
+        g2.add(new PhysicsBody());
+        ((PhysicsBody) g2.getChild(new PhysicsBody())).velocity = new Vector2(-4,0);
+        ((PhysicsBody) g2.getChild(new PhysicsBody())).mass = 1000;
+        g2.setPosition(new Vector2(200,0));
+        scene.add(g2);
+        setSelectedScene(scene);
 
         setSelectedScene(new PhysicsTest());
         start();
@@ -33,6 +50,7 @@ public class Main extends JavaGameEngine {
 
             GameObject g1 = new GameObject();
             g1.add(new Collider());
+            g1.add(new PhysicsBody(true));
             g1.setScale(new Vector2(100,100));
             g1.setPosition(new Vector2(100,50));
             add(g1);

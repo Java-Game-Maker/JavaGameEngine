@@ -2,6 +2,7 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -79,6 +80,9 @@ public class PhysicsBody extends Component{
         Vector2 a = force.divide(mass);
         velocity = velocity.add(a);
     }
+    public Vector2 getVelocity(){
+        return velocity;
+    }
     Vector2 velocity0 = Vector2.zero;
     @Override
     public void update() {
@@ -100,6 +104,7 @@ public class PhysicsBody extends Component{
         velocity = velocity.subtract(velocity.getNormalized().multiply(friction).multiply(JavaGameEngine.deltaTime));
         // remove rotationalforce
         rotationalForce = rotationalForce-(rotationalForce*0.01f);
+        prevPosition = getPosition();
     }
 
     /**
@@ -117,14 +122,14 @@ public class PhysicsBody extends Component{
             else{
             float cor = 1;
 
-            Vector2 newb = ((me.velocity.multiply(me.mass).add
-                    ( other.velocity.multiply(other.mass) ).add
-                    ( (other.velocity.subtract(me.velocity) ).multiply(other.mass))).divide
+            Vector2 newb = ((me.getVelocity().multiply(me.mass).add
+                    ( other.getVelocity().multiply(other.mass) ).add
+                    ( (other.getVelocity().subtract(me.getVelocity()) ).multiply(other.mass))).divide
                     (me.mass+other.mass));
 
-            Vector2 newCb =((me.velocity.multiply(me.mass)).add
-                    (other.velocity.multiply(other.mass).add
-                            ((me.velocity.subtract(other.velocity).multiply(me.mass)))).divide
+            Vector2 newCb =((me.getVelocity().multiply(me.mass)).add
+                    (other.getVelocity().multiply(other.mass).add
+                            ((me.getVelocity().subtract(other.getVelocity()).multiply(me.mass)))).divide
                     (me.mass+other.mass));
         /*
             float f1 = newb.getX() - newb.getY();
@@ -138,8 +143,8 @@ public class PhysicsBody extends Component{
             other.setRotationalPoint(event.getCollisionPoint());
         */
 
-                me.velocity = (!me.isFreeze())?newb:me.velocity;
-                other.velocity = (!other.isFreeze())?newCb:other.velocity;
+                me.velocity = (!me.isFreeze())?newb:me.getVelocity();
+                other.velocity = (!other.isFreeze())?newCb:other.getVelocity();
             }
         }catch (NullPointerException e){
         }

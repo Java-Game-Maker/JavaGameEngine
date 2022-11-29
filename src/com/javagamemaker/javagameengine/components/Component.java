@@ -194,15 +194,35 @@ public class Component {
                 if(c != this){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
-                        if((addedX.collision(otherCollider)) != null ){
-                            Debug.log("x");
-                            newPos.setX(0);
-                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
-                        }
-                        if((addedY.collision(otherCollider)) !=null ){
-                            newPos.setY(0);
-                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
-                        }
+                            if((addedX.collision(otherCollider)) != null ){
+                                if(collider.isTrigger() || otherCollider.isTrigger()){
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    onTriggerEnter(event);
+                                }
+                                else{
+                                    Debug.log("x");
+                                    newPos.setX(0);
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    //((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                    onCollisionEnter(event);
+                                }
+                            }
+                            if((addedY.collision(otherCollider)) !=null ){
+                                if(collider.isTrigger() || otherCollider.isTrigger()){
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    onTriggerEnter(event);
+                                }
+                                else{
+                                    Debug.log("y");
+                                    newPos.setY(0);
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    //((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                    onCollisionEnter(event);
+                                }
+                            }
+
                     }
                 }
             }
