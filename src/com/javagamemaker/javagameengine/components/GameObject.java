@@ -38,11 +38,11 @@ public class GameObject extends Component{
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
                 g.setColor(color);
-                g.fillPolygon(getPolygon());
+                g.fill(getShape());
                 g.setColor(prev);
             }
             g.setColor(color);
-            g.fillPolygon(getPolygon());
+            g.fill(getShape());
             g.setColor(prev);
             super.render(g);
         }
