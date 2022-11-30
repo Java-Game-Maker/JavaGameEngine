@@ -2,8 +2,10 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.lights.Light;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -321,6 +323,7 @@ public class Component {
      * @param component the new children
      */
     public void add(Component component){
+
         component.setParent(this);
         component.setPosition(getPosition());
         children.add(component);
