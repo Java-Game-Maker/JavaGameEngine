@@ -1,4 +1,8 @@
 package com.javagamemaker.javagameengine.components.lights;
 
-public interface Light {
+import com.javagamemaker.javagameengine.components.Component;
+
+public class Light extends Component {
+
+
 }
