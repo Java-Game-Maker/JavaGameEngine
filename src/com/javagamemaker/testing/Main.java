@@ -52,19 +52,19 @@ public class Main extends JavaGameEngine {
             g1.add(new Collider());
             g1.add(new PhysicsBody(true));
             g1.setScale(new Vector2(100,100));
-            g1.setPosition(new Vector2(100,50));
+            g1.setPosition(new Vector2(300,50));
             add(g1);
 
             GameObject player = new GameObject(){
                 @Override
                 public void update() {
                     super.update();
+                    PhysicsBody body =((PhysicsBody) getChild(new PhysicsBody()));
                     if(Input.isKeyDown(Keys.A)){
-                        translate(Vector2.left);
+                        body.addForce(Vector2.left.multiply(0.5f));
                     }
                     if(Input.isKeyDown(Keys.D)){
-                        Debug.log("d");
-                        translate(Vector2.right);
+                        body.addForce(Vector2.right.multiply(0.5f));
                     }
 
                     if(Input.isKeyPressed(Keys.SPACE)){

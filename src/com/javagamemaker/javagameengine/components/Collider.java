@@ -10,7 +10,7 @@ import java.util.LinkedList;
 
 public class Collider extends Component{
 
-    protected boolean visible = true;
+    protected boolean visible = false;
     protected LinkedList<String> ignoreTags = new LinkedList<>();
     protected boolean trigger = false;
     public Collider(LinkedList<Vector2> localVertices) {

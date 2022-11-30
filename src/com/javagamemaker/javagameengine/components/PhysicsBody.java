@@ -117,37 +117,26 @@ public class PhysicsBody extends Component{
 
             PhysicsBody me = event.getPhysicsBody1();
             PhysicsBody other = event.getPhysicsBody2();
-            if(other == null)
-                me.velocity = Vector2.zero;
-            else{
-            float cor = 1;
+            if(other == null){
 
-            Vector2 newb = ((me.getVelocity().multiply(me.mass).add
-                    ( other.getVelocity().multiply(other.mass) ).add
-                    ( (other.getVelocity().subtract(me.getVelocity()) ).multiply(other.mass))).divide
-                    (me.mass+other.mass));
-
-            Vector2 newCb =((me.getVelocity().multiply(me.mass)).add
-                    (other.getVelocity().multiply(other.mass).add
-                            ((me.getVelocity().subtract(other.getVelocity()).multiply(me.mass)))).divide
-                    (me.mass+other.mass));
-        /*
-            float f1 = newb.getX() - newb.getY();
-            float f2 = newCb.getX() - newCb.getY();
-
-            me.setRotationalForce(f1);
-            me.setRotationalPoint(event.getCollisionPoint());
-
-
-            other.setRotationalForce(f2);
-            other.setRotationalPoint(event.getCollisionPoint());
-        */
-
-                me.velocity = (!me.isFreeze())?newb:me.getVelocity();
-                other.velocity = (!other.isFreeze())?newCb:other.getVelocity();
             }
-        }catch (NullPointerException e){
-        }
+            else{
+                float cor = 1;
+
+                Vector2 newb = ((me.getVelocity().multiply(me.mass).add
+                        ( other.getVelocity().multiply(other.mass) ).add
+                        ( (other.getVelocity().subtract(me.getVelocity()) ).multiply(other.mass))).divide
+                        (me.mass+other.mass));
+
+                Vector2 newCb =((me.getVelocity().multiply(me.mass)).add
+                        (other.getVelocity().multiply(other.mass).add
+                                ((me.getVelocity().subtract(other.getVelocity()).multiply(me.mass)))).divide
+                        (me.mass+other.mass));
+
+                 me.velocity    = (!me.isFreeze())    ? newb:me.getVelocity();
+                 other.velocity = (!other.isFreeze()) ? newCb:other.getVelocity();
+            }
+        }catch (NullPointerException e){}
     }
 
     @Override
