@@ -158,9 +158,22 @@ public class Component {
             Vector2 newV = vertex.multiply(d);
             newVertices.add(newV);
         }
+        for(Component c : children){
+            LinkedList<Vector2> newVertices1 =new LinkedList<>();
+            for(Vector2 vertex : c.localVertices){
+                Vector2 newV = vertex.multiply(d);
+                newVertices1.add(newV);
+            }
+            Debug.log(scale);
+            c.setParentOffset(c.getParentOffset().multiply(d));
+            setPosition(getPosition());
+            c.localVertices = newVertices1;
+            c.updateVertices();
+        }
         localVertices = newVertices;
         updateVertices();
     }
+
 
     public Vector2 getPosition() {
         return position;
