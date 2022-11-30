@@ -2,6 +2,7 @@ package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -225,5 +226,12 @@ public class Scene extends JPanel {
         }catch (Exception e){
 
         }
+
+        //graphics2D.translate(width*percentW,height*percentH);
+        graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
+        //graphics2D.scale(1/scale.getX(),1/scale.getY());
+
+        LightManager.render(graphics2D);
+
     }
 }

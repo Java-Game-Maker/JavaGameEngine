@@ -4,6 +4,8 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.lights.Light;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
@@ -13,6 +15,8 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.geom.Area;
+import java.util.LinkedList;
 
 public class Main extends JavaGameEngine {
 
@@ -59,6 +63,7 @@ public class Main extends JavaGameEngine {
                 @Override
                 public void update() {
                     super.update();
+
                     PhysicsBody body =((PhysicsBody) getChild(new PhysicsBody()));
                     if(Input.isKeyDown(Keys.A)){
                         body.addForce(Vector2.left.multiply(0.5f));
@@ -70,10 +75,25 @@ public class Main extends JavaGameEngine {
                     if(Input.isKeyPressed(Keys.SPACE)){
                         ((PhysicsBody) getChild(new PhysicsBody())).addForce(Vector2.up.multiply(50));
                     }
+
+                    if(Input.isKeyDown(Keys.CTRL)){
+                        setScale(new Vector2(100,20));
+                        getChild(new Collider()).setScale(getScale());
+                    }
+                    else if (getScale().getY()<100){
+                        translate(Vector2.up.multiply(50));
+                        setScale(new Vector2(100,100));
+                        getChild(new Collider()).setScale(getScale());
+                    }
                 }
             };
             player.add(new Collider());
             player.add(new PhysicsBody(true));
+            player.add(new Light());
+            Light lighh2 = new Light();
+            lighh2.setParentOffset(new Vector2(100,0));
+            player.add(lighh2);
+            player.setColor(Color.green);
             add(player);
         }
         @Override
