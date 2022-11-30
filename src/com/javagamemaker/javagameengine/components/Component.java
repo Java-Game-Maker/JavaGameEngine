@@ -167,10 +167,11 @@ public class Component {
     }
 
     /**
-     * This will move the object with concirn of collisio
+     * This will move the object if the object is not colliding (if it has a collision component)
      * if the component collides it will not continue translating
      *
      * We check all the components
+     * Does not check all children's colliders however
      *
      * @param towards amount to move
      */
