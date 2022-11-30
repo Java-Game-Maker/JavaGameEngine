@@ -182,11 +182,13 @@ public class Component {
             Collider addedX = new Collider();
             addedX.localVertices = collider.getLocalVertices();
             addedX.setPosition(getPosition().add(towards.removeY()));
+            addedX.setScale(addedX.getScale().subtract(1));
             addedX.updateVertices();
 
             Collider addedY = new Collider();
             addedY.localVertices = collider.getLocalVertices();
             addedY.setPosition(getPosition().add(towards.removeX()));
+            addedY.setScale(addedY.getScale().subtract(1));
             addedY.updateVertices();
 
             // all components in the scene
@@ -194,52 +196,46 @@ public class Component {
                 if(c != this){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
-                            if((addedX.collision(otherCollider)) != null ){
-                                if(collider.isTrigger() || otherCollider.isTrigger()){
-                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    onTriggerEnter(event);
-                                }
-                                else{
-                                    newPos.setX(0);
-
-                                    // Create collision event
-                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    onCollisionEnter(event);
-
-                                    try{
-                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
-                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
-                                            //Debug.log("zeor");
-                                           // ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
-                                        }
-                                    }catch (Exception e){}
-                                }
+                        if((addedX.collision(otherCollider)) != null ){
+                            if(collider.isTrigger() || otherCollider.isTrigger()){
+                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                onTriggerEnter(event);
                             }
-                            if((addedY.collision(otherCollider)) !=null ){
-                                if(collider.isTrigger() || otherCollider.isTrigger()){
-                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    onTriggerEnter(event);
-                                }
-                                else{
-                                    newPos.setY(0);
-                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    try{
-                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
-                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
-                                            Debug.log("zeor");
-                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
-                                        }
-                                        else{
-                                            Debug.log(vel.getY());
-                                            Debug.log(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY());
-                                        }
-                                    }catch (Exception e){}
-                                    onCollisionEnter(event);
-                                }
-                            }
+                            else{
+                                newPos.setX(0);
 
+                                // Create collision event
+                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                onCollisionEnter(event);
+
+                                try{
+                                    Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                    if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
+                                        //Debug.log("zeor");
+                                        ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                    }
+                                }catch (Exception e){}
+                            }
+                        }
+                        if((addedY.collision(otherCollider)) !=null ){
+                            if(collider.isTrigger() || otherCollider.isTrigger()){
+                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                onTriggerEnter(event);
+                            }
+                            else{
+                                newPos.setY(0);
+                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                try{
+                                    Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                    if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
+                                        ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
+                                    }
+                                }catch (Exception e){}
+                                onCollisionEnter(event);
+                            }
+                        }
                     }
                 }
             }

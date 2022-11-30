@@ -50,7 +50,7 @@ public class Main extends JavaGameEngine {
 
             GameObject g1 = new GameObject();
             g1.add(new Collider());
-            g1.add(new PhysicsBody(true));
+            //g1.add(new PhysicsBody(true));
             g1.setScale(new Vector2(100,100));
             g1.setPosition(new Vector2(300,50));
             add(g1);
