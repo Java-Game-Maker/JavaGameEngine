@@ -92,7 +92,6 @@ public class Main extends JavaGameEngine {
             player.add(new Light());
             Light lighh2 = new Light();
             lighh2.setParentOffset(new Vector2(100,0));
-            player.add(lighh2);
             player.setColor(Color.green);
             add(player);
         }

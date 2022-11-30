@@ -15,7 +15,7 @@ public class LightManager {
     public static Area screen = new Area(new Rectangle(0,0,1000,1000));
 
     public static void render(Graphics2D g){
-        g.setColor(new Color(0,0,0,0.4f));
+        g.setColor(new Color(0,0,0,0.98f));
         g.fill(screen);
 
         Camera camera = JavaGameEngine.getSelectedScene().getCamera();
