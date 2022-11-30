@@ -4,8 +4,6 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
-import com.javagamemaker.javagameengine.components.lights.Light;
-import com.javagamemaker.javagameengine.components.lights.RoundLight;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
@@ -76,16 +74,7 @@ public class Main extends JavaGameEngine {
             };
             player.add(new Collider());
             player.add(new PhysicsBody(true));
-            RoundLight l = new RoundLight();
-            player.add(l);
-            getLights().add(l);
             add(player);
-            add(new Component(){
-                @Override
-                public void render(Graphics2D g) {
-                    super.render(g);
-                }
-            });
         }
         @Override
         public boolean inside(Component component) {

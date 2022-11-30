@@ -2,15 +2,11 @@ package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
-import com.javagamemaker.javagameengine.components.lights.Light;
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.geom.Area;
-import java.awt.geom.Ellipse2D;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -29,9 +25,6 @@ public class Scene extends JPanel {
     private final LinkedList<Component> newComponents = new LinkedList<>();
     private final LinkedList<Component> remove = new LinkedList<>();
     private LinkedList<java.awt.Component> uiElements = new LinkedList<>();
-
-    private ArrayList<Light> lights = new ArrayList<>();
-
     Camera camera = new Camera();
 
     public Scene() {
@@ -133,14 +126,6 @@ public class Scene extends JPanel {
     private int lastMili = 0;
     public Component hasA = null;
 
-    public ArrayList<Light> getLights() {
-        return lights;
-    }
-
-    public void setLights(ArrayList<Light> lights) {
-        this.lights = lights;
-    }
-
     /**
      * Updates all the components and calculates delta time and fps
      */
@@ -201,7 +186,6 @@ public class Scene extends JPanel {
     @Override
     protected void paintComponent(Graphics g) {
         super.paintComponent(g);
-        Graphics before = g;
         Graphics2D graphics2D = (Graphics2D) g;
 
         //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
@@ -231,7 +215,6 @@ public class Scene extends JPanel {
                 return o1.getLayer() - o2.getLayer();
             }
         });*/
-
         try{
             for(Component c : list){
                 if(inside(c)) {
@@ -239,70 +222,8 @@ public class Scene extends JPanel {
                 }
 
             }
-        }catch (Exception e){}
+        }catch (Exception e){
 
-        Vector2 gameWindowSize = JavaGameEngine.getWindowSize();
-        Rectangle cameraView = new Rectangle(
-                (int) (0),
-                (int) 0,
-                (int) gameWindowSize.getX(),
-                (int) gameWindowSize.getY());
-
-        Area screen = new Area(cameraView);
-
-        for(Light light : lights) {
-            Area lightArea = new Area(light.getShape());
-
-            screen.subtract(lightArea);
-
-            Color color[] = new Color[12];
-            float fraction[] = new float[12];
-
-            color[0] = new Color(0, 0, 0, 0.1f);
-            color[1] = new Color(0, 0, 0, 0.42f);
-            color[2] = new Color(0, 0, 0, 0.52f);
-            color[3] = new Color(0, 0, 0, 0.61f);
-            color[4] = new Color(0, 0, 0, 0.69f);
-            color[5] = new Color(0, 0, 0, 0.76f);
-            color[6] = new Color(0, 0, 0, 0.82f);
-            color[7] = new Color(0, 0, 0, 0.87f);
-            color[8] = new Color(0, 0, 0, 0.91f);
-            color[9] = new Color(0, 0, 0, 0.94f);
-            color[10] = new Color(0, 0, 0, 0.96f);
-            color[11] = new Color(0, 0, 0, 0.98f);
-
-            fraction[0] = 0f;
-            fraction[1] = 0.4f;
-            fraction[2] = 0.5f;
-            fraction[3] = 0.6f;
-            fraction[4] = 0.65f;
-            fraction[5] = 0.7f;
-            fraction[6] = 0.75f;
-            fraction[7] = 0.8f;
-            fraction[8] = 0.85f;
-            fraction[9] = 0.9f;
-            fraction[10] = 0.95f;
-            fraction[11] = 1f;
-
-            Vector2 lightScale = light.getScale();
-            Vector2 lightPosition = light.getPosition();
-
-            RadialGradientPaint gPaint = new RadialGradientPaint(lightPosition.getX(), lightPosition.getY(), (light.getScale().getX()), fraction, color);
-
-
-            graphics2D.setPaint(gPaint);
-
-            graphics2D.fill(lightArea);
         }
-        //graphics2D.translate(-width*percentW,-height*percentH);
-
-        //raphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
-
-        graphics2D.scale(1/scale.getX(),1/scale.getY());
-
-        graphics2D.setColor(new Color(0,0,0,0.4f));
-
-        graphics2D.fill(screen);
-
     }
 }
