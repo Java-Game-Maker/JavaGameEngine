@@ -10,11 +10,11 @@ import java.awt.geom.Area;
 import java.util.LinkedList;
 
 public class Light extends Component {
-
+    private int radius = 500;
     @Override
     public void start() {
         super.start();
-        setLocalVertices(new Circle(100,100));
+        setLocalVertices(new Circle(radius,radius));
     }
 
     @Override
@@ -34,6 +34,15 @@ public class Light extends Component {
              y[i] = (int) point.getY();
              i++;
          }
+
          LightManager.screen.subtract(new Area(new Polygon(x,y,vertices.size())));
+
+         float[] dist = { 0.5f, 1 };
+         Color[] color = { new Color(0,0,0,0), new Color(0,0,0, LightManager.opacity) };
+         Point center = new Point((int) (getPosition().getX()),(int) (getPosition().getY()));
+         RadialGradientPaint p = new RadialGradientPaint(center,  radius, dist, color);
+         g.setPaint(p);
+         g.fill(getShape());
+         //g.fillOval((int) getPosition().getX()-radius/2, (int) getPosition().getY()-radius/2,radius,radius);
     }
 }
