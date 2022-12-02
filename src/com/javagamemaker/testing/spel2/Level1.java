@@ -25,7 +25,7 @@ public class Level1 extends Scene {
         add(new Ground(100,new Vector2(0,-1000)));
         add(new Ground(100,new Vector2(100,-1200)));
 
-        //add(Main.player);
+        add(Main.player);
     }
 
     @Override

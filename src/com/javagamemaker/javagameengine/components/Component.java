@@ -215,9 +215,13 @@ public class Component {
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
                         if((addedX.collision(otherCollider)) != null ){
-                            if(collider.isTrigger() || otherCollider.isTrigger()){
+                            if(collider.isTrigger()){
                                 CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
                                 onTriggerEnter(event);
+                            }
+                            else if(otherCollider.isTrigger()){
+                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                otherCollider.onTriggerEnter(event);
                             }
                             else{
                                 newPos.setX(0);

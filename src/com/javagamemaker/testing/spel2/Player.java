@@ -12,6 +12,8 @@ import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
+
 public class Player extends Sprite {
     PhysicsBody physicsBody = new PhysicsBody(true);
     float force = 1;
@@ -23,8 +25,11 @@ public class Player extends Sprite {
         loadAnimation(new String[]{"/spel2/cookie2.png"});
         add(physicsBody);
         Collider c = new Collider();
+        c.setTag("player");
         c.setLocalVertices(new Rect(100,70));
         add(c);
+
+
     }
 
     @Override
