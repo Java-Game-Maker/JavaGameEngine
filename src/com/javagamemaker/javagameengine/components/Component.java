@@ -362,11 +362,11 @@ public class Component {
      */
     public void update(){
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
-                /*
-                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
-                    if mouse is inside, and we have been we don't call mouse entered
-                    if mouse is not inside, and we are previously we call mouse left
-                 */
+        /*
+            if mouse is inside, and we have not been we call mouse entered and we say it is entered
+            if mouse is inside, and we have been we don't call mouse entered
+            if mouse is not inside, and we are previously we call mouse left
+        */
         Component prev = JavaGameEngine.getSelectedScene().hasA;
         if (getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer())) {
             if (isMouseInside()) {
@@ -592,9 +592,8 @@ public class Component {
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-        List<Component> list = getChildren();
 
-        for (Component child : list){
+        for (Component child : getChildren()){
             child.render(g);
         }
 

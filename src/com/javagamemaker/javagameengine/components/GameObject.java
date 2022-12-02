@@ -42,9 +42,6 @@ public class GameObject extends Component{
                 g.fillPolygon(getPolygon());
                 g.setColor(prev);
             }
-            g.setColor(color);
-            g.fillPolygon(getPolygon());
-            g.setColor(prev);
             super.render(g);
         }
     }
