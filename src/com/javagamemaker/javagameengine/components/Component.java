@@ -9,6 +9,7 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -28,9 +29,9 @@ public class Component {
     protected Vector2 position = new Vector2(0,0);
     protected Vector2 parentOffset = new Vector2(0,0);
     protected Vector2 scale = new Vector2(100,100);
-    protected LinkedList<Vector2> localVertices = new LinkedList<>();
-    protected LinkedList<Vector2> vertices = new LinkedList<>();
-    protected LinkedList<Component> children = new LinkedList<>();
+    protected ArrayList<Vector2> localVertices = new ArrayList<>();
+    protected ArrayList<Vector2> vertices = new ArrayList<>();
+    protected ArrayList<Component> children = new ArrayList<>();
     protected Component parent;
     protected Vector2 prevPosition = Vector2.zero;
     protected boolean mouseInside = false;
@@ -38,7 +39,7 @@ public class Component {
 
     protected Vector2 lastPosition;
 
-    public Component(LinkedList<Vector2> localVertices){
+    public Component(ArrayList<Vector2> localVertices){
         this.localVertices = localVertices;
     }
     public Component(){
@@ -154,13 +155,13 @@ public class Component {
      */
     public void setScale(Vector2 scale) {
         Vector2 d = scale.divide(getScale());
-        LinkedList<Vector2> newVertices =new LinkedList<>();
+        ArrayList<Vector2> newVertices =new ArrayList<>();
         for(Vector2 vertex : localVertices){
             Vector2 newV = vertex.multiply(d);
             newVertices.add(newV);
         }
         for(Component c : children){
-            LinkedList<Vector2> newVertices1 =new LinkedList<>();
+            ArrayList<Vector2> newVertices1 =new ArrayList<>();
             for(Vector2 vertex : c.localVertices){
                 Vector2 newV = vertex.multiply(d);
                 newVertices1.add(newV);
@@ -280,11 +281,11 @@ public class Component {
 
     }
 
-    public LinkedList<Component> getChildren() {
+    public ArrayList<Component> getChildren() {
         return children;
     }
 
-    public void setChildren(LinkedList<Component> children) {
+    public void setChildren(ArrayList<Component> children) {
         this.children = children;
     }
 
@@ -296,19 +297,19 @@ public class Component {
         this.parent = parent;
     }
 
-    public LinkedList<Vector2> getVertices() {
+    public ArrayList<Vector2> getVertices() {
         return vertices;
     }
 
-    public LinkedList<Vector2> getLocalVertices() {
+    public ArrayList<Vector2> getLocalVertices() {
         return localVertices;
     }
 
-    public void setLocalVertices(LinkedList<Vector2> localVertices) {
+    public void setLocalVertices(ArrayList<Vector2> localVertices) {
         this.localVertices = localVertices;
     }
 
-    public void setVertices(LinkedList<Vector2> vertices) {
+    public void setVertices(ArrayList<Vector2> vertices) {
         this.vertices = vertices;
     }
 
@@ -324,7 +325,7 @@ public class Component {
      * update all shape points based on position
      */
     public void updateVertices(){
-        LinkedList<Vector2> ver = new LinkedList<>();
+        ArrayList<Vector2> ver = new ArrayList<>();
         for(Vector2 vertex : localVertices){
             ver.add(vertex.add(position.subtract(rotOffset)));
         }
@@ -363,11 +364,11 @@ public class Component {
      */
     public void update(){
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
-                /*
-                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
-                    if mouse is inside, and we have been we don't call mouse entered
-                    if mouse is not inside, and we are previously we call mouse left
-                 */
+        /*
+            if mouse is inside, and we have not been we call mouse entered and we say it is entered
+            if mouse is inside, and we have been we don't call mouse entered
+            if mouse is not inside, and we are previously we call mouse left
+        */
         Component prev = JavaGameEngine.getSelectedScene().hasA;
         if (getShape().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer())) {
             if (isMouseInside()) {
@@ -479,7 +480,7 @@ public class Component {
             this.angle += angle * JavaGameEngine.deltaTime;
 
             double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
-            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            ArrayList<Vector2> vertices1 = new ArrayList<>(); // new vertices
             for (int i = 0; i < localVertices.size(); i++) {
                 Vector2 vertex = localVertices.get(i);
                 // matrix rotation
@@ -512,7 +513,7 @@ public class Component {
             this.angle += angle;
 
             double radians = Math.toRadians(angle); // turns to radians from angle
-            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            ArrayList<Vector2> vertices1 = new ArrayList<>(); // new vertices
 
             for (int i = 0; i < localVertices.size(); i++) {
                 Vector2 vertex = localVertices.get(i).subtract(pivot);
@@ -593,9 +594,8 @@ public class Component {
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-        List<Component> list = getChildren();
 
-        for (Component child : list){
+        for (Component child : getChildren()){
             child.render(g);
         }
 

@@ -1,3 +1,4 @@
+
 package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
@@ -28,7 +29,7 @@ public class Main extends JavaGameEngine {
         g1.add(new PhysicsBody());
         ((PhysicsBody) g1.getChild(new PhysicsBody())).velocity = new Vector2(5,0);
         g1.setPosition(new Vector2(-400,0));
-        scene.add(g1);
+        //scene.add(g1);
 
         GameObject g2 = new GameObject();
         g2.add(new Collider());
@@ -36,10 +37,19 @@ public class Main extends JavaGameEngine {
         ((PhysicsBody) g2.getChild(new PhysicsBody())).velocity = new Vector2(-4,0);
         ((PhysicsBody) g2.getChild(new PhysicsBody())).mass = 1000;
         g2.setPosition(new Vector2(200,0));
-        scene.add(g2);
-        setSelectedScene(scene);
+        //scene.add(g2);
+        //scene.getComponents1().clear();
+        scene.getCamera().add(new CameraMovement());
+        for(int i = 0; i < 10000; i++){
+            GameObject g = new GameObject();
+            g.setPosition(new Vector2(
+                    i*101-500,0));
+            g.add(new Grabber(g));
+            scene.add(g);
 
-        setSelectedScene(new PhysicsTest());
+        }
+        setSelectedScene(scene);
+        //setSelectedScene(new PhysicsTest());
         start();
     }
 
@@ -86,6 +96,12 @@ public class Main extends JavaGameEngine {
                         getChild(new Collider()).setScale(getScale());
                     }
                 }
+
+                @Override
+                public void onMouseEntered() {
+                    super.onMouseEntered();
+                    Debug.log("enterd");
+                }
             };
             player.add(new Collider());
             player.add(new PhysicsBody(true));
@@ -93,7 +109,6 @@ public class Main extends JavaGameEngine {
             Light lighh2 = new Light();
             lighh2.setParentOffset(new Vector2(100,0));
             player.setColor(Color.green);
-            add(player);
         }
         @Override
         public boolean inside(Component component) {

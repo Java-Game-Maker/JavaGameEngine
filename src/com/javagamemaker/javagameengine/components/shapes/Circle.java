@@ -2,16 +2,18 @@ package com.javagamemaker.javagameengine.components.shapes;
 
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Circle extends LinkedList<Vector2> {
+public class Circle extends ArrayList<Vector2> {
 
     int width, height;
 
     public Circle(int width, int height){
-
-        for(int x = 0;x <= 360/3;x++){
-            add(new Vector2(width* (float) Math.cos(Math.toRadians(x*3)), height * (float) Math.sin(Math.toRadians(x*3))));
+        // higher scaler better preformance badder circles
+        float scaler = 3f;
+        for(int x = 0;x <= 360/scaler;x++){
+            add(new Vector2(width* (float) Math.cos(Math.toRadians(x*scaler)), height * (float) Math.sin(Math.toRadians(x*scaler))));
         }
 
     }
