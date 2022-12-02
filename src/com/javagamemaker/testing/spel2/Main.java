@@ -4,6 +4,8 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
+
 public class Main extends JavaGameEngine {
     public static Player player;
 
@@ -11,6 +13,7 @@ public class Main extends JavaGameEngine {
         player = new Player();
         size = new Vector2(600,1000);
         player.setPosition(new Vector2(0,-200));
+
 
         setSelectedScene(new Level1());
         start();

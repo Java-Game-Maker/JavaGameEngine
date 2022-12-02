@@ -15,7 +15,6 @@ public class Ground extends Sprite {
         loadAnimation(new String[]{"/spel2/groundtile.png"});
         setScale(new Vector2(width,50));
         setPosition(pos);
-        Main.getSelectedScene().instantiate(new Coin());
     }
 
     @Override

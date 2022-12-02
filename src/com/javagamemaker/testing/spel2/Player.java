@@ -30,6 +30,7 @@ public class Player extends Sprite {
         add(c);
 
 
+
     }
 
     @Override

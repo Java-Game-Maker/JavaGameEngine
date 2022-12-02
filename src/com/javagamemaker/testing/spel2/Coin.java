@@ -12,13 +12,16 @@ import java.util.LinkedList;
 public class Coin extends Sprite {
 
     Animation animation = new Animation();
-    public Coin(){
+    public Coin(Vector2 pos){
+        setPosition(pos);
         loadAnimation(new String[]{"/spel2/cookie.png"});
         LinkedList<AnimationPoint> points = new LinkedList<>();
         points.add(new AnimationPoint(new Vector2(0,1),0));
         points.add(new AnimationPoint(new Vector2(0,-1),50));
         animation.setSelectedPoints(points);
-        Collider c =new Collider(true);
+
+
+        Collider c = new Collider(true);
         c.setTrigger(true);
         add(c);
     }
@@ -33,6 +36,6 @@ public class Coin extends Sprite {
     @Override
     public void update() {
         super.updateSecond();
-        translate(animation.getPoint().multiply(-1));
+        //translate(animation.getPoint().multiply(-1));
     }
 }

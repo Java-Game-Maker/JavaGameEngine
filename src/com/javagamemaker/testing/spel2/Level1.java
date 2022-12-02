@@ -5,7 +5,20 @@ import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Grabber;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
+
 public class Level1 extends Scene {
+    public Level1(){
+        // ui
+        JPanel p = new JPanel();
+
+        p.setLocation(300-50,0);
+        p.setSize(100,50);
+        p.add(new JLabel("Highscore 100"));
+        p.add(new JLabel("Coins 100"));
+
+        add(p);
+    }
     @Override
     public void start() {
         super.start();
@@ -24,6 +37,8 @@ public class Level1 extends Scene {
         add(new Ground(100,new Vector2(-100,-800)));
         add(new Ground(100,new Vector2(0,-1000)));
         add(new Ground(100,new Vector2(100,-1200)));
+
+        add(new Coin(new Vector2(-200,-200)));
 
         add(Main.player);
     }
