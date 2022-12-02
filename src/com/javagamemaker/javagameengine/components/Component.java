@@ -632,4 +632,10 @@ public class Component {
                 "scale:"+getScale().toString()+",\n" +
                 "children: ["+getChildren()+"]}";
     }
+
+    public void onCameraEnter() {
+    }
+
+    public void onCameraLeft() {
+    }
 }

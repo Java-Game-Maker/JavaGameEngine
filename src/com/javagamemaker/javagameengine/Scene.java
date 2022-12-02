@@ -219,6 +219,14 @@ public class Scene extends JPanel {
                 Component c = components.get(i);
                 if(inside(c)) {
                     (c).render(graphics2D);
+                    if(!c.isVisible()){
+                       c.setVisible(true);
+                       c.onCameraEnter();
+                    }
+                }
+                else if(c.isVisible()){
+                   c.setVisible(false);
+                   c.onCameraLeft();
                 }
             }
         }catch (Exception e){}
