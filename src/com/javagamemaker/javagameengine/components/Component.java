@@ -220,7 +220,7 @@ public class Component {
                                 onTriggerEnter(event);
                             }
                             else if(otherCollider.isTrigger()){
-                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                CollisionEvent event = new CollisionEvent(otherCollider,collider,null);
                                 otherCollider.onTriggerEnter(event);
                             }
                             else{
