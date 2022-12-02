@@ -3,6 +3,7 @@ package com.javagamemaker.javagameengine;
 import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
@@ -20,11 +21,11 @@ import java.util.List;
  * (after start) myscene.destroy(new Component())
  */
 public class Scene extends JPanel {
-    public LinkedList<Component> layerList = new LinkedList<>();
+    public ArrayList<Component> layerList = new ArrayList<>();
     private ArrayList<Component> components = new ArrayList<>();
-    private final LinkedList<Component> newComponents = new LinkedList<>();
-    private final LinkedList<Component> remove = new LinkedList<>();
-    private LinkedList<java.awt.Component> uiElements = new LinkedList<>();
+    private final ArrayList<Component> newComponents = new ArrayList<>();
+    private final ArrayList<Component> remove = new ArrayList<>();
+    private ArrayList<java.awt.Component> uiElements = new ArrayList<>();
     Camera camera = new Camera();
 
     public Scene() {
@@ -55,7 +56,7 @@ public class Scene extends JPanel {
      *
      * @return list of all ui in the scene
      */
-    public LinkedList<java.awt.Component> getUiElements() {
+    public ArrayList<java.awt.Component> getUiElements() {
         return uiElements;
     }
 
@@ -63,7 +64,7 @@ public class Scene extends JPanel {
      * sets the ui list with the param
      * @param uiElements list to set to
      */
-    public void setUiElements(LinkedList<java.awt.Component> uiElements) {
+    public void setUiElements(ArrayList<java.awt.Component> uiElements) {
         this.uiElements = uiElements;
     }
 
@@ -143,9 +144,12 @@ public class Scene extends JPanel {
                 component.updateMili();
             }
         }
-        for (Component component : components) {
-            if (inside(component)) {
-                component.update();
+
+        int lsize = components.size();
+        for(int i = 0; i < lsize;i++){
+            Component c = components.get(i);
+            if (inside(c)) {
+                c.update();
             }
         }
 
@@ -172,13 +176,9 @@ public class Scene extends JPanel {
     }
 
     public boolean inside(Component component) {
-        //Debug.log(component.getPosition().getDistance(JavaGameEngine.getSelectedScene().getCamera().getPosition()));
-        //return (component.getPosition().getDistance(JavaGameEngine.getSelectedScene().getCamera().getPosition()) < 1500);
-        //Debug.log(String.valueOf(JavaGameEngine.getSelectedScene().getCamera().getPosition().add(component.getPosition()).getMagnitude()<1000));
-        return true;
-        //return JavaGameEngine.getSelectedScene().getCamera().getPosition().add(component.getPosition()).getMagnitude()<JavaGameEngine.getWindowSize().getMagnitude();
+        return screen.contains(component.getPolygon().getBounds());
     }
-
+    Rectangle screen = new Rectangle();
     /**
      *
      * @param g the <code>Graphics</code> object to protect
@@ -189,7 +189,6 @@ public class Scene extends JPanel {
         Graphics2D graphics2D = (Graphics2D) g;
 
         //graphics2D.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-
         Vector2 scale = camera.getScale();
         //scale = scale.devide(JavaGameEngine.getWindowSize());
 
@@ -203,12 +202,13 @@ public class Scene extends JPanel {
         graphics2D.translate(width*percentW,height*percentH);
         graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
 
+        if(!screen.equals(graphics2D.getClip().getBounds())){
+            screen = new Rectangle(graphics2D.getClip().getBounds().x-200,graphics2D.getClip().getBounds().y-200,graphics2D.getClip().getBounds().width+500,graphics2D.getClip().getBounds().height+500);
+        }
 
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
-
         Input.setMousePosition(new Vector2(x,y));
-        List<Component> list = components;
         /*Collections.sort(list, new Comparator<Component>() {
             @Override
             public int compare(Component o1, Component o2) {
@@ -216,14 +216,13 @@ public class Scene extends JPanel {
             }
         });*/
         try{
-            for(Component c : list){
+            int lsize = components.size();
+            for(int i = 0; i < lsize;i++){
+                Component c = components.get(i);
                 if(inside(c)) {
                     (c).render(graphics2D);
                 }
-
             }
-        }catch (Exception e){
-
-        }
+        }catch (Exception e){}
     }
 }

@@ -108,7 +108,7 @@ public class Main extends JavaGameEngine {
                 Main.getSelectedScene().instantiate(ship);
                 destroy();
             }
-            Debug.log(getWindowSize().divide(2));
+            //Debug.log(getWindowSize().divide(2));
             getSelectedScene().getCamera().setPosition(getWindowSize().divide(2));
         }
 
