@@ -148,9 +148,7 @@ public class Scene extends JPanel {
         int lsize = components.size();
         for(int i = 0; i < lsize;i++){
             Component c = components.get(i);
-            if (inside(c)) {
-                c.update();
-            }
+            c.update();
         }
 
         camera.update();
