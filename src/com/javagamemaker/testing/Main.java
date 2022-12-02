@@ -1,9 +1,11 @@
+
 package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
@@ -24,7 +26,7 @@ public class Main extends JavaGameEngine {
         g1.add(new PhysicsBody());
         ((PhysicsBody) g1.getChild(new PhysicsBody())).velocity = new Vector2(5,0);
         g1.setPosition(new Vector2(-400,0));
-        scene.add(g1);
+        //scene.add(g1);
 
         GameObject g2 = new GameObject();
         g2.add(new Collider());
@@ -32,10 +34,19 @@ public class Main extends JavaGameEngine {
         ((PhysicsBody) g2.getChild(new PhysicsBody())).velocity = new Vector2(-4,0);
         ((PhysicsBody) g2.getChild(new PhysicsBody())).mass = 1000;
         g2.setPosition(new Vector2(200,0));
-        scene.add(g2);
-        setSelectedScene(scene);
+        //scene.add(g2);
+        //scene.getComponents1().clear();
+        scene.getCamera().add(new CameraMovement());
+        for(int i = 0; i < 10000; i++){
+            GameObject g = new GameObject();
+            g.setPosition(new Vector2(
+                    i*101-500,0));
+            g.add(new Grabber(g));
+            scene.add(g);
 
-        setSelectedScene(new PhysicsTest());
+        }
+        setSelectedScene(scene);
+        //setSelectedScene(new PhysicsTest());
         start();
     }
 
@@ -71,10 +82,19 @@ public class Main extends JavaGameEngine {
                         ((PhysicsBody) getChild(new PhysicsBody())).addForce(Vector2.up.multiply(50));
                     }
                 }
+
+                @Override
+                public void onMouseEntered() {
+                    super.onMouseEntered();
+                    Debug.log("enterd");
+                }
             };
             player.add(new Collider());
             player.add(new PhysicsBody(true));
+
+
             add(player);
+            add(new Grabber(player));
         }
         @Override
         public boolean inside(Component component) {
