@@ -9,7 +9,7 @@ public class Main extends JavaGameEngine {
 
     public static void main(String[] args){
         player = new Player();
-
+        size = new Vector2(600,1000);
         player.setPosition(new Vector2(0,-200));
 
         setSelectedScene(new Level1());
