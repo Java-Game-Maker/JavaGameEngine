@@ -177,7 +177,7 @@ public class Scene extends JPanel {
     }
 
     public boolean inside(Component component) {
-        return screen.contains(component.getPolygon().getBounds());
+        return screen.contains(component.getShape().getBounds());
     }
     Rectangle screen = new Rectangle();
     /**

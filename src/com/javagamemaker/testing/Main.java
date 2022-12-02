@@ -48,8 +48,8 @@ public class Main extends JavaGameEngine {
             scene.add(g);
 
         }
-        setSelectedScene(scene);
-        //setSelectedScene(new PhysicsTest());
+        //setSelectedScene(scene);
+        setSelectedScene(new PhysicsTest());
         start();
     }
 
@@ -103,12 +103,19 @@ public class Main extends JavaGameEngine {
                     Debug.log("enterd");
                 }
             };
-            player.add(new Collider());
+            Collider l = new Collider();
+            player.add(l);
+
             player.add(new PhysicsBody(true));
-            player.add(new Light());
+            //player.add(new Light());
+
             Light lighh2 = new Light();
-            lighh2.setParentOffset(new Vector2(100,0));
+            lighh2.setRadius(100);
+            lighh2.add(new Grabber(lighh2));
+            add(lighh2);
             player.setColor(Color.green);
+            add(player);
+            //player.add(new Grabber(player));
         }
         @Override
         public boolean inside(Component component) {
