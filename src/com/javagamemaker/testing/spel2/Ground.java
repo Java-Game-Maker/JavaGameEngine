@@ -11,11 +11,11 @@ import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class Ground extends Sprite {
-
     public Ground(float width,Vector2 pos){
         loadAnimation(new String[]{"/spel2/groundtile.png"});
         setScale(new Vector2(width,50));
         setPosition(pos);
+        Main.getSelectedScene().instantiate(new Coin());
     }
 
     @Override
