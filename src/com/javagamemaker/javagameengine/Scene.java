@@ -176,7 +176,7 @@ public class Scene extends JPanel {
     public boolean inside(Component component) {
         return screen.contains(component.getPolygon().getBounds());
     }
-    Rectangle screen = new Rectangle();
+    public Rectangle screen = new Rectangle();
     /**
      *
      * @param g the <code>Graphics</code> object to protect
@@ -225,8 +225,8 @@ public class Scene extends JPanel {
                     }
                 }
                 else if(c.isVisible()){
-                   c.setVisible(false);
-                   c.onCameraLeft();
+                    c.setVisible(false);
+                    c.onCameraLeft();
                 }
             }
         }catch (Exception e){}

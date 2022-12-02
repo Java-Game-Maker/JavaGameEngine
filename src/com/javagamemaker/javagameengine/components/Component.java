@@ -35,6 +35,7 @@ public class Component {
     protected Vector2 prevPosition = Vector2.zero;
     protected boolean mouseInside = false;
     protected boolean freezeRotation = false;
+    protected boolean colliding = false;
 
     protected Vector2 lastPosition;
 
@@ -193,6 +194,8 @@ public class Component {
 
         Collider collider = ((Collider) getChild(new Collider()));
         Vector2 newPos = new Vector2(towards.getX(),towards.getY());
+        boolean temp = colliding;
+        colliding = false;
         if(collider!=null){
             Collider addedX = new Collider();
             addedX.localVertices = collider.getLocalVertices();
@@ -222,7 +225,7 @@ public class Component {
                                 // Create collision event
                                 CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
                                 onCollisionEnter(event);
-
+                                colliding = true;
                                 try{
                                     Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
                                     ((PhysicsBody) getChild(new PhysicsBody())).response(event);
@@ -241,6 +244,8 @@ public class Component {
                             else{
                                 newPos.setY(0);
                                 CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                onCollisionEnter(event);
+                                colliding = true;
                                 try{
                                     Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
                                     ((PhysicsBody) getChild(new PhysicsBody())).response(event);
@@ -248,16 +253,23 @@ public class Component {
                                         ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
                                     }
                                 }catch (Exception e){}
-                                onCollisionEnter(event);
                             }
                         }
                     }
                 }
             }
         }
+        Debug.log(temp);
+        Debug.log(colliding);
+        Debug.log("");
+        if(temp == true && temp != colliding){
+           onCollisionLeft();
+        }
         //Debug.log(newPos);
         setPosition(getPosition().add(newPos));
     }
+
+
     /**
      * if component is a child it will add its parent offset to the position
      * it will update all its childrens positions aswell
@@ -381,7 +393,6 @@ public class Component {
             onMouseLeft();
             JavaGameEngine.getSelectedScene().hasA = null;
         }
-
         for(Component child : children){
             child.update();
         }
@@ -455,10 +466,18 @@ public class Component {
      * @param collisionEvent information about the collision
      */
     public void onCollisionEnter(CollisionEvent collisionEvent){
+        colliding = true;
         if(getParent()!=null) getParent().onCollisionEnter(collisionEvent);
 
     }
 
+    /**
+     * calls on when component leaves a collision
+     */
+    public void onCollisionLeft() {
+        colliding = false;
+        if(getParent()!=null) getParent().onCollisionLeft();
+    }
     /**
      * rotate to specified angle
      * @param angle angle to rotate to
