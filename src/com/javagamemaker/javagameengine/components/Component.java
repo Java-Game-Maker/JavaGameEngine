@@ -634,8 +634,12 @@ public class Component {
     }
 
     public void onCameraEnter() {
+        for(Component c : getChildren())
+            c.onCameraEnter();
     }
 
     public void onCameraLeft() {
+        for(Component c : getChildren())
+            c.onCameraLeft();
     }
 }
