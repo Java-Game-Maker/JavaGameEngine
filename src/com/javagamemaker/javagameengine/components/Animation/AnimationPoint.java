@@ -1,6 +1,6 @@
-package javagameengine.components.Animation;
+package com.javagamemaker.javagameengine.components.Animation;
 
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class AnimationPoint extends Vector2 {
 

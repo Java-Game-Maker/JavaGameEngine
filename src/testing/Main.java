@@ -1,15 +1,15 @@
 package testing;
 
 
-import javagameengine.JavaGameEngine;
-import javagameengine.Scene;
-import javagameengine.components.*;
-import javagameengine.components.Animation.Animation;
-import javagameengine.components.Animation.AnimationPoint;
-import javagameengine.msc.Debug;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.CameraMovement;
+import com.javagamemaker.javagameengine.components.Collider;
+import com.javagamemaker.javagameengine.components.GameObject;
+import com.javagamemaker.javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.components.Animation.Animation;
+import com.javagamemaker.javagameengine.components.Animation.AnimationPoint;
 
-import java.awt.*;
 import java.util.LinkedList;
 
 public class Main extends JavaGameEngine {
@@ -18,7 +18,6 @@ public class Main extends JavaGameEngine {
 
         Scene scene1 = new Scene();
         scene1.getCamera().add(new CameraMovement());
-
         scene1.add(new Coin());
 
         setSelectedScene(scene1);
@@ -27,7 +26,7 @@ public class Main extends JavaGameEngine {
         start();
     }
 
-    static class Coin extends GameObject{
+    static class Coin extends GameObject {
         Animation a = new Animation();
         public Coin(){
             LinkedList<AnimationPoint> points = new LinkedList<>();

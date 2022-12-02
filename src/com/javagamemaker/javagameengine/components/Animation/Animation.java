@@ -1,7 +1,7 @@
-package javagameengine.components.Animation;
+package com.javagamemaker.javagameengine.components.Animation;
 
-import javagameengine.components.Component;
-import javagameengine.msc.Vector2;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.util.LinkedList;
 
