@@ -2,9 +2,10 @@ package com.javagamemaker.javagameengine.components.shapes;
 
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 
-public class Rect extends LinkedList<Vector2> {
+public class Rect extends ArrayList<Vector2> {
 
     public Rect(int width, int height){
         add(new Vector2(-width/2,-height/2)); // top left

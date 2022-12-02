@@ -3,6 +3,7 @@ package com.javagamemaker.javagameengine.components;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 
@@ -13,7 +14,7 @@ public class GameObject extends Component{
 
     private Color color = new Color(60,60,60);
 
-    public GameObject(LinkedList<Vector2> localVertices){
+    public GameObject(ArrayList<Vector2> localVertices){
         super(localVertices);
     }
     public GameObject(){

@@ -71,10 +71,19 @@ public class Main extends JavaGameEngine {
                         ((PhysicsBody) getChild(new PhysicsBody())).addForce(Vector2.up.multiply(50));
                     }
                 }
+
+                @Override
+                public void onMouseEntered() {
+                    super.onMouseEntered();
+                    Debug.log("enterd");
+                }
             };
             player.add(new Collider());
             player.add(new PhysicsBody(true));
+
+
             add(player);
+            add(new Grabber(player));
         }
         @Override
         public boolean inside(Component component) {

@@ -8,6 +8,7 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -27,7 +28,7 @@ public class Component {
     protected Vector2 position = new Vector2(0,0);
     protected Vector2 parentOffset = new Vector2(0,0);
     protected Vector2 scale = new Vector2(100,100);
-    protected LinkedList<Vector2> localVertices = new LinkedList<>();
+    protected ArrayList<Vector2> localVertices = new ArrayList<>();
     protected LinkedList<Vector2> vertices = new LinkedList<>();
     protected LinkedList<Component> children = new LinkedList<>();
     protected Component parent;
@@ -37,7 +38,7 @@ public class Component {
 
     protected Vector2 lastPosition;
 
-    public Component(LinkedList<Vector2> localVertices){
+    public Component(ArrayList<Vector2> localVertices){
         this.localVertices = localVertices;
     }
     public Component(){
@@ -153,13 +154,13 @@ public class Component {
      */
     public void setScale(Vector2 scale) {
         Vector2 d = scale.divide(getScale());
-        LinkedList<Vector2> newVertices =new LinkedList<>();
+        ArrayList<Vector2> newVertices =new ArrayList<>();
         for(Vector2 vertex : localVertices){
             Vector2 newV = vertex.multiply(d);
             newVertices.add(newV);
         }
         for(Component c : children){
-            LinkedList<Vector2> newVertices1 =new LinkedList<>();
+            ArrayList<Vector2> newVertices1 =new ArrayList<>();
             for(Vector2 vertex : c.localVertices){
                 Vector2 newV = vertex.multiply(d);
                 newVertices1.add(newV);
@@ -299,11 +300,11 @@ public class Component {
         return vertices;
     }
 
-    public LinkedList<Vector2> getLocalVertices() {
+    public ArrayList<Vector2> getLocalVertices() {
         return localVertices;
     }
 
-    public void setLocalVertices(LinkedList<Vector2> localVertices) {
+    public void setLocalVertices(ArrayList<Vector2> localVertices) {
         this.localVertices = localVertices;
     }
 
@@ -477,7 +478,7 @@ public class Component {
             this.angle += angle * JavaGameEngine.deltaTime;
 
             double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
-            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            ArrayList<Vector2> vertices1 = new ArrayList<>(); // new vertices
             for (int i = 0; i < localVertices.size(); i++) {
                 Vector2 vertex = localVertices.get(i);
                 // matrix rotation
@@ -510,7 +511,7 @@ public class Component {
             this.angle += angle;
 
             double radians = Math.toRadians(angle); // turns to radians from angle
-            LinkedList<Vector2> vertices1 = new LinkedList<>(); // new vertices
+            ArrayList<Vector2> vertices1 = new ArrayList<>(); // new vertices
 
             for (int i = 0; i < localVertices.size(); i++) {
                 Vector2 vertex = localVertices.get(i).subtract(pivot);

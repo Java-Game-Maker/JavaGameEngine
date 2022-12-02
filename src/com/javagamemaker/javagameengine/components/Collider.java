@@ -6,6 +6,7 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Collider extends Component{
@@ -13,7 +14,7 @@ public class Collider extends Component{
     protected boolean visible = false;
     protected LinkedList<String> ignoreTags = new LinkedList<>();
     protected boolean trigger = false;
-    public Collider(LinkedList<Vector2> localVertices) {
+    public Collider(ArrayList<Vector2> localVertices) {
         super(localVertices);
     }
     public Collider(boolean visible) {

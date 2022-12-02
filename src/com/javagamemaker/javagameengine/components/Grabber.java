@@ -12,7 +12,7 @@ public class Grabber extends Component{
     public Grabber(Component parent){
         this.parent = parent;
     }
-    Vector2 gridSnapping = new Vector2(10,10);
+    Vector2 gridSnapping = new Vector2(1,1);
     @Override
     public void update() {
         super.update();
