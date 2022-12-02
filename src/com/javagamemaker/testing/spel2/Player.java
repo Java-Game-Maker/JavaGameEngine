@@ -39,6 +39,6 @@ public class Player extends GameObject {
             //physicsBody.addForce(Vector2.right.multiply(force));
             translate(Vector2.right.multiply(force));
         }
-        JavaGameEngine.getSelectedScene().getCamera().setPosition(getPosition().add(JavaGameEngine.getWindowSize().divide(2)));
+        JavaGameEngine.getSelectedScene().getCamera().setPosition(getPosition().subtract(JavaGameEngine.getWindowSize().divide(2)).multiply(-1));
     }
 }
