@@ -20,11 +20,11 @@ import java.util.List;
  * (after start) myscene.destroy(new Component())
  */
 public class Scene extends JPanel {
-    public LinkedList<Component> layerList = new LinkedList<>();
+    public ArrayList<Component> layerList = new ArrayList<>();
     private ArrayList<Component> components = new ArrayList<>();
-    private final LinkedList<Component> newComponents = new LinkedList<>();
-    private final LinkedList<Component> remove = new LinkedList<>();
-    private LinkedList<java.awt.Component> uiElements = new LinkedList<>();
+    private final ArrayList<Component> newComponents = new ArrayList<>();
+    private final ArrayList<Component> remove = new ArrayList<>();
+    private ArrayList<java.awt.Component> uiElements = new ArrayList<>();
     Camera camera = new Camera();
 
     public Scene() {
@@ -55,7 +55,7 @@ public class Scene extends JPanel {
      *
      * @return list of all ui in the scene
      */
-    public LinkedList<java.awt.Component> getUiElements() {
+    public ArrayList<java.awt.Component> getUiElements() {
         return uiElements;
     }
 
@@ -63,7 +63,7 @@ public class Scene extends JPanel {
      * sets the ui list with the param
      * @param uiElements list to set to
      */
-    public void setUiElements(LinkedList<java.awt.Component> uiElements) {
+    public void setUiElements(ArrayList<java.awt.Component> uiElements) {
         this.uiElements = uiElements;
     }
 

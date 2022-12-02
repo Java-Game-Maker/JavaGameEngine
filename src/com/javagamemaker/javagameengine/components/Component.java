@@ -29,8 +29,8 @@ public class Component {
     protected Vector2 parentOffset = new Vector2(0,0);
     protected Vector2 scale = new Vector2(100,100);
     protected ArrayList<Vector2> localVertices = new ArrayList<>();
-    protected LinkedList<Vector2> vertices = new LinkedList<>();
-    protected LinkedList<Component> children = new LinkedList<>();
+    protected ArrayList<Vector2> vertices = new ArrayList<>();
+    protected ArrayList<Component> children = new ArrayList<>();
     protected Component parent;
     protected Vector2 prevPosition = Vector2.zero;
     protected boolean mouseInside = false;
@@ -280,11 +280,11 @@ public class Component {
 
     }
 
-    public LinkedList<Component> getChildren() {
+    public ArrayList<Component> getChildren() {
         return children;
     }
 
-    public void setChildren(LinkedList<Component> children) {
+    public void setChildren(ArrayList<Component> children) {
         this.children = children;
     }
 
@@ -296,7 +296,7 @@ public class Component {
         this.parent = parent;
     }
 
-    public LinkedList<Vector2> getVertices() {
+    public ArrayList<Vector2> getVertices() {
         return vertices;
     }
 
@@ -308,7 +308,7 @@ public class Component {
         this.localVertices = localVertices;
     }
 
-    public void setVertices(LinkedList<Vector2> vertices) {
+    public void setVertices(ArrayList<Vector2> vertices) {
         this.vertices = vertices;
     }
 
@@ -324,7 +324,7 @@ public class Component {
      * update all shape points based on position
      */
     public void updateVertices(){
-        LinkedList<Vector2> ver = new LinkedList<>();
+        ArrayList<Vector2> ver = new ArrayList<>();
         for(Vector2 vertex : localVertices){
             ver.add(vertex.add(position.subtract(rotOffset)));
         }
