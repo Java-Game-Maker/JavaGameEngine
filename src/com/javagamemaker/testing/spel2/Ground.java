@@ -22,7 +22,7 @@ public class Ground extends Sprite {
         super.onCameraLeft();
         if(getPosition().getY() > Main.player.getPosition().getY()){
             float diff = Main.getSelectedScene().screen.getBounds().height;
-            setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-100));
+            setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-800));
             Debug.log(getPosition());
         }
     }

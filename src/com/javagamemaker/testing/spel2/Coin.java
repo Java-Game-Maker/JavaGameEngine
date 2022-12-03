@@ -7,6 +7,10 @@ import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.sound.sampled.LineUnavailableException;
+import javax.sound.sampled.UnsupportedAudioFileException;
+import java.io.File;
+import java.io.IOException;
 import java.util.LinkedList;
 
 public class Coin extends Sprite {
@@ -14,7 +18,7 @@ public class Coin extends Sprite {
     Animation animation = new Animation();
     public Coin(Vector2 pos){
         setPosition(pos);
-        loadAnimation(new String[]{"/spel2/cookie.png"});
+        loadAnimation(new String[]{"/spel2/milk.png"});
         LinkedList<AnimationPoint> points = new LinkedList<>();
         points.add(new AnimationPoint(new Vector2(0,1),0));
         points.add(new AnimationPoint(new Vector2(0,-1),50));
@@ -34,9 +38,19 @@ public class Coin extends Sprite {
         if(collisionEvent.getCollider2().getTag() == "player"){
             destroy();
             if(Main.player.physicsBody.velocity.getY() > -8)
-                Main.player.physicsBody.addForce(Vector2.up.multiply(6));
+                Main.player.physicsBody.addForce(Vector2.up.multiply(16));
 
-            //Main.playSound("/spel2/coin.wav");
+            try {
+                Main.playSound(Main.class.getResourceAsStream("/spel2/coin.wav"));
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            } catch (UnsupportedAudioFileException e) {
+                throw new RuntimeException(e);
+            } catch (LineUnavailableException e) {
+                throw new RuntimeException(e);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
 
     }

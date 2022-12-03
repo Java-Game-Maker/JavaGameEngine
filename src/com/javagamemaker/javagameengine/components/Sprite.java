@@ -113,7 +113,7 @@ public class Sprite extends Component {
             how with jar?
          */
     }
-
+    boolean animationsDone = false;
     /**
      *
      * @return the current image in the selected animation
@@ -128,7 +128,14 @@ public class Sprite extends Component {
                 ((spriteCounter >= (timer - 1)) ?
                         (currentSprite + 1) :
                         currentSprite);
-        if(currentSprite == animations.get(animationIndex).length-1) animationDone();
+        if(currentSprite == animations.get(animationIndex).length-1){
+            if(!animationsDone) animationDone();
+
+            animationsDone = true;
+        }
+        else{
+            animationsDone = false;
+        }
 
         //Sprite.resize(rotate(angle,sprite),getScale())
         return (animations.get(animationIndex)[(currentSprite)]);
@@ -159,9 +166,9 @@ public class Sprite extends Component {
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
             g.transform( trans );
             g.drawImage(getAnimation(),
-                    (int) (getPosition().getX() - getScale().divide(2).getX()),
+                    (int) (getPosition().getX() - getScale().divide(2).getX()*(isInverted()?-1:1)),
                     (int) (getPosition().getY() - getScale().divide(2).getY()),
-                    (int) getScale().getX(),
+                    (int) getScale().getX()*(isInverted()?-1:1),
                     (int) getScale().getY(),
                     null);  // the actual location of the sprite
 

@@ -49,7 +49,6 @@ public class JavaGameEngine{
         gameWorld.remove(getSelectedScene());
         selectedScene.startScene();
         for(Component c : selectedScene.getUiElements()){
-            Debug.log(c.toString());
             gameWorld.add(c);
         }
 

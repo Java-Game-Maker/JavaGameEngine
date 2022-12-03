@@ -1,12 +1,11 @@
 package com.javagamemaker.testing.spel2;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
-import com.javagamemaker.javagameengine.Scene;
-import com.javagamemaker.javagameengine.msc.Debug;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.sound.sampled.*;
-import javax.swing.*;
+import java.io.IOException;
 import java.io.InputStream;
 
 /**TODO
@@ -18,30 +17,58 @@ import java.io.InputStream;
 public class Main extends JavaGameEngine {
     public static Player player;
     public static void main(String[] args){
+        //Debug.showWhere=true;
         player = new Player();
         size = new Vector2(600,1000);
         player.setPosition(new Vector2(0,-200));
 
+        LightManager.opacity = 0.99f;
         setSelectedScene(new Level1());
         start();
     }
 
-    public static synchronized void playSound(final String url) {
-        Debug.log("asd");
+
+    public static void playSound(InputStream clipFile) throws IOException,
+            UnsupportedAudioFileException, LineUnavailableException, InterruptedException {
         new Thread(new Runnable() {
-        // The wrapper thread is unnecessary, unless it blocks on the
-        // Clip finishing; see comments.
-          public void run() {
-            try {
-              Clip clip = AudioSystem.getClip();
-              AudioInputStream inputStream = AudioSystem.getAudioInputStream(
-                Main.class.getResourceAsStream(url));
-              clip.open(inputStream);
-              clip.start();
-            } catch (Exception e) {
-                e.printStackTrace();
+            @Override
+            public void run() {
+                try {
+                    class AudioListener implements LineListener {
+                        private boolean done = false;
+
+                        @Override
+                        public synchronized void update(LineEvent event) {
+                            LineEvent.Type eventType = event.getType();
+                            if (eventType == LineEvent.Type.STOP || eventType == LineEvent.Type.CLOSE) {
+                                done = true;
+                                notifyAll();
+                            }
+                        }
+
+                        public synchronized void waitUntilDone() throws InterruptedException {
+                            while (!done) {
+                                wait();
+                            }
+                        }
+                    }
+                    AudioListener listener = new AudioListener();
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(clipFile);
+                    try {
+                        Clip clip = AudioSystem.getClip();
+                        clip.addLineListener(listener);
+                        clip.open(audioInputStream);
+                        try {
+                            clip.start();
+                            listener.waitUntilDone();
+                        } finally {
+                            clip.close();
+                        }
+                    } finally {
+                        audioInputStream.close();
+                    }
+                }catch (Exception e){ e.printStackTrace(); }
             }
-          }
         }).start();
     }
 
