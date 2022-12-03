@@ -1,8 +1,6 @@
 package com.javagamemaker.javagameengine.components;
 
-import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -71,7 +69,7 @@ public class Collider extends Component{
         // check if my points are inside c
         for (Vector2 vertex : vertices){
             Point p = new Point((int) vertex.getX(), (int) vertex.getY());
-            if(c.getPolygon().contains(p)){
+            if(c.getShape().contains(p)){
                 return p;
             }
         }
@@ -96,7 +94,7 @@ public class Collider extends Component{
                 for (Component c : component.getChildren(new Collider())) {
                     for (Vector2 vertex : me.vertices) {
                         Point p = new Point((int) vertex.getX(), (int) vertex.getY());
-                        if (c.getPolygon().contains(p)) {
+                        if (c.getShape().contains(p)) {
                             return p;
                         }
                     }
@@ -203,7 +201,7 @@ public class Collider extends Component{
         if(visible){
             Color c = g.getColor();
             g.setColor(Color.green);
-            g.drawPolygon(getPolygon());
+            g.draw(getShape());
             g.setColor(Color.red);
             Vector2 dir = (getFirstParent().getPosition().lookAt(prevPosition));
             /*if(point != null) 1öp
