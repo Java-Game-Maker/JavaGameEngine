@@ -14,7 +14,7 @@ public class Coin extends Sprite {
     Animation animation = new Animation();
     public Coin(Vector2 pos){
         setPosition(pos);
-        loadAnimation(new String[]{"/spel2/milk.png"});
+        loadAnimation(new String[]{"/spel2/cookie.png"});
         LinkedList<AnimationPoint> points = new LinkedList<>();
         points.add(new AnimationPoint(new Vector2(0,1),0));
         points.add(new AnimationPoint(new Vector2(0,-1),50));
@@ -34,7 +34,9 @@ public class Coin extends Sprite {
         if(collisionEvent.getCollider2().getTag() == "player"){
             destroy();
             if(Main.player.physicsBody.velocity.getY() > -8)
-            Main.player.physicsBody.addForce(Vector2.up.multiply(6));
+                Main.player.physicsBody.addForce(Vector2.up.multiply(6));
+
+            //Main.playSound("/spel2/coin.wav");
         }
 
     }
