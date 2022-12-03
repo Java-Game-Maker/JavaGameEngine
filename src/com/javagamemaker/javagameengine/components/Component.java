@@ -264,9 +264,6 @@ public class Component {
                 }
             }
         }
-        Debug.log(temp);
-        Debug.log(colliding);
-        Debug.log("");
         if(temp == true && temp != colliding){
            onCollisionLeft();
         }

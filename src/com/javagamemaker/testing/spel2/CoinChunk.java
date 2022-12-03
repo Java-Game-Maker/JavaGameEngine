@@ -19,6 +19,12 @@ public class CoinChunk extends Component {
             new Vector2(3,1),
             new Vector2(4,1),
             new Vector2(5,1),
+            new Vector2(0,2),
+            new Vector2(1,2),
+            new Vector2(2,2),
+            new Vector2(3,2),
+            new Vector2(4,2),
+            new Vector2(5,2),
     };
     public static Vector2[] pipe = new Vector2[]{
             new Vector2(3,0),

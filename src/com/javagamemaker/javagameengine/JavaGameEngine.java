@@ -23,7 +23,7 @@ public class JavaGameEngine{
     /**
      * this is the gravity constant
      */
-    public static Vector2 g = new Vector2(0,0.03982f);
+    public static Vector2 g = new Vector2(0,0.04982f);
     /**
      * default game window size
      */
@@ -34,7 +34,8 @@ public class JavaGameEngine{
     public static Scene getSelectedScene() {
         return selectedScene;
     }
-
+    //so the scene does not start twice at the start
+    private static boolean firstFrame = true;
     /**
      * Changes the active scene
      * @param selectedScene new scene to
@@ -49,7 +50,6 @@ public class JavaGameEngine{
         gameWorld.remove(getSelectedScene());
         selectedScene.startScene();
         for(Component c : selectedScene.getUiElements()){
-            Debug.log(c.toString());
             gameWorld.add(c);
         }
 
@@ -126,12 +126,13 @@ public class JavaGameEngine{
 
         if (newScene) {
             gameWindow.validate();
-            selectedScene.start();
+            if(!firstFrame)
+                selectedScene.start();
 
             newScene = false;
         }
+        firstFrame = false;
     }
-
     /**
      * Starts the game
      * call this last in your main function
@@ -144,6 +145,7 @@ public class JavaGameEngine{
         gameWindow.setContentPane(gameWorld);
         gameWindow.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         gameWindow.setVisible(true);
+
         selectedScene.start();
 
         while (true) {
