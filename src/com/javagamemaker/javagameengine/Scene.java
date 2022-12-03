@@ -2,6 +2,7 @@ package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.components.Camera;
 import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
@@ -174,7 +175,7 @@ public class Scene extends JPanel {
     }
 
     public boolean inside(Component component) {
-        return screen.contains(component.getPolygon().getBounds());
+        return screen.contains(component.getShape().getBounds());
     }
     public Rectangle screen = new Rectangle();
     /**
@@ -229,6 +230,12 @@ public class Scene extends JPanel {
                     c.onCameraLeft();
                 }
             }
+        //graphics2D.translate(width*percentW,height*percentH);
+        graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
+        //graphics2D.scale(1/scale.getX(),1/scale.getY());
+
+        LightManager.render(graphics2D);
+
         }catch (Exception e){}
     }
 }

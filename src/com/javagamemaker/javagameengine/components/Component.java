@@ -2,6 +2,7 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.lights.Light;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
@@ -69,7 +70,7 @@ public class Component {
      * @return vector2
      */
     public Vector2 getScale() {
-        return new Vector2((float) getPolygon().getBounds().getWidth(), (float) getPolygon().getBounds().getHeight());
+        return new Vector2((float) getShape().getBounds().getWidth(), (float) getShape().getBounds().getHeight());
     }
 
     /**
@@ -352,6 +353,7 @@ public class Component {
      * @param component the new children
      */
     public void add(Component component){
+
         component.setParent(this);
         component.setPosition(getPosition());
         children.add(component);
@@ -384,7 +386,7 @@ public class Component {
             if mouse is not inside, and we are previously we call mouse left
         */
         Component prev = JavaGameEngine.getSelectedScene().hasA;
-        if (getPolygon().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer())) {
+        if (getShape().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer())) {
             if (isMouseInside()) {
                 onMouseInside();
             } else {
@@ -404,7 +406,7 @@ public class Component {
     /**
      * @return polygon based on components vertices
      */
-    public Polygon getPolygon(){
+    public Shape getShape(){
         int[] x = new int[vertices.size()];
         int[] y = new int[vertices.size()];
         int i = 0;
@@ -463,7 +465,7 @@ public class Component {
         return null;
     }
     public Vector2 getBodyPosition(){
-        return new Vector2(getPolygon().getBounds().x, getPolygon().getBounds().y);
+        return new Vector2(getShape().getBounds().x, getShape().getBounds().y);
     }
     /**
      * class when a collision from a collider is triggered
