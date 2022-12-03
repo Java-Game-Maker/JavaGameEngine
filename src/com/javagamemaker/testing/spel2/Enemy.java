@@ -1,6 +1,7 @@
 package com.javagamemaker.testing.spel2;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
+import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.msc.Debug;
@@ -55,8 +56,9 @@ public class Enemy extends Sprite {
     @Override
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
         super.onTriggerEnter(collisionEvent);
-        Debug.log(collisionEvent.getCollider2().getFirstParent().getClass().getName().toString());
-
+        Debug.startCount();
+        if(animationIndex == 0)
+            Scene.playSound("/spel2/watersplash.wav");
         animationIndex = 1;
         setTimer(4);
     }

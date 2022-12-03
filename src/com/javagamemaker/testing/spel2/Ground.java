@@ -35,7 +35,7 @@ public class Ground extends Sprite {
     public void update() {
         super.update();
         if(Main.player.getPosition().getY()+90 < getPosition().getY() && getChild(new Collider())==null){
-            Collider c =new Collider(true);
+            Collider c =new Collider(false);
             c.setLocalVertices(new Rect(getScale()));
             c.updateVertices();
             add(c);

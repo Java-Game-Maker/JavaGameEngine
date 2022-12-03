@@ -24,7 +24,7 @@ public class Player extends Sprite {
     boolean hasBegon = false;
 
     public Player(){
-        layer = 10;
+        layer = 200;
     }
 
     @Override

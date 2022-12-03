@@ -89,6 +89,10 @@ public class Scene extends JPanel {
     @Override
     public java.awt.Component add(java.awt.Component comp) {
        // JavaGameEngine.gameWorld.add(comp);
+        JavaGameEngine.gameWorld.add(comp);
+        JavaGameEngine.gameWorld.validate();
+        JavaGameEngine.gameWorld.repaint();
+
         uiElements.add(comp);
         return comp;
     }
@@ -100,6 +104,7 @@ public class Scene extends JPanel {
     @Override
     public void remove(java.awt.Component comp) {
       //  JavaGameEngine.gameWorld.remove(comp);
+        JavaGameEngine.gameWorld.remove(comp);
         uiElements.remove(comp);
     }
 
@@ -182,7 +187,7 @@ public class Scene extends JPanel {
 
     /**
      * Plays a sound from path
-     * @param clipFile path
+     * @param path path
      */
     public static void playSound(String path) {
         new Thread(new Runnable() {
@@ -258,10 +263,18 @@ public class Scene extends JPanel {
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
         Input.setMousePosition(new Vector2(x,y));
+        ArrayList<Component> renderList = (ArrayList<Component>) components.clone();
+        Collections.sort(renderList, new Comparator<Component>(){
+           public int compare(Component o1, Component o2){
+              return o1.getLayer() - o2.getLayer();
+           }
+        });
+
+
         try{
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
-                Component c = components.get(i);
+                Component c = renderList.get(i);
                 if(inside(c)) {
                     (c).render(graphics2D);
                     if(!c.isVisible()){

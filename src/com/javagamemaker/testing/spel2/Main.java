@@ -22,7 +22,6 @@ public class Main extends JavaGameEngine {
         size = new Vector2(600,1000);
         player.setPosition(new Vector2(0,-200));
         g.setY(g.getY()*2);
-        LightManager.opacity = 0.99f;
         //setSelectedScene(new Level1());
         setSelectedScene(new Splashscreen());
         start();

@@ -43,15 +43,12 @@ public class JavaGameEngine{
     public static void setSelectedScene(Scene selectedScene) {
         newScene = true;
 
-        for(Component c : getSelectedScene().getUiElements()){
-            gameWorld.remove(c);
+        for(Component uiComp : getSelectedScene().getUiElements()){
+            gameWorld.remove(uiComp);
         }
 
         gameWorld.remove(getSelectedScene());
         selectedScene.startScene();
-        for(Component c : selectedScene.getUiElements()){
-            gameWorld.add(c);
-        }
 
         gameWorld.add(selectedScene);
         JavaGameEngine.selectedScene = selectedScene;

@@ -3,6 +3,7 @@ package com.javagamemaker.testing.spel2;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Grabber;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
@@ -13,20 +14,13 @@ import java.awt.*;
 public class Level1 extends Scene {
     public Level1(){
         // ui
-        JPanel p = new JPanel();
+        LightManager.opacity = 0.99f;
         setBackground(new Color(50,50,50));
-
-        p.setLocation(300-50,0);
-        p.setSize(100,50);
-        p.add(new JLabel("Highscore 100"));
-        p.add(new JLabel("Coins 100"));
-
-        add(p);
-        add(Main.player);
+        //playSound("/spel2/theme.wav");
+        playSound("/spel2/ambience.wav");
     }
     @Override
     public void start() {
-        super.start();
         getCamera().setPosition(new Vector2(getCamera().getPosition().getX()*2,JavaGameEngine.getWindowSize().getY()));
         Ground startGround = new Ground(JavaGameEngine.getWindowSize().getX(),new Vector2(0,0)){
             @Override
@@ -68,6 +62,8 @@ public class Level1 extends Scene {
         add(new CoinChunk(CoinChunk.pipe,new Vector2(-300,-1300)));
 
         add(new Enemy(new Vector2(150,-110)));
+        add(Main.player);
+        super.start();
     }
 
     @Override
