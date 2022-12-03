@@ -9,8 +9,7 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.LinkedList;
+import java.util.*;
 import java.util.List;
 
 /**
@@ -208,12 +207,6 @@ public class Scene extends JPanel {
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
         Input.setMousePosition(new Vector2(x,y));
-        /*Collections.sort(list, new Comparator<Component>() {
-            @Override
-            public int compare(Component o1, Component o2) {
-                return o1.getLayer() - o2.getLayer();
-            }
-        });*/
         try{
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){

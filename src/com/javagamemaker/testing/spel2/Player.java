@@ -17,11 +17,16 @@ import javax.swing.*;
 
 public class Player extends Sprite {
     PhysicsBody physicsBody = new PhysicsBody(true);
-    float force = 1;
+    float force = 2;
     int i = 0;
     int lastChunk = 0;
 
     boolean hasBegon = false;
+
+    public Player(){
+        layer = 10;
+    }
+
     @Override
     public void start() {
         super.start();
@@ -41,20 +46,21 @@ public class Player extends Sprite {
     public void updateSecond() {
         super.updateSecond();
         if(hasBegon && i%2==0 && Math.round(physicsBody.velocity.getY())==0)
-            physicsBody.addForce(Vector2.up.multiply(50));
+            physicsBody.addForce(Vector2.up.multiply(52*1.5f));
         i++;
+        Debug.log(i);
     }
 
     @Override
     public void update() {
         super.update();
         if(Input.isKeyDown(Keys.A)){
-            if(physicsBody.velocity.getX() > -2)
+            if(physicsBody.velocity.getX() > -5)
                 physicsBody.addForce(Vector2.left.multiply(force));
         }
 
         if(Input.isKeyDown(Keys.D)){
-            if(physicsBody.velocity.getX() < 2)
+            if(physicsBody.velocity.getX() < 5)
                 physicsBody.addForce(Vector2.right.multiply(force));
         }
         // wrap player

@@ -12,18 +12,23 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class Ground extends Sprite {
     public Ground(float width,Vector2 pos){
-        loadAnimation(new String[]{"/spel2/groundtile.png"});
+        loadAnimation(new String[]{"/spel2/groundtileStone.png"});
         setScale(new Vector2(width,50));
         setPosition(pos);
     }
-
+    public void generateEnemy(){
+       if(new Random().nextInt(5)==1){
+           Enemy e = new Enemy(getPosition().add(new Vector2(0,-80)));
+           Main.getSelectedScene().instantiate(e);
+       }
+    }
     @Override
     public void onCameraLeft() {
         super.onCameraLeft();
         if(getPosition().getY() > Main.player.getPosition().getY()){
             float diff = Main.getSelectedScene().screen.getBounds().height;
             setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-800));
-            Debug.log(getPosition());
+            generateEnemy();
         }
     }
     @Override

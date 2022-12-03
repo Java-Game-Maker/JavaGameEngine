@@ -151,11 +151,6 @@ public class Sprite extends Component {
         this.scale = scale;
     }
 
-    @Override
-    public void setPosition(Vector2 position) {
-        //.subtract(getScale().divide(2))
-        super.setPosition(position);
-    }
 
     @Override
     public void render(Graphics2D g) {

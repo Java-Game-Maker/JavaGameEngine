@@ -38,7 +38,7 @@ public class Coin extends Sprite {
         if(collisionEvent.getCollider2().getTag() == "player"){
             destroy();
             if(Main.player.physicsBody.velocity.getY() > -8)
-                Main.player.physicsBody.addForce(Vector2.up.multiply(16));
+                Main.player.physicsBody.addForce(Vector2.up.multiply(32));
 
             try {
                 Main.playSound(Main.class.getResourceAsStream("/spel2/coin.wav"));

@@ -3,6 +3,7 @@ package com.javagamemaker.testing.spel2;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Grabber;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -21,6 +22,7 @@ public class Level1 extends Scene {
         p.add(new JLabel("Coins 100"));
 
         add(p);
+        add(Main.player);
     }
     @Override
     public void start() {
@@ -41,7 +43,7 @@ public class Level1 extends Scene {
             @Override
             public void onCameraLeft() {
                 super.onCameraLeft();
-                if(Math.round(new Random().nextFloat(0,5))==3){
+                if(Math.round(new Random().nextFloat(0,3))==3){
                     switch (new Random().nextInt(3)){
                         case 0:
                             instantiate(new CoinChunk(CoinChunk.box,getPosition().removeX().add(new Vector2(-300,-1500))));
@@ -63,9 +65,9 @@ public class Level1 extends Scene {
         add(new Ground(100,new Vector2(0,-1800)));
         add(new Ground(100,new Vector2(-300,-2000)));
 
-        add(new CoinChunk(CoinChunk.pipe,new Vector2(0,-200)));
-        add(new Enemy());
-        add(Main.player);
+        add(new CoinChunk(CoinChunk.pipe,new Vector2(-300,-1300)));
+
+        add(new Enemy(new Vector2(150,-110)));
     }
 
     @Override
