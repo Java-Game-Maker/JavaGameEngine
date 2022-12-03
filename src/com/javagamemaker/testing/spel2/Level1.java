@@ -2,13 +2,10 @@ package com.javagamemaker.testing.spel2;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
-import com.javagamemaker.javagameengine.components.Grabber;
 import com.javagamemaker.javagameengine.components.lights.LightManager;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
-import javax.swing.*;
 import java.awt.*;
 
 public class Level1 extends Scene {
@@ -17,7 +14,7 @@ public class Level1 extends Scene {
         LightManager.opacity = 0.99f;
         setBackground(new Color(50,50,50));
         //playSound("/spel2/theme.wav");
-        playSound("/spel2/ambience.wav");
+        playSound("/spel2/sound/ambience.wav");
     }
     @Override
     public void start() {

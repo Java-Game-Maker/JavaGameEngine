@@ -1,18 +1,14 @@
 package com.javagamemaker.testing.spel2;
 
-import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Collider;
-import com.javagamemaker.javagameengine.components.GameObject;
-import com.javagamemaker.javagameengine.components.Grabber;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class Ground extends Sprite {
     public Ground(float width,Vector2 pos){
-        loadAnimation(new String[]{"/spel2/groundtileStone.png"});
+        loadAnimation(new String[]{"/spel2/sprites/groundtileStone.png"});
         setScale(new Vector2(width,50));
         setPosition(pos);
     }

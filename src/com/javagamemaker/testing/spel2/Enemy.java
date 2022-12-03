@@ -19,11 +19,11 @@ public class Enemy extends Sprite {
         setPosition(pos.subtract(new Vector2(50,0)));
 
         loadAnimation(new String[]{
-                "/spel2/pixil-frame-0.png",
-                "/spel2/pixil-frame-1.png",
-                "/spel2/pixil-frame-2.png",
-                "/spel2/pixil-frame-3.png",
-                "/spel2/pixil-frame-4.png",
+                "/spel2/sprites/enemy/pixil-frame-0.png",
+                "/spel2/sprites/enemy/pixil-frame-1.png",
+                "/spel2/sprites/enemy/pixil-frame-2.png",
+                "/spel2/sprites/enemy/pixil-frame-3.png",
+                "/spel2/sprites/enemy/pixil-frame-4.png",
         });
         Rectangle[] die = new Rectangle[12];
         int i = 0;
@@ -34,7 +34,7 @@ public class Enemy extends Sprite {
                         i++;
             }
         }
-        loadAnimation(die,"/spel2/watersplash.png");
+        loadAnimation(die, "/spel2/sprites/watersplash.png");
         setTimer(20);
     }
     int times = 0;
@@ -58,7 +58,7 @@ public class Enemy extends Sprite {
         super.onTriggerEnter(collisionEvent);
         Debug.startCount();
         if(animationIndex == 0)
-            Scene.playSound("/spel2/watersplash.wav");
+            Scene.playSound("/spel2/sound/watersplash.wav");
         animationIndex = 1;
         setTimer(4);
     }

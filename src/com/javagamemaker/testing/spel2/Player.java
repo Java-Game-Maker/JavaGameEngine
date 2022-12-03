@@ -2,8 +2,8 @@ package com.javagamemaker.testing.spel2;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Collider;
-import com.javagamemaker.javagameengine.components.GameObject;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.lights.Light;
@@ -12,8 +12,6 @@ import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
-
-import javax.swing.*;
 
 public class Player extends Sprite {
     PhysicsBody physicsBody = new PhysicsBody(true);
@@ -30,8 +28,8 @@ public class Player extends Sprite {
     @Override
     public void start() {
         super.start();
-        loadAnimation(new String[]{"/spel2/cookie.png"});
-        loadAnimation(new String[]{"/spel2/cookie2.png"});
+        loadAnimation(new String[]{"/spel2/sprites/cookie.png"});
+        loadAnimation(new String[]{"/spel2/sprites/cookie2.png"});
         add(physicsBody);
         Collider c = new Collider();
         c.setTag("player");
@@ -88,6 +86,7 @@ public class Player extends Sprite {
     @Override
     public void onCollisionLeft() {
         super.onCollisionLeft();
+
         animationIndex = 0;
     }
 }

@@ -9,10 +9,12 @@ import java.io.IOException;
 import java.io.InputStream;
 
 /**TODO
- * Spawn coins in chunks
- * add a enemy
- * upgrade graphics (cookie, coin and background)
- * sound
+ * Add shooting to cookie
+ * make enemy dangerus to cookie (not its shooting)
+ * count milk
+ * count hight
+ * save milk and hight
+ * pause menu (restart, main menu, toggle music)
  */
 public class Main extends JavaGameEngine {
     public static Player player;
