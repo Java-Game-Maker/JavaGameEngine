@@ -7,8 +7,11 @@ import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
+import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 import java.util.List;
 
@@ -175,6 +178,54 @@ public class Scene extends JPanel {
 
     public boolean inside(Component component) {
         return screen.contains(component.getShape().getBounds());
+    }
+
+    /**
+     * Plays a sound from path
+     * @param clipFile path
+     */
+    public static void playSound(String path) {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    class AudioListener implements LineListener {
+                        private boolean done = false;
+
+                        @Override
+                        public synchronized void update(LineEvent event) {
+                            LineEvent.Type eventType = event.getType();
+                            if (eventType == LineEvent.Type.STOP || eventType == LineEvent.Type.CLOSE) {
+                                done = true;
+                                notifyAll();
+                            }
+                        }
+
+                        public synchronized void waitUntilDone() throws InterruptedException {
+                            while (!done) {
+                                wait();
+                            }
+                        }
+                    }
+
+                    AudioListener listener = new AudioListener();
+                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(JavaGameEngine.class.getResourceAsStream(path));
+                    try {
+                        Clip clip = AudioSystem.getClip();
+                        clip.addLineListener(listener);
+                        clip.open(audioInputStream);
+                        try {
+                            clip.start();
+                            listener.waitUntilDone();
+                        } finally {
+                            clip.close();
+                        }
+                    } finally {
+                        audioInputStream.close();
+                    }
+                }catch (Exception e){ e.printStackTrace(); }
+            }
+        }).start();
     }
     public Rectangle screen = new Rectangle();
     /**
