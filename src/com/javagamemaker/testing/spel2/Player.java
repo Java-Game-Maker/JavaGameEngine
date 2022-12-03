@@ -28,9 +28,6 @@ public class Player extends Sprite {
         c.setTag("player");
         c.setLocalVertices(new Rect(100,70));
         add(c);
-
-
-
     }
 
     @Override
@@ -45,12 +42,14 @@ public class Player extends Sprite {
     public void update() {
         super.update();
         if(Input.isKeyDown(Keys.A)){
-           //physicsBody.addForce(Vector2.left.multiply(force));
-            translate(Vector2.left.multiply(force));
+            if(physicsBody.velocity.getX() > -2)
+                physicsBody.addForce(Vector2.left.multiply(force));
+            //translate(Vector2.left.multiply(force));
         }
         if(Input.isKeyDown(Keys.D)){
-            //physicsBody.addForce(Vector2.right.multiply(force));
-            translate(Vector2.right.multiply(force));
+            if(physicsBody.velocity.getX() < 2)
+                physicsBody.addForce(Vector2.right.multiply(force));
+//            translate(Vector2.right.multiply(force));
         }
         // wrap player
         if(getPosition().getX() < -300)

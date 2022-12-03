@@ -38,7 +38,7 @@ public class Level1 extends Scene {
         add(new Ground(100,new Vector2(0,-1000)));
         add(new Ground(100,new Vector2(100,-1200)));
 
-        add(new Coin(new Vector2(-200,-200)));
+        add(new CoinChunk(CoinChunk.pipe, new Vector2(-300, -1300)));
 
         add(Main.player);
     }

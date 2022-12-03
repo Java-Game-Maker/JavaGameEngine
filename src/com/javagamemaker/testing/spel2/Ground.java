@@ -22,14 +22,14 @@ public class Ground extends Sprite {
         super.onCameraLeft();
         if(getPosition().getY() > Main.player.getPosition().getY()){
             float diff = Main.getSelectedScene().screen.getBounds().height;
-            setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff));
+            setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-100));
             Debug.log(getPosition());
         }
     }
     @Override
     public void update() {
         super.update();
-        if(Main.player.getPosition().getY()+100 < getPosition().getY() && getChild(new Collider())==null){
+        if(Main.player.getPosition().getY()+90 < getPosition().getY() && getChild(new Collider())==null){
             Collider c =new Collider(true);
             c.setLocalVertices(new Rect(getScale()));
             c.updateVertices();
