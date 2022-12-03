@@ -4,6 +4,7 @@ import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Collider;
+import com.javagamemaker.javagameengine.components.GameObject;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.lights.Light;
@@ -20,7 +21,7 @@ public class Player extends Sprite {
     int lastChunk = 0;
 
     boolean hasBegon = false;
-
+    GameObject object = new GameObject();
     public Player(){
         layer = 200;
     }
@@ -28,6 +29,10 @@ public class Player extends Sprite {
     @Override
     public void start() {
         super.start();
+        object.setScale(new Vector2(50,10));
+        object.setParentOffset(new Vector2(50,0));
+
+        add(object);
         loadAnimation(new String[]{"/spel2/sprites/cookie.png"});
         loadAnimation(new String[]{"/spel2/sprites/cookie2.png"});
         add(physicsBody);
@@ -73,6 +78,7 @@ public class Player extends Sprite {
         if(Input.isKeyDown(Keys.SPACE)){
             hasBegon = true;
         }
+        object.rotateTo(object.getPosition().lookAtDouble(Input.getMousePosition()),new Vector2(-20,0));
         //camera follow player y pos
         JavaGameEngine.getSelectedScene().getCamera().setPosition(getPosition().removeX().subtract(JavaGameEngine.getWindowSize().divide(2)).multiply(-1));
     }

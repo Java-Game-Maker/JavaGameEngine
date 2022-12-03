@@ -155,7 +155,6 @@ public class Sprite extends Component {
     @Override
     public void render(Graphics2D g) {
         if(visible){
-            super.render(g);
             AffineTransform backup = g.getTransform();
             AffineTransform trans = new AffineTransform();
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
@@ -169,6 +168,7 @@ public class Sprite extends Component {
 
             g.setTransform( backup ); // restore previous transform
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
+            super.render(g);
         }
     }
 

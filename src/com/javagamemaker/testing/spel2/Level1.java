@@ -3,6 +3,7 @@ package com.javagamemaker.testing.spel2;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.lights.LightManager;
+import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -66,6 +67,12 @@ public class Level1 extends Scene {
     @Override
     public void update() {
         super.update();
+    }
 
+    @Override
+    protected void paintComponent(Graphics g) {
+        super.paintComponent(g);
+        g.setColor(Color.WHITE);
+        g.drawOval((int) (Input.getMousePositionOnCanvas().getX()-20), (int) (Input.getMousePositionOnCanvas().getY()-20),50,50);
     }
 }

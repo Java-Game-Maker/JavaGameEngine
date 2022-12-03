@@ -6,6 +6,8 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.lights.LightManager;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 
 import javax.swing.*;
@@ -47,6 +49,9 @@ public class Splashscreen extends Scene {
     @Override
     public void update() {
         super.update();
+        if(Input.isKeyDown(Keys.SPACE))
+            JavaGameEngine.setSelectedScene(new Level1());
+
         int centerx = (int) (JavaGameEngine.getWindowSize().getX()/2);
         title.setLocation(centerx-250,title.getY());
         start.setLocation(centerx-150,start.getY());
