@@ -39,18 +39,7 @@ public class Coin extends Sprite {
             destroy();
             if(Main.player.physicsBody.velocity.getY() > -8)
                 Main.player.physicsBody.addForce(Vector2.up.multiply(32));
-
-            try {
-                Main.playSound(Main.class.getResourceAsStream("/spel2/coin.wav"));
-            } catch (IOException e) {
-                throw new RuntimeException(e);
-            } catch (UnsupportedAudioFileException e) {
-                throw new RuntimeException(e);
-            } catch (LineUnavailableException e) {
-                throw new RuntimeException(e);
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
+            Main.getSelectedScene().playSound(("/spel2/coin.wav"));
         }
 
     }

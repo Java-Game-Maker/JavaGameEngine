@@ -7,6 +7,8 @@ import com.javagamemaker.javagameengine.components.lights.LightManager;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class Splashscreen extends Scene {
 
@@ -18,6 +20,17 @@ public class Splashscreen extends Scene {
         title.setFont(new Font("Verdana",Font.BOLD,32));
         title.setLocation(0,300);
         title.setSize(500,100);
+
+        JButton start = new JButton("Start");
+        start.setSize(500,100);
+        start.setLocation(0,500);
+        start.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                JavaGameEngine.setSelectedScene(new Level1());
+            }
+        });
+        add(start);
         add(title);
 
         // try {
@@ -30,6 +43,5 @@ public class Splashscreen extends Scene {
     @Override
     public void update() {
         super.update();
-        p.setSize((int) JavaGameEngine.getWindowSize().getX(), (int) JavaGameEngine.getWindowSize().getY());
     }
 }
