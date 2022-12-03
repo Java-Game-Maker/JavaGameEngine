@@ -4,6 +4,6 @@ import com.javagamemaker.javagameengine.components.Component;
 
 public class PauseMenu extends Component {
 
-    
+
 
 }
