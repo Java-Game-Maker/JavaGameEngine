@@ -13,7 +13,7 @@ public class LightManager {
 
 
     public static Area screen = new Area(new Rectangle(0,0,1000,1000));
-    public static float opacity = 0.99f;
+    public static float opacity = 0.0f;
     public static void render(Graphics2D g){
         g.setColor(new Color(0,0,0,opacity));
         g.fill(screen);

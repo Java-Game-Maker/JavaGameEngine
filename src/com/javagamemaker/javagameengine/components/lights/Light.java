@@ -32,7 +32,7 @@ public class Light extends Component {
     public void render(Graphics2D g) {
         super.render(g);
 
-        g.fill(getShape());
+        //g.fill(getShape());
 
          LinkedList<Vector2> ver = new LinkedList<>();
          for(Vector2 vertex : vertices){
