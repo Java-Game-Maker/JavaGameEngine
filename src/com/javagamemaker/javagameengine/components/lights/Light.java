@@ -15,7 +15,7 @@ public class Light extends Component {
     private int radius = 501;
 
     public void setRadius(int radius) {
-        this.radius = radius*10;
+        this.radius = radius;
     }
 
     public int getRadius() {

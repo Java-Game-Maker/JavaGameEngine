@@ -109,12 +109,12 @@ public class Main extends JavaGameEngine {
             player.add(new PhysicsBody(true));
             //player.add(new Light());
 
+            player.setColor(Color.green);
+            add(player);
             Light lighh2 = new Light();
             lighh2.setRadius(100);
             lighh2.add(new Grabber(lighh2));
             add(lighh2);
-            player.setColor(Color.green);
-            add(player);
             //player.add(new Grabber(player));
         }
         @Override
