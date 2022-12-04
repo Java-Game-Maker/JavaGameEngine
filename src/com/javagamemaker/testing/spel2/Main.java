@@ -10,11 +10,10 @@ import java.io.InputStream;
 
 /**TODO
  * Add shooting to cookie
- * make enemy dangerus to cookie (not its shooting)
- * count milk
- * count hight
- * save milk and hight
+ * count height
+ * save milk and height
  * pause menu (restart, main menu, toggle music)
+ * generate more enemies by height
  */
 public class Main extends JavaGameEngine {
     public static Player player;

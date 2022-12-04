@@ -99,6 +99,14 @@ public class Player extends Sprite {
     }
 
     @Override
+    protected void onTriggerEnter(CollisionEvent collisionEvent) {
+        super.onTriggerEnter(collisionEvent);
+        if(collisionEvent.getCollider1().getTag() == "enemy"){
+            Main.setSelectedScene(new Splashscreen());
+        }
+    }
+
+    @Override
     public void onCollisionEnter(CollisionEvent collisionEvent) {
         super.onCollisionEnter(collisionEvent);
         animationIndex = 1;

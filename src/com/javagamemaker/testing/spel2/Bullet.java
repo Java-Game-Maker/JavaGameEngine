@@ -16,6 +16,7 @@ public class Bullet extends Sprite {
         add(p);
         Collider c = new Collider(true);
         c.setTrigger(true);
+        c.setTag("bullet");
         add(c);
         setPosition(startPos);
         setScale(new Vector2(20,20));

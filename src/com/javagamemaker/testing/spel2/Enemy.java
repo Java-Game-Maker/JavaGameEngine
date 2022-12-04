@@ -14,6 +14,7 @@ public class Enemy extends Sprite {
     public Enemy(Vector2 pos){
         Collider c = new Collider(false);
         c.setTrigger(true);
+        c.setTag("enemy");
         add(c);
 
         setPosition(pos.subtract(new Vector2(50,0)));
@@ -56,8 +57,11 @@ public class Enemy extends Sprite {
     @Override
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
         super.onTriggerEnter(collisionEvent);
-        if(animationIndex == 0)
+        if(animationIndex == 0 && collisionEvent.getCollider2().getTag()=="bullet")
+        {
+            collisionEvent.getCollider2().getFirstParent().destroy();
             Scene.playSound("/spel2/sound/watersplash.wav");
+        }
         animationIndex = 1;
         setTimer(4);
     }

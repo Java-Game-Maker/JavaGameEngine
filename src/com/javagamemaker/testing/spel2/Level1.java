@@ -14,6 +14,8 @@ import java.awt.*;
 public class Level1 extends Scene {
     public static JLabel coinsLabel = new JLabel("Coins: 0");
     public Level1(){
+        Main.player = new Player();
+        Main.player.setPosition(new Vector2(0,-200));
         // ui
         Debug.showWhere = true;
         LightManager.opacity = 0.99f;
