@@ -148,6 +148,7 @@ public class Sprite extends Component {
 
     @Override
     public void setScale(Vector2 scale) {
+        super.setScale(scale);
         this.scale = scale;
     }
 

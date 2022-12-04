@@ -167,7 +167,6 @@ public class Component {
                 Vector2 newV = vertex.multiply(d);
                 newVertices1.add(newV);
             }
-            Debug.log(scale);
             c.setParentOffset(c.getParentOffset().multiply(d));
             setPosition(getPosition());
             c.localVertices = newVertices1;
@@ -217,12 +216,12 @@ public class Component {
                         Collider otherCollider = (Collider) cc;
                         if((addedX.collision(otherCollider)) != null ){
                             if(collider.isTrigger()){
-                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                onTriggerEnter(event);
+                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
                             }
                             else if(otherCollider.isTrigger()){
-                                CollisionEvent event = new CollisionEvent(otherCollider,collider,null);
-                                otherCollider.onTriggerEnter(event);
+                                onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
                             }
                             else{
                                 newPos.setX(0);
@@ -242,9 +241,13 @@ public class Component {
                             }
                         }
                         if((addedY.collision(otherCollider)) !=null ){
-                            if(collider.isTrigger() || otherCollider.isTrigger()){
-                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                onTriggerEnter(event);
+                            if(collider.isTrigger()){
+                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                            }
+                            else if(otherCollider.isTrigger()){
+                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
                             }
                             else{
                                 newPos.setY(0);

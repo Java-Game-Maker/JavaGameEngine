@@ -20,12 +20,11 @@ public class Coin extends Sprite {
         points.add(new AnimationPoint(new Vector2(0,-1),50));
         animation.setSelectedPoints(points);
 
-        setScale(new Vector2(50,50));
-        Collider c = new Collider(false);
+        Collider c = new Collider(true);
         c.setTrigger(true);
         add(c);
-        c.setScale(new Vector2(50,50));
         c.updateVertices();
+        setScale(new Vector2(50,50));
     }
 
     @Override
@@ -34,7 +33,8 @@ public class Coin extends Sprite {
         if(collisionEvent.getCollider2().getTag() == "player"){
             destroy();
             if(Main.player.physicsBody.velocity.getY() > -8)
-                Main.player.physicsBody.addForce(Vector2.up.multiply(32));
+                Main.player.physicsBody.addForce(Vector2.up.multiply(50));
+            Main.player.coins ++;
             Main.getSelectedScene().playSound(("/spel2/sound/coin.wav"));
         }
 

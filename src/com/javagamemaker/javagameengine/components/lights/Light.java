@@ -4,6 +4,7 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.components.shapes.Circle;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -31,7 +32,6 @@ public class Light extends Component {
     @Override
     public void render(Graphics2D g) {
         super.render(g);
-
         //g.fill(getShape());
 
          LinkedList<Vector2> ver = new LinkedList<>();

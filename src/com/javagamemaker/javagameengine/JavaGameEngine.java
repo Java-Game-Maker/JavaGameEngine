@@ -15,6 +15,7 @@ public class JavaGameEngine{
 
     public static JavaGameEngine gameInstance;
     private static boolean newScene = false;
+    public static float masterVolume = 1f;
     public static int DELAY = 5;
     /**this is the JPanel that is rendering our scenes and retrieving inputs*/
     public static final GameWorld gameWorld = new GameWorld();
@@ -115,6 +116,7 @@ public class JavaGameEngine{
         }
 
         selectedScene.update();
+        gameWindow.validate();
         gameWindow.repaint();
 
         //For linux

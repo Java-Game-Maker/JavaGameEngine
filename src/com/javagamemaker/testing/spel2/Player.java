@@ -8,11 +8,15 @@ import com.javagamemaker.javagameengine.components.GameObject;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.lights.Light;
+import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
+
+import javax.swing.*;
+import java.awt.*;
 
 public class Player extends Sprite {
     PhysicsBody physicsBody = new PhysicsBody(true);
@@ -25,10 +29,12 @@ public class Player extends Sprite {
     public Player(){
         layer = 200;
     }
-
+    float coins = 1000;
     @Override
     public void start() {
         super.start();
+
+        Debug.log("asd");
         object.setScale(new Vector2(50,10));
         object.setParentOffset(new Vector2(50,0));
 
@@ -36,11 +42,12 @@ public class Player extends Sprite {
         loadAnimation(new String[]{"/spel2/sprites/cookie.png"});
         loadAnimation(new String[]{"/spel2/sprites/cookie2.png"});
         add(physicsBody);
-        Collider c = new Collider();
+        Collider c = new Collider(true);
         c.setTag("player");
         c.setLocalVertices(new Rect(100,90));
         Light l = new Light();
         l.setRadius(600);
+        //LightManager.opacity = 0.5f;
         add(l);
         add(c);
     }
@@ -48,15 +55,17 @@ public class Player extends Sprite {
     @Override
     public void updateSecond() {
         super.updateSecond();
-        if(hasBegon && i%2==0 && Math.round(physicsBody.velocity.getY())==0)
+        if(hasBegon && i%2==0 && Math.round(physicsBody.velocity.getY())==0){
+            Scene.playSound("/spel2/sound/jump.wav",0.2f);
             physicsBody.addForce(Vector2.up.multiply(52*1.5f));
+        }
         i++;
-        Debug.log(i);
     }
 
     @Override
     public void update() {
         super.update();
+        Level1.coinsLabel.setText("Coins: "+coins);
         if(Input.isKeyDown(Keys.A)){
             if(physicsBody.velocity.getX() > -5)
                 physicsBody.addForce(Vector2.left.multiply(force));
@@ -66,17 +75,23 @@ public class Player extends Sprite {
             if(physicsBody.velocity.getX() < 5)
                 physicsBody.addForce(Vector2.right.multiply(force));
         }
+        float width = Main.getSelectedScene().getWidth();
         // wrap player
-        if(getPosition().getX() < -300)
+        if(getPosition().getX() < -width/2)
         {
-            translate(new Vector2(600,0));
+            translate(new Vector2(width,0));
         }
-        if(getPosition().getX() > 300)
+        if(getPosition().getX() > width/2)
         {
-            translate(new Vector2(-600,0));
+            translate(new Vector2(-width,0));
         }
         if(Input.isKeyDown(Keys.SPACE)){
             hasBegon = true;
+        }
+        if(Input.isMousePressed(Keys.LEFTCLICK) && coins > 0){
+            Vector2 startPos = object.getPosition().add(object.getPosition().lookAt(Input.getMousePosition()).multiply(50));
+            Main.getSelectedScene().instantiate(new Bullet(startPos,Vector2.getDirection(object.getPosition().lookAtDouble(Input.getMousePosition()))));
+            coins --;
         }
         object.rotateTo(object.getPosition().lookAtDouble(Input.getMousePosition()),new Vector2(-20,0));
         //camera follow player y pos

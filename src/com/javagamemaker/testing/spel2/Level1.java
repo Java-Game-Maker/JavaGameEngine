@@ -4,25 +4,35 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+import javax.swing.*;
 import java.awt.*;
 
 public class Level1 extends Scene {
+    public static JLabel coinsLabel = new JLabel("Coins: 0");
     public Level1(){
         // ui
+        Debug.showWhere = true;
         LightManager.opacity = 0.99f;
         setBackground(new Color(50,50,50));
-        //playSound("/spel2/theme.wav");
-        playSound("/spel2/sound/ambience.wav");
+        JavaGameEngine.masterVolume = 0.1f;
+        //playSound("/spel2/sound/ambience.wav");
+        //playSound("/spel2/sound/theme.wav");
+        coinsLabel.setFont(new Font("Verdana",Font.BOLD,32));
+        coinsLabel.setForeground(Color.WHITE);
+        coinsLabel.setLocation(100,100);
+        coinsLabel.setSize(1000,100);
+        add(coinsLabel);
     }
     @Override
     public void start() {
         getCamera().setPosition(new Vector2(getCamera().getPosition().getX()*2,JavaGameEngine.getWindowSize().getY()));
         Ground startGround = new Ground(JavaGameEngine.getWindowSize().getX(),new Vector2(0,0)){
             @Override
-            public void onCameraLeft() {}
+            public void respawn() {}
         };
 
         add(startGround);

@@ -3,6 +3,7 @@ package com.javagamemaker.testing.spel2;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.Sprite;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Random;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
@@ -18,14 +19,10 @@ public class Ground extends Sprite {
            Main.getSelectedScene().instantiate(e);
        }
     }
-    @Override
-    public void onCameraLeft() {
-        super.onCameraLeft();
-        if(getPosition().getY() > Main.player.getPosition().getY()){
-            float diff = Main.getSelectedScene().screen.getBounds().height;
-            setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-800));
-            generateEnemy();
-        }
+    public void respawn(){
+        float diff = 1000;
+        setPosition(new Vector2(new Random().nextFloat(-100,300),getPosition().getY()-diff/2-1000));
+        generateEnemy();
     }
     @Override
     public void update() {
@@ -40,5 +37,8 @@ public class Ground extends Sprite {
             getChild(new Collider()).destroy();
         }
 
+        if(getPosition().getY() > Main.player.getPosition().getY()+1000){
+            respawn();
+        }
     }
 }

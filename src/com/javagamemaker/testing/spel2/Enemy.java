@@ -56,7 +56,6 @@ public class Enemy extends Sprite {
     @Override
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
         super.onTriggerEnter(collisionEvent);
-        Debug.startCount();
         if(animationIndex == 0)
             Scene.playSound("/spel2/sound/watersplash.wav");
         animationIndex = 1;

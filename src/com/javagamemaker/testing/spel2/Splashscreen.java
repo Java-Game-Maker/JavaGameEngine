@@ -1,6 +1,7 @@
 package com.javagamemaker.testing.spel2;
 
 import com.formdev.flatlaf.FlatDarculaLaf;
+import com.formdev.flatlaf.FlatDarkLaf;
 import com.formdev.flatlaf.FlatIntelliJLaf;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
@@ -24,7 +25,7 @@ public class Splashscreen extends Scene {
         setBackground(new Color(50,50,50));
 
        try {
-           UIManager.setLookAndFeel(new FlatDarculaLaf());
+           UIManager.setLookAndFeel(new FlatDarkLaf());
        } catch (Exception e) {
            e.printStackTrace();
        }

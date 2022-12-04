@@ -41,6 +41,7 @@ public class Scene extends JPanel {
     public void instantiate(Component component) {
         component.start();
         newComponents.add(component);
+        validate();
     }
 
     public void startScene() {
@@ -139,6 +140,14 @@ public class Scene extends JPanel {
      * Updates all the components and calculates delta time and fps
      */
     public void update() {
+        if (newComponents.size() > 0) {
+            components.addAll(newComponents);
+            newComponents.clear();
+        }
+        if (remove.size() > 0) {
+            components.removeAll(remove);
+            remove.clear();
+        }
         time += JavaGameEngine.deltaTime;
         if ((int) time / 100 > lastSec) {
             lastSec = (int) (time / 100);
@@ -161,14 +170,6 @@ public class Scene extends JPanel {
 
         camera.update();
 
-        if (newComponents.size() > 0) {
-            components.addAll(newComponents);
-            newComponents.clear();
-        }
-        if (remove.size() > 0) {
-            components.removeAll(remove);
-            remove.clear();
-        }
         Input.setMousePressed(1000);
     }
 
@@ -184,12 +185,14 @@ public class Scene extends JPanel {
     public boolean inside(Component component) {
         return screen.contains(component.getShape().getBounds());
     }
-
+    public static void playSound(String path){
+        playSound(path,JavaGameEngine.masterVolume);
+    }
     /**
      * Plays a sound from path
      * @param path path
      */
-    public static void playSound(String path) {
+    public static void playSound(String path, float volume) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -217,9 +220,14 @@ public class Scene extends JPanel {
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(JavaGameEngine.class.getResourceAsStream(path));
                     try {
                         Clip clip = AudioSystem.getClip();
+                        if (volume < 0f || volume > 1f) throw new IllegalArgumentException("Volume not valid: " + volume);
+
+
                         clip.addLineListener(listener);
                         clip.open(audioInputStream);
                         try {
+                            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+                            gainControl.setValue(20f * (float) Math.log10(volume));
                             clip.start();
                             listener.waitUntilDone();
                         } finally {
@@ -270,28 +278,27 @@ public class Scene extends JPanel {
            }
         });
 
-
         try{
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
                 Component c = renderList.get(i);
                 if(inside(c)) {
                     (c).render(graphics2D);
-                    if(!c.isVisible()){
-                       c.setVisible(true);
-                       c.onCameraEnter();
-                    }
+                    //if(!c.isVisible()){
+                    //    c.setVisible(true);
+                    //    c.onCameraEnter();
+                    //}
                 }
-                else if(c.isVisible()){
-                    c.setVisible(false);
-                    c.onCameraLeft();
-                }
+                //else if(c.isVisible()){
+                //    c.setVisible(false);
+                //    c.onCameraLeft();
+                //}
             }
-        //graphics2D.translate(width*percentW,height*percentH);
-        graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
-        //graphics2D.scale(1/scale.getX(),1/scale.getY());
+            //graphics2D.translate(width*percentW,height*percentH);
+            //graphics2D.scale(1/scale.getX(),1/scale.getY());
 
-        LightManager.render(graphics2D);
+            graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
+            LightManager.render(graphics2D);
 
         }catch (Exception e){}
     }
