@@ -73,12 +73,12 @@ public class Collider extends Component{
                 return p;
             }
         }
-       // for (Vector2 vertex : c.vertices){
-       //     Point p = new Point((int) vertex.getX(), (int) vertex.getY());
-       //     if(getPolygon().contains(p)){
-       //         return p;
-       //     }
-       // }
+        for (Vector2 vertex : c.vertices){
+            Point p = new Point((int) vertex.getX(), (int) vertex.getY());
+            if(getShape().contains(p)){
+                return p;
+            }
+        }
         return null;
     }
 
