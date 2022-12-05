@@ -210,60 +210,62 @@ public class Component {
                 if(c != this){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
-                        if((addedX.collision(otherCollider)) != null ){
-                            if(collider.isTrigger()){
-                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
-                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                            }
-                            else if(otherCollider.isTrigger()){
-                                onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                            }
-                            else{
-                                newPos.setX(0);
+                        if(cc.getShape().getBounds().contains(collider.getShape().getBounds())){
+                            if((addedX.collision(otherCollider)) != null ){
+                                if(collider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else if(otherCollider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else{
+                                    newPos.setX(0);
 
-                                // Create collision event
-                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                onCollisionEnter(event);
-                                colliding = true;
-                                try{
-                                    Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
-                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                    if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
-                                        //Debug.log("zeor");
-                                        ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
-                                    }
-                                }catch (Exception e){}
+                                    // Create collision event
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    onCollisionEnter(event);
+                                    colliding = true;
+                                    try{
+                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
+                                            //Debug.log("zeor");
+                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                        }
+                                    }catch (Exception e){}
+                                }
                             }
-                        }
-                        if((addedY.collision(otherCollider)) !=null ){
-                            if(collider.isTrigger()){
-                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
-                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                            }
-                            else if(otherCollider.isTrigger()){
-                                onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
-                                otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                            }
-                            else{
-                                newPos.setY(0);
-                                CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                onCollisionEnter(event);
-                                colliding = true;
-                                try{
-                                    Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
-                                    ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                    if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
-                                        ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
-                                    }
-                                }catch (Exception e){}
+                            if((addedY.collision(otherCollider)) !=null ){
+                                if(collider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else if(otherCollider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else{
+                                    newPos.setY(0);
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    onCollisionEnter(event);
+                                    colliding = true;
+                                    try{
+                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
+                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
+                                        }
+                                    }catch (Exception e){}
+                                }
                             }
                         }
                     }
                 }
             }
         }
-        if(temp == true && temp != colliding){
+        if(temp && !colliding){
            onCollisionLeft();
         }
         //Debug.log(newPos);

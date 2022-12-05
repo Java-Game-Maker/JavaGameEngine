@@ -3,7 +3,7 @@ TestGames
 out/production
 out/test
 out/artifacts
-res
+TestGames/src/res
 # Compiled class file
 *.class
 
@@ -25,7 +25,7 @@ res
 *.tar.gz
 *.rar
 /out/production/JavaGameEngine/sprites
-/TestGames/res/sprites
+/TestGames/src/res/sprites
 
 # virtual machine crash logs, see http://www.java.com/en/download/help/error_hotspot.xml
 hs_err_pid*
