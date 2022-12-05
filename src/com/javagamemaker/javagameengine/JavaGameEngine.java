@@ -6,6 +6,8 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 /**
  * This is the main class in the JavaGameEngine gameengine
@@ -109,17 +111,16 @@ public class JavaGameEngine{
         deltaTime = (now - prevTime) / 10;
         prevTime = now;
 
-        try {
-            Thread.sleep(DELAY);
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
+       // try {
+       //     Thread.sleep(DELAY);
+       // } catch (InterruptedException e) {
+       //     throw new RuntimeException(e);
+       // }
 
         Debug.startCount();
         selectedScene.update();
         Debug.endCountMillSeconds();
-        gameWindow.validate();
-        gameWindow.repaint();
+        //gameWindow.repaint();
         //For linux
         Toolkit.getDefaultToolkit().sync();
         Input.setScrollValue(0);
@@ -147,9 +148,20 @@ public class JavaGameEngine{
         gameWindow.setVisible(true);
 
         selectedScene.start();
+        javax.swing.Timer timer = new javax.swing.Timer(DELAY, new ActionListener(){
+            @Override
+            public void actionPerformed(ActionEvent actionEvent) {
+                update();
+                gameWindow.revalidate();
+                gameWindow.repaint();
+            }
+
+        });
+        timer.setCoalesce(true);
+        timer.setRepeats(true);
+        timer.start();
 
         while (true) {
-            update();
             getSelectedScene().setSize(gameWorld.getSize());
         }
 
