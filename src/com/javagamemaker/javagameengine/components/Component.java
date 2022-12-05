@@ -210,10 +210,18 @@ public class Component {
                 if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
-                        if(     addedX.getShape().getBounds().intersects (otherCollider.getShape().getBounds()) ||
-                                otherCollider.getShape().getBounds().intersects(addedX.getShape().getBounds()) ){
+                        Rectangle rec1 = collider.getShape().getBounds();
+                        Rectangle rec2 = otherCollider.getShape().getBounds();
 
-                            Debug.log("aiin");
+                        rec1.width += rec1.width;
+                        rec1.height += rec1.height;
+
+                        rec2.width += rec2.width;
+                        rec2.height += rec2.height;
+
+                        if(     rec1.getBounds().intersects (rec2.getBounds()) ||
+                                rec1.getBounds().intersects(rec1.getBounds()) ){
+
                             if((addedX.collision(otherCollider)) != null ){
                                 if(collider.isTrigger()){
                                     onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
