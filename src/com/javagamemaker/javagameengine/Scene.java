@@ -186,13 +186,13 @@ public class Scene extends JPanel {
         return screen.contains(component.getShape().getBounds());
     }
     public static void playSound(String path){
-        playSound(path,JavaGameEngine.masterVolume);
+        playSound(path,1);
     }
     /**
      * Plays a sound from path
      * @param path path
      */
-    public static void playSound(String path, float volume) {
+    public static void playSound(String path, float inputVolume) {
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -219,6 +219,7 @@ public class Scene extends JPanel {
                     AudioListener listener = new AudioListener();
                     AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(JavaGameEngine.class.getResourceAsStream(path));
                     try {
+                        float volume = inputVolume*JavaGameEngine.masterVolume;
                         Clip clip = AudioSystem.getClip();
                         if (volume < 0f || volume > 1f) throw new IllegalArgumentException("Volume not valid: " + volume);
 

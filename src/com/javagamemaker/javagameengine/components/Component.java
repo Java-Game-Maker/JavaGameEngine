@@ -93,10 +93,6 @@ public class Component {
      *
      */
     public void start(){
-        if(getParent()!=null){
-            localVertices = getParent().getLocalVertices();
-            updateVertices();
-        }
         for(Component c : children) c.start();
     }
 
