@@ -18,7 +18,7 @@ public class JavaGameEngine{
     public static JavaGameEngine gameInstance;
     private static boolean newScene = false;
     public static float masterVolume = 1f;
-    public static int DELAY = 5;
+    public static int DELAY = 2;
     /**this is the JPanel that is rendering our scenes and retrieving inputs*/
     public static final GameWorld gameWorld = new GameWorld();
     /** the scene that is renderned and updated*/
@@ -154,6 +154,8 @@ public class JavaGameEngine{
                 update();
                 gameWindow.revalidate();
                 gameWindow.repaint();
+                getSelectedScene().setSize(gameWorld.getSize());
+
             }
 
         });
@@ -161,9 +163,6 @@ public class JavaGameEngine{
         timer.setRepeats(true);
         timer.start();
 
-        while (true) {
-            getSelectedScene().setSize(gameWorld.getSize());
-        }
 
     }
 
