@@ -1,6 +1,7 @@
 
-src/TestGames
+TestGames
 out/production
+res
 # Compiled class file
 *.class
 
