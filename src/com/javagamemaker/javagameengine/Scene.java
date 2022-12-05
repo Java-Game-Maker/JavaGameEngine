@@ -30,6 +30,11 @@ public class Scene extends JPanel {
     private final ArrayList<Component> remove = new ArrayList<>();
     private ArrayList<java.awt.Component> uiElements = new ArrayList<>();
     Camera camera = new Camera();
+    /**
+     * With this true the scene will become dark (set darkness LightManager.opacity)
+     * To add a light add the Light component to the scene or a parent
+     */
+    public boolean useLight = false;
 
     public Scene() {
         setBackground(new Color(40, 125, 255));
@@ -298,8 +303,11 @@ public class Scene extends JPanel {
             //graphics2D.translate(width*percentW,height*percentH);
             //graphics2D.scale(1/scale.getX(),1/scale.getY());
 
-            graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
-            LightManager.render(graphics2D);
+            if(useLight){
+                graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
+                LightManager.render(graphics2D);
+                graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
+            }
 
         }catch (Exception e){}
     }

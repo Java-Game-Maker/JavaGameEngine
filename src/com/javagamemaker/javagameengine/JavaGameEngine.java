@@ -115,10 +115,11 @@ public class JavaGameEngine{
             throw new RuntimeException(e);
         }
 
+        Debug.startCount();
         selectedScene.update();
+        Debug.endCountMillSeconds();
         gameWindow.validate();
         gameWindow.repaint();
-
         //For linux
         Toolkit.getDefaultToolkit().sync();
         Input.setScrollValue(0);

@@ -1,6 +1,8 @@
 
 TestGames
 out/production
+out/test
+out/artifacts
 res
 # Compiled class file
 *.class
