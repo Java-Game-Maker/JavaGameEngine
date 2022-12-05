@@ -207,10 +207,13 @@ public class Component {
 
             // all components in the scene
             for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
-                if(c != this){ // don't check us
+                if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
-                        if(cc.getShape().getBounds().contains(collider.getShape().getBounds())){
+                        if(     addedX.getShape().getBounds().intersects (otherCollider.getShape().getBounds()) ||
+                                otherCollider.getShape().getBounds().intersects(addedX.getShape().getBounds()) ){
+
+                            Debug.log("aiin");
                             if((addedX.collision(otherCollider)) != null ){
                                 if(collider.isTrigger()){
                                     onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
@@ -237,6 +240,7 @@ public class Component {
                                     }catch (Exception e){}
                                 }
                             }
+
                             if((addedY.collision(otherCollider)) !=null ){
                                 if(collider.isTrigger()){
                                     onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
@@ -619,7 +623,6 @@ public class Component {
         for (Component child : getChildren()){
             child.render(g);
         }
-
     }
 
     /**
