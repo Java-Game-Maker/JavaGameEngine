@@ -8,6 +8,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.rmi.server.ExportException;
 
 /**
  * This is the main class in the JavaGameEngine gameengine
@@ -20,7 +21,12 @@ public class JavaGameEngine{
     public static float masterVolume = 1f;
     public static int DELAY = 2;
     /**this is the JPanel that is rendering our scenes and retrieving inputs*/
-    public static final GameWorld gameWorld = new GameWorld();
+    public static final GameWorld gameWorld = new GameWorld(){
+        @Override
+        protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+        }
+    };
     /** the scene that is renderned and updated*/
     static Scene selectedScene = new Scene();
     /**
@@ -31,7 +37,13 @@ public class JavaGameEngine{
      * default game window size
      */
     public static Vector2 size = new Vector2(720,500);
-    public static JFrame gameWindow = new JFrame();
+    public static JFrame gameWindow = new JFrame(){
+        @Override
+        public void paintComponents(Graphics g) {
+            super.paintComponents(g);
+
+        }
+    };
 
     /**return selected scene*/
     public static Scene getSelectedScene() {
@@ -75,7 +87,7 @@ public class JavaGameEngine{
     /**
      * This caps the amount of frames drawn in a second (0 = uncapped)
      */
-    public static float fpsCap = 0;
+    public static float fpsCap = 60;
 
     /**
      * This function can not be called in a components constructor because the game window has not been
@@ -91,6 +103,13 @@ public class JavaGameEngine{
      * update loop
      */
     private static void update() {
+
+       // try {
+       //     Thread.sleep(DELAY);
+       // } catch (InterruptedException e) {
+       //     throw new RuntimeException(e);
+       // }
+
         double now = ((double) System.currentTimeMillis());
         //Increases counter every tick but when a 1/10 of a second we reset the counter
         //and sets the fps to the counter
@@ -110,16 +129,9 @@ public class JavaGameEngine{
         // delta time is the time from previous frame (tick speed)
         deltaTime = (now - prevTime) / 10;
         prevTime = now;
-
-       // try {
-       //     Thread.sleep(DELAY);
-       // } catch (InterruptedException e) {
-       //     throw new RuntimeException(e);
-       // }
-
-        Debug.startCount();
+        //Debug.startCount();
         selectedScene.update();
-        Debug.endCountMillSeconds();
+        //Debuddddg.endCountMillSeconds();
         //gameWindow.repaint();
         //For linux
         Toolkit.getDefaultToolkit().sync();
@@ -149,13 +161,13 @@ public class JavaGameEngine{
 
         selectedScene.start();
         javax.swing.Timer timer = new javax.swing.Timer(DELAY, new ActionListener(){
+
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                 update();
                 gameWindow.revalidate();
                 gameWindow.repaint();
                 getSelectedScene().setSize(gameWorld.getSize());
-
             }
 
         });

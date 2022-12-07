@@ -220,7 +220,7 @@ public class Component {
                         rec2.height += rec2.height;
 
                         if(     rec1.getBounds().intersects (rec2.getBounds()) ||
-                                rec1.getBounds().intersects(rec1.getBounds()) ){
+                                rec1.getBounds().intersects(rec1.getBounds())  ){
 
                             if((addedX.collision(otherCollider)) != null ){
                                 if(collider.isTrigger()){
