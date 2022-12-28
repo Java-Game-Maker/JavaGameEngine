@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Component {
 
-    protected int layer = 10;
+    protected int layer = 100;
     protected String tag = "";
     protected float angle = 0;
     protected boolean visible = true;
@@ -622,15 +622,21 @@ public class Component {
             getParent().children.remove(this);
         }
     }
+    public void renderChildren(Graphics2D g){
+        for (Component child : getChildren()){
+            child.render(g);
+        }
+    }
     /**
      * Renders the component
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-
-        for (Component child : getChildren()){
-            child.render(g);
-        }
+        Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+        g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
+        renderChildren(g);
+        g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+        //g.dispose();
     }
 
     /**

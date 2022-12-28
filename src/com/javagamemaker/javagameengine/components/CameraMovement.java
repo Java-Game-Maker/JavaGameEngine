@@ -9,7 +9,7 @@ public class CameraMovement extends Component{
     @Override
     public void update() {
         super.update();
-        if(Input.getMouseEvent() != null && Input.getMouseEvent().isControlDown()){
+        if(Input.getMouseEvent() != null && Input.isKeyDown(Keys.CTRL)){
             Component camera = getParent();
             camera.setScale(camera.getScale().subtract(camera.getScale().divide(10).multiply(Input.getScrollValue())));
             if(Input.isKeyDown(Keys.W)){

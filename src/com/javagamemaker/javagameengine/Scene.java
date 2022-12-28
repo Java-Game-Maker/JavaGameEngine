@@ -262,13 +262,13 @@ public class Scene extends JPanel {
 
         graphics2D.scale(scale.getX(),scale.getY());
 
-        float width = graphics2D.getClip().getBounds().width/2;
+        float width = graphics2D.getClip().getBounds().width >> 1;
         float percentW = 1-scale.getX();
-        float height = graphics2D.getClip().getBounds().height/2;
+        float height = graphics2D.getClip().getBounds().height >> 1;
         float percentH = 1-scale.getY();
 
         graphics2D.translate(width*percentW,height*percentH);
-        graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
+        //graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
 
         if(!screen.equals(graphics2D.getClip().getBounds())){
             screen = new Rectangle(graphics2D.getClip().getBounds().x-200,graphics2D.getClip().getBounds().y-200,graphics2D.getClip().getBounds().width+500,graphics2D.getClip().getBounds().height+500);
@@ -284,11 +284,14 @@ public class Scene extends JPanel {
            }
         });
 
+        g.setColor(Color.WHITE);
+        g.drawOval((int) (Input.getMousePosition().getX()-20), (int) (Input.getMousePosition().getY()-20),50,50);
         try{
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
                 Component c = renderList.get(i);
-                if(inside(c)) {
+                if(inside(c) || true) {
+                    int layer = c.getLayer()==0?1:c.getLayer();
                     (c).render(graphics2D);
                     //if(!c.isVisible()){
                     //    c.setVisible(true);
@@ -308,7 +311,7 @@ public class Scene extends JPanel {
                 LightManager.render(graphics2D);
                 graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
             }
-
+            //graphics2D.dispose();
         }catch (Exception e){}
     }
 }

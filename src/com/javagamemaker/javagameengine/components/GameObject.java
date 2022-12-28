@@ -1,5 +1,6 @@
 package com.javagamemaker.javagameengine.components;
 
+import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -36,13 +37,16 @@ public class GameObject extends Component{
     @Override
     public void render(Graphics2D g) {
         if(visible){
+            Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+            g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
                 g.setColor(color);
                 g.fill(getShape());
                 g.setColor(prev);
             }
-            super.render(g);
+            renderChildren(g);
+            g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
         }
     }
 }

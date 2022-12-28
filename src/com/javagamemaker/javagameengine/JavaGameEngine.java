@@ -108,7 +108,7 @@ public class JavaGameEngine{
         counter++;
 
         // delta time is the time from previous frame (tick speed)
-        deltaTime = (now - prevTime) / 10;
+        deltaTime = (now - prevTime)/10;
         prevTime = now;
 
        // try {
@@ -119,7 +119,7 @@ public class JavaGameEngine{
 
         Debug.startCount();
         selectedScene.update();
-        Debug.endCountMillSeconds();
+        //Debug.endCountMillSeconds();
         //gameWindow.repaint();
         //For linux
         Toolkit.getDefaultToolkit().sync();
