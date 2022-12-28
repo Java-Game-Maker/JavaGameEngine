@@ -42,7 +42,7 @@ public class Light extends Component {
 
             g.setPaint(p);
 
-            g.fill(new Ellipse2D.Double(getPosition().getX()-radius,getPosition().getY()-radius,radius*2,radius*2));
+            g.fill(new Rectangle((int) (getPosition().getX()-radius), (int) (getPosition().getY()-radius),radius*2,radius*2));
             //g.fillOval((int) getPosition().getX()-radius/2, (int) getPosition().getY()-radius/2,radius,radius);
             LightManager.screen.subtract(new Area(new Ellipse2D.Double(getPosition().getX()-radius+(new Vector2(JavaGameEngine.getSelectedScene().getCamera().getPosition())).getX(),getPosition().getY()-radius+(new Vector2(JavaGameEngine.getSelectedScene().getCamera().getPosition()).getY()),radius*2,radius*2)));
         }

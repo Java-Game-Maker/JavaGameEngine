@@ -198,53 +198,53 @@ public class Scene extends JPanel {
      * @param path path
      */
     public static void playSound(String path, float inputVolume) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    class AudioListener implements LineListener {
-                        private boolean done = false;
+       // new Thread(new Runnable() {
+       //     @Override
+       //     public void run() {
+       //         try {
+       //             class AudioListener implements LineListener {
+       //                 private boolean done = false;
 
-                        @Override
-                        public synchronized void update(LineEvent event) {
-                            LineEvent.Type eventType = event.getType();
-                            if (eventType == LineEvent.Type.STOP || eventType == LineEvent.Type.CLOSE) {
-                                done = true;
-                                notifyAll();
-                            }
-                        }
+       //                 @Override
+       //                 public synchronized void update(LineEvent event) {
+       //                     LineEvent.Type eventType = event.getType();
+       //                     if (eventType == LineEvent.Type.STOP || eventType == LineEvent.Type.CLOSE) {
+       //                         done = true;
+       //                         notifyAll();
+       //                     }
+       //                 }
 
-                        public synchronized void waitUntilDone() throws InterruptedException {
-                            while (!done) {
-                                wait();
-                            }
-                        }
-                    }
+       //                 public synchronized void waitUntilDone() throws InterruptedException {
+       //                     while (!done) {
+       //                         wait();
+       //                     }
+       //                 }
+       //             }
 
-                    AudioListener listener = new AudioListener();
-                    AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(JavaGameEngine.class.getResourceAsStream(path));
-                    try {
-                        float volume = inputVolume*JavaGameEngine.masterVolume;
-                        Clip clip = AudioSystem.getClip();
-                        if (volume < 0f || volume > 1f) throw new IllegalArgumentException("Volume not valid: " + volume);
+       //             AudioListener listener = new AudioListener();
+       //             AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(JavaGameEngine.class.getResourceAsStream(path));
+       //             try {
+       //                 float volume = inputVolume*JavaGameEngine.masterVolume;
+       //                 Clip clip = AudioSystem.getClip();
+       //                 if (volume < 0f || volume > 1f) throw new IllegalArgumentException("Volume not valid: " + volume);
 
 
-                        clip.addLineListener(listener);
-                        clip.open(audioInputStream);
-                        try {
-                            FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
-                            gainControl.setValue(20f * (float) Math.log10(volume));
-                            clip.start();
-                            listener.waitUntilDone();
-                        } finally {
-                            clip.close();
-                        }
-                    } finally {
-                        audioInputStream.close();
-                    }
-                }catch (Exception e){ e.printStackTrace(); }
-            }
-        }).start();
+       //                 clip.addLineListener(listener);
+       //                 clip.open(audioInputStream);
+       //                 try {
+       //                     FloatControl gainControl = (FloatControl) clip.getControl(FloatControl.Type.MASTER_GAIN);
+       //                     gainControl.setValue(20f * (float) Math.log10(volume));
+       //                     clip.start();
+       //                     listener.waitUntilDone();
+       //                 } finally {
+       //                     clip.close();
+       //                 }
+       //             } finally {
+       //                 audioInputStream.close();
+       //             }
+       //         }catch (Exception e){ e.printStackTrace(); }
+       //     }
+       // }).start();
     }
     public Rectangle screen = new Rectangle();
     /**
