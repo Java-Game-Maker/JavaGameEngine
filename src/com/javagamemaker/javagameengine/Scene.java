@@ -268,7 +268,7 @@ public class Scene extends JPanel {
         float percentH = 1-scale.getY();
 
         graphics2D.translate(width*percentW,height*percentH);
-        //graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
+        graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
 
         if(!screen.equals(graphics2D.getClip().getBounds())){
             screen = new Rectangle(graphics2D.getClip().getBounds().x-200,graphics2D.getClip().getBounds().y-200,graphics2D.getClip().getBounds().width+500,graphics2D.getClip().getBounds().height+500);
@@ -284,8 +284,6 @@ public class Scene extends JPanel {
            }
         });
 
-        g.setColor(Color.WHITE);
-        g.drawOval((int) (Input.getMousePosition().getX()-20), (int) (Input.getMousePosition().getY()-20),50,50);
         try{
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
@@ -307,9 +305,9 @@ public class Scene extends JPanel {
             //graphics2D.scale(1/scale.getX(),1/scale.getY());
 
             if(useLight){
-                graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
+                //graphics2D.translate(-camera.getPosition().getX(),-camera.getPosition().getY());
                 LightManager.render(graphics2D);
-                graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
+                //graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
             }
             //graphics2D.dispose();
         }catch (Exception e){}
