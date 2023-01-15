@@ -198,6 +198,8 @@ public class Collider extends Component{
     @Override
     public void render(Graphics2D g) {
         super.render(g);
+        Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+        //g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
         if(visible){
             Color c = g.getColor();
             g.setColor(Color.green);
@@ -209,5 +211,6 @@ public class Collider extends Component{
             g.setColor(c);
 
         }
+        //g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
     }
 }

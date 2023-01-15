@@ -26,7 +26,8 @@ public class Sprite extends Component {
     int currentSprite = 0;
     boolean inverted = false;
 
-    public Sprite(){}
+    public Sprite(){
+    }
 
     public Sprite(String sprite){
         loadAnimation(new String[]{sprite});
@@ -156,6 +157,10 @@ public class Sprite extends Component {
     @Override
     public void render(Graphics2D g) {
         if(visible){
+            Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+
+            //g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
+
             AffineTransform backup = g.getTransform();
             AffineTransform trans = new AffineTransform();
             trans.rotate( Math.toRadians(this.angle), getPosition().getX() + pivot.getX(), getPosition().getY() + pivot.getY()); // the points to rotate around (the center in my example, your left side for your problem)
@@ -169,7 +174,9 @@ public class Sprite extends Component {
 
             g.setTransform( backup ); // restore previous transform
             //  g.drawImage(getAnimation(), ((int) getPosition().getX()), ((int) getPosition().getY()), (int) getScale().getX()+1, (int) getScale().getY(),null);
-            super.render(g);
+            //g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+            renderChildren(g);
+
         }
     }
 

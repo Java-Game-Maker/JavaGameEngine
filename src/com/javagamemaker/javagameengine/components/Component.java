@@ -93,6 +93,7 @@ public class Component {
      *
      */
     public void start(){
+
         for(Component c : children) c.start();
     }
 
@@ -632,10 +633,7 @@ public class Component {
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-        Camera camera = JavaGameEngine.getSelectedScene().getCamera();
-        g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
         renderChildren(g);
-        g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
         //g.dispose();
     }
 
