@@ -112,9 +112,13 @@ public class Input {
             keyDowns.remove(Integer.valueOf(keyCode));
         return pressed;
     }
-
-
     public static void setMousePressed(int i) {
         mouseIsPressed = i;
+    }
+    public static int getKeyDown(){
+        try{
+            return keyDowns.getFirst();
+        }catch (Exception e){}
+        return 0;
     }
 }
