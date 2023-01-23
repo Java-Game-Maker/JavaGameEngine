@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Component {
 
-    protected int layer = 100;
+    protected int layer = 0;
     protected String tag = "";
     protected float angle = 0;
     protected boolean visible = true;
