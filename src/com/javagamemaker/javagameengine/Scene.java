@@ -290,7 +290,10 @@ public class Scene extends JPanel {
                 Component c = renderList.get(i);
                 if(inside(c) || true) {
                     int layer = c.getLayer()==0?1:c.getLayer();
+                    Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+                    graphics2D.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
                     (c).render(graphics2D);
+                    graphics2D.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
                     //if(!c.isVisible()){
                     //    c.setVisible(true);
                     //    c.onCameraEnter();
