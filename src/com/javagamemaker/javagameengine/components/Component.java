@@ -463,13 +463,14 @@ public class Component {
     }
 
     public <T>T getChild(){
+        T t = null;
         for (Component child : this.children){
             try{
-                return ((T)child);
+                t = ((T)child);
             }
             catch (Exception e){}
         }
-        return null;
+        return t;
     }
     /**
      * @param type the specified type of the children to be returned
