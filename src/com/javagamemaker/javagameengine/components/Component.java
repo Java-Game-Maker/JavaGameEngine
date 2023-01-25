@@ -462,6 +462,15 @@ public class Component {
         return children;
     }
 
+    public <T>T getChild(){
+        for (Component child : this.children){
+            try{
+                return ((T)child);
+            }
+            catch (Exception e){}
+        }
+        return null;
+    }
     /**
      * @param type the specified type of the children to be returned
      * @return if type is (new PhysicsBody()) it will return the first child that is a physicsBody as Component
