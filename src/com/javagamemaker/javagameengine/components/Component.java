@@ -208,6 +208,8 @@ public class Component {
 
             // all components in the scene
             for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                if(c.getPosition().getZ() != getPosition().getZ()) continue;
+
                 if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
@@ -242,9 +244,9 @@ public class Component {
                                     try{
                                         Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
                                         ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
+                                        if(this.<PhysicsBody>getChild().velocity.getX() == vel.getX()){
                                             //Debug.log("zeor");
-                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                           this.<PhysicsBody>getChild().velocity.setX(0);
                                         }
                                     }catch (Exception e){}
                                 }
@@ -294,7 +296,7 @@ public class Component {
     public void setPosition(Vector2 position) {
         //this.lastPosition = this.position;
 
-        if(getParent()!=null){
+        if(getParent() != null){
             this.position = position.add(parentOffset).add(rotOffset);
 
         }else{
