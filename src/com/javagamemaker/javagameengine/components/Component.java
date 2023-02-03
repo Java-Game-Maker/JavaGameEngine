@@ -9,9 +9,11 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Objects;
 
 /**
  * This is the first element in the JavaGameEngine
@@ -20,7 +22,7 @@ import java.util.List;
  * there is classes in the com.javagamemaker.javagameengine.components.shapes package which
  * are templates (rec, circle)
  */
-public class Component {
+public class Component implements Serializable {
 
     protected int layer = 100;
     protected String tag = "";
@@ -429,6 +431,30 @@ public class Component {
 
         return new Polygon(x,y,vertices.size());
     }
+    public void checkMouse(){
+        Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
+                /*
+                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
+                    if mouse is inside, and we have been we don't call mouse entered
+                    if mouse is not inside, and we are previously we call mouse left
+                 */
+        Component prev = JavaGameEngine.getSelectedScene().hasA;
+        if(getShape().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
+            if(isMouseInside()){
+                onMouseInside();
+            }
+            else{
+                onMouseEntered();
+            }
+            JavaGameEngine.getSelectedScene().hasA = this;
+
+        }
+        else if(isMouseInside()){
+            setMouseInside(false);
+            onMouseLeft();
+            JavaGameEngine.getSelectedScene().hasA = null;
+        }
+    }
     /**
      *
      * @param type the specified type of the children to be returned
@@ -651,7 +677,7 @@ public class Component {
             Color color = g.getColor();
             g.setColor(Color.GREEN);
             g.setStroke(new BasicStroke(10));
-            g.drawPolygon(getPolygon());
+            g.draw(getShape());
             g.setColor(color);
         }
 

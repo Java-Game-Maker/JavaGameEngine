@@ -34,7 +34,7 @@ public class GameObject extends Component{
     public void start() {
         super.start();
 
-        if(Main.getSelectedScene().isDebugMode()){
+        if(JavaGameEngine.getSelectedScene().isDebugMode()){
         }
     }
 
@@ -56,15 +56,15 @@ public class GameObject extends Component{
             if(getChild(new Sprite())==null){
 
                 g.setColor(color);
-                g.fillPolygon(getPolygon());
+                g.fill(getShape());
                 if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
                     g.setColor(Color.GREEN);
-                    g.drawPolygon(getPolygon());
+                    g.draw(getShape());
                 }
                 g.setColor(prev);
             }
             g.setColor(color);
-            g.fillPolygon(getPolygon());
+            g.fill(getShape());
             g.setColor(prev);
 
         }
@@ -72,11 +72,11 @@ public class GameObject extends Component{
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
                 g.setColor(color);
-                g.fillPolygon(getPolygon());
+                g.fill(getShape());
                 g.setColor(prev);
             }
             g.setColor(color);
-            g.fillPolygon(getPolygon());
+            g.fill(getShape());
             g.setColor(prev);
             super.render(g);
         }

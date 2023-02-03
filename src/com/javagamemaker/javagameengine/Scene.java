@@ -1,17 +1,17 @@
 package com.javagamemaker.javagameengine;
 
-import com.javagamemaker.javagameengine.components.Camera;
+import com.javagamemaker.javagameengine.components.*;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.components.lights.LightManager;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.util.*;
 import java.util.List;
 
@@ -31,6 +31,8 @@ public class Scene extends JPanel {
     private ArrayList<java.awt.Component> uiElements = new ArrayList<>();
     Camera camera = new Camera();
     boolean debugMode = true;
+    private Component selectedComponent;
+    public Component childSelected; // selects when selecgedn and pressing c;
     public Vector2 gridSnapping = new Vector2(10,10);
     public Vector2 scaleGridSnapping = new Vector2(10,10);
     /**
@@ -64,7 +66,13 @@ public class Scene extends JPanel {
             c.start();
         }
     }
+    public Component getSelectedComponent() {
+        return selectedComponent;
+    }
 
+    public void setSelectedComponent(Component selectedComponent) {
+        this.selectedComponent = selectedComponent;
+    }
     /**
      *
      * @return list of all ui in the scene
@@ -262,10 +270,6 @@ public class Scene extends JPanel {
         graphics2D.translate(width*percentW,height*percentH);
         graphics2D.translate(camera.getPosition().getX(),camera.getPosition().getY());
 
-        if(!screen.equals(graphics2D.getClip().getBounds())){
-            screen = new Rectangle(graphics2D.getClip().getBounds().x-200,graphics2D.getClip().getBounds().y-200,graphics2D.getClip().getBounds().width+500,graphics2D.getClip().getBounds().height+500);
-        }
-
         int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
         int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
         Input.setMousePosition(new Vector2(x,y));
@@ -303,9 +307,6 @@ public class Scene extends JPanel {
             }
             //graphics2D.dispose();
         }catch (Exception e){}
-
-        int x = (int) ((int) (Input.getMousePositionOnCanvas().getX() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getX());
-        int y = (int) ((int) (Input.getMousePositionOnCanvas().getY() / getCamera().getScale().getX()) + graphics2D.getClip().getBounds().getY() );
 
         if(debugMode){
 
@@ -367,16 +368,17 @@ public class Scene extends JPanel {
             fos = new FileInputStream("filename");
             ObjectInputStream oos = new ObjectInputStream(fos);
 
-            for(Component c : (LinkedList<Component>) oos.readObject()){
+            for(Component c : (ArrayList<Component>) oos.readObject()){
                 if(c.getClass() == Sprite.class){
-                    LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;
-                    ((Sprite) c).tiles = new LinkedList<>();
+                    //LinkedList<Rectangle[]> oldTiles = ((Sprite)c).tiles;
+                    //((Sprite) c).tiles = new LinkedList<>();
                     ((Sprite) c).animations = new ArrayList<>();
                     ((Sprite) c).animations1 = new ArrayList<>();
-
+                     /*
                     for(Rectangle[] animation : oldTiles){
                         ((Sprite) c).loadAnimation(animation,((Sprite)c).spriteSheetString);
                     }
+                     */
                 }
                 components.add(c);
             }

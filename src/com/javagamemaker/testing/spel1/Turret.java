@@ -34,7 +34,7 @@ public class Turret extends Stone{
     @Override
     public void update() {
         super.update();
-        float a =(float) getPosition().lookAt(Main.ship.getPosition());
+        float a =(float) getPosition().lookAtDouble(Main.ship.getPosition());
         turret.rotateTo(a+90,new Vector2(0,10));
     }
 
