@@ -656,7 +656,6 @@ public class Component {
         }
 
     }
-e
 
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
     }
