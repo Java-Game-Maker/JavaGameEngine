@@ -63,7 +63,7 @@ public class Collider extends Component{
     /**
      * Checks all the components in the scene of they have collided
      * @param c component
-     * @return
+     * @return PPoint of collision
      */
     public Point collision(Collider c){
         // check if my points are inside c

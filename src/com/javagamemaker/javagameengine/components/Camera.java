@@ -4,7 +4,6 @@ import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
-import java.awt.geom.Area;
 
 
 /**
