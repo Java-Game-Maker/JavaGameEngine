@@ -30,23 +30,56 @@ public class GameObject extends Component{
         return color;
     }
 
+    @Override
+    public void start() {
+        super.start();
+
+        if(Main.getSelectedScene().isDebugMode()){
+        }
+    }
+
     public void setColor(Color color) {
         this.color = color;
     }
 
     @Override
+    public void update() {
+        super.update();
+    }
+
+    @Override
     public void render(Graphics2D g) {
-        if(visible){
-            Camera camera = JavaGameEngine.getSelectedScene().getCamera();
-            //g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
+
+        if(JavaGameEngine.getSelectedScene().isDebugMode()){
+            super.render(g);
+            Color prev = g.getColor();
+            if(getChild(new Sprite())==null){
+
+                g.setColor(color);
+                g.fillPolygon(getPolygon());
+                if(JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
+                    g.setColor(Color.GREEN);
+                    g.drawPolygon(getPolygon());
+                }
+                g.setColor(prev);
+            }
+            g.setColor(color);
+            g.fillPolygon(getPolygon());
+            g.setColor(prev);
+
+        }
+        else if(visible){
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
                 g.setColor(color);
-                g.fill(getShape());
+                g.fillPolygon(getPolygon());
                 g.setColor(prev);
             }
-            renderChildren(g);
-            //g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+            g.setColor(color);
+            g.fillPolygon(getPolygon());
+            g.setColor(prev);
+            super.render(g);
         }
+
     }
 }

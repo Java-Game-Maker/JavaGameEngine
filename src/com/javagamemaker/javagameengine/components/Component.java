@@ -173,7 +173,6 @@ public class Component {
         updateVertices();
     }
 
-
     public Vector2 getPosition() {
         return position;
     }
@@ -642,37 +641,112 @@ public class Component {
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-        renderChildren(g);
-        //g.dispose();
-    }
+        List<Component> list = getChildren();
 
-    /**
-     * triggers then a collider is a trigger and  collides with another trigger
-     * @param collisionEvent holds information about the collision
-     */
+        for (Component child : list){
+            child.render(g);
+        }
+
+        if(JavaGameEngine.getSelectedScene().isDebugMode() && JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
+            Color color = g.getColor();
+            g.setColor(Color.GREEN);
+            g.setStroke(new BasicStroke(10));
+            g.drawPolygon(getPolygon());
+            g.setColor(color);
+        }
+
+    }
+e
+
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
-        if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
     }
 
-    /**
-     * updates every second
-     */
-    public void updateSecond(){
-    }
-
-    /**
-     * save the component to a file (serlizeable) linked list
-     */
-    public void save(){
-    }
-    public void load(){
+    public void updateSecund(){
 
     }
+    private Vector2 offset = null;
+    private Vector2 prev = null;
 
-    /**
-     *
-     * @return
-     */
+    public void debugUpdate() {
+        this.checkMouse();
+        for (final Component c : this.getChildren()) {
+            c.debugUpdate();
+        }
+        if (Input.isMousePressed(1) && this.mouseInside) {
+            JavaGameEngine.getSelectedScene().setSelectedComponent(this);
+        }
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isMousePressed(1) && !this.isMouseInside()) {
+            JavaGameEngine.getSelectedScene().setSelectedComponent((Component)null);
+        }
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(67)) {
+            JavaGameEngine.getSelectedScene().childSelected = this;
+        }
+        if (Input.isMouseDown(1) && !Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.offset == null) {
+                this.offset = this.getPosition().subtract(Input.getMousePosition());
+            }
+            if (this.getParent() == null) {
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
+
+                float x = Math.round(Input.getMousePosition().add(this.offset).getX() / gridCubeWidth) * gridCubeWidth;
+                float y = Math.round(Input.getMousePosition().add(this.offset).getY() / gridCubeHeight) * gridCubeHeight;
+                this.setPosition(new Vector2(x,y));
+
+            }
+            else {
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
+                Vector2 pos = Input.getMousePosition().add(this.offset).subtract(this.getParent().getPosition());
+
+                float x = Math.round(pos.getX() / gridCubeWidth) * gridCubeWidth;
+                float y = Math.round(pos.getY() / gridCubeHeight) * gridCubeHeight;
+
+                this.setParentOffset(new Vector2(x,y));
+                this.getFirstParent().setPosition(this.getFirstParent().getPosition());
+            }
+        }
+        else if (Input.isMouseDown(1) && Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.prev != null) {
+                this.setScale(this.getScale().subtract(Input.getMousePosition().subtract(this.prev).multiply(new Vector2(-1.0f, 1.0f))));
+            }
+            this.prev = Input.getMousePosition();
+        }
+        else {
+            this.offset = null;
+        }
+
+
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Component component = (Component) o;
+        return layer == component.layer && Float.compare(component.angle, angle) == 0 && visible == component.visible && mouseInside == component.mouseInside && Objects.equals(tag, component.tag) && Objects.equals(position, component.position) && Objects.equals(parentOffset, component.parentOffset) && Objects.equals(scale, component.scale) && Objects.equals(localVertices, component.localVertices) && Objects.equals(vertices, component.vertices) && Objects.equals(children, component.children) && Objects.equals(parent, component.parent) && Objects.equals(prevPosition, component.prevPosition) && Objects.equals(lastPosition, component.lastPosition) && Objects.equals(rotOffset, component.rotOffset) && Objects.equals(offset, component.offset) && Objects.equals(prev, component.prev);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(layer, tag, angle, visible, position, parentOffset, scale, localVertices, vertices, children, parent, prevPosition, mouseInside, lastPosition, rotOffset, offset, prev);
+    }
+
+    @Override
+    public Component clone() {
+        Component c = new Component();
+        c.setPosition(getPosition());
+        c.setScale(getScale());
+        c.setTag(getTag());
+        c.setChildren(getChildren());
+        c.setParentOffset(getParentOffset());
+        c.setParent(getParent());
+        c.setLocalVertices(getLocalVertices());
+        c.setVisible(isVisible());
+        c.setLayer(layer);
+        c.setPrevPosition(getPrevPosition());
+        return c;
+    }
+
     @Override
     public String toString() {
         return "{position : "+position.toString()+",\n" +
