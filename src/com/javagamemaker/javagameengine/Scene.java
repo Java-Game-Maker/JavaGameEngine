@@ -8,7 +8,7 @@ import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
-import javax.sound.sampled.*;
+
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
@@ -353,7 +353,7 @@ public class Scene extends JPanel {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
-            fos = new FileOutputStream(getName(),false);
+            fos = new FileOutputStream("filename",false);
             out = new ObjectOutputStream(fos);
             out.writeObject(components);
             out.close();

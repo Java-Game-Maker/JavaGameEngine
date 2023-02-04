@@ -1,5 +1,3 @@
-package com.javagamemaker;
-
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
 import com.javagamemaker.javagameengine.components.Component;
@@ -9,9 +7,19 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.io.File;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+
+/*
+    user can add script
+    this will create default java class that extends component
+    when that file is updated we build it and add it to a game jar file (javagameneinge jar)
+    when the script is placed on a component a temporary file will be created
+    this file will state which component (with index) should have this component
+    when the game starts this file gets removed and the scene will add the component to the
+    selected components
+
+ */
 
 public class Main extends JavaGameEngine {
 
@@ -41,8 +49,9 @@ public class Main extends JavaGameEngine {
         // Create a File object on the root of the directory containing the class file
         //File file = new File("/home/spy/dev/java/Test/out/production/Test/Player.class");
         //File file = new File("/home/spy/dev/java/JavaGameEngine/out/production/JavaGameEngine/Player.class");
-        String scriptFiles = "/home/spy/dev/java/JavaGameEngine/out/artifacts/edit/scripts";
 
+        String scriptFiles = "/home/spy/dev/java/JavaGameEngine/out/artifacts/edit/scripts";
+        /*
         File folder = new File(scriptFiles);
         for( File file : folder.listFiles() ){
             if(file.getName().contains(".class")) {
@@ -68,6 +77,9 @@ public class Main extends JavaGameEngine {
                 }
             }
         }
+
+         */
+
 
         Debug.log(scene1.getComponents1().size());
 
