@@ -199,7 +199,7 @@ public class Scene extends JPanel {
 
     }
 
-    private void debugUpdate(){
+    public void debugUpdate(){
         if(Input.isMousePressed(Keys.RIGHTCLICK)){
             GameObject g = new GameObject();
             g.setPosition(Input.getMousePosition());
@@ -228,7 +228,7 @@ public class Scene extends JPanel {
             selectedComponent.add(childSelected);
         }
 
-        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyPressed(Keys.S)) {
+        if(Input.isKeyDown(Keys.CTRL) && Input.isKeyDown(Keys.SHIFT) && Input.isKeyPressed(Keys.S)) {
             save();
         }
         if(Input.isKeyDown(Keys.CTRL) && Input.isKeyDown(Keys.X)) {
@@ -353,7 +353,7 @@ public class Scene extends JPanel {
         FileOutputStream fos = null;
         ObjectOutputStream out = null;
         try {
-            fos = new FileOutputStream("filename",false);
+            fos = new FileOutputStream(getName(),false);
             out = new ObjectOutputStream(fos);
             out.writeObject(components);
             out.close();

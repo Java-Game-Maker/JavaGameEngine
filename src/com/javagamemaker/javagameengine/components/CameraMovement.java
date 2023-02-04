@@ -5,7 +5,7 @@ import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 public class CameraMovement extends Component{
-    float speed = 2;
+    public float speed = 2;
     Vector2 startPos = null;
     @Override
     public void update() {

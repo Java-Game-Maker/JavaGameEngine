@@ -2,8 +2,16 @@ package com.javagamemaker.testing;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
+
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
 
 public class Main extends JavaGameEngine {
 
@@ -16,8 +24,50 @@ public class Main extends JavaGameEngine {
                 getCamera().setScale(new Vector2(2,2));
                 //getCamera().setPosition(new Vector2(100,0));
             }
+
+            @Override
+            public void debugUpdate() {
+                super.debugUpdate();
+                if(Input.isKeyPressed(Keys.ESCAPE)){
+                    setDebugMode(false);
+                }
+            }
         };
-        scene1.load();
+        try{
+            scene1.load();
+        }catch (Exception e){
+
+        }
+        // Create a File object on the root of the directory containing the class file
+        //File file = new File("/home/spy/dev/java/Test/out/production/Test/Player.class");
+        //File file = new File("/home/spy/dev/java/JavaGameEngine/out/production/JavaGameEngine/Player.class");
+        String scriptFiles = "/home/spy/dev/java/JavaGameEngine/out/artifacts/edit/scripts";
+
+        File folder = new File(scriptFiles);
+        for( File file : folder.listFiles() ){
+            if(file.getName().contains(".class")) {
+
+                try {
+                    // Convert File to a URL
+                    URL url = file.toURI().toURL();          // file:/c:/myclasses/
+                    URL[] urls = new URL[]{url};
+
+                    // Create a new class loader with the directory
+                    ClassLoader cl = new URLClassLoader(urls);
+
+                    // Load in the class; MyClass.class should be located in
+                    // the directory file:/c:/myclasses/com/mycompany
+                    Class cls = cl.loadClass("Player");
+                    Component c = (Component) cls.newInstance();
+                    c.update();
+                    scene1.getComponents1().get(0).add(c);
+
+
+                } catch (Exception e) {
+                    throw new RuntimeException(e);
+                }
+            }
+        }
 
         Debug.log(scene1.getComponents1().size());
 
@@ -32,6 +82,5 @@ public class Main extends JavaGameEngine {
 
         start();
     }
-
 
 }
