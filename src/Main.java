@@ -1,4 +1,4 @@
-package com.javagamemaker.testing;
+package com.javagamemaker;
 
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.Scene;
