@@ -197,13 +197,13 @@ public class Component implements Serializable {
             if(collider!=null){
                 Collider addedX = new Collider();
                 addedX.localVertices = collider.getLocalVertices();
-                addedX.setPosition(getPosition().add(towards.removeY()));
+                addedX.setPosition(collider.getPosition().add(towards.removeY()));
                 addedX.setScale(addedX.getScale().subtract(0));
                 addedX.updateVertices();
 
                 Collider addedY = new Collider();
                 addedY.localVertices = collider.getLocalVertices();
-                addedY.setPosition(getPosition().add(towards.removeX()));
+                addedY.setPosition(collider.getPosition().add(towards.removeX()));
                 addedY.setScale(addedY.getScale().subtract(0));
                 addedY.updateVertices();
 
@@ -504,7 +504,9 @@ public class Component implements Serializable {
             try{
                 children.add(((T)child));
             }
-            catch (Exception e){}
+            catch (Exception e){
+                Debug.log("asd");
+            }
         }
         return children;
     }
