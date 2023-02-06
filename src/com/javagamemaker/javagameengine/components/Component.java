@@ -196,13 +196,13 @@ public class Component {
         if(collider!=null){
             Collider addedX = new Collider();
             addedX.localVertices = collider.getLocalVertices();
-            addedX.setPosition(getPosition().add(towards.removeY()));
+            addedX.setPosition(collider.getPosition().add(towards.removeY()));
             addedX.setScale(addedX.getScale().subtract(1));
             addedX.updateVertices();
 
             Collider addedY = new Collider();
             addedY.localVertices = collider.getLocalVertices();
-            addedY.setPosition(getPosition().add(towards.removeX()));
+            addedY.setPosition(collider.getPosition().add(towards.removeX()));
             addedY.setScale(addedY.getScale().subtract(1));
             addedY.updateVertices();
 
