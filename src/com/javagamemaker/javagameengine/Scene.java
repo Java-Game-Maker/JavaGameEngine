@@ -188,7 +188,7 @@ public class Scene extends JPanel {
     }
 
     public boolean inside(Component component) {
-        return screen.contains(component.getShape().getBounds());
+        return true;//screen.contains(component.getShape().getBounds()) || component.getShape().contains(screen);
     }
     public static void playSound(String path){
         playSound(path,1);
@@ -285,12 +285,26 @@ public class Scene extends JPanel {
         });
 
         try{
+            //center graphics
+            if(camera.parallax)  graphics2D.translate(JavaGameEngine.getWindowSize().getX()/2, JavaGameEngine.getWindowSize().getY()/2);
+
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
                 Component c = renderList.get(i);
                 if(inside(c) || true) {
-                    int layer = c.getLayer()==0?1:c.getLayer();
+                    //int layer = c.getLayer()==0?1:c.getLayer();
+                    float layer = c.getPosition().getZ()==0?1:c.getPosition().getZ();
+                    Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+                    if(camera.parallax){
+                        Debug.log(camera.getPosition().getY());
+                        float parx = camera.getPosition().getX()*layer/100;
+                        float pary = camera.getPosition().getY()*layer/100;
+                        graphics2D.translate(parx,pary);
+                    }
                     (c).render(graphics2D);
+                    if(camera.parallax){
+                        graphics2D.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+                    }
                     //if(!c.isVisible()){
                     //    c.setVisible(true);
                     //    c.onCameraEnter();

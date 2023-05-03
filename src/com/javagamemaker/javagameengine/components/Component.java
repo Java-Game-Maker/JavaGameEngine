@@ -22,7 +22,7 @@ import java.util.List;
  */
 public class Component {
 
-    protected int layer = 100;
+    protected int layer = 0;
     protected String tag = "";
     protected float angle = 0;
     protected boolean visible = true;
@@ -196,18 +196,20 @@ public class Component {
         if(collider!=null){
             Collider addedX = new Collider();
             addedX.localVertices = collider.getLocalVertices();
-            addedX.setPosition(getPosition().add(towards.removeY()));
+            addedX.setPosition(collider.getPosition().add(towards.removeY()));
             addedX.setScale(addedX.getScale().subtract(1));
             addedX.updateVertices();
 
             Collider addedY = new Collider();
             addedY.localVertices = collider.getLocalVertices();
-            addedY.setPosition(getPosition().add(towards.removeX()));
+            addedY.setPosition(collider.getPosition().add(towards.removeX()));
             addedY.setScale(addedY.getScale().subtract(1));
             addedY.updateVertices();
 
             // all components in the scene
             for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                if(c.getPosition().getZ() != getPosition().getZ()) continue;
+
                 if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
                     for ( Component cc : c.getChildren(new Collider()) ){
                         Collider otherCollider = (Collider) cc;
@@ -242,9 +244,9 @@ public class Component {
                                     try{
                                         Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
                                         ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
+                                        if(this.<PhysicsBody>getChild().velocity.getX() == vel.getX()){
                                             //Debug.log("zeor");
-                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                           this.<PhysicsBody>getChild().velocity.setX(0);
                                         }
                                     }catch (Exception e){}
                                 }
@@ -294,7 +296,7 @@ public class Component {
     public void setPosition(Vector2 position) {
         //this.lastPosition = this.position;
 
-        if(getParent()!=null){
+        if(getParent() != null){
             this.position = position.add(parentOffset).add(rotOffset);
 
         }else{
@@ -463,13 +465,14 @@ public class Component {
     }
 
     public <T>T getChild(){
+        T t = null;
         for (Component child : this.children){
             try{
-                return ((T)child);
+                t = ((T)child);
             }
             catch (Exception e){}
         }
-        return null;
+        return t;
     }
     /**
      * @param type the specified type of the children to be returned

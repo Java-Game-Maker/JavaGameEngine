@@ -17,7 +17,10 @@ public class Grabber extends Component{
     public void update() {
         super.update();
         if (Input.isMouseDown(1) && parent.isMouseInside()) {
-            Debug.log("asd");
+            PhysicsBody b;
+            if ((b = ((PhysicsBody)parent.getChild(new PhysicsBody()))) != null){
+                b.velocity = Vector2.zero;
+            }
             if (this.offset == null) {
                 this.offset = parent.getPosition().subtract(Input.getMousePosition());
             }
