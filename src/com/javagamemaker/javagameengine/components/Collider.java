@@ -70,12 +70,20 @@ public class Collider extends Component{
         for (Vector2 vertex : vertices){
             Point p = new Point((int) vertex.getX(), (int) vertex.getY());
             if(c.getShape().contains(p)){
+                try{
+                    //parent.setPosition(parent.getPosition().subtract(new Vector2(0,1)));
+                }
+                catch (Exception e){}
                 return p;
             }
         }
         for (Vector2 vertex : c.vertices){
             Point p = new Point((int) vertex.getX(), (int) vertex.getY());
             if(getShape().contains(p)){
+                try{
+                    //parent.setPosition(parent.getPosition().subtract(new Vector2(0,1)));
+                }
+                catch (Exception e){}
                 return p;
             }
         }
