@@ -2,16 +2,13 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
-import com.javagamemaker.javagameengine.components.lights.Light;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 import java.util.ArrayList;
 import java.util.LinkedList;
-import java.util.List;
 
 /**
  * This is the first element in the JavaGameEngine
@@ -478,11 +475,11 @@ public class Component {
      * @param type the specified type of the children to be returned
      * @return if type is (new PhysicsBody()) it will return the first child that is a physicsBody as Component
      */
-    public Component getChild(Component type) {
+    public <T extends Component> T getChild(Component type) {
 
         for (Component child : this.children){
             if(child.getClass() == type.getClass()){
-                return child;
+                return (T) child;
             }
         }
         return null;
