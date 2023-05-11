@@ -71,6 +71,21 @@ public class PhysicsBody extends Component{
     }
 
     /**
+     * @return true if the body gets effected by gravity
+     */
+    public boolean isUseGravity() {
+        return useGravity;
+    }
+
+    /**
+     * Sets if the physicsbody should be effected by gravity
+     * @param useGravity
+     */
+    public void setUseGravity(boolean useGravity) {
+        this.useGravity = useGravity;
+    }
+
+    /**
      * add force to the body in form of a vector ((10,0) fo to the right)
      * @param force to be added
      */
