@@ -241,9 +241,9 @@ public class Component {
                                     try{
                                         Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
                                         ((PhysicsBody) getChild(new PhysicsBody())).response(event);
-                                        if(this.<PhysicsBody>getChild().velocity.getX() == vel.getX()){
+                                        if(this.<PhysicsBody>getChild(new PhysicsBody()).velocity.getX() == vel.getX()){
                                             //Debug.log("zeor");
-                                           this.<PhysicsBody>getChild().velocity.setX(0);
+                                           this.<PhysicsBody>getChild(new PhysicsBody()).velocity.setX(0);
                                         }
                                     }catch (Exception e){}
                                 }
