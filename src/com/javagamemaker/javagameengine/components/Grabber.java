@@ -4,11 +4,17 @@ import com.javagamemaker.javagameengine.input.Input;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
+/**
+ * Grabber is a component that will let the mouse controll the object by "Grabbing" it
+ */
 public class Grabber extends Component{
 
     Component parent;
     private Vector2 offset;
 
+    /**
+     * Grabber is a component that will let the mouse controll the object by "Grabbing" it
+     */
     public Grabber(Component parent){
         this.parent = parent;
     }
