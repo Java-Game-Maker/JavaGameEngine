@@ -4,6 +4,7 @@ import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -34,7 +35,7 @@ public class Component {
     protected boolean mouseInside = false;
     protected boolean freezeRotation = false;
     protected boolean colliding = false;
-
+    public ArrayList<Component> addedChildren = new ArrayList<>();
     protected Vector2 lastPosition;
 
     public Component(ArrayList<Vector2> localVertices){
@@ -236,7 +237,9 @@ public class Component {
 
                                     // Create collision event
                                     CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    onCollisionEnter(event);
+                                    //onCollisionEnter(event);
+                                    onCollisionDown(event);
+                                    onCollisionUp(event);
                                     colliding = true;
                                     try{
                                         Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
@@ -261,7 +264,10 @@ public class Component {
                                 else{
                                     newPos.setY(0);
                                     CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
-                                    onCollisionEnter(event);
+                                    //onCollisionEnter(event);
+                                    onCollisionDown(event);
+                                    onCollisionUp(event);
+
                                     colliding = true;
                                     try{
                                         Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
@@ -363,10 +369,13 @@ public class Component {
      * @param component the new children
      */
     public void add(Component component){
-
-        component.setParent(this);
-        component.setPosition(getPosition());
-        children.add(component);
+        if(!JavaGameEngine.started){
+            component.setParent(this);
+            component.setPosition(getPosition());
+            children.add(component);
+        }else{
+            addedChildren.add(component);
+        }
     }
 
     /**
@@ -411,6 +420,14 @@ public class Component {
         }
         for(Component child : children){
             child.update();
+            // add all the new children before the new update
+            for(Component component : child.addedChildren) {
+                component.setParent(child);
+                component.setPosition(child.getPosition());
+                child.children.add(component);
+            }
+            child.addedChildren.clear();
+
         }
     }
     /**
@@ -478,13 +495,22 @@ public class Component {
     public Vector2 getBodyPosition(){
         return new Vector2(getShape().getBounds().x, getShape().getBounds().y);
     }
+    private void onCollisionUp(CollisionEvent collisionEvent){
+        if(getParent()!=null) getParent().onCollisionUp(collisionEvent);
+
+        onCollisionEnter(collisionEvent);
+    }
+    private void onCollisionDown(CollisionEvent collisionEvent){
+        for(Component c : children) c.onCollisionDown(collisionEvent);
+        onCollisionEnter(collisionEvent);
+    }
+
     /**
      * class when a collision from a collider is triggered
      * @param collisionEvent information about the collision
      */
     public void onCollisionEnter(CollisionEvent collisionEvent){
         colliding = true;
-        if(getParent()!=null) getParent().onCollisionEnter(collisionEvent);
 
     }
 
@@ -666,9 +692,7 @@ public class Component {
      */
     @Override
     public String toString() {
-        return "{position : "+position.toString()+",\n" +
-                "scale:"+getScale().toString()+",\n" +
-                "children: ["+getChildren()+"]}";
+        return this.getClass().getSimpleName();
     }
 
     public void onCameraEnter() {

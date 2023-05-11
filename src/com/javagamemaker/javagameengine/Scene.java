@@ -169,7 +169,14 @@ public class Scene extends JPanel {
 
         int lsize = components.size();
         for(int i = 0; i < lsize;i++){
+
             Component c = components.get(i);
+            for(Component component : c.addedChildren) {
+                component.setParent(c);
+                component.setPosition(c.getPosition());
+                c.getChildren().add(component);
+            }
+            c.addedChildren.clear();
             c.update();
         }
 
