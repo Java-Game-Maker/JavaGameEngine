@@ -2,6 +2,7 @@ package com.javagamemaker.javagameengine.components.gamecompnents;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
+import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.input.Input;
@@ -23,6 +24,9 @@ public class PlatformPlayerController extends Component {
     private int space = Keys.SPACE;
     private float jumpForce = 30;
     private String groundTag = "Grounded";
+
+
+
     public PlatformPlayerController(float maxSpeed, float friction) {
         this.maxSpeed = maxSpeed;
         this.friction = friction;
@@ -33,10 +37,6 @@ public class PlatformPlayerController extends Component {
         this.left = left;
         this.space = space;
     }
-
-    public PlatformPlayerController() {
-    }
-
     public PlatformPlayerController(float maxSpeed, float friction, int right, int left, int space, float jumpForce) {
         this.maxSpeed = maxSpeed;
         this.friction = friction;
@@ -103,11 +103,17 @@ public class PlatformPlayerController extends Component {
     }
     private boolean grounded = true;
 
+    public PlatformPlayerController() {
+    }
+
     @Override
     public void start() {
         super.start();
         Component parent = getParent();
         //if physics body does not exist add it
+        if(parent.<PhysicsBody>getChild(new Collider()) == null)
+            parent.add(new Collider(true));
+
         if(parent.<PhysicsBody>getChild(new PhysicsBody()) == null)
             parent.add(new PhysicsBody(true));
     }
