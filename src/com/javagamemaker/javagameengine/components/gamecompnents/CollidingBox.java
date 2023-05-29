@@ -22,6 +22,7 @@ public class CollidingBox extends GameObject {
     @Override
     public void start() {
         super.start();
+        setTag("Ground");
         add(new Collider(localVertices));
         setPosition(newPost);
     }
