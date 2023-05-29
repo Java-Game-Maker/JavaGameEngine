@@ -23,7 +23,7 @@ public class PlatformPlayerController extends Component {
     private int left = Keys.A;
     private int space = Keys.SPACE;
     private float jumpForce = 30;
-    private String groundTag = "Grounded";
+    private String groundTag = "Ground";
 
 
 
