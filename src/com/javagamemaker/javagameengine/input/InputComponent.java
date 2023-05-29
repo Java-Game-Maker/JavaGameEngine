@@ -6,13 +6,18 @@ import com.javagamemaker.javagameengine.msc.Debug;
 import java.util.ArrayList;
 import java.util.LinkedList;
 
+/**
+ * The InputComponent is used to get input
+ * In the component we can set the chanel to listen to
+ * and we can then set which chanel the Input class
+ * should send to
+ */
 public class InputComponent extends Component {
-
+    /**
+     * The chanel name which
+     */
     private String context = "";
-
-    LinkedList<Integer> keys = new LinkedList<>();
-    LinkedList<Integer> leftKeys = new LinkedList<>();
-
+    private LinkedList<Integer> leftKeys = new LinkedList<>();
 
     public String getContext() {
         return context;
@@ -29,6 +34,9 @@ public class InputComponent extends Component {
     @Override
     public void update() {
         super.update();
+        /*
+            If the left key does not exist in the down remove it
+         */
         LinkedList<Integer> keyBuffer = new LinkedList<>();
         for(int key : leftKeys){
             if(!Input.isKeyDown(key)){
@@ -53,8 +61,8 @@ public class InputComponent extends Component {
     }
 
     public boolean isKeyDown(int keycode){
-        boolean pressed = Input.getKeyDowns().contains(keycode);
-        return pressed;
+        return Input.getKeyDowns().contains(keycode) &&
+                Input.getActiveContext().contains(context);
     }
 
 }

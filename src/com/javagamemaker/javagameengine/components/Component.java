@@ -430,10 +430,6 @@ public class Component {
             child.addedChildren.clear();
         }
 
-        if(this.getChild(new InputComponent("")) == null){
-            Input.setChecking("");
-        }
-
     }
     /**
      * @return polygon based on components vertices

@@ -18,10 +18,10 @@ public class Input {
     private static Vector2 mousePositionOnCanvas = new Vector2(0, 0);
 
     private static MouseEvent mouseEvent = null;
-
+    /**
+     * this is a list which says which InputComponents should give InputEvent
+     */
     private static ArrayList<String> activeContext = new ArrayList<>();
-
-    private static String checking = "";
 
     private Input() {
     }
@@ -77,18 +77,10 @@ public class Input {
 
     }
 
-    public static String getChecking() {
-        return checking;
-    }
-
-    public static void setChecking(String checking) {
-        Input.checking = checking;
-    }
-
     /**
-     *
-     * @return mouse position of panel so top right = 0,0
-     */
+    *
+    * @return mouse position of panel so top right = 0,0
+    */
     public static Vector2 getMousePositionOnCanvas() {
         return mousePositionOnCanvas;
     }
