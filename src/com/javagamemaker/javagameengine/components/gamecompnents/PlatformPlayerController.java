@@ -1,11 +1,11 @@
 package com.javagamemaker.javagameengine.components.gamecompnents;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
-import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.Collider;
 import com.javagamemaker.javagameengine.components.Component;
 import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.input.Input;
+import com.javagamemaker.javagameengine.input.InputComponent;
 import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
@@ -23,8 +23,10 @@ public class PlatformPlayerController extends Component {
     private int left = Keys.A;
     private int space = Keys.SPACE;
     private float jumpForce = 30;
-    private String groundTag = "Grounded";
-
+    private String groundTag = "Ground";
+    
+    
+    private InputComponent input;
 
 
     public PlatformPlayerController(float maxSpeed, float friction) {
@@ -106,6 +108,10 @@ public class PlatformPlayerController extends Component {
     public PlatformPlayerController() {
     }
 
+    public PlatformPlayerController(InputComponent input) {
+        this.input = input;
+    }
+
     @Override
     public void start() {
         super.start();
@@ -114,6 +120,12 @@ public class PlatformPlayerController extends Component {
         if(parent.<PhysicsBody>getChild(new Collider()) == null)
             parent.add(new Collider(true));
 
+        if(parent.getChild(new InputComponent("")) == null){
+            if(input == null)
+                input = new InputComponent("");
+            add(input);
+        }
+        
         if(parent.<PhysicsBody>getChild(new PhysicsBody()) == null)
             parent.add(new PhysicsBody(true));
     }
@@ -126,18 +138,18 @@ public class PlatformPlayerController extends Component {
         PhysicsBody physicsBody = parent.<PhysicsBody>getChild(new PhysicsBody());
         if(physicsBody!= null){
 
-        if(Input.isKeyDown(right)){
+        if(input.isKeyDown(right)){
             if(physicsBody.velocity.getX() < maxSpeed){
                 physicsBody.addForce(Vector2.right);
             }
         }
-        if(Input.isKeyDown(left)){
+        if(input.isKeyDown(left)){
             if(physicsBody.velocity.getX() > -maxSpeed){
                 physicsBody.addForce(Vector2.left);
             }
         }
 
-        if(Input.isKeyPressed(space) && grounded){
+        if(input.isKeyPressed(space) && grounded){
             physicsBody.addForce(Vector2.up.multiply(jumpForce));
         }
 

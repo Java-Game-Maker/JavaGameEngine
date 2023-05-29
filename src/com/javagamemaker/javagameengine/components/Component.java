@@ -4,7 +4,7 @@ import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
+import com.javagamemaker.javagameengine.input.InputComponent;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
@@ -398,6 +398,7 @@ public class Component {
      * This method updates all the values to the component
      */
     public void update(){
+
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
         /*
             if mouse is inside, and we have not been we call mouse entered and we say it is entered
@@ -427,8 +428,8 @@ public class Component {
                 child.children.add(component);
             }
             child.addedChildren.clear();
-
         }
+
     }
     /**
      * @return polygon based on components vertices
