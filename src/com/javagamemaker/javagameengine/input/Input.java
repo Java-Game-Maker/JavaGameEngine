@@ -9,7 +9,7 @@ import java.util.LinkedList;
 
 public class Input {
 
-    private static final LinkedList<Integer> keyDowns = new LinkedList<>();
+    private static  LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
     private static int mouseIsPressed = 1000;
     private static final LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
@@ -25,6 +25,11 @@ public class Input {
 
     private Input() {
     }
+
+    public static LinkedList<Integer> getKeyDowns() {
+        return keyDowns;
+    }
+
     /**
      *
      * @return mouse position in world
@@ -99,15 +104,15 @@ public class Input {
     }
     public static boolean isMouseDown(int mouseButtonDown)
     {
-        return(mouseButtonDowns.contains(mouseButtonDown)) && activeContext.contains(checking);
+        return(mouseButtonDowns.contains(mouseButtonDown));
     }
 
     public static boolean isMouseDown() {
-        return mouseButtonDowns.size() > 0&& activeContext.contains(checking);
+        return mouseButtonDowns.size() > 0;
     }
 
     public static boolean isMousePressed(){
-        return mouseIsPressed !=1000&& activeContext.contains(checking);
+        return mouseIsPressed !=1000;
     }
 
     /**
@@ -117,14 +122,14 @@ public class Input {
      * @return true
      */
     public static boolean isMousePressed(int keyCode){
-        return mouseIsPressed == keyCode&& activeContext.contains(checking);
+        return mouseIsPressed == keyCode;
     }
     /**
      * @param keyCode the key to check
      * @return true if the keyCode is held down
      */
     public static boolean isKeyDown(int keyCode) {
-        return(keyDowns.contains(keyCode))&& activeContext.contains(checking);
+        return(keyDowns.contains(keyCode));
     }
 
     public static void addKey(KeyEvent e){
@@ -141,7 +146,7 @@ public class Input {
         boolean pressed =  isKeyDown(keyCode);
         if(pressed)
             keyDowns.remove(Integer.valueOf(keyCode));
-        return pressed && activeContext.contains(checking);
+        return pressed;
     }
     public static void setMousePressed(int i) {
         mouseIsPressed = i;
