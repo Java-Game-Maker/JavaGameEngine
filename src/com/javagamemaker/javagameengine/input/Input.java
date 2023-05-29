@@ -4,9 +4,11 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Input {
+
     private static final LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
     private static int mouseIsPressed = 1000;
@@ -17,12 +19,33 @@ public class Input {
 
     private static MouseEvent mouseEvent = null;
 
+    private static ArrayList<String> activeContext = new ArrayList<>();
+
+    private static String checking = "";
+
+    private Input() {
+    }
     /**
      *
      * @return mouse position in world
      */
     public static Vector2 getMousePosition() {
         return mousePosition;
+    }
+
+    public static void addContext(String context){
+        activeContext.add(context);
+    }
+    public static void removeContext(String context){
+        activeContext.remove(context);
+    }
+
+    public static ArrayList<String> getActiveContext() {
+        return activeContext;
+    }
+
+    public static void setActiveContext(ArrayList<String> activeContext_) {
+        activeContext = activeContext_;
     }
 
     public static MouseEvent getMouseEvent() {
@@ -49,6 +72,14 @@ public class Input {
 
     }
 
+    public static String getChecking() {
+        return checking;
+    }
+
+    public static void setChecking(String checking) {
+        Input.checking = checking;
+    }
+
     /**
      *
      * @return mouse position of panel so top right = 0,0
@@ -68,15 +99,15 @@ public class Input {
     }
     public static boolean isMouseDown(int mouseButtonDown)
     {
-        return(mouseButtonDowns.contains(mouseButtonDown));
+        return(mouseButtonDowns.contains(mouseButtonDown)) && activeContext.contains(checking);
     }
 
     public static boolean isMouseDown() {
-        return mouseButtonDowns.size() > 0;
+        return mouseButtonDowns.size() > 0&& activeContext.contains(checking);
     }
 
     public static boolean isMousePressed(){
-        return mouseIsPressed !=1000;
+        return mouseIsPressed !=1000&& activeContext.contains(checking);
     }
 
     /**
@@ -86,14 +117,14 @@ public class Input {
      * @return true
      */
     public static boolean isMousePressed(int keyCode){
-        return mouseIsPressed == keyCode;
+        return mouseIsPressed == keyCode&& activeContext.contains(checking);
     }
     /**
      * @param keyCode the key to check
      * @return true if the keyCode is held down
      */
     public static boolean isKeyDown(int keyCode) {
-        return(keyDowns.contains(keyCode));
+        return(keyDowns.contains(keyCode))&& activeContext.contains(checking);
     }
 
     public static void addKey(KeyEvent e){
@@ -110,7 +141,7 @@ public class Input {
         boolean pressed =  isKeyDown(keyCode);
         if(pressed)
             keyDowns.remove(Integer.valueOf(keyCode));
-        return pressed;
+        return pressed && activeContext.contains(checking);
     }
     public static void setMousePressed(int i) {
         mouseIsPressed = i;

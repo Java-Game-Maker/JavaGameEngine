@@ -1,14 +1,12 @@
 package com.javagamemaker.javagameengine;
 
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.server.ExportException;
 
 /**
  * This is the main class in the JavaGameEngine gameengine
