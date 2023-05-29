@@ -22,7 +22,7 @@ public class CollidingBox extends GameObject {
     @Override
     public void start() {
         super.start();
-        add(new Collider(true));
+        add(new Collider(localVertices));
         setPosition(newPost);
     }
 }
