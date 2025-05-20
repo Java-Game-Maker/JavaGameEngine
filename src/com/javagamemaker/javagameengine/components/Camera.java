@@ -12,6 +12,8 @@ import java.awt.*;
  * and its position controls the graphics position
  */
 public class Camera extends Component {
+
+    public boolean parallax = false;
     @Override
     public void start() {
         super.start();

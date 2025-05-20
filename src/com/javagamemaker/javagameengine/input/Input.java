@@ -4,10 +4,12 @@ import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.event.KeyEvent;
 import java.awt.event.MouseEvent;
+import java.util.ArrayList;
 import java.util.LinkedList;
 
 public class Input {
-    private static final LinkedList<Integer> keyDowns = new LinkedList<>();
+
+    private static  LinkedList<Integer> keyDowns = new LinkedList<>();
     private static boolean isPressed = false;
     private static int mouseIsPressed = 1000;
     private static final LinkedList<Integer> mouseButtonDowns = new LinkedList<>();
@@ -16,6 +18,17 @@ public class Input {
     private static Vector2 mousePositionOnCanvas = new Vector2(0, 0);
 
     private static MouseEvent mouseEvent = null;
+    /**
+     * this is a list which says which InputComponents should give InputEvent
+     */
+    private static ArrayList<String> activeContext = new ArrayList<>();
+
+    private Input() {
+    }
+
+    public static LinkedList<Integer> getKeyDowns() {
+        return keyDowns;
+    }
 
     /**
      *
@@ -23,6 +36,21 @@ public class Input {
      */
     public static Vector2 getMousePosition() {
         return mousePosition;
+    }
+
+    public static void addContext(String context){
+        activeContext.add(context);
+    }
+    public static void removeContext(String context){
+        activeContext.remove(context);
+    }
+
+    public static ArrayList<String> getActiveContext() {
+        return activeContext;
+    }
+
+    public static void setActiveContext(ArrayList<String> activeContext_) {
+        activeContext = activeContext_;
     }
 
     public static MouseEvent getMouseEvent() {
@@ -50,9 +78,9 @@ public class Input {
     }
 
     /**
-     *
-     * @return mouse position of panel so top right = 0,0
-     */
+    *
+    * @return mouse position of panel so top right = 0,0
+    */
     public static Vector2 getMousePositionOnCanvas() {
         return mousePositionOnCanvas;
     }

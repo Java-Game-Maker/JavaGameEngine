@@ -2,18 +2,19 @@ package com.javagamemaker.javagameengine.components;
 
 import com.javagamemaker.javagameengine.CollisionEvent;
 import com.javagamemaker.javagameengine.JavaGameEngine;
-import com.javagamemaker.javagameengine.components.lights.Light;
 import com.javagamemaker.javagameengine.components.shapes.Rect;
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
+import com.javagamemaker.javagameengine.input.InputComponent;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
 import java.util.List;
 import java.util.Objects;
+
 
 /**
  * This is the first element in the JavaGameEngine
@@ -24,7 +25,7 @@ import java.util.Objects;
  */
 public class Component implements Serializable {
 
-    protected int layer = 100;
+    protected int layer = 0;
     protected String tag = "";
     protected float angle = 0;
     protected boolean visible = true;
@@ -39,7 +40,7 @@ public class Component implements Serializable {
     protected boolean mouseInside = false;
     protected boolean freezeRotation = false;
     protected boolean colliding = false;
-
+    public ArrayList<Component> addedChildren = new ArrayList<>();
     protected Vector2 lastPosition;
 
     public Component(ArrayList<Vector2> localVertices){
@@ -192,6 +193,69 @@ public class Component implements Serializable {
         Vector2 newPos = new Vector2(towards.getX(),towards.getY());
         boolean temp = colliding;
 
+        colliding = false;
+        if(collider!=null){
+            Collider addedX = new Collider();
+            addedX.localVertices = collider.getLocalVertices();
+            addedX.setPosition(collider.getPosition().add(towards.removeY()));
+            addedX.setScale(addedX.getScale().subtract(1));
+            addedX.updateVertices();
+
+            Collider addedY = new Collider();
+            addedY.localVertices = collider.getLocalVertices();
+            addedY.setPosition(collider.getPosition().add(towards.removeX()));
+            addedY.setScale(addedY.getScale().subtract(1));
+            addedY.updateVertices();
+
+            // all components in the scene
+            for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                if(c.getPosition().getZ() != getPosition().getZ()) continue;
+
+                if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
+                    for ( Component cc : c.getChildren(new Collider()) ){
+                        Collider otherCollider = (Collider) cc;
+                        Rectangle rec1 = collider.getShape().getBounds();
+                        Rectangle rec2 = otherCollider.getShape().getBounds();
+
+                        rec1.width += rec1.width;
+                        rec1.height += rec1.height;
+
+                        rec2.width += rec2.width;
+                        rec2.height += rec2.height;
+
+                        if(     rec1.getBounds().intersects (rec2.getBounds()) ||
+                                rec1.getBounds().intersects(rec1.getBounds())  ){
+
+                            if((addedX.collision(otherCollider)) != null ){
+                                if(collider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else if(otherCollider.isTrigger()){
+                                    onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                }
+                                else{
+                                    newPos.setX(0);
+
+                                    // Create collision event
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    //onCollisionEnter(event);
+                                    onCollisionDown(event);
+                                    onCollisionUp(event);
+                                    colliding = true;
+                                    try{
+                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                        if(this.<PhysicsBody>getChild(new PhysicsBody()).velocity.getX() == vel.getX()){
+                                            //Debug.log("zeor");
+                                           this.<PhysicsBody>getChild(new PhysicsBody()).velocity.setX(0);
+                                        }
+                                    }catch (Exception e){}
+                                }
+                            }
+
+
         for(Collider collider : this.<Collider>getChildrenT()){
             colliding = false;
             if(collider!=null){
@@ -251,6 +315,23 @@ public class Component implements Serializable {
                                     }
                                 }
 
+                                else{
+                                    newPos.setY(0);
+                                    CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                    //onCollisionEnter(event);
+                                    onCollisionDown(event);
+                                    onCollisionUp(event);
+
+                                    colliding = true;
+                                    try{
+                                        Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                        ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                        if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
+                                            ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
+                                        }
+                                    }catch (Exception e){}
+
+
                                 if((addedY.collision(otherCollider)) !=null ){
                                     if(collider.isTrigger()){
                                         onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
@@ -273,6 +354,7 @@ public class Component implements Serializable {
                                             }
                                         }catch (Exception e){}
                                     }
+
                                 }
                             }
                         }
@@ -296,7 +378,7 @@ public class Component implements Serializable {
     public void setPosition(Vector2 position) {
         //this.lastPosition = this.position;
 
-        if(getParent()!=null){
+        if(getParent() != null){
             this.position = position.add(parentOffset).add(rotOffset);
 
         }else{
@@ -366,10 +448,13 @@ public class Component implements Serializable {
      * @param component the new children
      */
     public void add(Component component){
-
-        component.setParent(this);
-        component.setPosition(getPosition());
-        children.add(component);
+        if(!JavaGameEngine.started){
+            component.setParent(this);
+            component.setPosition(getPosition());
+            children.add(component);
+        }else{
+            addedChildren.add(component);
+        }
     }
 
     /**
@@ -392,6 +477,7 @@ public class Component implements Serializable {
      * This method updates all the values to the component
      */
     public void update(){
+
         Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
         /*
             if mouse is inside, and we have not been we call mouse entered and we say it is entered
@@ -414,7 +500,15 @@ public class Component implements Serializable {
         }
         for(Component child : children){
             child.update();
+            // add all the new children before the new update
+            for(Component component : child.addedChildren) {
+                component.setParent(child);
+                component.setPosition(child.getPosition());
+                child.children.add(component);
+            }
+            child.addedChildren.clear();
         }
+
     }
     /**
      * @return polygon based on components vertices
@@ -488,6 +582,7 @@ public class Component implements Serializable {
         return children;
     }
 
+
     public <T>T getChild(){
         for (Component child : this.children){
             try{
@@ -523,14 +618,16 @@ public class Component implements Serializable {
         return colliders;
     }
     /**
+     *
      * @param type the specified type of the children to be returned
      * @return if type is (new PhysicsBody()) it will return the first child that is a physicsBody as Component
+     * @param <T> the type that will be returned (use this instead of casting)
      */
-    public Component getChild(Component type) {
+    public <T extends Component> T getChild(Component type) {
 
         for (Component child : this.children){
             if(child.getClass() == type.getClass()){
-                return child;
+                return (T) child;
             }
         }
         return null;
@@ -538,13 +635,22 @@ public class Component implements Serializable {
     public Vector2 getBodyPosition(){
         return new Vector2(getShape().getBounds().x, getShape().getBounds().y);
     }
+    private void onCollisionUp(CollisionEvent collisionEvent){
+        if(getParent()!=null) getParent().onCollisionUp(collisionEvent);
+
+        onCollisionEnter(collisionEvent);
+    }
+    private void onCollisionDown(CollisionEvent collisionEvent){
+        for(Component c : children) c.onCollisionDown(collisionEvent);
+        onCollisionEnter(collisionEvent);
+    }
+
     /**
      * class when a collision from a collider is triggered
      * @param collisionEvent information about the collision
      */
     public void onCollisionEnter(CollisionEvent collisionEvent){
         colliding = true;
-        if(getParent()!=null) getParent().onCollisionEnter(collisionEvent);
 
     }
 
@@ -839,9 +945,7 @@ public class Component implements Serializable {
 
     @Override
     public String toString() {
-        return "{position : "+position.toString()+",\n" +
-                "scale:"+getScale().toString()+",\n" +
-                "children: ["+getChildren()+"]}";
+        return this.getClass().getSimpleName();
     }
 
     public void onCameraEnter() {

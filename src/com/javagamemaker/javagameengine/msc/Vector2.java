@@ -10,15 +10,22 @@ public class Vector2 implements Serializable {
     public static Vector2 right = new Vector2(1,0);
     public static Vector2 left = new Vector2(-1,0);
     public static Vector2 zero = new Vector2(0,0);
-    private float x,y;
+    private float x,y,z;
 
+    public Vector2(float x, float y, float z) {
+        this.x = x;
+        this.y = y;
+        this.z = z;
+    }
     public Vector2(float x, float y) {
         this.x = x;
         this.y = y;
+        this.z = 0;
     }
     public Vector2(Vector2 vector2) {
         this.x = vector2.x;
         this.y = vector2.y;
+        this.z = vector2.z;
     }
     public float getX() {
         return x;
@@ -36,6 +43,14 @@ public class Vector2 implements Serializable {
         this.y = y;
     }
 
+    public float getZ() {
+        return z;
+    }
+
+    public void setZ(float z) {
+        this.z = z;
+    }
+
     public String toString()
     {
         return ("{x:{"+x+"} y:{"+y+"}}");
@@ -45,10 +60,10 @@ public class Vector2 implements Serializable {
         return new Vector2(x*multiple,y*multiple);
     }
     public Vector2 multiply(double multiple) {
-        return new Vector2((float) (x*multiple), (float) (y*multiple));
+        return new Vector2((float) (x*multiple), (float) (y*multiple),(float) (z*multiple));
     }
     public Vector2 multiply(Vector2 vector2) {
-        return new Vector2(x*vector2.x,y*vector2.y);
+        return new Vector2(x*vector2.x,y*vector2.y,z*vector2.z);
     }
 
     public float getMagnitude (){
@@ -64,10 +79,10 @@ public class Vector2 implements Serializable {
     }
 
     public Vector2 divide(float a){
-        return new Vector2(x/a,y/a);
+        return new Vector2(x/a,y/a, z/a);
     }
     public Vector2 divide(Vector2 a){
-        return new Vector2(x/a.getX(),y/a.getY());
+        return new Vector2(x/a.getX(),y/a.getY(), z/a.getZ());
     }
     public Vector2 add(Vector2 vector2) {
         return new Vector2(x+ vector2.x,y+ vector2.y);

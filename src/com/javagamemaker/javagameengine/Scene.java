@@ -8,12 +8,11 @@ import com.javagamemaker.javagameengine.input.Keys;
 import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
-
 import javax.swing.*;
 import java.awt.*;
 import java.io.*;
+
 import java.util.*;
-import java.util.List;
 
 /**
  * Scene is the level where the game is playing out. Scenes can be changed by calling JavaGameEngine.setSelectedScene(new Scene())
@@ -174,14 +173,22 @@ public class Scene extends JPanel {
                 component.updateMili();
             }
         }
-        for(Component component : components){
-            if(inside(component)) {
-                if(!debugMode) {
-                    component.update();
-                }else{
-                    component.debugUpdate();
-                }
+
+        int lsize = components.size();
+        for(int i = 0; i < lsize;i++){
+
+            Component c = components.get(i);
+            for(Component component : c.addedChildren) {
+                component.setParent(c);
+                component.setPosition(c.getPosition());
+                c.getChildren().add(component);
             }
+            c.addedChildren.clear();
+            if(!debugMode) 
+              c.update();
+            else
+              component.debugUpdate();
+
         }
 
         camera.update();
@@ -199,6 +206,10 @@ public class Scene extends JPanel {
 
     }
 
+
+    public boolean inside(Component component) {
+        return true;//screen.contains(component.getShape().getBounds()) || component.getShape().contains(screen);
+}
     public void debugUpdate(){
         if(Input.isMousePressed(Keys.RIGHTCLICK)){
             GameObject g = new GameObject();
@@ -240,7 +251,7 @@ public class Scene extends JPanel {
             c.setPosition(Input.getMousePosition());
             components.add(c);
         }
-    }
+}
     private Component copyComp = null;
     public void destroy(Component c){
         remove.add(c);
@@ -281,12 +292,26 @@ public class Scene extends JPanel {
         });
 
         try{
+            //center graphics
+            if(camera.parallax)  graphics2D.translate(JavaGameEngine.getWindowSize().getX()/2, JavaGameEngine.getWindowSize().getY()/2);
+
             int lsize = components.size();
             for(int i = 0; i < lsize;i++){
                 Component c = renderList.get(i);
                 if(inside(c) || true) {
-                    int layer = c.getLayer()==0?1:c.getLayer();
+                    //int layer = c.getLayer()==0?1:c.getLayer();
+                    float layer = c.getPosition().getZ()==0?1:c.getPosition().getZ();
+                    Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+                    if(camera.parallax){
+                        Debug.log(camera.getPosition().getY());
+                        float parx = camera.getPosition().getX()*layer/100;
+                        float pary = camera.getPosition().getY()*layer/100;
+                        graphics2D.translate(parx,pary);
+                    }
                     (c).render(graphics2D);
+                    if(camera.parallax){
+                        graphics2D.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+                    }
                     //if(!c.isVisible()){
                     //    c.setVisible(true);
                     //    c.onCameraEnter();

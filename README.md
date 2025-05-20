@@ -167,17 +167,12 @@ A example on how to use it
 ```
 package example;
 
-import com.javagamemaker.javagameengine.backend.ComponentHandler;
-import com.javagamemaker.javagameengine.backend.UpdateThread;
-import com.javagamemaker.javagameengine.components.GameObject;
-import com.javagamemaker.javagameengine.com.javagamemaker.javagameengine;
-import com.javagamemaker.javagameengine.msc.Vector2;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class Main extends com.javagamemaker.javagameengine{
+public class Main extends JavaGameEngine{
 
     public static Ob parent;
     public static Ob child;
@@ -185,19 +180,18 @@ public class Main extends com.javagamemaker.javagameengine{
 
     public static void main(String[] args)
     {
-        init();
+        Scene scene = new Scene();
 
-        JFrame frame = new JFrame();
-        frame.setTitle("JEL");
-        UpdateThread.camera.setPosition(new Vector2(0,0));
         Ob ob1 = new Ob(new Vector2(100,100));
         Ob ob2 = new Ob(new Vector2(200,400));
         Ob ob3 = new Ob(new Vector2(400,400));
 
-        ComponentHandler.addObject(ob1);
-        ComponentHandler.addObject(ob2);
-        ComponentHandler.addObject(ob3);
-
+        scene.add(ob1);
+        scene.add(ob2);
+        scene.add(ob3);
+        
+        //set the selected scene
+        setSelectecScene(scene);
         start();
     }
 
@@ -229,8 +223,8 @@ public class Main extends com.javagamemaker.javagameengine{
             setScale(getScale().devide(1.1f));
         }
         @Override
-        public void draw(Graphics g) {
-            super.draw(g);
+        public void render(Graphics g) {
+            super.render(g);
             if(con!=null){
                 g.drawLine((int) getPosition().getX(), (int) getPosition().getY(), (int) con.getPosition().getX(), (int) con.getPosition().getY());
             }
@@ -243,13 +237,6 @@ public class Main extends com.javagamemaker.javagameengine{
 <p align="right">(<a href="#top">back to top</a>)</p>
 
 
-
-<!-- ROADMAP -->
-## Roadmap
-
-- [ ] V1
-- [ ] Relase
-- [ ] 
 
 
 See the [open issues](https://github.com/Java-Game-Maker/JavaGameEngine/issues) for a full list of proposed features (and known issues).
@@ -303,8 +290,6 @@ Thanks to every on who has helped with this project. I want to special thanks to
 
 * [One Lone Coder (olc)](https://www.youtube.com/c/javidx9/)
 * [SharkooMaster](https://github.com/SharkooMaster)
-* [othneildrew](https://github.com/othneildrew/Best-README-Template)
-
 
 <p align="right">(<a href="#top">back to top</a>)</p>
 

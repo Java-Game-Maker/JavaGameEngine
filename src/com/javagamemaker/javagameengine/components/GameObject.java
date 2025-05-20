@@ -50,8 +50,13 @@ public class GameObject extends Component{
     @Override
     public void render(Graphics2D g) {
 
+        if(visible){
+            Camera camera = JavaGameEngine.getSelectedScene().getCamera();
+
+
         if(JavaGameEngine.getSelectedScene().isDebugMode()){
             super.render(g);
+
             Color prev = g.getColor();
             if(getChild(new Sprite())==null){
 
@@ -63,9 +68,15 @@ public class GameObject extends Component{
                 }
                 g.setColor(prev);
             }
+
+            renderChildren(g);
+            //g.translate(camera.getPosition().getX()*layer/100,camera.getPosition().getY()*layer/100);
+            //g.translate(-camera.getPosition().getX()*layer/100,-camera.getPosition().getY()*layer/100);
+
             g.setColor(color);
             g.fill(getShape());
             g.setColor(prev);
+
 
         }
         else if(visible){

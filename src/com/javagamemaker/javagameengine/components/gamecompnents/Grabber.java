@@ -1,14 +1,21 @@
-package com.javagamemaker.javagameengine.components;
+package com.javagamemaker.javagameengine.components.gamecompnents;
 
+import com.javagamemaker.javagameengine.components.Component;
+import com.javagamemaker.javagameengine.components.PhysicsBody;
 import com.javagamemaker.javagameengine.input.Input;
-import com.javagamemaker.javagameengine.msc.Debug;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
-public class Grabber extends Component{
+/**
+ * Grabber is a component that will let the mouse controll the object by "Grabbing" it
+ */
+public class Grabber extends Component {
 
     Component parent;
     private Vector2 offset;
 
+    /**
+     * Grabber is a component that will let the mouse controll the object by "Grabbing" it
+     */
     public Grabber(Component parent){
         this.parent = parent;
     }
@@ -17,7 +24,10 @@ public class Grabber extends Component{
     public void update() {
         super.update();
         if (Input.isMouseDown(1) && parent.isMouseInside()) {
-            Debug.log("asd");
+            PhysicsBody b;
+            if ((b = ((PhysicsBody)parent.getChild(new PhysicsBody()))) != null){
+                b.velocity = Vector2.zero;
+            }
             if (this.offset == null) {
                 this.offset = parent.getPosition().subtract(Input.getMousePosition());
             }

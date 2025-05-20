@@ -7,7 +7,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.rmi.server.ExportException;
 
 /**
  * This is the main class in the JavaGameEngine gameengine
@@ -49,7 +48,7 @@ public class JavaGameEngine{
         return selectedScene;
     }
     //so the scene does not start twice at the start
-    private static boolean firstFrame = true;
+    public static boolean firstFrame = true;
     /**
      * Changes the active scene
      * @param selectedScene new scene to
@@ -144,12 +143,14 @@ public class JavaGameEngine{
         }
         firstFrame = false;
     }
+    public static boolean started = false;
     /**
      * Starts the game
      * call this last in your main function
      */
     public static void start() {
 
+        started = true;
         //Set som basic properties
         gameWorld.setLayout(null);
         gameWindow.setSize((int) size.getX(), (int) size.getY());
