@@ -8,8 +8,13 @@ import com.javagamemaker.javagameengine.input.InputComponent;
 import com.javagamemaker.javagameengine.msc.Vector2;
 
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.LinkedList;
+
+import java.util.List;
+import java.util.Objects;
+
 
 /**
  * This is the first element in the JavaGameEngine
@@ -18,7 +23,7 @@ import java.util.LinkedList;
  * there is classes in the com.javagamemaker.javagameengine.components.shapes package which
  * are templates (rec, circle)
  */
-public class Component {
+public class Component implements Serializable {
 
     protected int layer = 0;
     protected String tag = "";
@@ -171,7 +176,6 @@ public class Component {
         updateVertices();
     }
 
-
     public Vector2 getPosition() {
         return position;
     }
@@ -186,10 +190,9 @@ public class Component {
      * @param towards amount to move
      */
     public void translate(Vector2 towards){
-
-        Collider collider = ((Collider) getChild(new Collider()));
         Vector2 newPos = new Vector2(towards.getX(),towards.getY());
         boolean temp = colliding;
+
         colliding = false;
         if(collider!=null){
             Collider addedX = new Collider();
@@ -252,15 +255,66 @@ public class Component {
                                 }
                             }
 
-                            if((addedY.collision(otherCollider)) !=null ){
-                                if(collider.isTrigger()){
-                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
-                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+
+        for(Collider collider : this.<Collider>getChildrenT()){
+            colliding = false;
+            if(collider!=null){
+                Collider addedX = new Collider();
+                addedX.localVertices = collider.getLocalVertices();
+                addedX.setPosition(collider.getPosition().add(towards.removeY()));
+                addedX.setScale(addedX.getScale().subtract(0));
+                addedX.updateVertices();
+
+                Collider addedY = new Collider();
+                addedY.localVertices = collider.getLocalVertices();
+                addedY.setPosition(collider.getPosition().add(towards.removeX()));
+                addedY.setScale(addedY.getScale().subtract(0));
+                addedY.updateVertices();
+
+                // all components in the scene
+                for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                    if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
+                        for ( Collider otherCollider : c.getAllColliders() ){
+                            Rectangle rec1 = collider.getShape().getBounds();
+                            Rectangle rec2 = otherCollider.getShape().getBounds();
+
+                            rec1.width += rec1.width;
+                            rec1.height += rec1.height;
+
+                            rec2.width += rec2.width;
+                            rec2.height += rec2.height;
+
+                            if(rec1.getBounds().intersects (rec2.getBounds()) ||
+                               rec1.getBounds().intersects(rec1.getBounds())  ){
+
+                                if((addedX.collision(otherCollider)) != null ){
+                                    if(collider.isTrigger()){
+                                        onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                        otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    }
+                                    else if(otherCollider.isTrigger()){
+                                        onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                        otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    }
+                                    else{
+                                        newPos.setX(0);
+
+                                        // Create collision event
+                                        CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                        onCollisionEnter(event);
+                                        otherCollider.onCollisionEnter(event);
+                                        colliding = true;
+                                        try{
+                                            Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                            ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                            if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getX() == vel.getX()){
+                                                //Debug.log("zeor");
+                                                ((PhysicsBody) getChild(new PhysicsBody())).velocity.setX(0);
+                                            }
+                                        }catch (Exception e){}
+                                    }
                                 }
-                                else if(otherCollider.isTrigger()){
-                                    onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
-                                    otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
-                                }
+
                                 else{
                                     newPos.setY(0);
                                     CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
@@ -276,6 +330,31 @@ public class Component {
                                             ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
                                         }
                                     }catch (Exception e){}
+
+
+                                if((addedY.collision(otherCollider)) !=null ){
+                                    if(collider.isTrigger()){
+                                        onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                        otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    }
+                                    else if(otherCollider.isTrigger()){
+                                        onTriggerEnter(new CollisionEvent(collider,otherCollider,null));
+                                        otherCollider.onTriggerEnter(new CollisionEvent(otherCollider,collider,null));
+                                    }
+                                    else{
+                                        newPos.setY(0);
+                                        CollisionEvent event = new CollisionEvent(collider,otherCollider,null);
+                                        onCollisionEnter(event);
+                                        colliding = true;
+                                        try{
+                                            Vector2 vel = ((PhysicsBody) getChild(new PhysicsBody())).velocity;
+                                            ((PhysicsBody) getChild(new PhysicsBody())).response(event);
+                                            if(((PhysicsBody) getChild(new PhysicsBody())).velocity.getY() == vel.getY()){
+                                                ((PhysicsBody) getChild(new PhysicsBody())).velocity.setY(0);
+                                            }
+                                        }catch (Exception e){}
+                                    }
+
                                 }
                             }
                         }
@@ -284,7 +363,7 @@ public class Component {
             }
         }
         if(temp && !colliding){
-           onCollisionLeft();
+            onCollisionLeft();
         }
         //Debug.log(newPos);
         setPosition(getPosition().add(newPos));
@@ -447,6 +526,30 @@ public class Component {
 
         return new Polygon(x,y,vertices.size());
     }
+    public void checkMouse(){
+        Point p = new Point((int) Input.getMousePosition().getX(), (int) Input.getMousePosition().getY());
+                /*
+                    if mouse is inside, and we have not been we call mouse entered and we say it is entered
+                    if mouse is inside, and we have been we don't call mouse entered
+                    if mouse is not inside, and we are previously we call mouse left
+                 */
+        Component prev = JavaGameEngine.getSelectedScene().hasA;
+        if(getShape().contains(p) && (prev == null || (prev == this) || getLayer() > prev.getLayer() )  ){
+            if(isMouseInside()){
+                onMouseInside();
+            }
+            else{
+                onMouseEntered();
+            }
+            JavaGameEngine.getSelectedScene().hasA = this;
+
+        }
+        else if(isMouseInside()){
+            setMouseInside(false);
+            onMouseLeft();
+            JavaGameEngine.getSelectedScene().hasA = null;
+        }
+    }
     /**
      *
      * @param type the specified type of the children to be returned
@@ -477,6 +580,42 @@ public class Component {
         }
 
         return children;
+    }
+
+
+    public <T>T getChild(){
+        for (Component child : this.children){
+            try{
+                return ((T)child);
+            }
+            catch (Exception e){}
+        }
+        return null;
+    }
+
+    public <T>ArrayList<T> getChildrenT(){
+        ArrayList<T> children = new ArrayList<>();
+        for (Component child : this.children){
+            try{
+                children.add(((T)child));
+            }
+            catch (Exception e){
+                Debug.log("asd");
+            }
+        }
+        return children;
+    }
+    public ArrayList<Collider> getAllColliders(){
+        ArrayList<Collider> colliders = new ArrayList<>();
+        if(children.size() > 0){
+            for(Component c : children){
+                colliders.addAll(c.getAllColliders());
+            }
+        }
+        try{
+            colliders.add((Collider)this);
+        }catch (Exception E){}
+        return colliders;
     }
     /**
      *
@@ -540,7 +679,7 @@ public class Component {
         if(!isFreezeRotation()) {
             this.angle += angle * JavaGameEngine.deltaTime;
 
-            double radians = Math.toRadians(angle * JavaGameEngine.deltaTime); // turns to radians from angle
+            double radians = Math.toRadians(angle); // turns to radians from angle
             ArrayList<Vector2> vertices1 = new ArrayList<>(); // new vertices
             for (int i = 0; i < localVertices.size(); i++) {
                 Vector2 vertex = localVertices.get(i);
@@ -556,7 +695,7 @@ public class Component {
 
             for(Component child : children){
                 if(!child.isFreezeRotation())
-                    child.rotate((float) (angle*JavaGameEngine.deltaTime),child.parentOffset.multiply(-1));
+                    child.rotate((float) (angle),child.parentOffset.multiply(-1));
             }
 
             this.localVertices = vertices1;
@@ -660,37 +799,150 @@ public class Component {
      * @param g what graphics to render to
      */
     public void render(Graphics2D g){
-        renderChildren(g);
-        //g.dispose();
+        Vector2 towards = new Vector2(getPosition());
+        for(Collider collider : getAllColliders()){
+            if(collider!=null){
+                Collider addedX = new Collider();
+                addedX.localVertices = collider.getLocalVertices();
+                addedX.setPosition(getPosition().add(towards.removeY()));
+                addedX.setScale(addedX.getScale().subtract(1));
+                addedX.updateVertices();
+
+                Collider addedY = new Collider();
+                addedY.localVertices = collider.getLocalVertices();
+                addedY.setPosition(getPosition().add(towards.removeX()));
+                addedY.setScale(addedY.getScale().subtract(1));
+                addedY.updateVertices();
+
+
+                // all components in the scene
+                for ( Component c : JavaGameEngine.getSelectedScene().getComponents1() ){
+                    if(c != this && JavaGameEngine.getSelectedScene().inside(c)){ // don't check us
+                        for ( Collider otherCollider : c.getAllColliders() ){
+                            Rectangle rec1 = collider.getShape().getBounds();
+                            Rectangle rec2 = otherCollider.getShape().getBounds();
+
+                            rec1.width += rec1.width;
+                            rec1.height += rec1.height;
+
+                            rec2.width += rec2.width;
+                            rec2.height += rec2.height;
+
+                            g.setColor(Color.WHITE);
+                            g.draw(addedX.getShape());
+                            g.setColor(Color.RED);
+                            g.draw(otherCollider.getShape());
+                        }
+                    }
+                }
+            }
+        }
+
+        List<Component> list = getChildren();
+
+        for (Component child : list){
+            child.render(g);
+        }
+
+        if(JavaGameEngine.getSelectedScene().isDebugMode() && JavaGameEngine.getSelectedScene().getSelectedComponent() == this){
+            Color color = g.getColor();
+            g.setColor(Color.GREEN);
+            g.setStroke(new BasicStroke(10));
+            g.draw(getShape());
+            g.setColor(color);
+        }
+
     }
 
-    /**
-     * triggers then a collider is a trigger and  collides with another trigger
-     * @param collisionEvent holds information about the collision
-     */
     protected void onTriggerEnter(CollisionEvent collisionEvent) {
-        if(getParent()!=null) getParent().onTriggerEnter(collisionEvent);
     }
 
-    /**
-     * updates every second
-     */
-    public void updateSecond(){
-    }
-
-    /**
-     * save the component to a file (serlizeable) linked list
-     */
-    public void save(){
-    }
-    public void load(){
+    public void updateSecund(){
 
     }
+    private Vector2 offset = null;
+    private Vector2 prev = null;
 
-    /**
-     *
-     * @return
-     */
+    public void debugUpdate() {
+        this.checkMouse();
+        for (final Component c : this.getChildren()) {
+            c.debugUpdate();
+        }
+        if (Input.isMousePressed(1) && this.mouseInside) {
+            JavaGameEngine.getSelectedScene().setSelectedComponent(this);
+        }
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isMousePressed(1) && !this.isMouseInside()) {
+            JavaGameEngine.getSelectedScene().setSelectedComponent((Component)null);
+        }
+        if (JavaGameEngine.getSelectedScene().getSelectedComponent() == this && Input.isKeyPressed(67)) {
+            JavaGameEngine.getSelectedScene().childSelected = this;
+        }
+        if (Input.isMouseDown(1) && !Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.offset == null) {
+                this.offset = this.getPosition().subtract(Input.getMousePosition());
+            }
+            if (this.getParent() == null) {
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
+
+                float x = Math.round(Input.getMousePosition().add(this.offset).getX() / gridCubeWidth) * gridCubeWidth;
+                float y = Math.round(Input.getMousePosition().add(this.offset).getY() / gridCubeHeight) * gridCubeHeight;
+                this.setPosition(new Vector2(x,y));
+
+            }
+            else {
+                float gridCubeWidth = JavaGameEngine.getSelectedScene().gridSnapping.getX(), gridCubeHeight = JavaGameEngine.getSelectedScene().gridSnapping.getY();
+                Vector2 pos = Input.getMousePosition().add(this.offset).subtract(this.getParent().getPosition());
+
+                float x = Math.round(pos.getX() / gridCubeWidth) * gridCubeWidth;
+                float y = Math.round(pos.getY() / gridCubeHeight) * gridCubeHeight;
+
+                this.setParentOffset(new Vector2(x,y));
+                this.getFirstParent().setPosition(this.getFirstParent().getPosition());
+            }
+        }
+        else if (Input.isMouseDown(1) && Input.isKeyDown(17) && JavaGameEngine.getSelectedScene().getSelectedComponent() == this) {
+            if (this.prev != null) {
+                this.setScale(this.getScale().subtract(Input.getMousePosition().subtract(this.prev).multiply(new Vector2(-1.0f, 1.0f))));
+            }
+            this.prev = Input.getMousePosition();
+        }
+        else {
+            this.offset = null;
+        }
+
+
+
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Component component = (Component) o;
+        return layer == component.layer && Float.compare(component.angle, angle) == 0 && visible == component.visible && mouseInside == component.mouseInside && Objects.equals(tag, component.tag) && Objects.equals(position, component.position) && Objects.equals(parentOffset, component.parentOffset) && Objects.equals(scale, component.scale) && Objects.equals(localVertices, component.localVertices) && Objects.equals(vertices, component.vertices) && Objects.equals(children, component.children) && Objects.equals(parent, component.parent) && Objects.equals(prevPosition, component.prevPosition) && Objects.equals(lastPosition, component.lastPosition) && Objects.equals(rotOffset, component.rotOffset) && Objects.equals(offset, component.offset) && Objects.equals(prev, component.prev);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(layer, tag, angle, visible, position, parentOffset, scale, localVertices, vertices, children, parent, prevPosition, mouseInside, lastPosition, rotOffset, offset, prev);
+    }
+
+    @Override
+    public Component clone() {
+        Component c = new Component();
+        c.setPosition(getPosition());
+        c.setScale(getScale());
+        c.setTag(getTag());
+        c.setChildren(getChildren());
+        c.setParentOffset(getParentOffset());
+        c.setParent(getParent());
+        c.setLocalVertices(getLocalVertices());
+        c.setVisible(isVisible());
+        c.setLayer(layer);
+        c.setPrevPosition(getPrevPosition());
+        return c;
+    }
+
     @Override
     public String toString() {
         return this.getClass().getSimpleName();

@@ -100,7 +100,7 @@ public class JavaGameEngine{
     /**
      * update loop
      */
-    private static void update() {
+    public static void update() {
 
        // try {
        //     Thread.sleep(DELAY);

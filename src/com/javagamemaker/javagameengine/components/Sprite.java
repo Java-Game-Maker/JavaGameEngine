@@ -17,7 +17,7 @@ import java.util.ArrayList;
  */
 public class Sprite extends Component {
 
-    ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
+    public ArrayList<BufferedImage[]> animations1 = new ArrayList<>();
     public ArrayList<BufferedImage[]> animations = new ArrayList<>();
     BufferedImage spriteSheet;
     public int animationIndex = 0;

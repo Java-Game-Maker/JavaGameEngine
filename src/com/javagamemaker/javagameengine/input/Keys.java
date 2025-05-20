@@ -3,6 +3,8 @@ package com.javagamemaker.javagameengine.input;
 public class Keys {
     public static final int Q = 81;
 
+    public static final int DEL = 127;
+
     public static final int W = 87;
 
     public static final int E = 69;
